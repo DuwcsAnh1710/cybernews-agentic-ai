@@ -229,24 +229,6 @@ def fetch_source(
                 http_status=http_status,
                 elapsed_ms=elapsed_ms,
             )
-        except Exception as exc:
-            elapsed_ms = int((time.perf_counter() - start_time) * 1000)
-            error_msg = f"unexpected error: {exc}"
-            logger.error(
-                "Source '%s' (%s) failed with unexpected error: %s",
-                source.name,
-                source.url,
-                exc,
-            )
-            return [], SourceResult(
-                source_name=source.name,
-                url=source.url,
-                ok=False,
-                item_count=0,
-                error=error_msg,
-                http_status=http_status,
-                elapsed_ms=elapsed_ms,
-            )
 
     if content is None:
         elapsed_ms = int((time.perf_counter() - start_time) * 1000)

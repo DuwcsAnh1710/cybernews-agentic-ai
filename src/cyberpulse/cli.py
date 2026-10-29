@@ -10,7 +10,8 @@ from cyberpulse import __version__
 from cyberpulse.config import ConfigError, check_secrets, load_app_config, load_settings
 from cyberpulse.fetcher import RawItem, fetch_all
 from cyberpulse.logging_setup import setup_logging
-from cyberpulse.storage import connect, get_db_path, init_db
+from cyberpulse.normalize import normalize_items
+from cyberpulse.storage import connect, get_db_path, init_db, upsert_article
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -73,6 +74,30 @@ def build_parser() -> argparse.ArgumentParser:
         type=int,
         default=3,
         help="Maximum items to display per source (default: 3)",
+    )
+
+    # collect subcommand
+    collect_parser = subparsers.add_parser(
+        "collect",
+        help="Fetch, normalize, deduplicate, and persist articles to SQLite",
+    )
+    collect_parser.add_argument(
+        "--settings",
+        type=Path,
+        default=Path("config/settings.toml"),
+        help="Path to settings.toml (default: config/settings.toml)",
+    )
+    collect_parser.add_argument(
+        "--sources",
+        type=Path,
+        default=Path("config/sources.toml"),
+        help="Path to sources.toml (default: config/sources.toml)",
+    )
+    collect_parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        default=False,
+        help="Run fetch and normalization without saving to database",
     )
 
     return parser
@@ -176,6 +201,74 @@ def run_fetch(settings_path: Path, sources_path: Path, limit: int) -> int:
     return 0
 
 
+def run_collect(settings_path: Path, sources_path: Path, dry_run: bool) -> int:
+    """Fetch, normalize, deduplicate, and save articles."""
+    try:
+        settings, sources = load_app_config(
+            settings_path=settings_path,
+            sources_path=sources_path,
+        )
+    except ConfigError as err:
+        print(f"ConfigError: {err}", file=sys.stderr)
+        return 1
+
+    logger = setup_logging(
+        log_level=settings.log_level,
+        log_dir=settings.paths.log_dir,
+        logger_name="cyberpulse",
+    )
+
+    report = fetch_all(sources=sources, cfg=settings.fetch)
+
+    for result in report.results:
+        if result.ok:
+            print(f"[OK] {result.source_name}: {result.item_count} items ({result.elapsed_ms} ms)")
+        else:
+            print(f"[FAIL] {result.source_name}: {result.error}")
+
+    norm_report = normalize_items(report.items, settings)
+
+    counts_by_reason = norm_report.counts_by_reason
+    dropped_parts = [f"{k}={v}" for k, v in counts_by_reason.items() if v > 0]
+    dropped_detail = f" ({', '.join(dropped_parts)})" if dropped_parts else ""
+
+    print(f"Raw items: {len(report.items)}")
+    print(f"Kept articles: {len(norm_report.articles)}")
+    print(f"Dropped: {len(norm_report.dropped)}{dropped_detail}")
+
+    for article in norm_report.articles[:5]:
+        topics_str = ", ".join(article.topics_matched) if article.topics_matched else "none"
+        print(f"- {article.published_at} | {article.source_name} | {article.title} | topics={topics_str}")
+
+    if not dry_run:
+        db_path = get_db_path(settings)
+        conn = connect(db_path)
+        try:
+            init_db(conn)
+            with conn:
+                for article in norm_report.articles:
+                    upsert_article(conn, article)
+        finally:
+            conn.close()
+        print(f"Saved to database: {len(norm_report.articles)} articles")
+    else:
+        print("Dry run: nothing saved")
+
+    logger.info(
+        "Collect finished: raw=%d, kept=%d, dropped=%d, dry_run=%s",
+        len(report.items),
+        len(norm_report.articles),
+        len(norm_report.dropped),
+        dry_run,
+    )
+
+    if report.all_failed:
+        return 2
+    if len(norm_report.articles) == 0:
+        return 3
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     """CLI main entry point."""
     parser = build_parser()
@@ -198,6 +291,12 @@ def main(argv: list[str] | None = None) -> int:
             settings_path=args.settings,
             sources_path=args.sources,
             limit=args.limit,
+        )
+    elif args.command == "collect":
+        return run_collect(
+            settings_path=args.settings,
+            sources_path=args.sources,
+            dry_run=args.dry_run,
         )
     return 0
 

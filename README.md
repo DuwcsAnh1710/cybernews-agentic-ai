@@ -89,3 +89,21 @@ Custom configuration file paths:
 cyberpulse fetch --settings path/to/settings.toml --sources path/to/sources.toml --limit 3
 ```
 
+### Collect articles
+
+Fetch, normalize, deduplicate, and persist articles into SQLite:
+```powershell
+cyberpulse collect
+```
+
+Dry-run mode (runs fetch and normalization without saving to database):
+```powershell
+cyberpulse collect --dry-run
+```
+
+With custom configuration file paths:
+```powershell
+cyberpulse collect --settings path/to/settings.toml --sources path/to/sources.toml
+```
+
+

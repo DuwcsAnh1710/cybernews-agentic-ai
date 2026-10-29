@@ -92,6 +92,35 @@ class FetchConfig(BaseModel):
         return v.strip()
 
 
+class NormalizeConfig(BaseModel):
+    """Article normalization, filtering, and deduplication configuration."""
+
+    title_similarity: float = 0.9
+    summary_max_chars: int = 1000
+    future_tolerance_minutes: int = 60
+
+    @field_validator("title_similarity")
+    @classmethod
+    def validate_title_similarity(cls, v: float) -> float:
+        if not (0.5 <= v <= 1.0):
+            raise ValueError(f"title_similarity must be between 0.5 and 1.0, got {v}")
+        return v
+
+    @field_validator("summary_max_chars")
+    @classmethod
+    def validate_summary_max_chars(cls, v: int) -> int:
+        if not (100 <= v <= 5000):
+            raise ValueError(f"summary_max_chars must be between 100 and 5000, got {v}")
+        return v
+
+    @field_validator("future_tolerance_minutes")
+    @classmethod
+    def validate_future_tolerance_minutes(cls, v: int) -> int:
+        if not (0 <= v <= 1440):
+            raise ValueError(f"future_tolerance_minutes must be between 0 and 1440, got {v}")
+        return v
+
+
 class Settings(BaseModel):
     """Application settings."""
 
@@ -103,6 +132,7 @@ class Settings(BaseModel):
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR"] = "INFO"
     paths: PathsConfig = Field(default_factory=PathsConfig)
     fetch: FetchConfig = Field(default_factory=FetchConfig)
+    normalize: NormalizeConfig = Field(default_factory=NormalizeConfig)
 
     @field_validator("project_name")
     @classmethod

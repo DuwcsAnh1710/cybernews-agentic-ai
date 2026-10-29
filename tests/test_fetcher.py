@@ -425,3 +425,17 @@ def test_cli_fetch_config_error(capsys: pytest.CaptureFixture[str]) -> None:
     assert exit_code == 1
     assert "ConfigError" in captured.err
 
+
+def test_fetch_source_propagates_non_httpx_exception() -> None:
+    """15. fetch_source with a transport that raises ValueError -> the ValueError propagates."""
+    def handler(req: httpx.Request) -> httpx.Response:
+        raise ValueError("Programming error in transport")
+
+    client = httpx.Client(transport=httpx.MockTransport(handler))
+    source = Source(name="Error Source", url="https://example.com/sample/error")
+    cfg = FetchConfig()
+
+    with pytest.raises(ValueError, match="Programming error in transport"):
+        fetch_source(client, source, cfg)
+
+
