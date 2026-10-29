@@ -1,0 +1,17 @@
+project_name = "CyberPulse AI"
+topics = [
+  "cybersecurity",
+  "data breach",
+  "vulnerability",
+  "ransomware",
+  "AI security",
+]
+items_per_run = 5
+lookback_hours = 48
+output_language = "vi"
+log_level = "INFO"
+
+[paths]
+data_dir = "data"
+output_dir = "output"
+log_dir = "logs"

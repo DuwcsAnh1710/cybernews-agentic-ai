@@ -1,0 +1,21 @@
+# URLs not yet verified; verified in T2.1
+
+[[sources]]
+name = "The Hacker News"
+url = "https://feeds.feedburner.com/TheHackersNews"
+enabled = true
+
+[[sources]]
+name = "BleepingComputer"
+url = "https://www.bleepingcomputer.com/feed/"
+enabled = true
+
+[[sources]]
+name = "Krebs on Security"
+url = "https://krebsonsecurity.com/feed/"
+enabled = true
+
+[[sources]]
+name = "SecurityWeek"
+url = "https://www.securityweek.com/feed/"
+enabled = true

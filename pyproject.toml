@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cyberpulse"
+version = "0.1.0"
+description = "Automated cybersecurity news intelligence and multimedia pipeline"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "CyberPulse Team" }
+]
+dependencies = [
+    "pydantic==2.10.6",
+    "python-dotenv==1.0.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.3.4",
+]
+
+[project.scripts]
+cyberpulse = "cyberpulse.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
