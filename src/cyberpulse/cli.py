@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+from datetime import datetime, timedelta, timezone
 import os
 from pathlib import Path
 import sys
@@ -12,12 +13,13 @@ from dotenv import load_dotenv
 from pydantic import BaseModel
 
 from cyberpulse import __version__
+from cyberpulse.agents import ResearchAgent
 from cyberpulse.config import ConfigError, check_secrets, load_app_config, load_settings
 from cyberpulse.fetcher import RawItem, fetch_all
 from cyberpulse.llm import LLMError, create_llm_client
 from cyberpulse.logging_setup import setup_logging
 from cyberpulse.normalize import normalize_items
-from cyberpulse.storage import connect, get_db_path, init_db, upsert_article
+from cyberpulse.storage import connect, get_db_path, init_db, list_recent_articles, upsert_article
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -115,6 +117,23 @@ def build_parser() -> argparse.ArgumentParser:
         type=Path,
         default=Path("config/settings.toml"),
         help="Path to settings.toml (default: config/settings.toml)",
+    )
+
+    # research subcommand
+    research_parser = subparsers.add_parser(
+        "research", help="Rank and select candidate articles using LLM (Agent 1)"
+    )
+    research_parser.add_argument(
+        "--settings",
+        type=Path,
+        default=Path("config/settings.toml"),
+        help="Path to settings.toml (default: config/settings.toml)",
+    )
+    research_parser.add_argument(
+        "--sources",
+        type=Path,
+        default=Path("config/sources.toml"),
+        help="Path to sources.toml (default: config/sources.toml)",
     )
 
     return parser
@@ -330,6 +349,73 @@ def run_llm_check(settings_path: Path) -> int:
         return 5
 
 
+def run_research(settings_path: Path, sources_path: Path | None = None) -> int:
+    """Rank and select candidate articles using Agent 1 (News Research Agent)."""
+    try:
+        settings = load_settings(settings_path)
+    except ConfigError as err:
+        print(f"ConfigError: {err}", file=sys.stderr)
+        return 1
+
+    setup_logging(
+        log_level=settings.log_level,
+        log_dir=settings.paths.log_dir,
+        logger_name="cyberpulse",
+    )
+
+    db_path = get_db_path(settings)
+    conn = connect(db_path)
+    try:
+        init_db(conn)
+        now = datetime.now(timezone.utc)
+        since = now - timedelta(hours=settings.lookback_hours)
+        candidates = list_recent_articles(
+            conn,
+            since=since,
+            limit=settings.research.max_candidates,
+        )
+    finally:
+        conn.close()
+
+    if not candidates:
+        print("No candidate articles in the database. Run: cyberpulse collect")
+        return 6
+
+    if settings.llm.provider == "gemini":
+        load_dotenv(override=False)
+        api_key = os.environ.get("GEMINI_API_KEY")
+        if not api_key or not api_key.strip():
+            print("GEMINI_API_KEY: missing — live LLM check skipped. See README \"LLM setup\".")
+            return 4
+
+    run_id = "standalone-" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+
+    try:
+        client = create_llm_client(settings)
+        agent = ResearchAgent(llm=client, settings=settings)
+        result = agent.run(run_id=run_id, candidates=candidates)
+    except LLMError as err:
+        print(f"[LLM ERROR] {err.__class__.__name__}: {err}")
+        return 5
+
+    for item in result.items:
+        print(f"{item.rank}. [{item.article.source_name}] {item.article.title}")
+        print(f"   {item.article.url}")
+        print(f"   Lý do: {item.relevance_reason}")
+
+    print(f"Status: {result.status}")
+    if result.notes:
+        print(f"Notes: {result.notes}")
+
+    research_dir = settings.paths.output_dir / "research"
+    research_dir.mkdir(parents=True, exist_ok=True)
+    json_path = research_dir / f"{run_id}.json"
+    json_path.write_text(result.model_dump_json(indent=2), encoding="utf-8")
+    print(f"Saved research result: {json_path}")
+
+    return 0 if result.status == "ok" else 3
+
+
 def main(argv: list[str] | None = None) -> int:
     """CLI main entry point."""
     if sys.stdout and hasattr(sys.stdout, "reconfigure"):
@@ -367,6 +453,11 @@ def main(argv: list[str] | None = None) -> int:
         )
     elif args.command == "llm-check":
         return run_llm_check(settings_path=args.settings)
+    elif args.command == "research":
+        return run_research(
+            settings_path=args.settings,
+            sources_path=args.sources,
+        )
     return 0
 
 

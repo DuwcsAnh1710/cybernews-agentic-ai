@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import sqlite3
 import time
@@ -31,6 +31,7 @@ from cyberpulse.storage import (
     create_run,
     get_run,
     init_db,
+    list_recent_articles,
     list_step_logs,
     load_editorial_package,
     load_research_result,
@@ -275,4 +276,38 @@ def test_step_logs_ordering(db_conn: sqlite3.Connection) -> None:
         "SAMPLE — Research completed successfully",
         "SAMPLE — Starting editorial step",
     ]
+
+
+def test_list_recent_articles_ordering_since_and_limit(db_conn: sqlite3.Connection) -> None:
+    """11. list_recent_articles returns newest first, respects since and limit."""
+    t0 = datetime(2026, 10, 29, 12, 0, 0, tzinfo=timezone.utc)
+    articles: list[Article] = []
+    for i in range(5):
+        url = f"https://example.com/sample/item-{i}"
+        pub_at = t0 - timedelta(hours=5 - i)  # i=0: -5h, i=1: -4h, i=2: -3h, i=3: -2h, i=4: -1h
+        art = Article(
+            id=make_article_id(url),
+            source_name=f"Sample Source {i % 2}",
+            title=f"SAMPLE — Article {i}",
+            url=url,
+            published_at=pub_at,
+            summary=f"SAMPLE — Summary {i}",
+            fetched_at=t0,
+            topics_matched=["security"],
+        )
+        articles.append(art)
+        upsert_article(db_conn, art)
+
+    # Filter since t0 - 2.5 hours (should include i=3 [-2h] and i=4 [-1h])
+    since_dt = t0 - timedelta(hours=2, minutes=30)
+    recent = list_recent_articles(db_conn, since=since_dt, limit=10)
+    assert len(recent) == 2
+    # Ordered newest first
+    assert recent[0].id == articles[4].id
+    assert recent[1].id == articles[3].id
+
+    # Test limit: since all 5 are after t0 - 10h, limit=3 returns the 3 newest
+    all_recent = list_recent_articles(db_conn, since=t0 - timedelta(hours=10), limit=3)
+    assert len(all_recent) == 3
+    assert [a.id for a in all_recent] == [articles[4].id, articles[3].id, articles[2].id]
 

@@ -38,3 +38,9 @@ timeout_sec = 60
 max_retries = 2
 schema_retries = 1
 backoff_base_sec = 2.0
+
+[research]
+max_candidates = 30
+shortlist_extra = 5
+max_per_source = 2
+summary_chars_in_prompt = 300

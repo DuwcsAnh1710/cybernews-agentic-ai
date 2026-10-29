@@ -302,3 +302,37 @@ def list_step_logs(conn: sqlite3.Connection, run_id: str) -> list[StepLog]:
         for row in rows
     ]
 
+
+def list_recent_articles(
+    conn: sqlite3.Connection,
+    since: datetime,
+    limit: int,
+) -> list[Article]:
+    """Retrieve articles published on or after `since`, ordered by published_at DESC, up to `limit`."""
+    since_utc = since if since.tzinfo is not None else since.replace(tzinfo=timezone.utc)
+    since_str = since_utc.astimezone(timezone.utc).isoformat()
+    cursor = conn.execute(
+        """
+        SELECT id, source_name, title, url, published_at, summary, fetched_at, topics_json
+        FROM articles
+        WHERE published_at >= ?
+        ORDER BY published_at DESC
+        LIMIT ?
+        """,
+        (since_str, limit),
+    )
+    rows = cursor.fetchall()
+    return [
+        Article(
+            id=row["id"],
+            source_name=row["source_name"],
+            title=row["title"],
+            url=row["url"],
+            published_at=datetime.fromisoformat(row["published_at"]),
+            summary=row["summary"],
+            fetched_at=datetime.fromisoformat(row["fetched_at"]),
+            topics_matched=json.loads(row["topics_json"]),
+        )
+        for row in rows
+    ]
+

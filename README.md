@@ -118,4 +118,26 @@ With custom configuration file paths:
 cyberpulse collect --settings path/to/settings.toml --sources path/to/sources.toml
 ```
 
+### Research Agent (Agent 1)
+
+The News Research Agent ranks candidate articles from SQLite by newsworthiness for a Vietnamese cybersecurity and IT audience using an LLM.
+
+**Agent Contract**:
+- **Role**: News Research Agent.
+- **Input**: `run_id: str`, `candidates: list[Article]`, `settings: Settings`.
+- **Output**: `ResearchResult` (`models.ResearchResult`).
+- **Tools**: `storage.list_recent_articles` (read-only SQLite query), `LLMClient.generate_json` (structured ranking).
+- **Completion condition**: `status="ok"` with exactly N items, or `status="insufficient"` with notes detailing drop counts and diagnostic info.
+- **Failure rules**: LLM errors (`LLMError` subclasses) propagate unchanged; hallucinated IDs and duplicate IDs from the LLM are dropped and recorded in notes; diversity cap `max_per_source` is enforced; the agent never invents or modifies articles.
+
+Run the research agent from CLI:
+```powershell
+cyberpulse research
+```
+
+Or with custom configuration file paths:
+```powershell
+cyberpulse research --settings path/to/settings.toml --sources path/to/sources.toml
+```
+
 

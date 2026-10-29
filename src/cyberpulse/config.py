@@ -176,6 +176,43 @@ class LLMConfig(BaseModel):
         return v
 
 
+class ResearchConfig(BaseModel):
+    """Research agent configuration."""
+
+    max_candidates: int = 30
+    shortlist_extra: int = 5
+    max_per_source: int = 2
+    summary_chars_in_prompt: int = 300
+
+    @field_validator("max_candidates")
+    @classmethod
+    def validate_max_candidates(cls, v: int) -> int:
+        if not (5 <= v <= 60):
+            raise ValueError(f"max_candidates must be between 5 and 60, got {v}")
+        return v
+
+    @field_validator("shortlist_extra")
+    @classmethod
+    def validate_shortlist_extra(cls, v: int) -> int:
+        if not (0 <= v <= 10):
+            raise ValueError(f"shortlist_extra must be between 0 and 10, got {v}")
+        return v
+
+    @field_validator("max_per_source")
+    @classmethod
+    def validate_max_per_source(cls, v: int) -> int:
+        if not (1 <= v <= 10):
+            raise ValueError(f"max_per_source must be between 1 and 10, got {v}")
+        return v
+
+    @field_validator("summary_chars_in_prompt")
+    @classmethod
+    def validate_summary_chars_in_prompt(cls, v: int) -> int:
+        if not (50 <= v <= 1000):
+            raise ValueError(f"summary_chars_in_prompt must be between 50 and 1000, got {v}")
+        return v
+
+
 class Settings(BaseModel):
     """Application settings."""
 
@@ -189,6 +226,7 @@ class Settings(BaseModel):
     fetch: FetchConfig = Field(default_factory=FetchConfig)
     normalize: NormalizeConfig = Field(default_factory=NormalizeConfig)
     llm: LLMConfig = Field(default_factory=LLMConfig)
+    research: ResearchConfig = Field(default_factory=ResearchConfig)
 
     @field_validator("project_name")
     @classmethod
