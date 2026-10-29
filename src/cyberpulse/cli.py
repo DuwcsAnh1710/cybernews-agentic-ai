@@ -7,8 +7,9 @@ from pathlib import Path
 import sys
 
 from cyberpulse import __version__
-from cyberpulse.config import ConfigError, check_secrets, load_app_config
+from cyberpulse.config import ConfigError, check_secrets, load_app_config, load_settings
 from cyberpulse.logging_setup import setup_logging
+from cyberpulse.storage import connect, get_db_path, init_db
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -37,6 +38,17 @@ def build_parser() -> argparse.ArgumentParser:
         type=Path,
         default=Path("config/sources.toml"),
         help="Path to sources.toml (default: config/sources.toml)",
+    )
+
+    # init-db subcommand
+    init_db_parser = subparsers.add_parser(
+        "init-db", help="Initialize the SQLite database"
+    )
+    init_db_parser.add_argument(
+        "--settings",
+        type=Path,
+        default=Path("config/settings.toml"),
+        help="Path to settings.toml (default: config/settings.toml)",
     )
 
     return parser
@@ -80,6 +92,23 @@ def run_check_config(settings_path: Path, sources_path: Path) -> int:
         return 1
 
 
+def run_init_db(settings_path: Path) -> int:
+    """Initialize SQLite database and output status."""
+    try:
+        settings = load_settings(settings_path)
+        db_path = get_db_path(settings)
+        conn = connect(db_path)
+        try:
+            init_db(conn)
+        finally:
+            conn.close()
+        print(f"Database initialized: {db_path} (schema version 1)")
+        return 0
+    except ConfigError as err:
+        print(f"ConfigError: {err}", file=sys.stderr)
+        return 1
+
+
 def main(argv: list[str] | None = None) -> int:
     """CLI main entry point."""
     parser = build_parser()
@@ -95,6 +124,8 @@ def main(argv: list[str] | None = None) -> int:
             settings_path=args.settings,
             sources_path=args.sources,
         )
+    elif args.command == "init-db":
+        return run_init_db(settings_path=args.settings)
     return 0
 
 

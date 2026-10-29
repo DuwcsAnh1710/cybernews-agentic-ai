@@ -131,3 +131,22 @@ log_dir = "logs"
     err = captured.err
     assert "items_per_run" in err
     assert "ConfigError" in err
+
+
+def test_cli_init_db(
+    config_paths: tuple[Path, Path],
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    """17. init-db with tmp settings (data_dir in tmp_path) -> exit 0, db file exists."""
+    settings_path, _ = config_paths
+    ret = main(["init-db", "--settings", str(settings_path)])
+    assert ret == 0
+
+    captured = capsys.readouterr()
+    stdout = captured.out
+    assert "Database initialized:" in stdout
+    assert "(schema version 1)" in stdout
+
+    db_path = settings_path.parent / "data" / "cyberpulse.db"
+    assert db_path.exists()
+

@@ -62,3 +62,12 @@ Custom configuration file paths:
 ```powershell
 cyberpulse check-config --settings path/to/settings.toml --sources path/to/sources.toml
 ```
+
+Initialize database:
+```powershell
+cyberpulse init-db
+```
+Or with custom settings path:
+```powershell
+cyberpulse init-db --settings path/to/settings.toml
+```
