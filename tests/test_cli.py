@@ -278,3 +278,99 @@ def test_cli_collect_all_sources_failed_exits_2(
     assert "[FAIL] Sample Source A: HTTP 500" in captured.out
 
 
+def test_cli_llm_check_key_unset(
+    config_paths: tuple[Path, Path],
+    capsys: pytest.CaptureFixture[str],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """16. CLI llm-check with key unset -> exit 4 and exact skip message."""
+    settings_path, _ = config_paths
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+
+    ret = main(["llm-check", "--settings", str(settings_path)])
+    assert ret == 4
+
+    captured = capsys.readouterr()
+    assert "GEMINI_API_KEY: missing — live LLM check skipped. See README \"LLM setup\"." in captured.out
+
+
+def test_cli_llm_check_ratelimit_error_exits_5(
+    config_paths: tuple[Path, Path],
+    capsys: pytest.CaptureFixture[str],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """17. CLI llm-check with monkeypatched client raising LLMRateLimitError -> exit 5."""
+    settings_path, _ = config_paths
+    sentinel = "AIzaTEST-SENTINEL-123"
+    monkeypatch.setenv("GEMINI_API_KEY", sentinel)
+
+    from cyberpulse.llm import LLMRateLimitError
+
+    class MockFailingClient:
+        def generate_json(self, **kwargs: object) -> object:
+            raise LLMRateLimitError("Quota limit reached")
+
+    monkeypatch.setattr("cyberpulse.cli.create_llm_client", lambda cfg: MockFailingClient())
+
+    ret = main(["llm-check", "--settings", str(settings_path)])
+    assert ret == 5
+
+    captured = capsys.readouterr()
+    assert "[LLM ERROR] LLMRateLimitError: Quota limit reached" in captured.out
+    assert sentinel not in captured.out
+    assert sentinel not in captured.err
+
+
+def test_cli_llm_check_success_exits_0(
+    config_paths: tuple[Path, Path],
+    capsys: pytest.CaptureFixture[str],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """18. CLI llm-check with monkeypatched client returning valid LLMCheckResponse -> exit 0."""
+    settings_path, _ = config_paths
+    monkeypatch.setenv("GEMINI_API_KEY", "mock-valid-key")
+
+    from cyberpulse.cli import LLMCheckResponse
+    from cyberpulse.llm import LLMResult
+
+    class MockSuccessClient:
+        def generate_json(self, **kwargs: object) -> object:
+            return LLMResult(
+                data=LLMCheckResponse(ok=True, language="vi", message="Xin chào! Chúc một ngày tốt lành."),
+                raw_text='{"ok": true, "language": "vi", "message": "Xin chào! Chúc một ngày tốt lành."}',
+                model="gemini-3.8-flash",
+                input_tokens=15,
+                output_tokens=10,
+                attempts=1,
+                latency_ms=180,
+            )
+
+    monkeypatch.setattr("cyberpulse.cli.create_llm_client", lambda cfg: MockSuccessClient())
+
+    ret = main(["llm-check", "--settings", str(settings_path)])
+    assert ret == 0
+
+    captured = capsys.readouterr()
+    out = captured.out
+    assert "Model: gemini-3.8-flash" in out
+    assert "Attempts: 1" in out
+    assert "Tokens: in=15 out=10" in out
+    assert "Latency: 180 ms" in out
+    assert "Response: Xin chào! Chúc một ngày tốt lành." in out
+
+
+def test_cli_llm_check_bad_config_exits_1(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    """CLI llm-check with malformed settings -> exit 1 and ConfigError."""
+    bad_settings = tmp_path / "bad.toml"
+    bad_settings.write_text("invalid = toml [broken", encoding="utf-8")
+
+    ret = main(["llm-check", "--settings", str(bad_settings)])
+    assert ret == 1
+
+    captured = capsys.readouterr()
+    assert "ConfigError" in captured.err
+
+

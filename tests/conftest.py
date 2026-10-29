@@ -6,6 +6,16 @@ from pathlib import Path
 import pytest
 
 
+@pytest.fixture(autouse=True)
+def _isolate_from_real_env(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Keep every test hermetic: never read the developer's real .env and
+    never inherit GEMINI_* variables, so no test can reach the live API."""
+    monkeypatch.setattr("cyberpulse.cli.load_dotenv", lambda *a, **k: False)
+    monkeypatch.setattr("cyberpulse.config.load_dotenv", lambda *a, **k: False)
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+    monkeypatch.delenv("GEMINI_MODEL", raising=False)
+
+
 @pytest.fixture
 def valid_settings_toml() -> str:
     return """project_name = "CyberPulse AI"

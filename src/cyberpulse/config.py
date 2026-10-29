@@ -121,6 +121,61 @@ class NormalizeConfig(BaseModel):
         return v
 
 
+class LLMConfig(BaseModel):
+    """LLM client configuration."""
+
+    provider: Literal["gemini", "fake"] = "gemini"
+    model: str = "gemini-3.8-flash"
+    thinking_level: Literal["low", "medium", "high"] = "low"
+    max_output_tokens: int = 8192
+    timeout_sec: int = 60
+    max_retries: int = 2
+    schema_retries: int = 1
+    backoff_base_sec: float = 2.0
+
+    @field_validator("model")
+    @classmethod
+    def validate_model(cls, v: str) -> str:
+        if not v or not v.strip():
+            raise ValueError("model cannot be empty")
+        return v.strip()
+
+    @field_validator("max_output_tokens")
+    @classmethod
+    def validate_max_output_tokens(cls, v: int) -> int:
+        if not (1024 <= v <= 65536):
+            raise ValueError(f"max_output_tokens must be between 1024 and 65536, got {v}")
+        return v
+
+    @field_validator("timeout_sec")
+    @classmethod
+    def validate_timeout_sec(cls, v: int) -> int:
+        if not (5 <= v <= 300):
+            raise ValueError(f"timeout_sec must be between 5 and 300, got {v}")
+        return v
+
+    @field_validator("max_retries")
+    @classmethod
+    def validate_max_retries(cls, v: int) -> int:
+        if not (0 <= v <= 5):
+            raise ValueError(f"max_retries must be between 0 and 5, got {v}")
+        return v
+
+    @field_validator("schema_retries")
+    @classmethod
+    def validate_schema_retries(cls, v: int) -> int:
+        if not (0 <= v <= 2):
+            raise ValueError(f"schema_retries must be between 0 and 2, got {v}")
+        return v
+
+    @field_validator("backoff_base_sec")
+    @classmethod
+    def validate_backoff_base_sec(cls, v: float) -> float:
+        if not (0.0 <= v <= 30.0):
+            raise ValueError(f"backoff_base_sec must be between 0.0 and 30.0, got {v}")
+        return v
+
+
 class Settings(BaseModel):
     """Application settings."""
 
@@ -133,6 +188,7 @@ class Settings(BaseModel):
     paths: PathsConfig = Field(default_factory=PathsConfig)
     fetch: FetchConfig = Field(default_factory=FetchConfig)
     normalize: NormalizeConfig = Field(default_factory=NormalizeConfig)
+    llm: LLMConfig = Field(default_factory=LLMConfig)
 
     @field_validator("project_name")
     @classmethod

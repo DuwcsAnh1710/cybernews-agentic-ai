@@ -3,12 +3,18 @@
 from __future__ import annotations
 
 import argparse
+import os
 from pathlib import Path
 import sys
+from typing import Literal
+
+from dotenv import load_dotenv
+from pydantic import BaseModel
 
 from cyberpulse import __version__
 from cyberpulse.config import ConfigError, check_secrets, load_app_config, load_settings
 from cyberpulse.fetcher import RawItem, fetch_all
+from cyberpulse.llm import LLMError, create_llm_client
 from cyberpulse.logging_setup import setup_logging
 from cyberpulse.normalize import normalize_items
 from cyberpulse.storage import connect, get_db_path, init_db, upsert_article
@@ -98,6 +104,17 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         default=False,
         help="Run fetch and normalization without saving to database",
+    )
+
+    # llm-check subcommand
+    llm_check_parser = subparsers.add_parser(
+        "llm-check", help="Verify LLM client connectivity and structured output"
+    )
+    llm_check_parser.add_argument(
+        "--settings",
+        type=Path,
+        default=Path("config/settings.toml"),
+        help="Path to settings.toml (default: config/settings.toml)",
     )
 
     return parser
@@ -269,8 +286,58 @@ def run_collect(settings_path: Path, sources_path: Path, dry_run: bool) -> int:
     return 0
 
 
+class LLMCheckResponse(BaseModel):
+    """Schema for llm-check response verification."""
+
+    ok: bool
+    language: Literal["vi"]
+    message: str
+
+
+def run_llm_check(settings_path: Path) -> int:
+    """Run a single live request to verify LLM client connectivity."""
+    load_dotenv(override=False)
+
+    try:
+        settings = load_settings(settings_path)
+    except ConfigError as err:
+        print(f"ConfigError: {err}", file=sys.stderr)
+        return 1
+
+    api_key = os.environ.get("GEMINI_API_KEY")
+    if not api_key or not api_key.strip():
+        print("GEMINI_API_KEY: missing — live LLM check skipped. See README \"LLM setup\".")
+        return 4
+
+    try:
+        client = create_llm_client(settings)
+        result = client.generate_json(
+            system="You are CyberPulse AI assistant.",
+            prompt='Reply with ok=true, language="vi", and message = a one-sentence Vietnamese greeting.',
+            schema=LLMCheckResponse,
+            task_name="llm_check",
+        )
+        in_tok = result.input_tokens if result.input_tokens is not None else "unknown"
+        out_tok = result.output_tokens if result.output_tokens is not None else "unknown"
+        print(f"Model: {result.model}")
+        print(f"Attempts: {result.attempts}")
+        print(f"Tokens: in={in_tok} out={out_tok}")
+        print(f"Latency: {result.latency_ms} ms")
+        print(f"Response: {result.data.message}")
+        return 0
+    except LLMError as err:
+        print(f"[LLM ERROR] {err.__class__.__name__}: {err}")
+        return 5
+
+
 def main(argv: list[str] | None = None) -> int:
     """CLI main entry point."""
+    if sys.stdout and hasattr(sys.stdout, "reconfigure"):
+        try:
+            sys.stdout.reconfigure(encoding="utf-8")
+        except Exception:
+            pass
+
     parser = build_parser()
     try:
         args = parser.parse_args(argv)
@@ -298,6 +365,8 @@ def main(argv: list[str] | None = None) -> int:
             sources_path=args.sources,
             dry_run=args.dry_run,
         )
+    elif args.command == "llm-check":
+        return run_llm_check(settings_path=args.settings)
     return 0
 
 

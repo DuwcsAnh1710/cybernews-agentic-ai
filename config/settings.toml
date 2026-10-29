@@ -26,3 +26,15 @@ user_agent = "CyberPulseAI/0.1 (+https://github.com/DuwcsAnh1710/cybernews-agent
 title_similarity = 0.9
 summary_max_chars = 1000
 future_tolerance_minutes = 60
+
+[llm]
+provider = "gemini"
+# gemini-3.8-flash and gemini-3.7-flash returned 504 DEADLINE_EXCEEDED on every call
+# from this free-tier key (2026-10-29); gemini-3.6-flash answers in ~2 s.
+model = "gemini-3.6-flash"
+thinking_level = "low"
+max_output_tokens = 8192
+timeout_sec = 60
+max_retries = 2
+schema_retries = 1
+backoff_base_sec = 2.0
