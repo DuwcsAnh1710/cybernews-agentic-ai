@@ -13,12 +13,19 @@ from dotenv import load_dotenv
 from pydantic import BaseModel
 
 from cyberpulse import __version__
-from cyberpulse.agents import ResearchAgent
+from cyberpulse.agents import (
+    EditorialAgent,
+    EditorialFormatError,
+    EditorialRefError,
+    ResearchAgent,
+)
 from cyberpulse.config import ConfigError, check_secrets, load_app_config, load_settings
 from cyberpulse.fetcher import RawItem, fetch_all
 from cyberpulse.llm import LLMError, create_llm_client
 from cyberpulse.logging_setup import setup_logging
+from cyberpulse.models import ResearchResult
 from cyberpulse.normalize import normalize_items
+from cyberpulse.render_preview import render_markdown
 from cyberpulse.storage import connect, get_db_path, init_db, list_recent_articles, upsert_article
 
 
@@ -134,6 +141,24 @@ def build_parser() -> argparse.ArgumentParser:
         type=Path,
         default=Path("config/sources.toml"),
         help="Path to sources.toml (default: config/sources.toml)",
+    )
+
+    # editorial subcommand
+    editorial_parser = subparsers.add_parser(
+        "editorial",
+        help="Generate Vietnamese digest, captions, podcast and video scripts (Agent 2)",
+    )
+    editorial_parser.add_argument(
+        "--research",
+        type=Path,
+        required=True,
+        help="Path to ResearchResult JSON file",
+    )
+    editorial_parser.add_argument(
+        "--settings",
+        type=Path,
+        default=Path("config/settings.toml"),
+        help="Path to settings.toml (default: config/settings.toml)",
     )
 
     return parser
@@ -416,6 +441,87 @@ def run_research(settings_path: Path, sources_path: Path | None = None) -> int:
     return 0 if result.status == "ok" else 3
 
 
+def run_editorial(research_path: Path, settings_path: Path) -> int:
+    """Run Editorial Agent (Agent 2) to generate editorial package and preview."""
+    try:
+        settings = load_settings(settings_path)
+    except ConfigError as err:
+        print(f"ConfigError: {err}", file=sys.stderr)
+        return 1
+
+    if not research_path.exists():
+        print(f"Error: research file not found: '{research_path}'", file=sys.stderr)
+        return 7
+
+    try:
+        raw_text = research_path.read_text(encoding="utf-8")
+        research = ResearchResult.model_validate_json(raw_text)
+    except Exception as err:
+        print(f"Error: invalid research file '{research_path}': {err}", file=sys.stderr)
+        return 7
+
+    if not research.items:
+        print(f"Error: research result contains no items: '{research_path}'", file=sys.stderr)
+        return 7
+
+    if settings.llm.provider == "gemini":
+        load_dotenv(override=False)
+        api_key = os.environ.get("GEMINI_API_KEY")
+        if not api_key or not api_key.strip():
+            print('GEMINI_API_KEY: missing — live LLM check skipped. See README "LLM setup".')
+            return 4
+
+    setup_logging(
+        log_level=settings.log_level,
+        log_dir=settings.paths.log_dir,
+        logger_name="cyberpulse",
+    )
+
+    try:
+        client = create_llm_client(settings)
+        agent = EditorialAgent(llm=client, settings=settings)
+        pkg = agent.run(research)
+    except LLMError as err:
+        print(f"[LLM ERROR] {err.__class__.__name__}: {err}")
+        return 5
+    except EditorialRefError as err:
+        print(f"EditorialRefError: {err}", file=sys.stderr)
+        print(f"Unknown refs: {err.unknown_refs}", file=sys.stderr)
+        print(f"Field paths: {err.field_paths}", file=sys.stderr)
+        return 7
+    except EditorialFormatError as err:
+        print(f"EditorialFormatError: {err}", file=sys.stderr)
+        if err.field_paths:
+            print(f"Field paths: {err.field_paths}", file=sys.stderr)
+        return 7
+    except ValueError as err:
+        print(f"ValueError: {err}", file=sys.stderr)
+        return 7
+
+    preview_md = render_markdown(pkg, research)
+
+    editorial_dir = settings.paths.output_dir / "editorial"
+    editorial_dir.mkdir(parents=True, exist_ok=True)
+    json_path = editorial_dir / f"{research.run_id}.json"
+    md_path = editorial_dir / f"{research.run_id}.md"
+
+    json_path.write_text(pkg.model_dump_json(indent=2), encoding="utf-8")
+    md_path.write_text(preview_md, encoding="utf-8")
+
+    podcast_words = sum(len(seg.line.text.split()) for seg in pkg.podcast.segments)
+    video_total_sec = sum(sc.duration_sec for sc in pkg.video.scenes)
+    caption_platforms_str = ", ".join(c.platform for c in pkg.captions)
+
+    print(f"Saved editorial package: {json_path}")
+    print(f"Saved editorial preview: {md_path}")
+    print("Editorial Summary:")
+    print(f"- Sections: {len(pkg.digest.sections)}")
+    print(f"- Captions: {len(pkg.captions)} ({caption_platforms_str})")
+    print(f"- Podcast segments: {len(pkg.podcast.segments)} (~{podcast_words} words)")
+    print(f"- Video scenes: {len(pkg.video.scenes)} ({video_total_sec:.1f}s total)")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     """CLI main entry point."""
     if sys.stdout and hasattr(sys.stdout, "reconfigure"):
@@ -457,6 +563,11 @@ def main(argv: list[str] | None = None) -> int:
         return run_research(
             settings_path=args.settings,
             sources_path=args.sources,
+        )
+    elif args.command == "editorial":
+        return run_editorial(
+            research_path=args.research,
+            settings_path=args.settings,
         )
     return 0
 

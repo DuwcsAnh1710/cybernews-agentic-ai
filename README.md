@@ -140,4 +140,37 @@ Or with custom configuration file paths:
 cyberpulse research --settings path/to/settings.toml --sources path/to/sources.toml
 ```
 
+### Editorial Agent (Agent 2)
+
+The Editorial Agent transforms a validated `ResearchResult` into a comprehensive Vietnamese `EditorialPackage` (written digest, multi-platform captions, two-host podcast script, and vertical short video script) where every block strictly cites its source article reference.
+
+**Agent Contract**:
+- **Role**: Content Analysis & Editorial Agent.
+- **Input**: `ResearchResult` with $\ge 1$ item.
+- **Output**: `EditorialPackage` (`models.EditorialPackage`).
+- **Tools**: `LLMClient.generate_json` (2 calls: "editorial_written", "editorial_scripts").
+- **Completion condition**: A valid `EditorialPackage` whose every citation maps to an article in the input.
+- **Failure rules**: LLM errors propagate unchanged; unknown citation refs raise `EditorialRefError` (no partial package is returned); no URLs or IDs are produced by the LLM.
+- **Explicit non-claim**: This agent does NOT verify facts. Source-consistency checks are the validator's job (next task).
+
+**Configuration (`config/settings.toml`)**:
+```toml
+[editorial]
+podcast_target_words = 600
+video_max_total_sec = 90
+caption_platforms = ["facebook", "youtube", "tiktok"]
+podcast_speakers = ["Minh", "Lan"]
+```
+
+Run the editorial agent from CLI:
+```powershell
+cyberpulse editorial --research output/research/<run_id>.json
+```
+
+Or with custom settings:
+```powershell
+cyberpulse editorial --research output/research/<run_id>.json --settings path/to/settings.toml
+```
+
+
 

@@ -213,6 +213,67 @@ class ResearchConfig(BaseModel):
         return v
 
 
+VALID_CAPTION_PLATFORMS: tuple[str, ...] = ("facebook", "youtube", "tiktok", "generic")
+
+
+class EditorialConfig(BaseModel):
+    """Editorial agent configuration."""
+
+    podcast_target_words: int = 600
+    video_max_total_sec: int = 90
+    caption_platforms: list[str] = Field(
+        default_factory=lambda: ["facebook", "youtube", "tiktok"]
+    )
+    podcast_speakers: list[str] = Field(
+        default_factory=lambda: ["Minh", "Lan"]
+    )
+
+    @field_validator("podcast_target_words")
+    @classmethod
+    def validate_podcast_target_words(cls, v: int) -> int:
+        if not (300 <= v <= 1500):
+            raise ValueError(f"podcast_target_words must be between 300 and 1500, got {v}")
+        return v
+
+    @field_validator("video_max_total_sec")
+    @classmethod
+    def validate_video_max_total_sec(cls, v: int) -> int:
+        if not (30 <= v <= 180):
+            raise ValueError(f"video_max_total_sec must be between 30 and 180, got {v}")
+        return v
+
+    @field_validator("caption_platforms")
+    @classmethod
+    def validate_caption_platforms(cls, v: list[str]) -> list[str]:
+        if not v:
+            raise ValueError("caption_platforms cannot be empty")
+        seen: set[str] = set()
+        clean: list[str] = []
+        for p in v:
+            if not isinstance(p, str) or not p.strip():
+                raise ValueError("caption_platforms cannot contain empty strings")
+            norm = p.strip().lower()
+            if norm not in VALID_CAPTION_PLATFORMS:
+                raise ValueError(
+                    f"invalid caption platform '{p}', allowed: {sorted(VALID_CAPTION_PLATFORMS)}"
+                )
+            if norm in seen:
+                raise ValueError(f"duplicate caption platform '{p}'")
+            seen.add(norm)
+            clean.append(norm)
+        return clean
+
+    @field_validator("podcast_speakers")
+    @classmethod
+    def validate_podcast_speakers(cls, v: list[str]) -> list[str]:
+        if len(v) != 2:
+            raise ValueError(f"podcast_speakers must contain exactly 2 names, got {len(v)}")
+        clean = [s.strip() for s in v if isinstance(s, str) and s.strip()]
+        if len(clean) != 2 or clean[0].lower() == clean[1].lower():
+            raise ValueError("podcast_speakers must contain 2 distinct, non-empty speaker names")
+        return clean
+
+
 class Settings(BaseModel):
     """Application settings."""
 
@@ -227,6 +288,7 @@ class Settings(BaseModel):
     normalize: NormalizeConfig = Field(default_factory=NormalizeConfig)
     llm: LLMConfig = Field(default_factory=LLMConfig)
     research: ResearchConfig = Field(default_factory=ResearchConfig)
+    editorial: EditorialConfig = Field(default_factory=EditorialConfig)
 
     @field_validator("project_name")
     @classmethod

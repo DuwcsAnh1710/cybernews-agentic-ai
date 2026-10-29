@@ -44,3 +44,9 @@ max_candidates = 30
 shortlist_extra = 5
 max_per_source = 2
 summary_chars_in_prompt = 300
+
+[editorial]
+podcast_target_words = 600
+video_max_total_sec = 90
+caption_platforms = ["facebook", "youtube", "tiktok"]
+podcast_speakers = ["Minh", "Lan"]
