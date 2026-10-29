@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>SAMPLE — Atom Security Bulletin</title>
+  <link href="https://example.com/sample/atom-feed"/>
+  <updated>2026-10-29T10:00:00Z</updated>
+  <id>https://example.com/sample/atom-feed</id>
+  <entry>
+    <title>SAMPLE — Threat Actor Exploiting Cloud Misconfigurations</title>
+    <link href="https://example.com/sample/atom-entry-1"/>
+    <id>https://example.com/sample/atom-entry-1</id>
+    <updated>2026-10-28T14:20:00Z</updated>
+    <summary>SAMPLE summary for atom entry 1</summary>
+  </entry>
+  <entry>
+    <title>SAMPLE — Supply Chain Advisory for Open Source Packages</title>
+    <link href="https://example.com/sample/atom-entry-2"/>
+    <id>https://example.com/sample/atom-entry-2</id>
+    <updated>2026-10-29T09:15:00Z</updated>
+    <summary>SAMPLE summary for atom entry 2</summary>
+  </entry>
+</feed>
+

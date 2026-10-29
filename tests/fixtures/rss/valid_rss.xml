@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>SAMPLE — Security Feed</title>
+    <link>https://example.com/sample/feed</link>
+    <description>Sample security feed for offline testing</description>
+    <item>
+      <title>SAMPLE — Critical Zero-Day Vulnerability Discovered</title>
+      <link>https://example.com/sample/item-1</link>
+      <pubDate>Mon, 27 Oct 2026 12:00:00 GMT</pubDate>
+      <description>SAMPLE description for item 1</description>
+    </item>
+    <item>
+      <title>SAMPLE — Ransomware Campaign Targets Infrastructure</title>
+      <link>https://example.com/sample/item-2</link>
+      <pubDate>Tue, 28 Oct 2026 15:30:00 GMT</pubDate>
+      <description>SAMPLE description for item 2</description>
+    </item>
+    <item>
+      <title>SAMPLE — AI Security Best Practices Released</title>
+      <link>https://example.com/sample/item-3</link>
+      <pubDate>Wed, 29 Oct 2026 08:45:00 GMT</pubDate>
+      <description>SAMPLE description for item 3</description>
+    </item>
+  </channel>
+</rss>
+

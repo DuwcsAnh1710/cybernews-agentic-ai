@@ -71,3 +71,21 @@ Or with custom settings path:
 ```powershell
 cyberpulse init-db --settings path/to/settings.toml
 ```
+
+### Fetch news (raw)
+
+Fetch raw articles from enabled RSS/Atom feeds:
+```powershell
+cyberpulse fetch
+```
+
+Fetch with a preview of up to 2 items per source:
+```powershell
+cyberpulse fetch --limit 2
+```
+
+Custom configuration file paths:
+```powershell
+cyberpulse fetch --settings path/to/settings.toml --sources path/to/sources.toml --limit 3
+```
+

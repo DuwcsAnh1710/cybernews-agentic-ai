@@ -53,6 +53,45 @@ class Source(BaseModel):
         return v.strip()
 
 
+class FetchConfig(BaseModel):
+    """RSS fetcher configuration."""
+
+    timeout_sec: int = 15
+    max_bytes: int = 5_000_000
+    retries: int = 1
+    user_agent: str = (
+        "CyberPulseAI/0.1 (+https://github.com/DuwcsAnh1710/cybernews-agentic-ai)"
+    )
+
+    @field_validator("timeout_sec")
+    @classmethod
+    def validate_timeout_sec(cls, v: int) -> int:
+        if not (1 <= v <= 60):
+            raise ValueError(f"timeout_sec must be between 1 and 60, got {v}")
+        return v
+
+    @field_validator("max_bytes")
+    @classmethod
+    def validate_max_bytes(cls, v: int) -> int:
+        if v < 10_000:
+            raise ValueError(f"max_bytes must be >= 10000, got {v}")
+        return v
+
+    @field_validator("retries")
+    @classmethod
+    def validate_retries(cls, v: int) -> int:
+        if not (0 <= v <= 3):
+            raise ValueError(f"retries must be between 0 and 3, got {v}")
+        return v
+
+    @field_validator("user_agent")
+    @classmethod
+    def validate_user_agent(cls, v: str) -> str:
+        if not v or not v.strip():
+            raise ValueError("user_agent cannot be empty")
+        return v.strip()
+
+
 class Settings(BaseModel):
     """Application settings."""
 
@@ -63,6 +102,7 @@ class Settings(BaseModel):
     output_language: str = "vi"
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR"] = "INFO"
     paths: PathsConfig = Field(default_factory=PathsConfig)
+    fetch: FetchConfig = Field(default_factory=FetchConfig)
 
     @field_validator("project_name")
     @classmethod

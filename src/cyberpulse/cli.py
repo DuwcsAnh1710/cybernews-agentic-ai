@@ -8,6 +8,7 @@ import sys
 
 from cyberpulse import __version__
 from cyberpulse.config import ConfigError, check_secrets, load_app_config, load_settings
+from cyberpulse.fetcher import RawItem, fetch_all
 from cyberpulse.logging_setup import setup_logging
 from cyberpulse.storage import connect, get_db_path, init_db
 
@@ -49,6 +50,29 @@ def build_parser() -> argparse.ArgumentParser:
         type=Path,
         default=Path("config/settings.toml"),
         help="Path to settings.toml (default: config/settings.toml)",
+    )
+
+    # fetch subcommand
+    fetch_parser = subparsers.add_parser(
+        "fetch", help="Fetch raw items from enabled RSS sources"
+    )
+    fetch_parser.add_argument(
+        "--settings",
+        type=Path,
+        default=Path("config/settings.toml"),
+        help="Path to settings.toml (default: config/settings.toml)",
+    )
+    fetch_parser.add_argument(
+        "--sources",
+        type=Path,
+        default=Path("config/sources.toml"),
+        help="Path to sources.toml (default: config/sources.toml)",
+    )
+    fetch_parser.add_argument(
+        "--limit",
+        type=int,
+        default=3,
+        help="Maximum items to display per source (default: 3)",
     )
 
     return parser
@@ -109,6 +133,49 @@ def run_init_db(settings_path: Path) -> int:
         return 1
 
 
+def run_fetch(settings_path: Path, sources_path: Path, limit: int) -> int:
+    """Fetch raw items from RSS sources and display results."""
+    try:
+        settings, sources = load_app_config(
+            settings_path=settings_path,
+            sources_path=sources_path,
+        )
+    except ConfigError as err:
+        print(f"ConfigError: {err}", file=sys.stderr)
+        return 1
+
+    setup_logging(
+        log_level=settings.log_level,
+        log_dir=settings.paths.log_dir,
+        logger_name="cyberpulse",
+    )
+
+    report = fetch_all(sources=sources, cfg=settings.fetch)
+
+    items_by_source: dict[str, list[RawItem]] = {}
+    for item in report.items:
+        items_by_source.setdefault(item.source_name, []).append(item)
+
+    for result in report.results:
+        if result.ok:
+            print(f"[OK] {result.source_name}: {result.item_count} items ({result.elapsed_ms} ms)")
+            if limit > 0:
+                source_items = items_by_source.get(result.source_name, [])
+                for it in source_items[:limit]:
+                    pub_str = str(it.published_at) if it.published_at else "no date"
+                    title_str = it.title if it.title else "NO TITLE"
+                    link_str = it.link if it.link else "NO LINK"
+                    print(f"- {pub_str} | {title_str} | {link_str}")
+        else:
+            print(f"[FAIL] {result.source_name}: {result.error}")
+
+    print(f"Total raw items: {len(report.items)}")
+
+    if report.all_failed:
+        return 2
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     """CLI main entry point."""
     parser = build_parser()
@@ -126,6 +193,12 @@ def main(argv: list[str] | None = None) -> int:
         )
     elif args.command == "init-db":
         return run_init_db(settings_path=args.settings)
+    elif args.command == "fetch":
+        return run_fetch(
+            settings_path=args.settings,
+            sources_path=args.sources,
+            limit=args.limit,
+        )
     return 0
 
 

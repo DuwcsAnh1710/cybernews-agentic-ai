@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>SAMPLE — Incomplete Feed</title>
+    <link>https://example.com/sample/incomplete</link>
+    <description>Sample feed with missing fields in items</description>
+    <item>
+      <title>SAMPLE — Item Without Link</title>
+      <pubDate>Mon, 27 Oct 2026 10:00:00 GMT</pubDate>
+      <description>Item with title and pubDate but no link</description>
+    </item>
+    <item>
+      <title>SAMPLE — Item Without Date</title>
+      <link>https://example.com/sample/item-no-date</link>
+      <description>Item with title and link but no pubDate</description>
+    </item>
+    <item>
+      <link>https://example.com/sample/item-no-title</link>
+      <pubDate>Wed, 29 Oct 2026 11:00:00 GMT</pubDate>
+      <description>Item with link and pubDate but no title</description>
+    </item>
+  </channel>
+</rss>
+

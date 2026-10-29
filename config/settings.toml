@@ -15,3 +15,9 @@ log_level = "INFO"
 data_dir = "data"
 output_dir = "output"
 log_dir = "logs"
+
+[fetch]
+timeout_sec = 15
+max_bytes = 5000000
+retries = 1
+user_agent = "CyberPulseAI/0.1 (+https://github.com/DuwcsAnh1710/cybernews-agentic-ai)"
