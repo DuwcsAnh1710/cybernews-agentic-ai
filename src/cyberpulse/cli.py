@@ -23,10 +23,11 @@ from cyberpulse.config import ConfigError, check_secrets, load_app_config, load_
 from cyberpulse.fetcher import RawItem, fetch_all
 from cyberpulse.llm import LLMError, create_llm_client
 from cyberpulse.logging_setup import setup_logging
-from cyberpulse.models import ResearchResult
+from cyberpulse.models import EditorialPackage, ResearchResult
 from cyberpulse.normalize import normalize_items
 from cyberpulse.render_preview import render_markdown
 from cyberpulse.storage import connect, get_db_path, init_db, list_recent_articles, upsert_article
+from cyberpulse.validator import ValidationIssue, ValidationReport, validate_package
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -155,6 +156,36 @@ def build_parser() -> argparse.ArgumentParser:
         help="Path to ResearchResult JSON file",
     )
     editorial_parser.add_argument(
+        "--settings",
+        type=Path,
+        default=Path("config/settings.toml"),
+        help="Path to settings.toml (default: config/settings.toml)",
+    )
+
+    # validate subcommand
+    validate_parser = subparsers.add_parser(
+        "validate",
+        help="Run structural, source-consistency, and claim review checks on editorial output",
+    )
+    validate_parser.add_argument(
+        "--research",
+        type=Path,
+        required=True,
+        help="Path to ResearchResult JSON file",
+    )
+    validate_parser.add_argument(
+        "--editorial",
+        type=Path,
+        required=True,
+        help="Path to EditorialPackage JSON file",
+    )
+    validate_parser.add_argument(
+        "--no-llm-review",
+        action="store_true",
+        default=False,
+        help="Skip Layer 3 LLM claim review",
+    )
+    validate_parser.add_argument(
         "--settings",
         type=Path,
         default=Path("config/settings.toml"),
@@ -522,6 +553,109 @@ def run_editorial(research_path: Path, settings_path: Path) -> int:
     return 0
 
 
+def run_validate(
+    research_path: Path,
+    editorial_path: Path,
+    settings_path: Path,
+    no_llm_review: bool = False,
+) -> int:
+    """Run validation on research and editorial packages."""
+    try:
+        settings = load_settings(settings_path)
+    except ConfigError as err:
+        print(f"ConfigError: {err}", file=sys.stderr)
+        return 1
+
+    if not research_path.exists():
+        print(f"Error: research file not found: '{research_path}'", file=sys.stderr)
+        return 7
+
+    try:
+        raw_research = research_path.read_text(encoding="utf-8")
+        research = ResearchResult.model_validate_json(raw_research)
+    except Exception as err:
+        print(f"Error: invalid research file '{research_path}': {err}", file=sys.stderr)
+        return 7
+
+    if not editorial_path.exists():
+        print(f"Error: editorial file not found: '{editorial_path}'", file=sys.stderr)
+        return 7
+
+    try:
+        raw_editorial = editorial_path.read_text(encoding="utf-8")
+        pkg = EditorialPackage.model_validate_json(raw_editorial)
+    except Exception as err:
+        print(f"Error: invalid editorial file '{editorial_path}': {err}", file=sys.stderr)
+        return 7
+
+    setup_logging(
+        log_level=settings.log_level,
+        log_dir=settings.paths.log_dir,
+        logger_name="cyberpulse",
+    )
+
+    llm: LLMClient | None = None
+    missing_key_warning = False
+
+    if not no_llm_review and settings.validator.llm_review:
+        if settings.llm.provider == "gemini":
+            load_dotenv(override=False)
+            api_key = os.environ.get("GEMINI_API_KEY")
+            if not api_key or not api_key.strip():
+                print("LLM review skipped: GEMINI_API_KEY missing")
+                missing_key_warning = True
+            else:
+                try:
+                    llm = create_llm_client(settings)
+                except Exception as err:
+                    print(f"Error creating LLM client: {err}", file=sys.stderr)
+                    missing_key_warning = True
+        elif settings.llm.provider == "fake":
+            llm = create_llm_client(settings)
+
+    report = validate_package(
+        research=research,
+        pkg=pkg,
+        settings=settings,
+        llm=llm,
+    )
+
+    if missing_key_warning:
+        report.warnings.append(
+            ValidationIssue(
+                code="W_LLM_REVIEW_UNAVAILABLE",
+                severity="warning",
+                path="llm_review",
+                message="LLM claim review skipped: GEMINI_API_KEY missing",
+                evidence="GEMINI_API_KEY missing",
+            )
+        )
+
+    # Write report JSON
+    validation_dir = settings.paths.output_dir / "validation"
+    validation_dir.mkdir(parents=True, exist_ok=True)
+    report_path = validation_dir / f"{pkg.run_id}.json"
+    report_path.write_text(report.model_dump_json(indent=2), encoding="utf-8")
+
+    # Console output
+    passed_str = "yes" if report.passed else "no"
+    print(f"Passed: {passed_str}")
+    print(f"Errors: {len(report.errors)}, Warnings: {len(report.warnings)}")
+
+    for issue in report.errors:
+        evidence_part = f" | {issue.evidence}" if issue.evidence else ""
+        print(f"[ERROR] {issue.code} {issue.path} — {issue.message}{evidence_part}")
+
+    for issue in report.warnings:
+        evidence_part = f" | {issue.evidence}" if issue.evidence else ""
+        print(f"[WARN] {issue.code} {issue.path} — {issue.message}{evidence_part}")
+
+    print(report.scope_note)
+    print(f"Saved validation report: {report_path}")
+
+    return 0 if report.passed else 8
+
+
 def main(argv: list[str] | None = None) -> int:
     """CLI main entry point."""
     if sys.stdout and hasattr(sys.stdout, "reconfigure"):
@@ -568,6 +702,13 @@ def main(argv: list[str] | None = None) -> int:
         return run_editorial(
             research_path=args.research,
             settings_path=args.settings,
+        )
+    elif args.command == "validate":
+        return run_validate(
+            research_path=args.research,
+            editorial_path=args.editorial,
+            settings_path=args.settings,
+            no_llm_review=args.no_llm_review,
         )
     return 0
 

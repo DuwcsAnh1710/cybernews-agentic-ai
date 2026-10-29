@@ -50,3 +50,11 @@ podcast_target_words = 600
 video_max_total_sec = 90
 caption_platforms = ["facebook", "youtube", "tiktok"]
 podcast_speakers = ["Minh", "Lan"]
+
+[validator]
+llm_review = true
+podcast_word_tolerance = 0.2
+section_words_min = 60
+section_words_max = 120
+term_allowlist = ["Trung"]
+

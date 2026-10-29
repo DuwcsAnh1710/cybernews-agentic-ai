@@ -147,3 +147,55 @@ log_dir = "logs"
 
     msg = str(exc_info.value)
     assert "lookback_hours" in msg
+
+
+def test_validator_config_defaults(tmp_path: Path) -> None:
+    """ValidatorConfig defaults loaded correctly when not specified."""
+    settings_file = tmp_path / "settings_no_validator.toml"
+    settings_file.write_text(
+        """project_name = "CyberPulse AI"
+topics = ["cybersecurity"]
+""",
+        encoding="utf-8",
+    )
+    settings = load_settings(settings_file)
+    assert settings.validator.llm_review is True
+    assert settings.validator.podcast_word_tolerance == 0.2
+    assert settings.validator.section_words_min == 60
+    assert settings.validator.section_words_max == 120
+    assert settings.validator.term_allowlist == ["Trung"]
+
+
+@pytest.mark.parametrize("tol", [0.01, 0.6])
+def test_validator_invalid_podcast_tolerance(tmp_path: Path, tol: float) -> None:
+    """podcast_word_tolerance outside [0.05, 0.5] raises ConfigError."""
+    settings_file = tmp_path / "settings_bad_tol.toml"
+    settings_file.write_text(
+        f"""project_name = "CyberPulse AI"
+topics = ["cybersecurity"]
+[validator]
+podcast_word_tolerance = {tol}
+""",
+        encoding="utf-8",
+    )
+    with pytest.raises(ConfigError) as exc_info:
+        load_settings(settings_file)
+    assert "podcast_word_tolerance" in str(exc_info.value)
+
+
+def test_validator_invalid_section_words_range(tmp_path: Path) -> None:
+    """section_words_min >= section_words_max raises ConfigError."""
+    settings_file = tmp_path / "settings_bad_range.toml"
+    settings_file.write_text(
+        """project_name = "CyberPulse AI"
+topics = ["cybersecurity"]
+[validator]
+section_words_min = 100
+section_words_max = 50
+""",
+        encoding="utf-8",
+    )
+    with pytest.raises(ConfigError) as exc_info:
+        load_settings(settings_file)
+    assert "section_words_min" in str(exc_info.value)
+

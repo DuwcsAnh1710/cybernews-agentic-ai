@@ -374,3 +374,188 @@ def test_cli_llm_check_bad_config_exits_1(
     assert "ConfigError" in captured.err
 
 
+def test_cli_validate_success(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    """CLI validate exits 0 on valid package and writes report JSON."""
+    from tests.test_validator import make_test_editorial, make_test_research
+
+    research = make_test_research()
+    pkg = make_test_editorial()
+
+    r_file = tmp_path / "research.json"
+    e_file = tmp_path / "editorial.json"
+    r_file.write_text(research.model_dump_json(indent=2), encoding="utf-8")
+    e_file.write_text(pkg.model_dump_json(indent=2), encoding="utf-8")
+
+    settings_file = tmp_path / "settings.toml"
+    settings_file.write_text(
+        f"""project_name = "CyberPulse AI"
+topics = ["cybersecurity"]
+[paths]
+data_dir = "{str(tmp_path / "data").replace('\\', '/')}"
+output_dir = "{str(tmp_path / "output").replace('\\', '/')}"
+log_dir = "{str(tmp_path / "logs").replace('\\', '/')}"
+[editorial]
+podcast_target_words = 300
+podcast_speakers = ["Minh", "Lan"]
+[validator]
+llm_review = false
+""",
+        encoding="utf-8",
+    )
+
+    ret = main([
+        "validate",
+        "--research", str(r_file),
+        "--editorial", str(e_file),
+        "--settings", str(settings_file),
+        "--no-llm-review",
+    ])
+    assert ret == 0
+
+    captured = capsys.readouterr()
+    assert "Passed: yes" in captured.out
+    assert "Errors: 0" in captured.out
+
+    report_path = tmp_path / "output" / "validation" / f"{pkg.run_id}.json"
+    assert report_path.exists()
+
+
+def test_cli_validate_errors_exit_8(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    """CLI validate exits 8 when validation errors are present."""
+    from tests.test_validator import make_test_editorial, make_test_research
+
+    research = make_test_research()
+    pkg = make_test_editorial()
+    # Introduce run_id mismatch
+    pkg.run_id = "different-run-id"
+
+    r_file = tmp_path / "research.json"
+    e_file = tmp_path / "editorial.json"
+    r_file.write_text(research.model_dump_json(indent=2), encoding="utf-8")
+    e_file.write_text(pkg.model_dump_json(indent=2), encoding="utf-8")
+
+    settings_file = tmp_path / "settings.toml"
+    settings_file.write_text(
+        f"""project_name = "CyberPulse AI"
+topics = ["cybersecurity"]
+[paths]
+data_dir = "{str(tmp_path / "data").replace('\\', '/')}"
+output_dir = "{str(tmp_path / "output").replace('\\', '/')}"
+log_dir = "{str(tmp_path / "logs").replace('\\', '/')}"
+[editorial]
+podcast_target_words = 300
+podcast_speakers = ["Minh", "Lan"]
+[validator]
+llm_review = false
+""",
+        encoding="utf-8",
+    )
+
+    ret = main([
+        "validate",
+        "--research", str(r_file),
+        "--editorial", str(e_file),
+        "--settings", str(settings_file),
+    ])
+    assert ret == 8
+
+    captured = capsys.readouterr()
+    assert "Passed: no" in captured.out
+    assert "[ERROR] E_RUN_ID_MISMATCH" in captured.out
+
+
+def test_cli_validate_missing_file_exit_7(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    """CLI validate exits 7 when research or editorial file is missing."""
+    settings_file = tmp_path / "settings.toml"
+    settings_file.write_text(
+        """project_name = "CyberPulse AI"
+topics = ["cybersecurity"]
+""",
+        encoding="utf-8",
+    )
+
+    missing_r = tmp_path / "nonexistent_research.json"
+    missing_e = tmp_path / "nonexistent_editorial.json"
+
+    ret = main([
+        "validate",
+        "--research", str(missing_r),
+        "--editorial", str(missing_e),
+        "--settings", str(settings_file),
+    ])
+    assert ret == 7
+
+    captured = capsys.readouterr()
+    assert "not found" in captured.err.lower()
+
+
+def test_cli_validate_db_unchanged(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    """CLI validate performs NO database writes and leaves row counts unchanged."""
+    import sqlite3
+    from tests.test_validator import make_test_editorial, make_test_research
+    from cyberpulse.storage import get_db_path, init_db
+
+    research = make_test_research()
+    pkg = make_test_editorial()
+
+    r_file = tmp_path / "research.json"
+    e_file = tmp_path / "editorial.json"
+    r_file.write_text(research.model_dump_json(indent=2), encoding="utf-8")
+    e_file.write_text(pkg.model_dump_json(indent=2), encoding="utf-8")
+
+    db_file = tmp_path / "data" / "cyberpulse.db"
+    db_file.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(db_file)
+    init_db(conn)
+    cursor = conn.cursor()
+    cursor.execute("SELECT count(*) FROM articles")
+    count_before = cursor.fetchone()[0]
+    conn.close()
+
+    settings_file = tmp_path / "settings.toml"
+    settings_file.write_text(
+        f"""project_name = "CyberPulse AI"
+topics = ["cybersecurity"]
+[paths]
+data_dir = "{str(tmp_path / "data").replace('\\', '/')}"
+output_dir = "{str(tmp_path / "output").replace('\\', '/')}"
+log_dir = "{str(tmp_path / "logs").replace('\\', '/')}"
+[editorial]
+podcast_target_words = 300
+podcast_speakers = ["Minh", "Lan"]
+[validator]
+llm_review = false
+""",
+        encoding="utf-8",
+    )
+
+    ret = main([
+        "validate",
+        "--research", str(r_file),
+        "--editorial", str(e_file),
+        "--settings", str(settings_file),
+    ])
+    assert ret == 0
+
+    conn = sqlite3.connect(db_file)
+    cursor = conn.cursor()
+    cursor.execute("SELECT count(*) FROM articles")
+    count_after = cursor.fetchone()[0]
+    conn.close()
+
+    assert count_before == count_after == 0
+
+
+

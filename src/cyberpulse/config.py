@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Literal
 import tomllib
 from dotenv import load_dotenv
-from pydantic import BaseModel, Field, ValidationError, field_validator
+from pydantic import BaseModel, Field, ValidationError, field_validator, model_validator
 
 
 class ConfigError(Exception):
@@ -274,6 +274,58 @@ class EditorialConfig(BaseModel):
         return clean
 
 
+class ValidatorConfig(BaseModel):
+    """Grounding validator configuration."""
+
+    llm_review: bool = True
+    podcast_word_tolerance: float = 0.2
+    section_words_min: int = 60
+    section_words_max: int = 120
+    term_allowlist: list[str] = Field(default_factory=lambda: ["Trung"])
+
+    @field_validator("podcast_word_tolerance")
+    @classmethod
+    def validate_podcast_word_tolerance(cls, v: float) -> float:
+        if not (0.05 <= v <= 0.5):
+            raise ValueError(f"podcast_word_tolerance must be between 0.05 and 0.5, got {v}")
+        return v
+
+    @field_validator("section_words_min")
+    @classmethod
+    def validate_section_words_min(cls, v: int) -> int:
+        if not (20 <= v <= 400):
+            raise ValueError(f"section_words_min must be between 20 and 400, got {v}")
+        return v
+
+    @field_validator("section_words_max")
+    @classmethod
+    def validate_section_words_max(cls, v: int) -> int:
+        if not (20 <= v <= 400):
+            raise ValueError(f"section_words_max must be between 20 and 400, got {v}")
+        return v
+
+    @field_validator("term_allowlist")
+    @classmethod
+    def validate_term_allowlist(cls, v: list[str]) -> list[str]:
+        if not isinstance(v, list):
+            raise ValueError("term_allowlist must be a list of strings")
+        clean: list[str] = []
+        for item in v:
+            if not isinstance(item, str) or not item.strip():
+                raise ValueError("term_allowlist cannot contain empty strings")
+            clean.append(item.strip())
+        return clean
+
+    @model_validator(mode="after")
+    def validate_section_words_range(self) -> ValidatorConfig:
+        if self.section_words_min >= self.section_words_max:
+            raise ValueError(
+                f"section_words_min ({self.section_words_min}) must be less than "
+                f"section_words_max ({self.section_words_max})"
+            )
+        return self
+
+
 class Settings(BaseModel):
     """Application settings."""
 
@@ -289,6 +341,7 @@ class Settings(BaseModel):
     llm: LLMConfig = Field(default_factory=LLMConfig)
     research: ResearchConfig = Field(default_factory=ResearchConfig)
     editorial: EditorialConfig = Field(default_factory=EditorialConfig)
+    validator: ValidatorConfig = Field(default_factory=ValidatorConfig)
 
     @field_validator("project_name")
     @classmethod

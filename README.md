@@ -172,5 +172,55 @@ Or with custom settings:
 cyberpulse editorial --research output/research/<run_id>.json --settings path/to/settings.toml
 ```
 
+### Validator (Grounding & Source-Consistency)
+
+The Grounding Validator inspects an `EditorialPackage` against its corresponding `ResearchResult` to enforce structural integrity, deterministic source-consistency against RSS excerpts, and advisory LLM claim verification.
+
+**Validation Layers**:
+
+1. **Layer 1 — Structural Checks (Deterministic)**:
+   - **Can detect**: Run ID mismatches (`E_RUN_ID_MISMATCH`), unknown citations (`E_CITE_UNKNOWN`), mismatching section counts (`E_SECTION_COUNT`), sections not citing rank-ordered research items (`E_SECTION_CITE`), uncovered research articles (`E_ARTICLE_UNCOVERED`), leaked URLs, emails, or 16-hex article IDs in presentation text (`E_URL_OR_ID_IN_TEXT`), missing or duplicate caption platforms (`E_CAPTION_PLATFORM`), platform character limit breaches (`E_CAPTION_LENGTH`), invalid hashtag count or formats (`E_HASHTAG_FORMAT`), unconfigured podcast speakers (`E_SPEAKER_UNKNOWN`), excessive total video duration (`E_VIDEO_TOTAL`), invalid scene durations outside 4–20s (`E_SCENE_DURATION`), and on-screen text over 60 characters (`E_ONSCREEN_LENGTH`). Issues warnings for podcast length (`W_PODCAST_LENGTH`) and section length (`W_SECTION_LENGTH`).
+   - **Cannot detect**: Semantic distortion, unsupported numbers, or fabricated facts.
+
+2. **Layer 2 — Source-Consistency Checks (Deterministic)**:
+   - **Can detect**: Unsupported CVE identifiers (`E_CVE_UNSUPPORTED`), unsupported numbers not grounded in cited article titles/summaries (`E_NUMBER_UNSUPPORTED`), and unsupported Latin-script acronyms, CamelCase, or capitalized terms (`W_TERM_UNSUPPORTED`). Normalization maps English number words zero–twenty to digits, equates comma/dot decimals, and exempts the research item count, parenthesized glossary text `(...)`, and allowlisted terms / speaker names.
+   - **Cannot detect**: Vietnamese semantic drift, subtle misattributions, or real-world truth outside the provided RSS title/summary excerpts.
+
+3. **Layer 3 — LLM Claim Review (Advisory)**:
+   - **Can detect**: Claims not stated in cited sources (`W_CLAIM_NOT_IN_SOURCE`), misattributions across articles/organizations (`W_CLAIM_MISATTRIBUTED`), and assertions overstated relative to source wording (`W_CLAIM_OVERSTATED`). Enforces deterministic post-filtering to drop findings with unknown paths or non-substring quotes.
+   - **Cannot detect**: Independent real-world truth; issues outside the RSS title/summary context.
+
+**Configuration (`config/settings.toml`)**:
+```toml
+[validator]
+llm_review = true
+podcast_word_tolerance = 0.2
+section_words_min = 60
+section_words_max = 120
+term_allowlist = ["Trung"]
+```
+
+**Run validator from CLI**:
+```powershell
+cyberpulse validate --research output/research/<run_id>.json --editorial output/editorial/<run_id>.json
+```
+
+Skip Layer 3 LLM claim review:
+```powershell
+cyberpulse validate --research output/research/<run_id>.json --editorial output/editorial/<run_id>.json --no-llm-review
+```
+
+With custom settings:
+```powershell
+cyberpulse validate --research output/research/<run_id>.json --editorial output/editorial/<run_id>.json --settings path/to/settings.toml
+```
+
+**Exit codes**:
+- `0`: Validated successfully (`passed=true`, warnings allowed).
+- `8`: Validation failed (`passed=false`, errors present).
+- `7`: Invalid inputs (file missing or malformed JSON).
+- `1`: Configuration error (`ConfigError`).
+
+
 
 
