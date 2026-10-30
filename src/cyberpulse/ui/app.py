@@ -35,6 +35,7 @@ from cyberpulse.ui.data import (
     validation_freshness,
     video_storyboard,
 )
+from cyberpulse.ui.pipeline_tab import render_pipeline_tab
 from cyberpulse.ui.review import (
     EDITABLE_PATH_PATTERNS,
     ReviewRuleError,
@@ -131,17 +132,19 @@ def main() -> None:
             "1. **Nguồn & Dữ liệu**: Tra cứu bài viết và số liệu từ RSS.\n"
             "2. **Research Agent**: Xem bài được chọn, lý do và trần nguồn.\n"
             "3. **Editorial Studio**: Xem bản tin, mạng xã hội, podcast, video.\n"
-            "4. **Đối soát & Duyệt**: So sánh nguồn, chỉnh sửa nhanh và ghi nhận quyết định duyệt."
+            "4. **Đối soát & Duyệt**: So sánh nguồn, chỉnh sửa nhanh và ghi nhận quyết định duyệt.\n"
+            "5. **Pipeline Runner**: Khởi chạy từng bước pipeline độc lập và theo dõi nhật ký trực tiếp."
         )
 
     # ==========================================================================
     # Main Tabs
     # ==========================================================================
-    tab1, tab2, tab3, tab4 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5 = st.tabs([
         "Nguồn & Dữ liệu",
         "Research Agent",
         "Editorial Studio",
         "Đối soát & Duyệt",
+        "Pipeline Runner",
     ])
 
     # --------------------------------------------------------------------------
@@ -746,6 +749,12 @@ def main() -> None:
                         for e in reversed(review_data["edits"])
                     ]
                     st.dataframe(edit_rows, use_container_width=True)
+
+    # --------------------------------------------------------------------------
+    # Tab 5: Pipeline Runner
+    # --------------------------------------------------------------------------
+    with tab5:
+        render_pipeline_tab(output_dir=output_dir, settings_path=settings_path)
 
 
 if __name__ == "__main__":
