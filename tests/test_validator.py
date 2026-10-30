@@ -730,6 +730,99 @@ def test_ac5_speaker_names_and_allowlist_not_triggered() -> None:
     assert len(allowlisted_warnings) == 0
 
 
+def test_w_term_unsupported_headline_title_case_vietnamese_no_warning() -> None:
+    """Title Case Vietnamese headline in podcast.title does not trigger W_TERM_UNSUPPORTED."""
+    settings = make_test_settings()
+    research = make_test_research()
+    pkg = make_test_editorial()
+    pkg.podcast.title = "Điểm Tin An Ninh Mạng: Khai Thác Mới"
+
+    report = validate_package(research, pkg, settings, llm=None)
+    term_warnings = [
+        w for w in report.warnings
+        if w.code == "W_TERM_UNSUPPORTED" and w.path == "podcast.title"
+    ]
+    assert len(term_warnings) == 0
+
+
+def test_w_term_unsupported_all_caps_overlay_no_warning() -> None:
+    """ALL-CAPS overlay in on_screen_text does not trigger W_TERM_UNSUPPORTED."""
+    settings = make_test_settings()
+    research = make_test_research()
+    pkg = make_test_editorial()
+    pkg.video.scenes[0].on_screen_text = "CẬP NHẬT NGAY"
+
+    report = validate_package(research, pkg, settings, llm=None)
+    overlay_warnings = [
+        w for w in report.warnings
+        if w.code == "W_TERM_UNSUPPORTED" and w.path == "video.scenes[0].on_screen_text"
+    ]
+    assert len(overlay_warnings) == 0
+
+
+def test_w_term_unsupported_clause_start_after_colon_no_warning() -> None:
+    """A capitalized word starting a clause after a colon is not flagged."""
+    settings = make_test_settings()
+    research = make_test_research()
+    pkg = make_test_editorial()
+    pkg.captions[0].text = "Cảnh báo: Khai thác lỗ hổng bảo mật nghiêm trọng trong máy chủ."
+
+    report = validate_package(research, pkg, settings, llm=None)
+    khai_warnings = [
+        w for w in report.warnings
+        if w.code == "W_TERM_UNSUPPORTED" and w.evidence == "Khai"
+    ]
+    assert len(khai_warnings) == 0
+
+
+def test_w_term_unsupported_mid_sentence_acronym_still_flagged() -> None:
+    """Mid-sentence acronym absent from sources remains flagged in podcast line."""
+    settings = make_test_settings()
+    research = make_test_research()
+    pkg = make_test_editorial()
+    pkg.podcast.segments[0].line.text += " Nguy hiểm cho thiết bị IoT."
+
+    report = validate_package(research, pkg, settings, llm=None)
+    iot_warnings = [
+        w for w in report.warnings
+        if w.code == "W_TERM_UNSUPPORTED" and w.evidence == "IoT"
+    ]
+    assert len(iot_warnings) == 1
+    assert iot_warnings[0].path == "podcast.segments[0].line.text"
+
+
+def test_w_term_unsupported_mixed_case_alphanumeric_in_title_still_flagged() -> None:
+    """Mixed-case/alphanumeric token absent from source in title remains flagged."""
+    settings = make_test_settings()
+    research = make_test_research()
+    pkg = make_test_editorial()
+    pkg.podcast.title = "Cảnh Báo Lỗ Hổng PHP9Shell Nguy Hiểm"
+
+    report = validate_package(research, pkg, settings, llm=None)
+    php_warnings = [
+        w for w in report.warnings
+        if w.code == "W_TERM_UNSUPPORTED" and w.evidence == "PHP9Shell"
+    ]
+    assert len(php_warnings) == 1
+    assert php_warnings[0].path == "podcast.title"
+
+
+def test_w_term_unsupported_mid_sentence_proper_noun_still_flagged() -> None:
+    """Mid-sentence capitalized ASCII proper noun absent from source remains flagged."""
+    settings = make_test_settings()
+    research = make_test_research()
+    pkg = make_test_editorial()
+    pkg.digest.sections[0].body.text += " Vụ việc xảy ra theo báo cáo của Contoso."
+
+    report = validate_package(research, pkg, settings, llm=None)
+    contoso_warnings = [
+        w for w in report.warnings
+        if w.code == "W_TERM_UNSUPPORTED" and w.evidence == "Contoso"
+    ]
+    assert len(contoso_warnings) == 1
+    assert contoso_warnings[0].path == "digest.sections[0].body.text"
+
+
 # ==============================================================================
 # Acceptance Criterion 6: Layer 3 Claim Review
 # ==============================================================================

@@ -222,6 +222,10 @@ _NUM_WORD_PATTERN = re.compile(
 
 _CVE_PATTERN = re.compile(r"CVE-\d{4}-\d{4,}", re.IGNORECASE)
 
+_CLAUSE_SPLIT_PATTERN = re.compile(
+    r'[\r\n]+|[.!?…:;]+|\s+[-–—]\s+|(?:^|[\r\n])\s*[-–—•*]\s+|\s+[•*]\s+|["“‘«\[{<]'
+)
+
 _URL_OR_ID_PATTERNS = [
     ("url", re.compile(r"https?://\S*", re.IGNORECASE)),
     ("www", re.compile(r"\bwww\.\S+", re.IGNORECASE)),
@@ -277,36 +281,59 @@ def _get_source_numbers(source_text: str) -> set[str]:
     return nums
 
 
-def _extract_candidate_terms(text: str) -> list[str]:
+def _is_headline_field(path: str) -> bool:
+    """Check if the given field path is a headline or video overlay field."""
+    if path in ("digest.title", "podcast.title", "video.title"):
+        return True
+    if re.match(r"^digest\.sections\[\d+\]\.heading$", path):
+        return True
+    if re.match(r"^video\.scenes\[\d+\]\.on_screen_text$", path):
+        return True
+    return False
+
+
+def _extract_candidate_terms(text: str, path: str = "") -> list[str]:
     """Extract candidate Latin-script terms from a block.
 
     Candidate terms:
     - Text inside parentheses (...) is excluded.
-    - Token is ASCII.
-    - Matches ANY of:
-      1. >= 2 uppercase letters (acronyms, CamelCase)
-      2. Contains both letters and digits (e.g. Node2Shell)
-      3. Capitalized ASCII word of >= 4 letters that is NOT the first word of a sentence.
+    - Token must be ASCII and contain at least one letter.
+    - In headline/overlay fields (digest.title, podcast.title, video.title,
+      digest.sections[*].heading, video.scenes[*].on_screen_text):
+      - Mixed-case tokens with >= 2 uppercase letters (e.g. IoT, CrowdStrike)
+      - Alphanumeric tokens with both letters and digits (e.g. PHP2Shell)
+      - ALL-CAPS tokens ONLY if the field is not mostly uppercase (letters <= 50% uppercase)
+      - Plain capitalized words are skipped.
+    - In body / narration / caption fields:
+      - Tokens with >= 2 uppercase letters
+      - Tokens with both letters and digits
+      - Capitalized ASCII word of >= 4 letters that is NOT an initial word
+        (an initial word starts the text or follows ., !, ?, :, ;, …, separator dash, bullet, or opening quote/bracket).
     """
-    # Exclude text inside parentheses
     clean_text = re.sub(r"\([^)]*\)", " ", text)
+    is_headline = _is_headline_field(path)
 
-    # Split text into sentences
-    sentences = re.split(r"[\r\n]+|[.!?]+\s+", clean_text)
+    is_mostly_upper = False
+    if is_headline:
+        letters = [c for c in clean_text if c.isalpha()]
+        if letters:
+            is_mostly_upper = (sum(1 for c in letters if c.isupper()) / len(letters)) > 0.5
+
+    clauses = _CLAUSE_SPLIT_PATTERN.split(clean_text)
     candidate_terms: list[str] = []
     seen: set[str] = set()
 
-    for sent in sentences:
-        sent = sent.strip()
-        if not sent:
+    for clause in clauses:
+        clause = clause.strip()
+        if not clause:
             continue
 
-        raw_tokens = sent.split()
+        raw_tokens = clause.split()
         first_word_found = False
 
         for raw_tok in raw_tokens:
             # Strip outer punctuation
-            tok = raw_tok.strip(string.punctuation + "“”‘’\"'…—–-")
+            tok = raw_tok.strip(string.punctuation + "“”‘’\"'…—–-«»")
             if not tok:
                 continue
 
@@ -340,12 +367,26 @@ def _extract_candidate_terms(text: str) -> list[str]:
             )
 
             is_candidate = False
-            if upper_count >= 2:
-                is_candidate = True
-            elif has_letter and has_digit:
-                is_candidate = True
-            elif is_cap_word and not is_first_word:
-                is_candidate = True
+
+            if is_headline:
+                if has_letter and has_digit:
+                    is_candidate = True
+                elif upper_count >= 2:
+                    if tok.isalpha() and tok.isupper():
+                        # ALL-CAPS token: candidate only if field is NOT mostly uppercase
+                        if not is_mostly_upper:
+                            is_candidate = True
+                    else:
+                        # Mixed-case token with >= 2 uppercase letters (e.g. IoT, CrowdStrike)
+                        is_candidate = True
+                # Plain capitalized words are skipped in headlines
+            else:
+                if upper_count >= 2:
+                    is_candidate = True
+                elif has_letter and has_digit:
+                    is_candidate = True
+                elif is_cap_word and not is_first_word:
+                    is_candidate = True
 
             if is_candidate and tok.lower() not in seen:
                 candidate_terms.append(tok)
@@ -704,7 +745,7 @@ def validate_package(
                 )
 
         # W_TERM_UNSUPPORTED
-        candidate_terms = _extract_candidate_terms(block.text)
+        candidate_terms = _extract_candidate_terms(block.text, path=block.path)
         for term in candidate_terms:
             if term.lower() in effective_allowlist:
                 continue
