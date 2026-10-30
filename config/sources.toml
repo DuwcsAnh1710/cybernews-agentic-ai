@@ -1,4 +1,6 @@
-# Verified by T2.1 on 2026-10-29: The Hacker News OK (50 items), BleepingComputer OK (15 items), Krebs on Security OK (10 items), SecurityWeek OK (10 items)
+# Verified 2026-10-30: The Hacker News OK, Krebs on Security OK (currently stale),
+# SecurityWeek OK, The Record OK, Infosecurity Magazine OK, Help Net Security OK.
+# BleepingComputer replaced — returns Cloudflare 403 challenge as of 2026-10-29.
 
 [[sources]]
 name = "The Hacker News"
@@ -6,8 +8,8 @@ url = "https://feeds.feedburner.com/TheHackersNews"
 enabled = true
 
 [[sources]]
-name = "BleepingComputer"
-url = "https://www.bleepingcomputer.com/feed/"
+name = "The Record"
+url = "https://therecord.media/feed/"
 enabled = true
 
 [[sources]]
@@ -18,4 +20,14 @@ enabled = true
 [[sources]]
 name = "SecurityWeek"
 url = "https://www.securityweek.com/feed/"
+enabled = true
+
+[[sources]]
+name = "Infosecurity Magazine"
+url = "https://www.infosecurity-magazine.com/rss/news/"
+enabled = true
+
+[[sources]]
+name = "Help Net Security"
+url = "https://www.helpnetsecurity.com/feed/"
 enabled = true

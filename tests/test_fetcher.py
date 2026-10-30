@@ -10,7 +10,7 @@ import httpx
 import pytest
 
 from cyberpulse.cli import main
-from cyberpulse.config import ConfigError, FetchConfig, Settings, Source, load_settings
+from cyberpulse.config import ConfigError, FetchConfig, Settings, Source, load_settings, load_sources
 from cyberpulse.fetcher import FetchReport, RawItem, SourceResult, fetch_all, fetch_source
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures" / "rss"
@@ -437,5 +437,75 @@ def test_fetch_source_propagates_non_httpx_exception() -> None:
 
     with pytest.raises(ValueError, match="Programming error in transport"):
         fetch_source(client, source, cfg)
+
+
+def test_user_agent_header_sent() -> None:
+    """16. The User-Agent sent on each request equals cfg.user_agent."""
+    content = _read_fixture("valid_rss.xml")
+    captured_headers: list[dict[str, str]] = []
+
+    def handler(req: httpx.Request) -> httpx.Response:
+        captured_headers.append(dict(req.headers))
+        return httpx.Response(200, content=content)
+
+    client = httpx.Client(transport=httpx.MockTransport(handler))
+    source = Source(name="UA Test Source", url="https://example.com/ua-test")
+    cfg = FetchConfig()
+
+    items, result = fetch_source(client, source, cfg)
+
+    assert result.ok is True
+    assert len(captured_headers) == 1
+    assert "user-agent" in captured_headers[0]
+    assert captured_headers[0]["user-agent"] == cfg.user_agent
+
+
+def test_403_not_retried_other_sources_unaffected() -> None:
+    """17. A 403 source is NOT retried (exactly 1 request) and does not affect other sources."""
+    rss_content = _read_fixture("valid_rss.xml")
+    call_counts: dict[str, int] = {"forbidden": 0, "healthy": 0}
+
+    def handler(req: httpx.Request) -> httpx.Response:
+        url_str = str(req.url)
+        if "forbidden" in url_str:
+            call_counts["forbidden"] += 1
+            return httpx.Response(403, text="Forbidden")
+        call_counts["healthy"] += 1
+        return httpx.Response(200, content=rss_content)
+
+    client = httpx.Client(transport=httpx.MockTransport(handler))
+    sources = [
+        Source(name="Forbidden Source", url="https://example.com/forbidden"),
+        Source(name="Healthy Source", url="https://example.com/healthy"),
+    ]
+    cfg = FetchConfig(retries=2)
+
+    report = fetch_all(sources, cfg, client=client)
+
+    # 403 source: exactly 1 request (no retry), failed
+    assert call_counts["forbidden"] == 1
+    forbidden_result = next(r for r in report.results if r.source_name == "Forbidden Source")
+    assert forbidden_result.ok is False
+    assert forbidden_result.http_status == 403
+    assert forbidden_result.error == "HTTP 403"
+
+    # Healthy source: unaffected, succeeded
+    assert call_counts["healthy"] == 1
+    healthy_result = next(r for r in report.results if r.source_name == "Healthy Source")
+    assert healthy_result.ok is True
+    assert healthy_result.item_count == 3
+    assert len(report.items) == 3
+    assert all(it.source_name == "Healthy Source" for it in report.items)
+
+
+def test_sources_toml_loads_without_error() -> None:
+    """18. config/sources.toml loads through the existing loader; at least 5 enabled; no BleepingComputer."""
+    sources = load_sources("config/sources.toml")
+
+    enabled = [s for s in sources if s.enabled]
+    assert len(enabled) >= 5
+
+    names = {s.name for s in sources}
+    assert "BleepingComputer" not in names
 
 
