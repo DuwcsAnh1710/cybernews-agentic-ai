@@ -221,6 +221,34 @@ cyberpulse validate --research output/research/<run_id>.json --editorial output/
 - `7`: Invalid inputs (file missing or malformed JSON).
 - `1`: Configuration error (`ConfigError`).
 
+### Workbench UI (Streamlit Inspection & Review)
+
+The CyberPulse AI Workbench is a local web UI designed for human-in-the-loop inspection, cross-referencing Vietnamese outputs against English RSS sources, and recording auditable approval decisions or quick text revisions.
+
+**Key Architecture & Security Rules**:
+- **Client layer only**: Reads artifacts and writes review records/text edits only. Never initiates fetch, collect, research, editorial, or LLM network calls.
+- **Local binding**: Binds strictly to `127.0.0.1` (`localhost`).
+- **Read-only database**: Accesses SQLite in read-only mode (`mode=ro`).
+- **XSS prevention**: All untrusted source and LLM text is HTML-escaped before inserting `<mark>` highlights.
+- **Review governance**: Approval requires fresh validation results (`freshness == "fresh"`), zero errors (`passed == true`), and explicit checkbox acknowledgment of any warnings.
+- **Quick edits**: Text edits create an unalterable `<run_id>.original.json` backup on first edit, re-render the preview markdown, and mark validation as stale until re-run.
+
+**Launch Workbench**:
+```powershell
+cyberpulse ui
+```
+
+With custom port or settings:
+```powershell
+cyberpulse ui --port 8501 --settings path/to/settings.toml
+```
+
+Print the launch command without running:
+```powershell
+cyberpulse ui --print-command
+```
+
+
 
 
 

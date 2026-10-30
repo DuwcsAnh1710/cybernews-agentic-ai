@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime, timedelta, timezone
+import importlib.util
 import os
 from pathlib import Path
+import subprocess
 import sys
 from typing import Literal
 
@@ -190,6 +192,30 @@ def build_parser() -> argparse.ArgumentParser:
         type=Path,
         default=Path("config/settings.toml"),
         help="Path to settings.toml (default: config/settings.toml)",
+    )
+
+    # ui subcommand
+    ui_parser = subparsers.add_parser(
+        "ui",
+        help="Launch the Streamlit inspection and review workbench",
+    )
+    ui_parser.add_argument(
+        "--port",
+        type=int,
+        default=8501,
+        help="Port to bind the Streamlit server (default: 8501, range: 1024-65535)",
+    )
+    ui_parser.add_argument(
+        "--settings",
+        type=Path,
+        default=Path("config/settings.toml"),
+        help="Path to settings.toml (default: config/settings.toml)",
+    )
+    ui_parser.add_argument(
+        "--print-command",
+        action="store_true",
+        default=False,
+        help="Print the Streamlit command line arguments without starting the server",
     )
 
     return parser
@@ -656,6 +682,62 @@ def run_validate(
     return 0 if report.passed else 8
 
 
+def run_ui(
+    port: int,
+    settings_path: Path,
+    print_command: bool = False,
+) -> int:
+    """Launch or print command for the Streamlit workbench."""
+    if not (1024 <= port <= 65535):
+        print(f"Error: port must be between 1024 and 65535, got {port}", file=sys.stderr)
+        return 1
+
+    try:
+        load_settings(settings_path)
+    except ConfigError as err:
+        print(f"ConfigError: {err}", file=sys.stderr)
+        return 1
+
+    if importlib.util.find_spec("streamlit") is None:
+        print(
+            "Streamlit is not installed. Run: .\\.venv\\Scripts\\python.exe -m pip install -e \".[ui]\"",
+            file=sys.stderr,
+        )
+        return 9
+
+    app_path = Path(__file__).parent / "ui" / "app.py"
+    cmd = [
+        sys.executable,
+        "-m",
+        "streamlit",
+        "run",
+        str(app_path.resolve()),
+        "--server.address",
+        "127.0.0.1",
+        "--server.port",
+        str(port),
+        "--server.headless",
+        "true",
+        "--browser.gatherUsageStats",
+        "false",
+        "--",
+        "--settings",
+        str(settings_path.resolve()),
+    ]
+
+    if print_command:
+        for arg in cmd:
+            print(arg)
+        return 0
+
+    print(f"Workbench: http://127.0.0.1:{port}  (Ctrl+C to stop)")
+    try:
+        res = subprocess.run(cmd)
+        return res.returncode
+    except KeyboardInterrupt:
+        return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     """CLI main entry point."""
     if sys.stdout and hasattr(sys.stdout, "reconfigure"):
@@ -709,6 +791,12 @@ def main(argv: list[str] | None = None) -> int:
             editorial_path=args.editorial,
             settings_path=args.settings,
             no_llm_review=args.no_llm_review,
+        )
+    elif args.command == "ui":
+        return run_ui(
+            port=args.port,
+            settings_path=args.settings,
+            print_command=args.print_command,
         )
     return 0
 
