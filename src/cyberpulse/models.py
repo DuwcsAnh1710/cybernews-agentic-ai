@@ -244,6 +244,55 @@ class VideoScript(BaseModel):
         return self
 
 
+def normalize_hashtags(value: object) -> object:
+    """Normalize LLM-produced hashtags to a deduplicated list of ``#tag`` strings.
+
+    Handles the common LLM quirk of returning a comma-joined string instead
+    of a proper JSON array.  Non-str/list/tuple inputs are returned unchanged
+    so that Pydantic can raise its own validation error.
+
+    Rules applied (in order):
+    1. ``str`` → split on commas, whitespace, and newlines.
+    2. ``list``/``tuple`` of ``str`` → strip each item.
+    3. Drop empty items; prefix ``#`` if missing; remove inner whitespace.
+    4. Deduplicate case-insensitively, keeping the first occurrence.
+    5. Preserve original casing and Vietnamese diacritics.
+    """
+    import re as _re
+
+    if isinstance(value, (list, tuple)):
+        items: list[str] = []
+        for item in value:
+            if isinstance(item, str):
+                # Each element might itself be comma-joined
+                items.extend(item.split(","))
+            else:
+                items.append(item)  # let Pydantic handle non-str elements
+    elif isinstance(value, str):
+        items = _re.split(r"[,\s]+", value.strip())
+    else:
+        # None, int, dict, … — return unchanged for Pydantic to reject
+        return value
+
+    result: list[str] = []
+    seen: set[str] = set()
+    for raw in items:
+        tag = raw.strip()
+        if not tag:
+            continue
+        # Remove inner whitespace (e.g. "# Cyber Security" → "#CyberSecurity")
+        tag = "".join(tag.split())
+        # Ensure '#' prefix
+        if not tag.startswith("#"):
+            tag = "#" + tag
+        # Case-insensitive dedup
+        key = tag.lower()
+        if key not in seen:
+            seen.add(key)
+            result.append(tag)
+    return result
+
+
 class Caption(BaseModel):
     """Social media caption targeting a specific platform."""
 
@@ -251,6 +300,11 @@ class Caption(BaseModel):
     text: str
     hashtags: list[str] = Field(default_factory=list)
     cited_article_ids: list[str] = Field(min_length=1)
+
+    @field_validator("hashtags", mode="before")
+    @classmethod
+    def _normalize_hashtags(cls, v: object) -> object:
+        return normalize_hashtags(v)
 
     @field_validator("text")
     @classmethod

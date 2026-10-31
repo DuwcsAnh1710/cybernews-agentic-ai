@@ -23,6 +23,7 @@ from pydantic import BaseModel, Field, field_validator
 from cyberpulse.config import Settings
 from cyberpulse.llm import LLMClient
 from cyberpulse.models import (
+    normalize_hashtags,
     Caption,
     CitedText,
     Digest,
@@ -95,6 +96,11 @@ class CaptionDraft(BaseModel):
     text: str
     hashtags: list[str] = Field(default_factory=list)
     cites: list[str] = Field(min_length=1)
+
+    @field_validator("hashtags", mode="before")
+    @classmethod
+    def _normalize_hashtags(cls, v: object) -> object:
+        return normalize_hashtags(v)
 
     @field_validator("platform", "text")
     @classmethod
