@@ -95,13 +95,16 @@ def conn(tmp_path: Path) -> sqlite3.Connection:
     c.close()
 
 
+_NOW = datetime.now(timezone.utc).replace(microsecond=0)
+
+
 def make_article(
     article_suffix: str = "1",
     title: str = "Critical Vulnerability in System X",
     source_name: str = "The Record",
     hours_ago: int = 1,
 ) -> Article:
-    now = datetime(2026, 10, 31, 10, 0, 0, tzinfo=timezone.utc)
+    now = _NOW
     pub = now - timedelta(hours=hours_ago)
     url = f"https://example.com/news/{article_suffix}"
     art_id = make_article_id(url)
@@ -329,7 +332,7 @@ def test_orchestrator_happy_path(conn: sqlite3.Connection, fake_settings: Settin
     editorial_fake = lambda res: make_editorial_package(res.run_id, res)
     validate_fake = lambda res, pkg: make_validation_report(pkg.run_id, passed=True)
 
-    fixed_time = datetime(2026, 10, 31, 10, 0, 0, tzinfo=timezone.utc)
+    fixed_time = _NOW
     sleep_tracker = SleepTracker()
 
     orch = Orchestrator(
@@ -527,7 +530,7 @@ def test_empty_candidates_in_db_fails_insufficient_research(conn: sqlite3.Connec
 
 def test_default_candidate_fetcher_matches_list_recent_articles(conn: sqlite3.Connection, fake_settings: Settings) -> None:
     """Default candidate selection matches list_recent_articles with settings lookback and max_candidates."""
-    now = datetime(2026, 10, 31, 10, 0, 0, tzinfo=timezone.utc)
+    now = _NOW
     # Seed 5 articles: 3 within 24h, 2 older than 24h
     a1 = make_article("recent-1", "Recent 1", hours_ago=2)
     a2 = make_article("recent-2", "Recent 2", hours_ago=5)

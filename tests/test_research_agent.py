@@ -25,6 +25,9 @@ from cyberpulse.models import Article, ResearchResult, make_article_id
 from cyberpulse.storage import connect, init_db, upsert_article
 
 
+_NOW = datetime.now(timezone.utc).replace(microsecond=0)
+
+
 def _make_article(
     index: int,
     source: str = "Sample Source A",
@@ -33,7 +36,7 @@ def _make_article(
     pub_offset_hours: int = 0,
 ) -> Article:
     url = f"https://example.com/sample/item-{index}"
-    t0 = datetime(2026, 10, 29, 12, 0, 0, tzinfo=timezone.utc)
+    t0 = _NOW
     pub_at = t0 - timedelta(hours=pub_offset_hours)
     title = f"SAMPLE — Article {index}{title_suffix}"
     return Article(
