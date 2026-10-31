@@ -215,12 +215,32 @@ NUMBER_WORDS = {
     "twenty": "20",
 }
 
+_BUILTIN_TERMS: set[str] = {"internet"}
+
 _NUM_WORD_PATTERN = re.compile(
     r"\b(" + "|".join(NUMBER_WORDS.keys()) + r")\b",
     re.IGNORECASE,
 )
 
 _CVE_PATTERN = re.compile(r"CVE-\d{4}-\d{4,}", re.IGNORECASE)
+
+_ENUM_LINE_RE = re.compile(r"^[ \t]*(\d{1,2})[.)][ \t]+", re.MULTILINE)
+
+_NUM_TOKEN_RE = re.compile(
+    r"(?<!\w)(?:([$€£])|([vV])(?=\d))?(\d+(?:[.,]\d+)*)(?:(bn|billion|m|million|k|b)(?!\w))?",
+    re.IGNORECASE,
+)
+
+_THOUSANDS_RE = re.compile(r"^\d{1,3}(?:([.,])\d{3})+$")
+_VERSION_RE = re.compile(r"^\d+(?:\.\d+){2,}$")
+_DECIMAL_RE = re.compile(r"^\d+[.,]\d+$")
+_INTEGER_RE = re.compile(r"^\d+$")
+
+_VERSION_MASK_PATTERN = re.compile(r"\bv?\d+(?:\.\d+){2,}\b", re.IGNORECASE)
+_NUM_MAG_MASK_PATTERN = re.compile(
+    r"(?<!\w)[$€£]?\d+(?:[.,]\d+)*(?:bn|billion|m|million|k|b)?(?!\w)",
+    re.IGNORECASE,
+)
 
 _CLAUSE_SPLIT_PATTERN = re.compile(
     r'[\r\n]+|[.!?…:;]+|\s+[-–—]\s+|(?:^|[\r\n])\s*[-–—•*]\s+|\s+[•*]\s+|["“‘«\[{<]'
@@ -246,36 +266,93 @@ def _normalize_text(text: str) -> str:
     return unicodedata.normalize("NFC", text)
 
 
+def _drop_list_enumerators(text: str) -> str:
+    """Drop line-leading enumerators (e.g. '1. ') ONLY when block has consecutive run starting at 1 of >=2 items."""
+    matches = list(_ENUM_LINE_RE.finditer(text))
+    if not matches:
+        return text
+    items = [(m, int(m.group(1))) for m in matches]
+    run_matches = []
+    i = 0
+    while i < len(items):
+        if items[i][1] == 1:
+            current_run = [items[i][0]]
+            expected = 2
+            j = i + 1
+            while j < len(items) and items[j][1] == expected:
+                current_run.append(items[j][0])
+                expected += 1
+                j += 1
+            if len(current_run) >= 2:
+                run_matches.extend(current_run)
+                i = j
+                continue
+        i += 1
+    if not run_matches:
+        return text
+    result = list(text)
+    for m in run_matches:
+        start, end = m.span()
+        result[start:end] = [" "] * (end - start)
+    return "".join(result)
+
+
+def _classify_and_canonicalize(token: str) -> tuple[str, str]:
+    r"""Classify token per P4 precedence rules:
+    1) mask CVE ids (handled prior to calling)
+    2) thousands pattern first: ^\d{1,3}([.,]\d{3})+$ -> digits only
+    3) version pattern ^\d+(\.\d+){2,}$ -> atomic token
+    4) decimals -> canonical uses "."
+    5) integers
+    """
+    m_th = _THOUSANDS_RE.match(token)
+    if m_th:
+        seps = set(re.findall(r"[.,]", token))
+        if len(seps) == 1:
+            digits_only = re.sub(r"[.,]", "", token)
+            return ("thousands", digits_only)
+
+    if _VERSION_RE.match(token):
+        return ("version", token)
+
+    if _DECIMAL_RE.match(token):
+        return ("decimal", token.replace(",", "."))
+
+    if _INTEGER_RE.match(token):
+        return ("integer", token)
+
+    return ("unknown", token)
+
+
 def _extract_cves(text: str) -> list[str]:
     """Find all CVE IDs in text."""
     return _CVE_PATTERN.findall(text)
 
 
 def _extract_numbers(text: str) -> list[str]:
-    """Extract standalone numbers from text after removing CVEs."""
-    no_cves = _CVE_PATTERN.sub(" ", text)
-    # Match integers or decimal numbers
-    raw_matches = re.findall(r"\b\d+(?:[.,]\d+)?\b", no_cves)
+    """Extract standalone numbers from text after removing enumerators and CVEs."""
+    no_enum = _drop_list_enumerators(text)
+    no_cves = _CVE_PATTERN.sub(lambda m: " " * len(m.group(0)), no_enum)
     normalized: list[str] = []
-    for m in raw_matches:
-        # Treat comma in decimals as dot
-        norm = m.replace(",", ".")
-        normalized.append(norm)
+    for m in _NUM_TOKEN_RE.finditer(no_cves):
+        raw_num = m.group(3)
+        _kind, canon = _classify_and_canonicalize(raw_num)
+        normalized.append(canon)
     return normalized
 
 
 def _get_source_numbers(source_text: str) -> set[str]:
     """Extract all numbers from source text including mapped number words zero-twenty."""
-    no_cves = _CVE_PATTERN.sub(" ", source_text)
+    no_cves = _CVE_PATTERN.sub(lambda m: " " * len(m.group(0)), source_text)
     expanded = _NUM_WORD_PATTERN.sub(lambda m: NUMBER_WORDS[m.group(0).lower()], no_cves)
-    raw_numbers = re.findall(r"\b\d+(?:[.,]\d+)?\b", expanded)
     nums: set[str] = set()
-    for n in raw_numbers:
-        norm = n.replace(",", ".")
-        nums.add(norm)
-        # Also include integer part if decimal
-        if "." in norm:
-            int_part = norm.split(".")[0]
+    for m in _NUM_TOKEN_RE.finditer(expanded):
+        raw_num = m.group(3)
+        kind, canon = _classify_and_canonicalize(raw_num)
+        nums.add(canon)
+        # P6: source-side integer-part leniency for TRUE DECIMALS only
+        if kind == "decimal" and "." in canon:
+            int_part = canon.split(".")[0]
             if int_part:
                 nums.add(int_part)
     return nums
@@ -311,6 +388,9 @@ def _extract_candidate_terms(text: str, path: str = "") -> list[str]:
         (an initial word starts the text or follows ., !, ?, :, ;, …, separator dash, bullet, or opening quote/bracket).
     """
     clean_text = re.sub(r"\([^)]*\)", " ", text)
+    clean_text = _CVE_PATTERN.sub(lambda m: " " * len(m.group(0)), clean_text)
+    clean_text = _VERSION_MASK_PATTERN.sub(lambda m: " " * len(m.group(0)), clean_text)
+    clean_text = _NUM_MAG_MASK_PATTERN.sub(lambda m: " " * len(m.group(0)), clean_text)
     is_headline = _is_headline_field(path)
 
     is_mostly_upper = False
@@ -702,9 +782,11 @@ def validate_package(
     checks_run.append("layer2_source_consistency")
 
     blocks = _extract_blocks(pkg, all_article_ids)
-    effective_allowlist = {
-        term.lower() for term in settings.validator.term_allowlist
-    } | {speaker.lower() for speaker in settings.editorial.podcast_speakers}
+    effective_allowlist = (
+        {term.lower() for term in settings.validator.term_allowlist}
+        | {speaker.lower() for speaker in settings.editorial.podcast_speakers}
+        | _BUILTIN_TERMS
+    )
 
     allowed_numbers = {str(len(research.items))}
 
@@ -749,17 +831,26 @@ def validate_package(
         for term in candidate_terms:
             if term.lower() in effective_allowlist:
                 continue
-            # Search as word or token in source text
-            if not re.search(rf"\b{re.escape(term.lower())}\b", block_source_lower):
-                warnings.append(
-                    ValidationIssue(
-                        code="W_TERM_UNSUPPORTED",
-                        severity="warning",
-                        path=block.path,
-                        message=f"Term '{term}' not found in cited source text and not allowlisted",
-                        evidence=term[:200],
-                    )
+            # USD rule: supported if source contains "$" or "USD"
+            if term.upper() == "USD":
+                if "$" in block_source_text or re.search(r"\busd\b", block_source_lower):
+                    continue
+            # Exact word match
+            if re.search(rf"\b{re.escape(term.lower())}\b", block_source_lower):
+                continue
+            # Prefix rule for terms with >= 4 characters
+            if len(term) >= 4 and re.search(rf"\b{re.escape(term.lower())}", block_source_lower):
+                continue
+
+            warnings.append(
+                ValidationIssue(
+                    code="W_TERM_UNSUPPORTED",
+                    severity="warning",
+                    path=block.path,
+                    message=f"Term '{term}' not found in cited source text and not allowlisted",
+                    evidence=term[:200],
                 )
+            )
 
     # ==========================================================================
     # LAYER 3 — LLM Claim Review (Optional, Advisory)
