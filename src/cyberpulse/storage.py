@@ -111,10 +111,12 @@ def create_run(conn: sqlite3.Connection, run_id: str | None = None) -> str:
 def update_run_status(
     conn: sqlite3.Connection,
     run_id: str,
-    status: RunStatus | str,
+    status: RunStatus,
     error: str | None = None,
 ) -> None:
-    """Update status and updated_at timestamp of a run. Raises KeyError if run_id not found."""
+    """Update status and updated_at timestamp of a run. Raises TypeError if status is not RunStatus. Raises KeyError if run_id not found."""
+    if not isinstance(status, RunStatus):
+        raise TypeError(f"status must be a RunStatus enum member, got {type(status).__name__}: {status!r}")
     status_str = status.value if isinstance(status, RunStatus) else str(status)
     now_str = datetime.now(timezone.utc).isoformat()
     with conn:
@@ -263,6 +265,69 @@ def load_editorial_package(conn: sqlite3.Connection, run_id: str) -> EditorialPa
     if row is None:
         return None
     return EditorialPackage.model_validate_json(row["body_json"])
+
+
+def save_content(
+    conn: sqlite3.Connection,
+    run_id: str,
+    kind: str,
+    body_json: str,
+) -> None:
+    """Save or update JSON content for a given run and kind."""
+    now_str = datetime.now(timezone.utc).isoformat()
+    with conn:
+        conn.execute(
+            """
+            INSERT INTO contents (run_id, kind, body_json, created_at)
+            VALUES (?, ?, ?, ?)
+            ON CONFLICT(run_id, kind) DO UPDATE SET
+                body_json = excluded.body_json,
+                created_at = excluded.created_at
+            """,
+            (run_id, kind, body_json, now_str),
+        )
+
+
+def load_content(
+    conn: sqlite3.Connection,
+    run_id: str,
+    kind: str,
+) -> str | None:
+    """Load raw JSON content from contents table by run_id and kind."""
+    cursor = conn.execute(
+        """
+        SELECT body_json
+        FROM contents
+        WHERE run_id = ? AND kind = ?
+        """,
+        (run_id, kind),
+    )
+    row = cursor.fetchone()
+    if row is None:
+        return None
+    return row["body_json"]
+
+
+def save_validation_report(
+    conn: sqlite3.Connection,
+    run_id: str,
+    report: Any,
+) -> None:
+    """Save validation report to contents table."""
+    body_json = report.model_dump_json() if hasattr(report, "model_dump_json") else str(report)
+    save_content(conn, run_id, "validation_report", body_json)
+
+
+def load_validation_report(
+    conn: sqlite3.Connection,
+    run_id: str,
+) -> Any | None:
+    """Load validation report from contents table by run_id."""
+    raw = load_content(conn, run_id, "validation_report")
+    if raw is None:
+        return None
+    from cyberpulse.validator import ValidationReport
+    return ValidationReport.model_validate_json(raw)
 
 
 def add_step_log(conn: sqlite3.Connection, log: StepLog) -> None:
