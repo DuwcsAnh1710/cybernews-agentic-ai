@@ -11,10 +11,11 @@ from pathlib import Path
 import re
 import sqlite3
 import time
-from typing import Callable, Literal
+from typing import Any, Callable, Literal, Sequence
 import uuid
 
 from cyberpulse.config import Settings
+from cyberpulse.feedback import FeedbackItem, REWRITABLE_ERROR_CODES, build_feedback, feedback_signature
 from cyberpulse.models import (
     Article,
     EditorialPackage,
@@ -66,7 +67,7 @@ ALLOWED_TRANSITIONS: dict[RunStatus, set[RunStatus]] = {
     RunStatus.pending: {RunStatus.researching, RunStatus.failed},
     RunStatus.researching: {RunStatus.editing, RunStatus.failed},
     RunStatus.editing: {RunStatus.validating, RunStatus.failed},
-    RunStatus.validating: {RunStatus.awaiting_review, RunStatus.failed},
+    RunStatus.validating: {RunStatus.awaiting_review, RunStatus.failed, RunStatus.editing},
     RunStatus.awaiting_review: set(),
     RunStatus.failed: set(),
     RunStatus.rendering: set(),
@@ -175,6 +176,8 @@ class StageOutcome:
     report: Any | None
     failure_reason: FailureReason | None = None
     error_message: str | None = None
+    rewrite_attempts: int = 0
+    stop_reason: str | None = None
 
 
 @dataclass
@@ -188,10 +191,16 @@ class RunResult:
     artifacts: dict[str, Path] = field(default_factory=dict)
     step_attempts: dict[str, int] = field(default_factory=dict)
     error_message: str | None = None
+    rewrite_attempts: int = 0
+    stop_reason: str | None = None
 
 
 class Orchestrator:
-    """State machine orchestrator managing pipeline execution, persistence, and bounded retry."""
+    """State machine orchestrator managing pipeline execution, persistence, and bounded retry.
+
+    Note: When rewrites are enabled, validate_step MUST execute Layer 1-2 only
+    (Layer 3 claim review runs once post-loop in T5.2).
+    """
 
     def __init__(
         self,
@@ -206,6 +215,8 @@ class Orchestrator:
         max_step_attempts: int = 2,
         allow_insufficient: bool = False,
         backoff_base_sec: float = 5.0,
+        rewrite_step: Callable[[ResearchResult, EditorialPackage, Sequence[Any]], EditorialPackage] | None = None,
+        max_rewrites: int = 2,
     ) -> None:
         self.conn = conn
         self.settings = settings
@@ -218,6 +229,8 @@ class Orchestrator:
         self.max_step_attempts = max(1, max_step_attempts)
         self.allow_insufficient = allow_insufficient
         self.backoff_base_sec = backoff_base_sec
+        self.rewrite_step = rewrite_step
+        self.max_rewrites = max(0, min(3, max_rewrites))
         self._current_status: dict[str, RunStatus] = {}
 
     def _transition_to(
@@ -306,15 +319,67 @@ class Orchestrator:
         except Exception as exc:
             logger.warning("Failed to record failure status for run '%s': %s", run_id, exc)
 
-    def _edit_and_validate(
+    def _error_code_counts_summary(self, errors: Sequence[Any]) -> str:
+        """Format error codes and counts only (no content) in sorted order."""
+        counts: dict[str, int] = {}
+        for e in errors:
+            code = getattr(e, "code", "UNKNOWN")
+            counts[code] = counts.get(code, 0) + 1
+        parts = [f"{code}={counts[code]}" for code in sorted(counts.keys())]
+        return ", ".join(parts)
+
+    def _persist_editorial_artifacts(
+        self,
+        run_id: str,
+        research: ResearchResult,
+        pkg: EditorialPackage,
+        artifacts: dict[str, Path],
+    ) -> None:
+        """Persist editorial package in SQLite contents and atomic files."""
+        save_editorial_package(self.conn, pkg)
+        preview_md = render_markdown(pkg, research)
+        editorial_dir = self.settings.paths.output_dir / "editorial"
+        json_path = editorial_dir / f"{run_id}.json"
+        md_path = editorial_dir / f"{run_id}.md"
+
+        atomic_write_text(json_path, pkg.model_dump_json(indent=2))
+        atomic_write_text(md_path, preview_md)
+        artifacts["editorial_json"] = json_path
+        artifacts["editorial_md"] = md_path
+
+    def _persist_validation_artifacts(
+        self,
+        run_id: str,
+        report: Any,
+        artifacts: dict[str, Path],
+    ) -> None:
+        """Persist validation report in SQLite contents and atomic file."""
+        save_validation_report(self.conn, run_id, report)
+        validation_dir = self.settings.paths.output_dir / "validation"
+        report_path = validation_dir / f"{run_id}.json"
+        report_json = report.model_dump_json(indent=2) if hasattr(report, "model_dump_json") else str(report)
+        atomic_write_text(report_path, report_json)
+        artifacts["validation"] = report_path
+
+    def _finalize_best_artifacts(
+        self,
+        run_id: str,
+        research: ResearchResult,
+        best_pkg: EditorialPackage,
+        best_report: Any,
+        artifacts: dict[str, Path],
+    ) -> None:
+        """Finalize the best attempt package and report to database and disk."""
+        self._persist_editorial_artifacts(run_id, research, best_pkg, artifacts)
+        self._persist_validation_artifacts(run_id, best_report, artifacts)
+
+    def _run_editorial_step(
         self,
         run_id: str,
         research: ResearchResult,
         step_attempts: dict[str, int],
-        artifacts: dict[str, Path],
-    ) -> StageOutcome:
-        """Private hook executing editing and validation (T5.1b will wrap in bounded rewrite loop)."""
-        # Transition to editing
+    ) -> tuple[EditorialPackage | None, FailureReason | None, str | None]:
+        """Execute initial editorial step with bounded transient retry."""
         self._transition_to(
             run_id=run_id,
             target_status=RunStatus.editing,
@@ -323,15 +388,17 @@ class Orchestrator:
             message="Editorial started",
         )
 
-        pkg: EditorialPackage | None = None
         attempt = 0
         while attempt < self.max_step_attempts:
             attempt += 1
             step_attempts["editorial"] = attempt
             try:
-                # Note: A retried editorial step repeats BOTH LLM calls (written draft and scripts draft).
                 pkg = self.editorial_step(research)
-                break
+                if pkg is None:
+                    return None, FailureReason.editorial_failed, "Editorial returned no package"
+                if pkg.run_id != run_id:
+                    return None, FailureReason.internal_error, f"Editorial package run_id mismatch: expected '{run_id}', got '{pkg.run_id}'"
+                return pkg, None, None
             except Exception as exc:
                 if _is_retryable_llm_error(exc) and attempt < self.max_step_attempts:
                     delay = calculate_backoff(attempt, self.backoff_base_sec, exc)
@@ -345,56 +412,186 @@ class Orchestrator:
                     self.sleep_fn(delay)
                     continue
 
-                # Non-retryable or retries exhausted
                 reason = FailureReason.llm_error if _is_llm_error(exc) else (
                     FailureReason.editorial_failed if _is_editorial_error(exc) else FailureReason.internal_error
                 )
-                return StageOutcome(
-                    pkg=None,
-                    report=None,
-                    failure_reason=reason,
-                    error_message=sanitize_error_message(str(exc)),
-                )
+                return None, reason, sanitize_error_message(str(exc))
 
-        if pkg is None:
-            return StageOutcome(
-                pkg=None,
-                report=None,
-                failure_reason=FailureReason.editorial_failed,
-                error_message="Editorial returned no package",
+        return None, FailureReason.editorial_failed, "Editorial attempts exhausted"
+
+    def _run_validate_step(
+        self,
+        run_id: str,
+        research: ResearchResult,
+        pkg: EditorialPackage,
+        step_attempts: dict[str, int],
+    ) -> tuple[Any | None, FailureReason | None, str | None]:
+        """Execute validate_step safely and track attempt count."""
+        step_attempts["validate"] = step_attempts.get("validate", 0) + 1
+        try:
+            report = self.validate_step(research, pkg)
+            return report, None, None
+        except Exception as exc:
+            return None, FailureReason.internal_error, sanitize_error_message(f"Validator raised unexpected exception: {exc}")
+
+    def _run_rewrite_attempt(
+        self,
+        run_id: str,
+        research: ResearchResult,
+        pkg: EditorialPackage,
+        feedback: Sequence[Any],
+        attempt: int,
+    ) -> tuple[EditorialPackage | None, FailureReason | None, str | None, str | None]:
+        """Execute a single rewrite attempt inside transient retry loop."""
+        if self.rewrite_step is None:
+            return None, FailureReason.internal_error, "rewrite_step is None", "internal_error"
+
+        sub_attempt = 0
+        while sub_attempt < self.max_step_attempts:
+            sub_attempt += 1
+            try:
+                new_pkg = self.rewrite_step(research, pkg, feedback)
+                return new_pkg, None, None, None
+            except Exception as exc:
+                if _is_retryable_llm_error(exc) and sub_attempt < self.max_step_attempts:
+                    delay = calculate_backoff(sub_attempt, self.backoff_base_sec, exc)
+                    self._append_event_log(
+                        run_id=run_id,
+                        step="rewrite",
+                        status="retrying",
+                        attempt=attempt,
+                        message=f"Rewrite retrying after transient error ({delay:.1f}s backoff): {exc}",
+                    )
+                    self.sleep_fn(delay)
+                    continue
+
+                if _is_llm_error(exc):
+                    return None, FailureReason.validation_failed, sanitize_error_message(str(exc)), "llm_error"
+                if _is_editorial_error(exc):
+                    return None, FailureReason.validation_failed, sanitize_error_message(str(exc)), "editorial_error"
+                return None, FailureReason.internal_error, sanitize_error_message(str(exc)), "internal_error"
+
+        return None, FailureReason.validation_failed, "Rewrite LLM retry attempts exhausted", "llm_error"
+
+    def _run_rewrite_loop(
+        self,
+        run_id: str,
+        research: ResearchResult,
+        initial_pkg: EditorialPackage,
+        initial_report: Any,
+        step_attempts: dict[str, int],
+    ) -> tuple[EditorialPackage, Any, FailureReason | None, str | None, int, str | None]:
+        """Run bounded rewrite loop optimizing for fewest blocking errors."""
+        best_pkg = initial_pkg
+        best_report = initial_report
+        best_errors_count = len(getattr(initial_report, "errors", []))
+
+        current_pkg = initial_pkg
+        current_report = initial_report
+        feedback = build_feedback(current_report)
+        prev_sig = feedback_signature(feedback)
+        rewrites_done = 0
+        stop_reason: str | None = None
+
+        while rewrites_done < self.max_rewrites:
+            rewrites_done += 1
+            step_attempts["rewrite"] = rewrites_done
+
+            self._transition_to(
+                run_id=run_id,
+                target_status=RunStatus.editing,
+                step="rewrite",
+                attempt=rewrites_done,
+                message=f"Rewrite attempt {rewrites_done} started",
             )
 
-        if pkg.run_id != run_id:
-            return StageOutcome(
-                pkg=None,
-                report=None,
-                failure_reason=FailureReason.internal_error,
-                error_message=f"Editorial package run_id mismatch: expected '{run_id}', got '{pkg.run_id}'",
+            new_pkg, fail_reason, err_msg, a_stop = self._run_rewrite_attempt(
+                run_id, research, current_pkg, feedback, rewrites_done
+            )
+            if fail_reason is not None or new_pkg is None:
+                return best_pkg, best_report, fail_reason, err_msg, rewrites_done, a_stop
+
+            if new_pkg.run_id != run_id:
+                mismatch_err = f"Rewrite package run_id mismatch: expected '{run_id}', got '{new_pkg.run_id}'"
+                return best_pkg, best_report, FailureReason.internal_error, mismatch_err, rewrites_done, "internal_error"
+
+            self._transition_to(
+                run_id=run_id,
+                target_status=RunStatus.validating,
+                step="rewrite",
+                attempt=rewrites_done,
+                message=f"Validating rewrite attempt {rewrites_done}",
             )
 
-        # Persist editorial package in SQLite contents
-        save_editorial_package(self.conn, pkg)
+            new_report, v_fail, v_msg = self._run_validate_step(run_id, research, new_pkg, step_attempts)
+            if v_fail is not None or new_report is None:
+                return best_pkg, best_report, FailureReason.internal_error, v_msg, rewrites_done, "internal_error"
 
-        # Write editorial artifacts atomically
-        preview_md = render_markdown(pkg, research)
-        editorial_dir = self.settings.paths.output_dir / "editorial"
-        json_path = editorial_dir / f"{run_id}.json"
-        md_path = editorial_dir / f"{run_id}.md"
+            a = len(getattr(current_report, "errors", []))
+            b = len(getattr(new_report, "errors", []))
+            new_feedback = build_feedback(new_report)
+            new_sig = feedback_signature(new_feedback)
 
-        atomic_write_text(json_path, pkg.model_dump_json(indent=2))
-        atomic_write_text(md_path, preview_md)
-        artifacts["editorial_json"] = json_path
-        artifacts["editorial_md"] = md_path
+            if getattr(new_report, "passed", False):
+                stop_reason = None
+            elif any(getattr(e, "code", "") not in REWRITABLE_ERROR_CODES for e in getattr(new_report, "errors", [])) or len(new_feedback) == 0:
+                stop_reason = "non_rewritable"
+            elif new_sig == prev_sig:
+                stop_reason = "no_progress"
+            elif rewrites_done >= self.max_rewrites:
+                stop_reason = "budget_exhausted"
+            else:
+                stop_reason = None
 
+            log_status: Literal["started", "succeeded", "failed", "retrying", "skipped"] = "succeeded" if getattr(new_report, "passed", False) else "failed"
+            log_msg = f"rewrite {rewrites_done}/{self.max_rewrites}: errors {a}->{b}; signature={new_sig[:8]}; stop={stop_reason or 'none'}"
+            self._append_event_log(
+                run_id=run_id,
+                step="rewrite",
+                status=log_status,
+                attempt=rewrites_done,
+                message=log_msg,
+            )
+
+            if getattr(new_report, "passed", False) or b < best_errors_count:
+                best_pkg = new_pkg
+                best_report = new_report
+                best_errors_count = b
+
+            if getattr(new_report, "passed", False) or stop_reason is not None:
+                break
+
+            current_pkg = new_pkg
+            current_report = new_report
+            feedback = new_feedback
+            prev_sig = new_sig
+
+        return best_pkg, best_report, None, None, rewrites_done, stop_reason
+
+    def _edit_and_validate(
+        self,
+        run_id: str,
+        research: ResearchResult,
+        step_attempts: dict[str, int],
+        artifacts: dict[str, Path],
+    ) -> StageOutcome:
+        """Execute editing, validating, and optional bounded rewrite loop."""
+        # 1. Initial editorial attempt
+        pkg, fail_reason, err_msg = self._run_editorial_step(run_id, research, step_attempts)
+        if fail_reason is not None or pkg is None:
+            return StageOutcome(pkg=None, report=None, failure_reason=fail_reason, error_message=err_msg)
+
+        # Persist initial editorial package right away (T5.1a invariant)
+        self._persist_editorial_artifacts(run_id, research, pkg, artifacts)
         self._append_event_log(
             run_id=run_id,
             step="editorial",
             status="succeeded",
-            attempt=attempt,
+            attempt=step_attempts["editorial"],
             message="Editorial completed successfully",
         )
 
-        # Transition to validating
+        # 2. Transition to validating and run validate_step
         self._transition_to(
             run_id=run_id,
             target_status=RunStatus.validating,
@@ -402,38 +599,34 @@ class Orchestrator:
             attempt=1,
             message="Validation started",
         )
-        step_attempts["validate"] = 1
 
-        try:
-            report = self.validate_step(research, pkg)
-        except Exception as exc:
-            return StageOutcome(
-                pkg=pkg,
-                report=None,
-                failure_reason=FailureReason.internal_error,
-                error_message=sanitize_error_message(f"Validator raised unexpected exception: {exc}"),
-            )
+        report, v_fail, v_msg = self._run_validate_step(run_id, research, pkg, step_attempts)
+        if v_fail is not None or report is None:
+            return StageOutcome(pkg=pkg, report=None, failure_reason=v_fail, error_message=v_msg)
 
-        # Persist validation report in contents
-        save_validation_report(self.conn, run_id, report)
+        self._persist_validation_artifacts(run_id, report, artifacts)
 
-        # Write validation artifact atomically
-        validation_dir = self.settings.paths.output_dir / "validation"
-        report_path = validation_dir / f"{run_id}.json"
-        report_json = report.model_dump_json(indent=2) if hasattr(report, "model_dump_json") else str(report)
-        atomic_write_text(report_path, report_json)
-        artifacts["validation"] = report_path
-
-        # Gate on report.passed ONLY (M1)
-        passed = getattr(report, "passed", False)
-        if not passed:
+        # 3. Check if initial validation passed
+        if getattr(report, "passed", False):
             self._append_event_log(
                 run_id=run_id,
                 step="validate",
-                status="failed",
+                status="succeeded",
                 attempt=1,
-                message="Validation failed with blocking issues",
+                message="Validation passed",
             )
+            return StageOutcome(pkg=pkg, report=report, failure_reason=None)
+
+        self._append_event_log(
+            run_id=run_id,
+            step="validate",
+            status="failed",
+            attempt=1,
+            message="Validation failed with blocking issues",
+        )
+
+        # 4. Check if rewrites disabled (T5.1a exact parity)
+        if self.rewrite_step is None or self.max_rewrites == 0:
             return StageOutcome(
                 pkg=pkg,
                 report=report,
@@ -441,18 +634,56 @@ class Orchestrator:
                 error_message="Validation checks failed",
             )
 
-        self._append_event_log(
-            run_id=run_id,
-            step="validate",
-            status="succeeded",
-            attempt=1,
-            message="Validation passed",
+        # 5. Check non-rewritable errors before entering loop
+        if any(getattr(e, "code", "") not in REWRITABLE_ERROR_CODES for e in getattr(report, "errors", [])):
+            counts = self._error_code_counts_summary(report.errors)
+            return StageOutcome(
+                pkg=pkg,
+                report=report,
+                failure_reason=FailureReason.validation_failed,
+                error_message=f"Validation failed: {counts}",
+                rewrite_attempts=0,
+                stop_reason="non_rewritable",
+            )
+
+        # 6. Execute bounded rewrite loop
+        best_pkg, best_report, fail_reason, err_msg, rewrites_done, stop_reason = self._run_rewrite_loop(
+            run_id, research, pkg, report, step_attempts
         )
+
+        # 7. Finalize BEST attempt artifacts (overwriting with best if changed)
+        self._finalize_best_artifacts(run_id, research, best_pkg, best_report, artifacts)
+
+        if fail_reason is not None:
+            if fail_reason == FailureReason.validation_failed:
+                counts = self._error_code_counts_summary(best_report.errors)
+                err_msg = f"Validation failed: {counts}"
+            return StageOutcome(
+                pkg=best_pkg,
+                report=best_report,
+                failure_reason=fail_reason,
+                error_message=err_msg,
+                rewrite_attempts=rewrites_done,
+                stop_reason=stop_reason,
+            )
+
+        if getattr(best_report, "passed", False):
+            return StageOutcome(
+                pkg=best_pkg,
+                report=best_report,
+                failure_reason=None,
+                rewrite_attempts=rewrites_done,
+                stop_reason=None,
+            )
+
+        counts = self._error_code_counts_summary(best_report.errors)
         return StageOutcome(
-            pkg=pkg,
-            report=report,
-            failure_reason=None,
-            error_message=None,
+            pkg=best_pkg,
+            report=best_report,
+            failure_reason=FailureReason.validation_failed,
+            error_message=f"Validation failed: {counts}",
+            rewrite_attempts=rewrites_done,
+            stop_reason=stop_reason or "budget_exhausted",
         )
 
     def run(self, run_id: str | None = None) -> RunResult:
@@ -694,6 +925,8 @@ class Orchestrator:
                     artifacts=artifacts,
                     step_attempts=step_attempts,
                     error_message=stage_outcome.error_message,
+                    rewrite_attempts=stage_outcome.rewrite_attempts,
+                    stop_reason=stage_outcome.stop_reason,
                 )
 
             # Happy path: transition to awaiting_review
@@ -713,6 +946,8 @@ class Orchestrator:
                 artifacts=artifacts,
                 step_attempts=step_attempts,
                 error_message=None,
+                rewrite_attempts=stage_outcome.rewrite_attempts,
+                stop_reason=stage_outcome.stop_reason,
             )
 
         except KeyboardInterrupt as ki:
