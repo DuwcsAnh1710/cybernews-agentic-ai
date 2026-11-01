@@ -267,6 +267,13 @@ def test_transition_table_allowed_transitions(conn: sqlite3.Connection, fake_set
     orch._transition_to(run_id, RunStatus.awaiting_review)
     assert get_run(conn, run_id)["status"] == RunStatus.awaiting_review.value
 
+    # Verify new validating -> editing transition
+    run_id_val_edit = "test-trans-val-edit"
+    create_run(conn, run_id=run_id_val_edit)
+    orch._current_status[run_id_val_edit] = RunStatus.validating
+    orch._transition_to(run_id_val_edit, RunStatus.editing)
+    assert get_run(conn, run_id_val_edit)["status"] == RunStatus.editing.value
+
     # Verify each transition wrote a StepLog
     logs = list_step_logs(conn, run_id)
     assert len(logs) == 4
