@@ -344,6 +344,42 @@ def build_parser() -> argparse.ArgumentParser:
         help="Destination directory for exported bundles (default: export)",
     )
 
+    # export portal subcommand (T9)
+    portal_parser = export_subparsers.add_parser(
+        "portal",
+        help="Generate public reader static portal website",
+    )
+    portal_parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=Path("output"),
+        help="Base output directory containing run artifacts (default: output)",
+    )
+    portal_parser.add_argument(
+        "--dist-dir",
+        type=Path,
+        default=Path("dist"),
+        help="Destination directory for static website (default: dist)",
+    )
+    portal_parser.add_argument(
+        "--run-id",
+        type=str,
+        default=None,
+        help="Specific edition to feature on index.html (default: newest)",
+    )
+    portal_parser.add_argument(
+        "--serve",
+        action="store_true",
+        default=False,
+        help="Start local HTTP server to preview static portal",
+    )
+    portal_parser.add_argument(
+        "--port",
+        type=int,
+        default=8000,
+        help="Port for local HTTP server (default: 8000)",
+    )
+
     return parser
 
 
@@ -1019,6 +1055,52 @@ def run_export_bundle(
         return 1
 
 
+def run_export_portal(
+    output_dir: Path = Path("output"),
+    dist_dir: Path = Path("dist"),
+    run_id: str | None = None,
+    serve: bool = False,
+    port: int = 8000,
+) -> int:
+    """Generate public reader static portal website and optionally serve it."""
+    if not output_dir.exists() or not output_dir.is_dir():
+        print(f"Error: Output directory not found at {output_dir}", file=sys.stderr)
+        return 2
+
+    try:
+        from cyberpulse.portal import build_public_portal
+
+        result = build_public_portal(
+            output_dir=output_dir,
+            dist_dir=dist_dir,
+            featured_run_id=run_id,
+        )
+        index_path = result.dist_dir.resolve() / "index.html"
+        print(f"Successfully generated CyberPulse Reader portal at: {index_path}")
+        print(f"Editions processed: {result.editions_count} (Featured: {result.featured_run_id})")
+        print(f"Created {len(result.files_created)} files in {result.dist_dir}")
+
+        if serve:
+            import functools
+            import http.server
+
+            handler = functools.partial(
+                http.server.SimpleHTTPRequestHandler,
+                directory=str(result.dist_dir.resolve()),
+            )
+            print(f"Trang web độc giả đang chạy tại: http://localhost:{port} (Bấm Ctrl+C để dừng)")
+            try:
+                with http.server.ThreadingHTTPServer(("", port), handler) as httpd:
+                    httpd.serve_forever()
+            except KeyboardInterrupt:
+                print("\nĐã dừng máy chủ web.")
+                return 0
+        return 0
+    except Exception as err:
+        print(f"Error generating public portal: {err}", file=sys.stderr)
+        return 1
+
+
 EXIT_CODE_MAP: dict[FailureReason, int] = {
     FailureReason.insufficient_research: 3,
     FailureReason.llm_error: 5,
@@ -1260,6 +1342,14 @@ def main(argv: list[str] | None = None) -> int:
                 run_id=args.run_id,
                 output_dir=args.output_dir,
                 export_dir=args.export_dir,
+            )
+        elif args.subcommand == "portal":
+            return run_export_portal(
+                output_dir=args.output_dir,
+                dist_dir=args.dist_dir,
+                run_id=args.run_id,
+                serve=args.serve,
+                port=args.port,
             )
     return 0
 

@@ -538,6 +538,28 @@ def main() -> None:
                                 key="bar_btn_download_zip",
                             )
 
+                        if st.button(
+                            "Tạo & Mở Trang Độc Giả (Public Portal)",
+                            icon=":material/public:",
+                            type="secondary",
+                            key="bar_btn_build_portal",
+                        ):
+                            try:
+                                from cyberpulse.portal import build_public_portal
+
+                                portal_res = build_public_portal(output_dir=output_dir, dist_dir=Path("dist"))
+                                st.success(
+                                    ":material/check_circle: Đã tạo trang web độc giả thành công tại thư mục 'dist/'. Có thể chạy lệnh 'cyberpulse export portal --serve' để xem trực tiếp!"
+                                )
+                                st.session_state["portal_generated"] = True
+                            except Exception as err:
+                                st.error(f"Lỗi khi tạo trang web độc giả: {err}")
+
+                        if Path("dist/index.html").exists():
+                            with st.expander(":material/language: Xem thông tin trang web độc giả (Public Portal)", expanded=False):
+                                st.caption(f"Đường dẫn file: `{Path('dist/index.html').resolve()}`")
+                                st.markdown("- **Trang chủ:** `dist/index.html`\n- **Kho lưu trữ:** `dist/archive.html`\n- **JSON Feed:** `dist/feed.json`")
+
                 st.divider()
 
                 # ==============================================================

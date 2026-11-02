@@ -443,3 +443,67 @@ llm_review = false
             import shutil
             shutil.rmtree(bundle_path, ignore_errors=True)
 
+
+def test_ui_app_public_portal_button_and_generation(tmp_path: Path) -> None:
+    """Verify Tab 3 renders Public Portal button with :material/public: and clicking it generates portal."""
+    output_dir = tmp_path / "output"
+    r_dir = output_dir / "research"
+    e_dir = output_dir / "editorial"
+    r_dir.mkdir(parents=True)
+    e_dir.mkdir(parents=True)
+
+    run_id = "test-portal-ui-run"
+    res = make_sample_research(run_id)
+    pkg = make_sample_editorial(run_id)
+
+    (r_dir / f"{run_id}.json").write_text(res.model_dump_json(), encoding="utf-8")
+    (e_dir / f"{run_id}.json").write_text(pkg.model_dump_json(), encoding="utf-8")
+
+    settings_file = tmp_path / "settings.toml"
+    settings_file.write_text(
+        f"""project_name = "CyberPulse AI Test"
+topics = ["cybersecurity"]
+[paths]
+data_dir = "{str(tmp_path / "data").replace('\\', '/')}"
+output_dir = "{str(output_dir).replace('\\', '/')}"
+log_dir = "{str(tmp_path / "logs").replace('\\', '/')}"
+[research]
+max_per_source = 2
+[editorial]
+podcast_target_words = 300
+podcast_speakers = ["Minh", "Lan"]
+video_max_total_sec = 60
+[validator]
+llm_review = false
+""",
+        encoding="utf-8",
+    )
+
+    dist_dir = Path("dist")
+    try:
+        app_path = Path("src/cyberpulse/ui/app.py").resolve()
+        at = AppTest.from_file(str(app_path), default_timeout=15)
+        sys.argv = ["streamlit", "run", str(app_path), "--", "--settings", str(settings_file)]
+        at.run()
+
+        assert not at.exception
+        # 1. Verify button presence and icon
+        portal_btns = [b for b in at.button if "Trang Độc Giả" in b.label]
+        assert len(portal_btns) >= 1
+        assert getattr(portal_btns[0], "icon", None) == ":material/public:"
+
+        # 2. Click button to trigger portal build
+        portal_btns[0].click().run()
+        assert not at.exception
+
+        # 3. Verify success message and generated files
+        success_msgs = [s.value for s in at.success]
+        assert any("Đã tạo trang web độc giả thành công" in msg for msg in success_msgs)
+        assert (dist_dir / "index.html").exists()
+        assert (dist_dir / "archive.html").exists()
+    finally:
+        if dist_dir.exists():
+            import shutil
+            shutil.rmtree(dist_dir, ignore_errors=True)
+
+
