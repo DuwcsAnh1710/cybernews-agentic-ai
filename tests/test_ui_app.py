@@ -501,6 +501,8 @@ llm_review = false
         assert any("Đã tạo trang web độc giả thành công" in msg for msg in success_msgs)
         assert (dist_dir / "index.html").exists()
         assert (dist_dir / "archive.html").exists()
+        assert (dist_dir / "articles").is_dir()
+        assert not (dist_dir / "feed.json").exists()
     finally:
         if dist_dir.exists():
             import shutil

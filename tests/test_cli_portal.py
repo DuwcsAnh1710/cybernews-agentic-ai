@@ -65,7 +65,8 @@ def test_cli_export_portal_success_default_args(
     assert f"Featured: {run_id}" in captured.out
     assert (dist_dir / "index.html").is_file()
     assert (dist_dir / "archive.html").is_file()
-    assert (dist_dir / "feed.json").is_file()
+    assert not (dist_dir / "feed.json").exists()
+    assert (dist_dir / "articles").is_dir()
     assert (dist_dir / "assets" / "style.css").is_file()
     assert (dist_dir / "assets" / "app.js").is_file()
     assert (dist_dir / "media" / f"{run_id}.mp3").is_file()

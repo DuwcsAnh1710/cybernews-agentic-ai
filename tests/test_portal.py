@@ -1,4 +1,4 @@
-"""Hermetic unit tests for CyberPulse Reader static portal generation engine."""
+"""Hermetic unit tests for CyberPulse Reader static portal generation engine (Task T9.2)."""
 
 from __future__ import annotations
 
@@ -12,14 +12,19 @@ import pytest
 
 from cyberpulse.models import EditorialPackage, ResearchResult
 from cyberpulse.portal import (
+    MATERIAL_FALLBACK_SVGS,
+    MATERIAL_SYMBOLS_STYLESHEET,
     PortalBuildResult,
     build_public_portal,
+    calculate_reading_time,
     detect_threat_badge,
+    extract_cves,
     extract_vendor_tags,
     format_vietnam_time,
     parse_run_timestamp,
+    render_material_symbol,
 )
-from tests.test_ui_data import make_sample_editorial, make_sample_research
+from tests.test_ui_data import ID_1, ID_2, make_sample_editorial, make_sample_research
 
 
 def _setup_mock_run(
@@ -53,7 +58,7 @@ def _setup_mock_run(
 
 
 def test_build_public_portal_creates_required_files(tmp_path: Path) -> None:
-    """AC 1: build_public_portal creates index.html, archive.html, editions/<run_id>.html, assets, and feed.json."""
+    """AC 1: build_public_portal creates index.html, archive.html, dedicated article pages, and NO feed.json."""
     output_dir = tmp_path / "output"
     dist_dir = tmp_path / "dist"
     run_id = "run-20261102T020834Z-180381df"
@@ -70,49 +75,213 @@ def test_build_public_portal_creates_required_files(tmp_path: Path) -> None:
     # Verify all expected files exist on disk
     assert (dist_dir / "index.html").is_file()
     assert (dist_dir / "archive.html").is_file()
-    assert (dist_dir / "feed.json").is_file()
     assert (dist_dir / "assets" / "style.css").is_file()
     assert (dist_dir / "assets" / "app.js").is_file()
     assert (dist_dir / "editions" / f"{run_id}.html").is_file()
+
+    # Verify dedicated single article pages exist
+    assert (dist_dir / "articles" / f"{ID_1}.html").is_file()
+    assert (dist_dir / "articles" / f"{ID_2}.html").is_file()
+
+    # ABSOLUTELY NO JSON FEED
+    assert not (dist_dir / "feed.json").exists()
+    assert "feed.json" not in result.files_created
 
     # Check files_created list
     expected_files = {
         "index.html",
         "archive.html",
-        "feed.json",
         "assets/style.css",
         "assets/app.js",
         f"editions/{run_id}.html",
+        f"articles/{ID_1}.html",
+        f"articles/{ID_2}.html",
     }
     assert expected_files.issubset(set(result.files_created))
 
 
-def test_index_html_contains_semantic_html5_tags(tmp_path: Path) -> None:
-    """AC 2: index.html contains semantic HTML5 tags: <!DOCTYPE html>, <meta name="viewport">, <header>, <article>, <footer>."""
+def test_index_html_contains_the_hacker_news_2_column_layout(tmp_path: Path) -> None:
+    """AC 2: index.html contains The Hacker News 2-column grid, Hero Breaking News, and sidebar widgets."""
     output_dir = tmp_path / "output"
     dist_dir = tmp_path / "dist"
     run_id = "run-20261101T160345Z-4cea6728"
 
-    _setup_mock_run(output_dir, run_id)
+    _setup_mock_run(output_dir, run_id, with_audio=True)
     build_public_portal(output_dir=output_dir, dist_dir=dist_dir)
 
     index_html = (dist_dir / "index.html").read_text(encoding="utf-8")
 
+    # Semantic HTML5
     assert "<!DOCTYPE html>" in index_html
     assert 'name="viewport"' in index_html
     assert "<header" in index_html
     assert "</header>" in index_html
     assert "<article" in index_html
-    assert "</article>" in index_html
+    assert "<aside" in index_html
+    assert "</aside>" in index_html
     assert "<footer" in index_html
     assert "</footer>" in index_html
-    assert "CyberPulse AI" in index_html
-    assert "Điểm tin nhanh (60-Second Brief)" in index_html
+
+    # 2-Column Grid Architecture
+    assert "portal-grid" in index_html
+    assert "portal-main" in index_html
+    assert "portal-sidebar" in index_html
+
+    # Main Column Components: Breaking News Hero Card & Curated Threats
+    assert "hero-card" in index_html
+    assert "Ban Biên tập CyberPulse" in index_html
+    assert "btn-read-more" in index_html
+    assert "Đọc tiếp" in index_html
     assert "Tiêu điểm an ninh mạng (Curated Threats)" in index_html
+    assert "story-card" in index_html
+
+    # Sticky Sidebar: 4 Widgets
+    assert "podcast-radio-box" in index_html
+    assert "Podcast Radio Box" in index_html
+    assert "waveform-bars" in index_html
+    assert "Tin đọc nhiều / Trending" in index_html
+    assert "trending-num" in index_html
+    assert "01" in index_html
+    assert "Threat Radar / CVE Tracker" in index_html
+    assert "Ấn bản gần đây (Archive)" in index_html
+
+
+def test_dedicated_single_article_pages(tmp_path: Path) -> None:
+    """AC 3: Full standalone article pages with breadcrumb, meta bar, cyber banner, threat box, and mitigation."""
+    output_dir = tmp_path / "output"
+    dist_dir = tmp_path / "dist"
+    run_id = "run-20261101T160345Z-article-test"
+
+    _setup_mock_run(output_dir, run_id, with_audio=True)
+    build_public_portal(output_dir=output_dir, dist_dir=dist_dir)
+
+    art_file = dist_dir / "articles" / f"{ID_1}.html"
+    assert art_file.is_file()
+    content = art_file.read_text(encoding="utf-8")
+
+    # Breadcrumb
+    assert "breadcrumb" in content
+    assert "Trang chủ" in content
+    assert "Lỗ hổng &amp; Sự cố" in content
+
+    # Headline and Meta Bar
+    assert "article-h1-title" in content
+    assert "SAMPLE — Flaw 1 Disclosed" in content
+    assert "Ban Biên tập CyberPulse" in content
+    assert "phút đọc" in content
+    assert "copyCurrentUrl()" in content
+
+    # Cyber Security Graphic Banner
+    assert "cyber-banner" in content
+    assert "CYBER SECURITY INTELLIGENCE REPORT" in content
+
+    # In-depth Analytical Body & Research Relevance
+    assert "Lý do chọn bài 1 (mẫu)" in content
+    assert "Nội dung mục 1 (mẫu)" in content
+
+    # Technical Threat Box
+    assert "threat-summary-box" in content
+    assert "Thông tin kỹ thuật &amp; Chỉ số đe dọa" in content
+    assert "Mức độ nghiêm trọng:" in content
+
+    # Defense & Mitigation Box
+    assert "mitigation-box" in content
+    assert "Khuyến nghị an ninh mạng (Mitigation)" in content
+    assert "Áp dụng ngay bản cập nhật" in content
+
+    # Podcast Snippet
+    assert "podcast-snippet-box" in content
+    assert "Minh" in content or "Lan" in content
+
+    # Source Attribution Box
+    assert "source-box" in content
+    assert "The Hacker News" in content
+    assert "https://example.com/sample/1" in content
+
+    # 2-Column layout with Sidebar
+    assert "portal-grid" in content
+    assert "portal-sidebar" in content
+    assert "podcast-radio-box" in content
+
+
+def test_google_material_symbols_24px_sizing(tmp_path: Path) -> None:
+    """AC 4: Google Material Symbols Outlined stylesheet embedded and strictly sized at 24x24 px."""
+    output_dir = tmp_path / "output"
+    dist_dir = tmp_path / "dist"
+    run_id = "run-20261101T160345Z-icons-test"
+
+    _setup_mock_run(output_dir, run_id, with_audio=True)
+    build_public_portal(output_dir=output_dir, dist_dir=dist_dir)
+
+    index_html = (dist_dir / "index.html").read_text(encoding="utf-8")
+    css_content = (dist_dir / "assets" / "style.css").read_text(encoding="utf-8")
+    art_html = (dist_dir / "articles" / f"{ID_1}.html").read_text(encoding="utf-8")
+
+    # 1. Stylesheet link in HTML
+    assert MATERIAL_SYMBOLS_STYLESHEET in index_html
+    assert MATERIAL_SYMBOLS_STYLESHEET in art_html
+
+    # 2. Strict 24x24 px rule in CSS
+    expected_rule_parts = [
+        ".material-symbols-outlined",
+        "font-size: 24px;",
+        "width: 24px;",
+        "height: 24px;",
+    ]
+    for part in expected_rule_parts:
+        assert part in css_content, f"Missing {part} in style.css"
+
+    # 3. Google Material Symbols used across portal pages
+    required_symbols = [
+        "shield",
+        "dark_mode",
+        "light_mode",
+        "timer",
+        "person",
+        "schedule",
+        "share",
+        "content_copy",
+        "verified",
+        "open_in_new",
+        "play_circle",
+        "pause_circle",
+        "trending_up",
+        "bug_report",
+        "calendar_today",
+        "search",
+    ]
+    combined_html = index_html + art_html
+    for sym in required_symbols:
+        assert sym in combined_html, f"Required Google Material Symbol '{sym}' missing from pages"
+        assert f'style="font-size: 24px; width: 24px; height: 24px;"' in combined_html
+
+
+def test_json_feed_strictly_absent_from_portal(tmp_path: Path) -> None:
+    """AC 5: ABSOLUTELY NO JSON FEED anywhere in generated files, navigation, header, or footer."""
+    output_dir = tmp_path / "output"
+    dist_dir = tmp_path / "dist"
+    run_id = "run-20261102T020834Z-no-json-feed"
+
+    _setup_mock_run(output_dir, run_id)
+    build_public_portal(output_dir=output_dir, dist_dir=dist_dir)
+
+    # 1. feed.json file must NOT exist on disk
+    assert not (dist_dir / "feed.json").exists()
+
+    # 2. No links or references to feed.json in any HTML or JS file
+    for html_file in dist_dir.rglob("*.html"):
+        text = html_file.read_text(encoding="utf-8")
+        assert "feed.json" not in text, f"Found feed.json reference in {html_file.name}"
+        assert 'title="JSON Feed"' not in text
+        assert ">JSON Feed<" not in text
+        assert ">Feed<" not in text
+
+    js_text = (dist_dir / "assets" / "app.js").read_text(encoding="utf-8")
+    assert "feed.json" not in js_text
 
 
 def test_theme_toggle_js_and_css_variables(tmp_path: Path) -> None:
-    """AC 3: Theme toggle JavaScript and CSS variables are present in generated assets."""
+    """AC 6: Theme toggle JavaScript and CSS variables are present in generated assets."""
     output_dir = tmp_path / "output"
     dist_dir = tmp_path / "dist"
     run_id = "run-20261031T033708Z-d0db13d2"
@@ -131,9 +300,10 @@ def test_theme_toggle_js_and_css_variables(tmp_path: Path) -> None:
     ]:
         assert var in css_content, f"CSS missing required variable: {var}"
 
-    # Verify dark and light themes declared
     assert 'data-theme="dark"' in css_content
     assert 'data-theme="light"' in css_content
+    assert "waveAnim" in css_content
+    assert "reading-progress-bar" in css_content
 
     # 2. JS verification
     js_content = (dist_dir / "assets" / "app.js").read_text(encoding="utf-8")
@@ -142,10 +312,12 @@ def test_theme_toggle_js_and_css_variables(tmp_path: Path) -> None:
     assert "theme-toggle" in js_content
     assert "playbackRate" in js_content
     assert "search-input" in js_content
+    assert "reading-progress" in js_content
+    assert "copyCurrentUrl" in js_content
 
 
 def test_podcast_audio_handling_when_present_vs_absent(tmp_path: Path) -> None:
-    """AC 4: Podcast audio copying when file exists vs. clean degradation when missing."""
+    """AC 7: Podcast audio copying when file exists vs. clean degradation when missing."""
     output_dir = tmp_path / "output"
     dist_dir = tmp_path / "dist"
 
@@ -163,7 +335,7 @@ def test_podcast_audio_handling_when_present_vs_absent(tmp_path: Path) -> None:
 
     index_html_audio = (dist_dir / "index.html").read_text(encoding="utf-8")
     assert f"src=\"media/{run_audio}.mp3\"" in index_html_audio
-    assert "audio-play-btn" in index_html_audio
+    assert "podcast-play-btn" in index_html_audio
 
     # Test without audio featured
     dist_dir_no_audio = tmp_path / "dist_no_audio"
@@ -171,43 +343,12 @@ def test_podcast_audio_handling_when_present_vs_absent(tmp_path: Path) -> None:
     assert res_no_audio.has_audio is False
 
     index_html_no_audio = (dist_dir_no_audio / "index.html").read_text(encoding="utf-8")
-    assert "Bản tin dạng đọc" in index_html_no_audio
+    assert "định dạng văn bản đọc" in index_html_no_audio
     assert not (dist_dir_no_audio / "media" / f"{run_no_audio}.mp3").exists()
 
 
-def test_feed_json_valid_format_and_items(tmp_path: Path) -> None:
-    """AC 5: feed.json complies with valid JSON Feed v1.1 and contains required items."""
-    output_dir = tmp_path / "output"
-    dist_dir = tmp_path / "dist"
-
-    run_1 = "run-20261101T100000Z-aaa11111"
-    run_2 = "run-20261102T100000Z-bbb22222"
-
-    _setup_mock_run(output_dir, run_1, title_suffix="Day 1")
-    _setup_mock_run(output_dir, run_2, title_suffix="Day 2")
-
-    build_public_portal(output_dir=output_dir, dist_dir=dist_dir)
-
-    feed_path = dist_dir / "feed.json"
-    assert feed_path.is_file()
-
-    feed_data = json.loads(feed_path.read_text(encoding="utf-8"))
-    assert feed_data["version"] == "https://jsonfeed.org/version/1.1"
-    assert "CyberPulse AI" in feed_data["title"]
-    assert len(feed_data["items"]) == 2
-
-    item_ids = {it["id"] for it in feed_data["items"]}
-    assert item_ids == {run_1, run_2}
-
-    for it in feed_data["items"]:
-        assert "url" in it
-        assert "title" in it
-        assert "summary" in it
-        assert "date_published" in it
-
-
 def test_empty_or_missing_editorial_directory_handled_gracefully(tmp_path: Path) -> None:
-    """AC 6: Handles empty or missing editorial directories gracefully without crashing."""
+    """AC 8: Handles empty or missing editorial directories gracefully without crashing."""
     output_dir_empty = tmp_path / "empty_output"
     output_dir_empty.mkdir()
     dist_dir_1 = tmp_path / "dist_empty"
@@ -218,7 +359,7 @@ def test_empty_or_missing_editorial_directory_handled_gracefully(tmp_path: Path)
     assert res_1.has_audio is False
     assert (dist_dir_1 / "index.html").is_file()
     assert (dist_dir_1 / "archive.html").is_file()
-    assert (dist_dir_1 / "feed.json").is_file()
+    assert not (dist_dir_1 / "feed.json").exists()
 
     # Missing directory completely
     output_dir_missing = tmp_path / "does_not_exist"
@@ -253,12 +394,11 @@ def test_featured_run_id_selection(tmp_path: Path) -> None:
     )
     assert res_custom.featured_run_id == run_old
     index_html = (dist_dir_custom / "index.html").read_text(encoding="utf-8")
-    assert run_old in index_html
     assert "Old Edition" in index_html
 
 
-def test_threat_badge_detection_and_vendor_tags() -> None:
-    """Test threat level badge detection and software vendor entity extraction."""
+def test_threat_badge_detection_vendor_tags_and_cves() -> None:
+    """Test threat level badge detection, software vendor entity extraction, and CVE extraction."""
     # Critical CVSS 10
     b1 = detect_threat_badge("Lỗ hổng nghiêm trọng CVSS 10.0 trong LXD và MicroCloud")
     assert b1.label == "[Khẩn cấp]"
@@ -281,6 +421,15 @@ def test_threat_badge_detection_and_vendor_tags() -> None:
     assert "Cisco" in tags
     assert "Linux" in tags
 
+    # CVE extraction
+    cves = extract_cves("Phát hiện CVE-2026-1234 và cve-2026-56789 trong hệ thống")
+    assert "CVE-2026-1234" in cves
+    assert "CVE-2026-56789" in cves
+
+    # Reading time calculation
+    rt = calculate_reading_time("word " * 500)
+    assert rt >= 2
+
 
 def test_zero_ai_emojis_in_generated_files(tmp_path: Path) -> None:
     """CRITICAL DESIGN RULE: Absolutely NO generic AI emojis in generated files."""
@@ -294,7 +443,7 @@ def test_zero_ai_emojis_in_generated_files(tmp_path: Path) -> None:
     forbidden_emojis = ["🎙", "🎧", "🟢", "🟡", "🔴", "⚠️", "✅", "📅", "🎉", "📦", "🚀"]
 
     for path in dist_dir.rglob("*"):
-        if path.is_file() and path.suffix in [".html", ".css", ".js", ".json"]:
+        if path.is_file() and path.suffix in [".html", ".css", ".js"]:
             content = path.read_text(encoding="utf-8")
             for emoji in forbidden_emojis:
                 assert emoji not in content, f"Forbidden emoji '{emoji}' found in {path.name}"

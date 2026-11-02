@@ -558,7 +558,7 @@ def main() -> None:
                         if Path("dist/index.html").exists():
                             with st.expander(":material/language: Xem thông tin trang web độc giả (Public Portal)", expanded=False):
                                 st.caption(f"Đường dẫn file: `{Path('dist/index.html').resolve()}`")
-                                st.markdown("- **Trang chủ:** `dist/index.html`\n- **Kho lưu trữ:** `dist/archive.html`\n- **JSON Feed:** `dist/feed.json`")
+                                st.markdown("- **Trang chủ:** `dist/index.html`\n- **Kho lưu trữ:** `dist/archive.html`\n- **Bài viết độc lập:** `dist/articles/`")
 
                 st.divider()
 
