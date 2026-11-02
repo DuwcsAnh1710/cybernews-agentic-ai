@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 from datetime import datetime, timezone
 import json
 from pathlib import Path
@@ -449,3 +450,113 @@ def test_lazy_import_edge_tts_absent(monkeypatch: pytest.MonkeyPatch) -> None:
         EdgeTTSBackend()
     assert exc_info.value.exit_code == 12
     assert "pip install .[media]" in str(exc_info.value)
+
+
+@pytest.mark.anyio
+async def test_edge_tts_synthesize_segment_timeout_guard(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """AC5: EdgeTTSBackend times out after 25s (or explicit timeout) if socket stalls."""
+    import edge_tts
+
+    out_file = tmp_path / "timeout_test.mp3"
+
+    class SlowCommunicate:
+        def __init__(self, text: str, voice: str) -> None:
+            pass
+
+        async def save(self, path: str) -> None:
+            # Simulate a stalled websocket
+            await asyncio.sleep(2.0)
+
+    monkeypatch.setattr(edge_tts, "Communicate", SlowCommunicate)
+
+    backend = EdgeTTSBackend()
+    with pytest.raises((asyncio.TimeoutError, TimeoutError)):
+        await backend.synthesize_segment("Đoạn thử nghiệm timeout", "vi-VN-NamMinhNeural", out_file, timeout=0.02)
+
+
+def test_synthesize_podcast_retries_on_timeout_error(
+    sample_editorial_pkg: EditorialPackage,
+    tmp_path: Path,
+) -> None:
+    """AC5: Stalled socket timeout triggers retry loop with backoff."""
+    out_dir = tmp_path / "media_timeout"
+    settings = _make_test_settings()
+    options = PodcastMediaOptions()
+    sleeps: list[float] = []
+
+    class TimeoutTTSBackend:
+        def __init__(self) -> None:
+            self.calls = 0
+
+        async def synthesize_segment(self, text: str, voice: str, output_path: Path) -> float:
+            self.calls += 1
+            if self.calls == 1:
+                raise TimeoutError("WebSocket stalled on first attempt")
+            # Create valid MP3 frame
+            frame = b"\xff\xf3\x64\xc4" + b"\x00" * 140
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            output_path.write_bytes(frame * 100)
+            return 2.4
+
+    backend = TimeoutTTSBackend()
+    result = synthesize_podcast(
+        run_id="test-timeout-retry",
+        editorial_pkg=sample_editorial_pkg,
+        settings=settings,
+        options=options,
+        output_media_dir=out_dir,
+        tts_backend=backend,
+        sleep_fn=lambda s: sleeps.append(s),
+    )
+
+    assert result.audio_path.exists()
+    assert sleeps == [1.0]  # First retry backoff
+    assert backend.calls == 3  # 1st seg attempt 1 (failed), attempt 2 (succeeded), 2nd seg attempt 1 (succeeded)
+
+
+def test_synthesize_podcast_progress_callback_and_stdout(
+    sample_editorial_pkg: EditorialPackage,
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    """AC4: Real-time progress callback and live segment logging to stdout."""
+    out_dir = tmp_path / "media_progress"
+    settings = _make_test_settings()
+    options = PodcastMediaOptions()
+    cb_calls: list[tuple[int, int, str, str, float]] = []
+
+    fake_backend = FakeTTSBackend(segment_durations=[3.0, 4.0])
+
+    def _on_progress(current: int, total: int, speaker: str, voice: str, duration: float) -> None:
+        cb_calls.append((current, total, speaker, voice, duration))
+
+    result = synthesize_podcast(
+        run_id="test-progress-run",
+        editorial_pkg=sample_editorial_pkg,
+        settings=settings,
+        options=options,
+        output_media_dir=out_dir,
+        tts_backend=fake_backend,
+        progress_callback=_on_progress,
+    )
+
+    assert result.audio_path.exists()
+    assert len(cb_calls) == 2
+    # Verify tuple: (current, total, speaker, voice, duration)
+    assert cb_calls[0][0] == 1
+    assert cb_calls[0][1] == 2
+    assert cb_calls[0][2] == "Minh"
+    assert cb_calls[0][3] == "vi-VN-NamMinhNeural"
+    assert cb_calls[0][4] > 0.0
+
+    assert cb_calls[1][0] == 2
+    assert cb_calls[1][1] == 2
+    assert cb_calls[1][2] == "Lan"
+    assert cb_calls[1][3] == "vi-VN-HoaiMyNeural"
+    assert cb_calls[1][4] > 0.0
+
+    captured = capsys.readouterr()
+    assert "[1/2] Minh (vi-VN-NamMinhNeural):" in captured.out
+    assert "[2/2] Lan (vi-VN-HoaiMyNeural):" in captured.out
+    assert "-> Xong trong" in captured.out
+    assert "dur=" in captured.out

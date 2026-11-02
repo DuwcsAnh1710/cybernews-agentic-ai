@@ -180,6 +180,7 @@ def test_cli_media_podcast_success(
     code = main(["media", "podcast", run_id, "--settings", str(settings_path)])
     assert code == 0
     captured = capsys.readouterr()
+    assert f"Đang tạo audio podcast cho phiên chạy '{run_id}'" in captured.out
     assert "=== Podcast Audio Synthesized ===" in captured.out
     assert f"Run ID:         {run_id}" in captured.out
     assert "Segments:       2" in captured.out

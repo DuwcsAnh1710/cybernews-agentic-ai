@@ -915,6 +915,11 @@ def run_media_podcast(
     )
     output_media_dir = settings.paths.output_dir / "media" / "podcast"
 
+    print(
+        f"Đang tạo audio podcast cho phiên chạy '{run_id}' ({len(editorial_pkg.podcast.segments)} đoạn hội thoại)...",
+        flush=True,
+    )
+
     try:
         result = synthesize_podcast(
             run_id=run_id,

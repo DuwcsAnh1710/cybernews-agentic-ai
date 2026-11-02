@@ -7,10 +7,11 @@ Binds to 127.0.0.1, opens SQLite read-only, and performs NO pipeline execution c
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import html
 import json
 from pathlib import Path
+import re
 import sys
 
 import streamlit as st
@@ -18,6 +19,7 @@ import streamlit as st
 from cyberpulse.config import load_app_config
 from cyberpulse.ui.data import (
     ArtifactError,
+    RunArtifacts,
     blocks_by_article,
     caption_stats,
     highlight,
@@ -45,6 +47,72 @@ from cyberpulse.ui.review import (
     load_review,
     record_decision,
 )
+
+
+def format_run_display(r: RunArtifacts, output_dir: Path) -> str:
+    """Format run identifier into human-readable label with date, time, article count and review status."""
+    run_match = re.match(r"^run-(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z-([a-f0-9]+)$", r.run_id)
+    standalone_match = re.match(r"^standalone-(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z$", r.run_id)
+
+    date_str: str | None = None
+    short_suffix: str = ""
+
+    if run_match:
+        y, m, d, hh, mm, ss, short_hash = run_match.groups()
+        dt_utc = datetime(int(y), int(m), int(d), int(hh), int(mm), int(ss), tzinfo=timezone.utc)
+        dt_vn = dt_utc.astimezone(timezone(timedelta(hours=7)))
+        date_str = dt_vn.strftime("%d/%m/%Y %H:%M")
+        short_suffix = f"({short_hash})"
+    elif standalone_match:
+        y, m, d, hh, mm, ss = standalone_match.groups()
+        dt_utc = datetime(int(y), int(m), int(d), int(hh), int(mm), int(ss), tzinfo=timezone.utc)
+        dt_vn = dt_utc.astimezone(timezone(timedelta(hours=7)))
+        date_str = dt_vn.strftime("%d/%m/%Y %H:%M")
+        short_suffix = "(Standalone)"
+
+    # Inspect article count from research artifact
+    article_part: str | None = None
+    research_path = r.research_path or (output_dir / "research" / f"{r.run_id}.json")
+    if (r.has_research or research_path.exists()) and research_path.is_file():
+        try:
+            res_data = json.loads(research_path.read_text(encoding="utf-8"))
+            items = res_data.get("items", [])
+            article_part = f"{len(items)} tin"
+        except Exception:
+            pass
+
+    # Inspect review/validation status
+    status_badge: str | None = None
+    editorial_path = r.editorial_path or (output_dir / "editorial" / f"{r.run_id}.json")
+    review_path = r.review_path or (output_dir / "review" / f"{r.run_id}.json")
+    if (r.has_editorial or editorial_path.exists()) and editorial_path.is_file():
+        try:
+            rev_data = load_review(review_path)
+            st_val = current_status(rev_data, editorial_path)
+            if st_val == "approved":
+                status_badge = "[🟢 Đã duyệt]"
+            elif st_val == "rejected":
+                status_badge = "[🔴 Từ chối]"
+            elif st_val == "changes_requested":
+                status_badge = "[⚠️ Cần sửa]"
+            else:
+                status_badge = "[🟡 Chờ duyệt]"
+        except Exception:
+            pass
+
+    info_parts: list[str] = []
+    if article_part:
+        info_parts.append(article_part)
+    if status_badge:
+        info_parts.append(status_badge)
+
+    middle = f" | {' '.join(info_parts)}" if info_parts else ""
+
+    if date_str:
+        return f"📅 {date_str}{middle} {short_suffix}".strip()
+    if info_parts:
+        return f"{r.run_id}{middle}"
+    return r.run_id
 
 
 def parse_app_args() -> Path:
@@ -95,16 +163,7 @@ def main() -> None:
         st.sidebar.warning("Chưa có phiên chạy (run) nào trong thư mục output.")
         selected_run = None
     else:
-        def _format_run(r) -> str:
-            flags = (
-                f"{'✅' if r.has_research else '—'}R "
-                f"{'✅' if r.has_editorial else '—'}E "
-                f"{'✅' if r.has_validation else '—'}V "
-                f"{'✅' if r.has_review else '—'}D"
-            )
-            return f"{r.run_id}  [{flags}]"
-
-        run_labels = {r.run_id: _format_run(r) for r in runs}
+        run_labels = {r.run_id: format_run_display(r, output_dir) for r in runs}
         selected_run_id = st.sidebar.selectbox(
             "Chọn phiên chạy (Run ID):",
             options=[r.run_id for r in runs],
@@ -385,6 +444,50 @@ def main() -> None:
                     c2.metric("Mục tiêu cho phép", f"{p_stat['min_allowed']} – {p_stat['max_allowed']} từ")
                     speaker_words = ", ".join(f"{s}: {w}" for s, w in p_stat["words_by_speaker"].items())
                     c3.metric("Số từ theo MC", speaker_words)
+
+                    st.markdown("---")
+                    media_dir = output_dir / "media" / "podcast"
+                    mp3_path = media_dir / f"{selected_run.run_id}.mp3"
+                    srt_path = media_dir / f"{selected_run.run_id}.srt"
+                    meta_path = media_dir / f"{selected_run.run_id}.json"
+
+                    if mp3_path.exists() and mp3_path.is_file():
+                        st.success("🎧 File âm thanh Podcast hoàn chỉnh (Giọng AI Minh & Lan)")
+                        st.audio(str(mp3_path), format="audio/mp3")
+                        if meta_path.exists() and meta_path.is_file():
+                            try:
+                                meta_data = json.loads(meta_path.read_text(encoding="utf-8"))
+                                total_sec = meta_data.get("total_duration_sec")
+                                if total_sec is not None:
+                                    m_sec, s_sec = divmod(int(total_sec), 60)
+                                    st.caption(f"Thời lượng: {total_sec:.1f}s ({m_sec:02d}:{s_sec:02d})")
+                            except Exception:
+                                pass
+                        if srt_path.exists() and srt_path.is_file():
+                            st.download_button(
+                                label="📥 Tải tệp phụ đề (.srt)",
+                                data=srt_path.read_text(encoding="utf-8"),
+                                file_name=f"{selected_run.run_id}.srt",
+                                mime="text/plain",
+                            )
+                    else:
+                        st.info("Chưa có file âm thanh Podcast cho phiên chạy này.")
+                        if st.button("🎙️ Tạo Audio Podcast (Giọng AI Minh & Lan)", type="primary"):
+                            with st.spinner("Đang tổng hợp giọng nói AI cho Minh và Lan..."):
+                                try:
+                                    from cyberpulse.media.podcast import PodcastMediaOptions, synthesize_podcast
+                                    opts = PodcastMediaOptions(allow_unvalidated=True)
+                                    synthesize_podcast(
+                                        run_id=selected_run.run_id,
+                                        editorial_pkg=pkg,
+                                        settings=settings,
+                                        options=opts,
+                                        output_media_dir=media_dir,
+                                    )
+                                    st.success("Đã tạo xong Podcast Audio!")
+                                    st.rerun()
+                                except Exception as err:
+                                    st.error(f"Lỗi khi tạo audio: {err}")
 
                     st.markdown("---")
                     speaker_avatars = {"Minh": "🎙️", "Lan": "🎧"}

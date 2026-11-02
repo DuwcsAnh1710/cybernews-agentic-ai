@@ -547,6 +547,13 @@ class EdgeTTSBackend:
     def __init__(self, assembler: AudioAssembler | None = None) -> None:
         self.assembler = assembler or PurePythonMP3Assembler()
         # Verify edge_tts importability lazily
+        import importlib.util
+
+        if importlib.util.find_spec("edge_tts") is None:
+            raise MediaDependencyError(
+                "edge-tts is required for podcast audio synthesis. "
+                "Install with: pip install .[media]"
+            )
         try:
             import edge_tts  # noqa: F401
         except ImportError as exc:
@@ -560,13 +567,14 @@ class EdgeTTSBackend:
         text: str,
         voice: str,
         output_path: Path,
+        timeout: float = 25.0,
     ) -> float:
         """Synthesize text using edge-tts. Return measured duration in seconds."""
         import edge_tts
 
         output_path.parent.mkdir(parents=True, exist_ok=True)
         communicate = edge_tts.Communicate(text=text, voice=voice)
-        await communicate.save(str(output_path))
+        await asyncio.wait_for(communicate.save(str(output_path)), timeout=timeout)
 
         duration = self.assembler.measure_duration(output_path)
         return duration
@@ -833,6 +841,7 @@ def synthesize_podcast(
     output_media_dir: Path,
     tts_backend: TTSBackend | None = None,
     assembler: AudioAssembler | None = None,
+    progress_callback: Callable[[int, int, str, str, float], None] | None = None,
     clock_fn: Callable[[], datetime] = lambda: datetime.now(timezone.utc),
     sleep_fn: Callable[[float], None] = time.sleep,
 ) -> PodcastMediaResult:
@@ -883,16 +892,25 @@ def synthesize_podcast(
         segment_results: list[SegmentSynthesisResult] = []
 
         # 1. Synthesize segments sequentially with bounded retries
+        total_segs = len(editorial_pkg.podcast.segments)
         for idx, seg in enumerate(editorial_pkg.podcast.segments):
             speaker = seg.speaker
             voice = voices[speaker]
             text = prepare_tts_text(seg.line.text)
             seg_audio_path = temp_dir / f"seg_{idx:03d}.mp3"
 
+            text_snippet = (text[:40] + "...") if len(text) > 40 else text
+            print(
+                f"[{idx+1}/{total_segs}] {speaker} ({voice}): '{text_snippet}'...",
+                end=" ",
+                flush=True,
+            )
+
             attempts = 0
             max_attempts = 3
             backoff_delays = [1.0, 2.0, 4.0]
             measured_dur = 0.0
+            t0 = time.perf_counter()
 
             while attempts < max_attempts:
                 attempts += 1
@@ -907,6 +925,7 @@ def synthesize_podcast(
                     break
                 except Exception as exc:
                     if attempts >= max_attempts:
+                        print(f"-> THẤT BẠI sau {attempts} lần thử", flush=True)
                         raise MediaSynthesisError(
                             f"Synthesis failed for segment {idx} ('{speaker}') after {max_attempts} attempts: {exc}"
                         ) from exc
@@ -920,6 +939,12 @@ def synthesize_podcast(
                         exc,
                     )
                     sleep_fn(delay)
+
+            elapsed = time.perf_counter() - t0
+            print(f"-> Xong trong {elapsed:.2f}s (dur={measured_dur:.2f}s)", flush=True)
+
+            if progress_callback is not None:
+                progress_callback(idx + 1, total_segs, speaker, voice, measured_dur)
 
             segment_results.append(
                 SegmentSynthesisResult(
