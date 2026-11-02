@@ -8,6 +8,7 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 from typing import Any, Literal, Sequence
@@ -33,6 +34,13 @@ from cyberpulse.render_preview import render_markdown
 from cyberpulse.runlock import RunLock, RunLockBusyError
 from cyberpulse.storage import connect, get_db_path, init_db, list_recent_articles, upsert_article
 from cyberpulse.validator import ValidationIssue, ValidationReport, validate_package
+from cyberpulse.media.podcast import (
+    MediaDependencyError,
+    MediaInputError,
+    MediaSynthesisError,
+    PodcastMediaOptions,
+    synthesize_podcast,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -260,6 +268,52 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         default=False,
         help="Print the Streamlit command line arguments without starting the server",
+    )
+
+    # media subcommand (media podcast ...)
+    media_parser = subparsers.add_parser(
+        "media",
+        help="Generate multimedia assets (podcast, video)",
+    )
+    media_subparsers = media_parser.add_subparsers(dest="subcommand", required=True)
+    podcast_parser = media_subparsers.add_parser(
+        "podcast",
+        help="Synthesize multi-speaker podcast audio and synchronized SRT",
+    )
+    podcast_parser.add_argument(
+        "run_id",
+        type=str,
+        help="Run identifier of the editorial package to synthesize",
+    )
+    podcast_parser.add_argument(
+        "--settings",
+        type=Path,
+        default=Path("config/settings.toml"),
+        help="Path to settings.toml (default: config/settings.toml)",
+    )
+    podcast_parser.add_argument(
+        "--voice",
+        action="append",
+        default=[],
+        help="Speaker voice override in SPEAKER=VOICE format (repeatable)",
+    )
+    podcast_parser.add_argument(
+        "--pause-ms",
+        type=int,
+        default=350,
+        help="Pause duration between different speakers in milliseconds (default: 350)",
+    )
+    podcast_parser.add_argument(
+        "--force",
+        action="store_true",
+        default=False,
+        help="Overwrite existing output files",
+    )
+    podcast_parser.add_argument(
+        "--allow-unvalidated",
+        action="store_true",
+        default=False,
+        help="Synthesize podcast audio even if validation report is missing or failed",
     )
 
     return parser
@@ -782,6 +836,121 @@ def run_ui(
         return 0
 
 
+def run_media_podcast(
+    run_id: str,
+    settings_path: Path,
+    voice_args: list[str] | None = None,
+    pause_ms: int = 350,
+    force: bool = False,
+    allow_unvalidated: bool = False,
+) -> int:
+    """Run podcast audio synthesis and subtitle generation."""
+    if not re.match(r"^[A-Za-z0-9._-]+$", run_id):
+        print(f"Error: invalid run_id '{run_id}'. Allowed characters: [A-Za-z0-9._-]", file=sys.stderr)
+        return 7
+
+    try:
+        settings = load_settings(settings_path)
+    except ConfigError as err:
+        print(f"ConfigError: {err}", file=sys.stderr)
+        return 1
+
+    editorial_dir = (settings.paths.output_dir / "editorial").resolve()
+    editorial_path = (settings.paths.output_dir / "editorial" / f"{run_id}.json").resolve()
+
+    try:
+        editorial_path.relative_to(editorial_dir)
+    except ValueError:
+        print(f"Error: path traversal attempt with run_id '{run_id}'", file=sys.stderr)
+        return 7
+
+    if not editorial_path.exists() or not editorial_path.is_file():
+        print(f"Error: editorial file not found: '{editorial_path}'", file=sys.stderr)
+        return 7
+
+    try:
+        raw_editorial = editorial_path.read_text(encoding="utf-8")
+        editorial_pkg = EditorialPackage.model_validate_json(raw_editorial)
+    except Exception as err:
+        print(f"Error: invalid editorial file '{editorial_path}': {err}", file=sys.stderr)
+        return 7
+
+    # Validation Gate (D3)
+    val_path = (settings.paths.output_dir / "validation" / f"{run_id}.json").resolve()
+    is_validated = False
+    if val_path.exists() and val_path.is_file():
+        try:
+            val_data = json.loads(val_path.read_text(encoding="utf-8"))
+            if val_data.get("passed") is True:
+                is_validated = True
+        except Exception:
+            pass
+
+    if not is_validated and not allow_unvalidated:
+        print(
+            f"Error: Run '{run_id}' has not passed validation (passed=False or report missing). "
+            f"Use --allow-unvalidated to override.",
+            file=sys.stderr,
+        )
+        return 8
+
+    if not is_validated and allow_unvalidated:
+        print("[WARNING] Synthesizing podcast from UNVALIDATED editorial package!", file=sys.stderr)
+
+    # Voice overrides parsing
+    voice_overrides: dict[str, str] = {}
+    for item in voice_args or []:
+        if "=" not in item:
+            print(f"Error: invalid voice argument '{item}'. Expected format SPEAKER=VOICE.", file=sys.stderr)
+            return 7
+        spk, vname = item.split("=", 1)
+        voice_overrides[spk.strip()] = vname.strip()
+
+    options = PodcastMediaOptions(
+        voice_overrides=voice_overrides,
+        pause_diff_speaker_ms=pause_ms,
+        pause_same_speaker_ms=int(pause_ms * 200 / 350) if pause_ms > 0 else 0,
+        force=force,
+        allow_unvalidated=allow_unvalidated,
+    )
+    output_media_dir = settings.paths.output_dir / "media" / "podcast"
+
+    try:
+        result = synthesize_podcast(
+            run_id=run_id,
+            editorial_pkg=editorial_pkg,
+            settings=settings,
+            options=options,
+            output_media_dir=output_media_dir,
+        )
+    except MediaDependencyError as err:
+        print(f"Error: {err}", file=sys.stderr)
+        return 12
+    except MediaInputError as err:
+        print(f"Error: {err}", file=sys.stderr)
+        return 7
+    except MediaSynthesisError as err:
+        print(f"Error: {err}", file=sys.stderr)
+        return 13
+    except Exception as err:
+        print(f"Error: synthesis failed: {err}", file=sys.stderr)
+        return 13
+
+    minutes, seconds = divmod(int(result.total_duration_sec), 60)
+    dur_str = f"{result.total_duration_sec:.2f}s ({minutes:02d}:{seconds:02d})"
+    voice_desc = ", ".join(f"{s} -> {v}" for s, v in sorted(result.voices.items()))
+
+    print("=== Podcast Audio Synthesized ===")
+    print(f"Run ID:         {result.run_id}")
+    print(f"Segments:       {result.segment_count}")
+    print(f"Total Duration: {dur_str}")
+    print(f"Voices:         {voice_desc}")
+    print(f"Audio File:     {result.audio_path}")
+    print(f"Subtitle File:  {result.srt_path}")
+    print(f"Metadata File:  {result.meta_path}")
+    return 0
+
+
 EXIT_CODE_MAP: dict[FailureReason, int] = {
     FailureReason.insufficient_research: 3,
     FailureReason.llm_error: 5,
@@ -1007,6 +1176,16 @@ def main(argv: list[str] | None = None) -> int:
             settings_path=args.settings,
             print_command=args.print_command,
         )
+    elif args.command == "media":
+        if args.subcommand == "podcast":
+            return run_media_podcast(
+                run_id=args.run_id,
+                settings_path=args.settings,
+                voice_args=args.voice,
+                pause_ms=args.pause_ms,
+                force=args.force,
+                allow_unvalidated=args.allow_unvalidated,
+            )
     return 0
 
 

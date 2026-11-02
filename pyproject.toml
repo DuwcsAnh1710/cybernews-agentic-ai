@@ -26,6 +26,9 @@ dev = [
 ui = [
     "streamlit==1.66.1",
 ]
+media = [
+    "edge-tts>=6.1.19",
+]
 
 [project.scripts]
 cyberpulse = "cyberpulse.cli:main"
