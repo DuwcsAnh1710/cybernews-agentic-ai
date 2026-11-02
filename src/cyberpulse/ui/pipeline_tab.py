@@ -13,6 +13,7 @@ from typing import Any
 
 import streamlit as st
 
+from cyberpulse.ui.data import list_early_failed_runs, list_runs
 from cyberpulse.ui.runner import (
     JobRecord,
     JobStatus,
@@ -134,7 +135,57 @@ def render_pipeline_tab(output_dir: Path, settings_path: Path) -> None:
 
     st.divider()
 
-    # 2. Step cards (Fetch, Collect, Research, Editorial, Validate)
+    # 2. Full automated pipeline run (cyberpulse run)
+    st.markdown("#### Khởi chạy toàn bộ quy trình (`cyberpulse run`)")
+    with st.container(border=True):
+        st.caption("Thực thi toàn bộ quy trình tự động: Thu thập -> Agent 1 -> Agent 2 -> Đối soát 3 lớp.")
+        col_run_opt1, col_run_opt2 = st.columns(2)
+        with col_run_opt1:
+            run_max_rewrites = st.number_input(
+                "Số lần viết lại tối đa (max-rewrites):",
+                min_value=0,
+                max_value=3,
+                value=2,
+                key="num_run_rewrites",
+            )
+            run_allow_insufficient = st.checkbox(
+                "Cho phép chạy khi thiếu bài viết (--allow-insufficient)",
+                value=False,
+                key="chk_run_allow_insufficient",
+            )
+        with col_run_opt2:
+            run_no_llm_review = st.checkbox(
+                "Bỏ qua LLM claim review Lớp 3 (--no-llm-review)",
+                value=False,
+                key="chk_run_no_llm_review",
+            )
+            run_quota_confirmed = st.checkbox(
+                "Tôi đồng ý gọi Gemini API (tốn quota)",
+                key="chk_run_quota_confirm",
+            )
+
+        run_disabled = is_locked or not run_quota_confirmed
+        if st.button("Chạy toàn bộ quy trình (Run)", disabled=run_disabled, use_container_width=True, type="primary"):
+            try:
+                rec = start_job(
+                    step="run",
+                    output_dir=output_dir,
+                    settings_path=settings_path,
+                    params={
+                        "max_rewrites": run_max_rewrites,
+                        "allow_insufficient": run_allow_insufficient,
+                        "no_llm_review": run_no_llm_review,
+                    },
+                )
+                st.session_state["pipeline_active_job_id"] = rec.job_id
+                st.session_state["pipeline_last_rerun_job"] = None
+                st.rerun()
+            except Exception as err:
+                st.error(f"Lỗi: {err}")
+
+    st.divider()
+
+    # 3. Step cards (Fetch, Collect, Research, Editorial, Validate)
     st.markdown("#### Khởi chạy từng bước (Pipeline Steps)")
 
     col_fetch, col_collect = st.columns(2)
@@ -344,4 +395,14 @@ def render_pipeline_tab(output_dir: Path, settings_path: Path) -> None:
             for j in history_jobs
         ]
         st.dataframe(history_data, use_container_width=True)
+
+    # 5. Early failed runs from SQLite (absent from disk files)
+    db_path = output_dir.parent / "data" / "cyberpulse.db"
+    file_runs = list_runs(output_dir)
+    file_rids = {r.run_id for r in file_runs}
+    early_failures = list_early_failed_runs(db_path, file_run_ids=file_rids)
+    if early_failures:
+        with st.expander("Các lượt chạy thất bại sớm (chỉ ghi trong CSDL, không có tệp kết quả)", expanded=False):
+            st.caption("Các lượt chạy gặp lỗi trước khi kịp tạo tệp kết quả (ví dụ lỗi gọi API hoặc gián đoạn).")
+            st.dataframe(early_failures, use_container_width=True)
 

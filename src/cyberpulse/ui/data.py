@@ -508,3 +508,72 @@ def validation_freshness(
         return "fresh"
     except Exception:
         return "missing"
+
+
+def list_early_failed_runs(
+    db_path: Path | str,
+    file_run_ids: set[str] | Sequence[str] | None = None,
+    limit: int = 50,
+) -> list[dict[str, str]]:
+    """Return runs from SQLite runs table that failed before generating file artifacts.
+
+    Uses a strictly read-only connection (?mode=ro) that never creates the DB file.
+    If the database file does not exist, returns [] without error.
+    All dictionary values are guaranteed to be of type str to prevent Arrow mixed-type issues.
+    """
+    p = Path(db_path)
+    if not p.exists():
+        return []
+
+    uri = f"file:{p.resolve().as_posix()}?mode=ro"
+    try:
+        conn = sqlite3.connect(uri, uri=True)
+        conn.row_factory = sqlite3.Row
+    except Exception:
+        return []
+
+    try:
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+            SELECT id, status, created_at, updated_at, error
+            FROM runs
+            WHERE status = 'failed'
+            ORDER BY created_at DESC
+            LIMIT ?
+            """,
+            (limit,),
+        )
+        rows = cursor.fetchall()
+
+        file_ids = set(file_run_ids) if file_run_ids else set()
+        results: list[dict[str, str]] = []
+
+        for row in rows:
+            rid = str(row["id"] or "")
+            if rid in file_ids:
+                continue
+
+            raw_error = str(row["error"] or "")
+            reason = "failed"
+            error_msg = raw_error
+            if raw_error.startswith("[") and "]" in raw_error:
+                reason = raw_error[1 : raw_error.index("]")].strip()
+                error_msg = raw_error[raw_error.index("]") + 1 :].strip()
+
+            error_short = error_msg[:120] + ("..." if len(error_msg) > 120 else "")
+
+            results.append({
+                "Run ID": str(rid),
+                "Trạng thái": str(row["status"] or ""),
+                "Lý do": str(reason),
+                "Lỗi": str(error_short),
+                "Khởi tạo": str(row["created_at"] or ""),
+                "Cập nhật": str(row["updated_at"] or ""),
+            })
+        return results
+    except Exception as err:
+        logger.warning("Error querying early failed runs: %s", err)
+        return []
+    finally:
+        conn.close()
