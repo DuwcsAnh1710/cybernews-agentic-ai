@@ -316,6 +316,34 @@ def build_parser() -> argparse.ArgumentParser:
         help="Synthesize podcast audio even if validation report is missing or failed",
     )
 
+    # export subcommand (export bundle ...)
+    export_parser = subparsers.add_parser(
+        "export",
+        help="Export and package editorial assets",
+    )
+    export_subparsers = export_parser.add_subparsers(dest="subcommand", required=True)
+    bundle_parser = export_subparsers.add_parser(
+        "bundle",
+        help="Export complete multi-channel distribution bundle",
+    )
+    bundle_parser.add_argument(
+        "run_id",
+        type=str,
+        help="Run identifier of the editorial package to export",
+    )
+    bundle_parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=Path("output"),
+        help="Base output directory containing run artifacts (default: output)",
+    )
+    bundle_parser.add_argument(
+        "--export-dir",
+        type=Path,
+        default=Path("export"),
+        help="Destination directory for exported bundles (default: export)",
+    )
+
     return parser
 
 
@@ -956,6 +984,41 @@ def run_media_podcast(
     return 0
 
 
+def run_export_bundle(
+    run_id: str,
+    output_dir: Path = Path("output"),
+    export_dir: Path = Path("export"),
+) -> int:
+    """Export complete multi-channel distribution bundle for a run."""
+    editorial_path = output_dir / "editorial" / f"{run_id}.json"
+    if not editorial_path.exists() or not editorial_path.is_file():
+        print(f"Error: Editorial package not found at {editorial_path}", file=sys.stderr)
+        return 2
+
+    try:
+        raw_editorial = editorial_path.read_text(encoding="utf-8")
+        pkg = EditorialPackage.model_validate_json(raw_editorial)
+    except Exception as err:
+        print(f"Error loading editorial package from {editorial_path}: {err}", file=sys.stderr)
+        return 2
+
+    try:
+        from cyberpulse.export import export_editorial_bundle
+
+        result = export_editorial_bundle(
+            package=pkg,
+            run_id=run_id,
+            output_dir=output_dir,
+            export_root=export_dir,
+        )
+        print(f"Successfully exported bundle for run '{run_id}' to: {result.export_dir}")
+        print(f"Created {len(result.files_created)} files: {', '.join(result.files_created)}")
+        return 0
+    except Exception as err:
+        print(f"Error exporting bundle: {err}", file=sys.stderr)
+        return 1
+
+
 EXIT_CODE_MAP: dict[FailureReason, int] = {
     FailureReason.insufficient_research: 3,
     FailureReason.llm_error: 5,
@@ -1190,6 +1253,13 @@ def main(argv: list[str] | None = None) -> int:
                 pause_ms=args.pause_ms,
                 force=args.force,
                 allow_unvalidated=args.allow_unvalidated,
+            )
+    elif args.command == "export":
+        if args.subcommand == "bundle":
+            return run_export_bundle(
+                run_id=args.run_id,
+                output_dir=args.output_dir,
+                export_dir=args.export_dir,
             )
     return 0
 

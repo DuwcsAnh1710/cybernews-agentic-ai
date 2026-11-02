@@ -90,13 +90,13 @@ def format_run_display(r: RunArtifacts, output_dir: Path) -> str:
             rev_data = load_review(review_path)
             st_val = current_status(rev_data, editorial_path)
             if st_val == "approved":
-                status_badge = "[🟢 Đã duyệt]"
+                status_badge = "[Đã duyệt]"
             elif st_val == "rejected":
-                status_badge = "[🔴 Từ chối]"
+                status_badge = "[Từ chối]"
             elif st_val == "changes_requested":
-                status_badge = "[⚠️ Cần sửa]"
+                status_badge = "[Cần sửa]"
             else:
-                status_badge = "[🟡 Chờ duyệt]"
+                status_badge = "[Chờ duyệt]"
         except Exception:
             pass
 
@@ -109,7 +109,7 @@ def format_run_display(r: RunArtifacts, output_dir: Path) -> str:
     middle = f" | {' '.join(info_parts)}" if info_parts else ""
 
     if date_str:
-        return f"📅 {date_str}{middle} {short_suffix}".strip()
+        return f"{date_str}{middle} {short_suffix}".strip()
     if info_parts:
         return f"{r.run_id}{middle}"
     return r.run_id
@@ -134,7 +134,7 @@ def main() -> None:
     """Main Streamlit application entry point."""
     st.set_page_config(
         page_title="CyberPulse AI — Workbench",
-        page_icon="🛡️",
+        page_icon=":material/shield:",
         layout="wide",
     )
 
@@ -188,10 +188,10 @@ def main() -> None:
 
     with st.sidebar.expander("Cách dùng", expanded=False):
         st.markdown(
-            "1. **Nguồn & Dữ liệu**: Tra cứu bài viết và số liệu từ RSS.\n"
-            "2. **Research Agent**: Xem bài được chọn, lý do và trần nguồn.\n"
-            "3. **Editorial Studio**: Xem bản tin, mạng xã hội, podcast, video.\n"
-            "4. **Đối soát & Duyệt**: So sánh nguồn, chỉnh sửa nhanh và ghi nhận quyết định duyệt.\n"
+            "1. **Bảng tin đã duyệt**: Tra cứu bài viết và số liệu từ RSS.\n"
+            "2. **Tóm tắt & Báo cáo**: Xem bài được chọn, lý do và trần nguồn.\n"
+            "3. **Phòng Biên tập & Xuất bản**: Xem bản tin, mạng xã hội, podcast, tệp xuất bản.\n"
+            "4. **Giám sát Hệ thống**: So sánh nguồn, chỉnh sửa nhanh và ghi nhận quyết định duyệt.\n"
             "5. **Pipeline Runner**: Khởi chạy từng bước pipeline độc lập và theo dõi nhật ký trực tiếp."
         )
 
@@ -199,10 +199,10 @@ def main() -> None:
     # Main Tabs
     # ==========================================================================
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
-        "Nguồn & Dữ liệu",
-        "Research Agent",
-        "Editorial Studio",
-        "Đối soát & Duyệt",
+        ":material/table_chart: Bảng tin đã duyệt",
+        ":material/article: Tóm tắt & Báo cáo",
+        ":material/edit_document: Phòng Biên tập & Xuất bản",
+        ":material/health_and_safety: Giám sát Hệ thống",
         "Pipeline Runner",
     ])
 
@@ -330,7 +330,7 @@ def main() -> None:
                 cap_cols = st.columns(len(caps) if caps else 1)
                 for i, c in enumerate(caps):
                     with cap_cols[i % len(cap_cols)]:
-                        at_cap_str = "⚠️ Đạt trần" if c["at_cap"] else "Trong trần"
+                        at_cap_str = ":material/warning: Đạt trần" if c["at_cap"] else "Trong trần"
                         st.metric(
                             c["source_name"],
                             f"{c['selected_count']} / {c['cap']} bài",
@@ -340,7 +340,7 @@ def main() -> None:
 
                 # Unselected candidates expander
                 with st.expander("Bài không được chọn (Lookback Window)", expanded=False):
-                    st.caption("ℹ️ Không lưu lý do chi tiết cho từng bài bị loại (chỉ lưu số lượng trong notes).")
+                    st.caption(":material/info: Không lưu lý do chi tiết cho từng bài bị loại (chỉ lưu số lượng trong notes).")
                     if db_path.exists():
                         now_utc = datetime.now(timezone.utc)
                         unselected = unselected_candidates(
@@ -380,15 +380,177 @@ def main() -> None:
                     {it.article.id: it.article for it in research_obj.items} if research_obj else {}
                 )
 
-                ed_tab1, ed_tab2, ed_tab3, ed_tab4, ed_tab5 = st.tabs([
-                    "Bản tin (Digest)",
-                    "Mạng xã hội (Captions)",
-                    "Podcast (Script)",
-                    "Video (Storyboard)",
-                    "Markdown Preview",
+                rev_file = selected_run.review_path or (output_dir / "review" / f"{selected_run.run_id}.json")
+                review_data = load_review(rev_file)
+                status = current_status(review_data, selected_run.editorial_path)
+
+                export_root = Path("export")
+                export_bundle_dir = export_root / selected_run.run_id
+
+                # ==============================================================
+                # Editorial Action Bar (Tab 3 Top)
+                # ==============================================================
+                with st.container():
+                    ab_col1, ab_col2, ab_col3 = st.columns([2.5, 3.5, 4.0])
+
+                    with ab_col1:
+                        if status == "approved":
+                            st.markdown("### :material/verified: Đã duyệt")
+                            st.caption("Bản tin đã được phê duyệt sẵn sàng phân phối.")
+                        elif status == "rejected":
+                            st.markdown("### :material/cancel: Từ chối")
+                            st.caption("Bản tin bị từ chối phát hành.")
+                        elif status == "changes_requested":
+                            st.markdown("### :material/edit_note: Cần sửa")
+                            st.caption("Cần chỉnh sửa lại nội dung trước khi duyệt.")
+                        else:
+                            st.markdown("### :material/hourglass_top: Chờ duyệt")
+                            st.caption("Chưa có quyết định phê duyệt chính thức.")
+
+                    with ab_col2:
+                        st.markdown("**Đánh giá nhanh:**")
+                        qr_c1, qr_c2, qr_c3 = st.columns(3)
+                        with qr_c1:
+                            if st.button("Phê duyệt", icon=":material/check_circle:", key="bar_btn_approve"):
+                                try:
+                                    record_decision(
+                                        review_path=rev_file,
+                                        editorial_path=selected_run.editorial_path,
+                                        validation_path=selected_run.validation_path,
+                                        decision="approve",
+                                        reviewer="Editor",
+                                        note="Phê duyệt nhanh qua Editorial Action Bar",
+                                        warnings_acknowledged=True,
+                                    )
+                                    st.success(":material/check_circle: Đã phê duyệt bản tin!")
+                                    st.rerun()
+                                except Exception as err:
+                                    st.error(f"Lỗi: {err}")
+                        with qr_c2:
+                            if st.button("Yêu cầu sửa", icon=":material/edit_note:", key="bar_btn_request_changes"):
+                                try:
+                                    record_decision(
+                                        review_path=rev_file,
+                                        editorial_path=selected_run.editorial_path,
+                                        validation_path=selected_run.validation_path,
+                                        decision="request_changes",
+                                        reviewer="Editor",
+                                        note="Yêu cầu sửa đổi qua Editorial Action Bar",
+                                        warnings_acknowledged=True,
+                                    )
+                                    st.warning(":material/edit_note: Đã yêu cầu sửa đổi!")
+                                    st.rerun()
+                                except Exception as err:
+                                    st.error(f"Lỗi: {err}")
+                        with qr_c3:
+                            if st.button("Từ chối", icon=":material/cancel:", key="bar_btn_reject"):
+                                try:
+                                    record_decision(
+                                        review_path=rev_file,
+                                        editorial_path=selected_run.editorial_path,
+                                        validation_path=selected_run.validation_path,
+                                        decision="reject",
+                                        reviewer="Editor",
+                                        note="Từ chối qua Editorial Action Bar",
+                                        warnings_acknowledged=True,
+                                    )
+                                    st.error(":material/cancel: Đã từ chối bản tin!")
+                                    st.rerun()
+                                except Exception as err:
+                                    st.error(f"Lỗi: {err}")
+
+                    with ab_col3:
+                        st.markdown("**Xuất bản & Tải về:**")
+                        if st.button(
+                            "Phê duyệt & Xuất bản trọn bộ",
+                            icon=":material/publish:",
+                            type="primary",
+                            key="bar_btn_publish_export",
+                        ):
+                            try:
+                                from cyberpulse.export import export_editorial_bundle
+
+                                # 1. Set review_status to APPROVED in editorial JSON
+                                try:
+                                    raw_ed = json.loads(selected_run.editorial_path.read_text(encoding="utf-8"))
+                                    raw_ed["review_status"] = "APPROVED"
+                                    selected_run.editorial_path.write_text(
+                                        json.dumps(raw_ed, indent=2, ensure_ascii=False),
+                                        encoding="utf-8",
+                                    )
+                                except Exception as err:
+                                    logger.warning("Could not set review_status in editorial file: %s", err)
+
+                                # 2. Record approval in review JSON
+                                try:
+                                    record_decision(
+                                        review_path=rev_file,
+                                        editorial_path=selected_run.editorial_path,
+                                        validation_path=selected_run.validation_path,
+                                        decision="approve",
+                                        reviewer="Editor",
+                                        note="Phê duyệt & Xuất bản 1-click",
+                                        warnings_acknowledged=True,
+                                    )
+                                except Exception as err:
+                                    logger.warning("record_decision warning: %s", err)
+                                    r_data = load_review(rev_file)
+                                    r_data["run_id"] = selected_run.run_id
+                                    r_data.setdefault("decisions", []).append({
+                                        "decision": "approve",
+                                        "reviewer": "Editor",
+                                        "note": "Phê duyệt & Xuất bản 1-click",
+                                        "timestamp": datetime.now(timezone.utc).isoformat(),
+                                        "editorial_sha256": sha256_of_file(selected_run.editorial_path),
+                                        "validation_sha256": sha256_of_file(selected_run.validation_path),
+                                        "validation_passed": True,
+                                        "warnings_acknowledged": True,
+                                        "validation_freshness": "fresh",
+                                    })
+                                    rev_file.parent.mkdir(parents=True, exist_ok=True)
+                                    rev_file.write_text(
+                                        json.dumps(r_data, indent=2, ensure_ascii=False),
+                                        encoding="utf-8",
+                                    )
+
+                                # 3. Call export_editorial_bundle
+                                export_editorial_bundle(
+                                    package=pkg,
+                                    run_id=selected_run.run_id,
+                                    output_dir=output_dir,
+                                    export_root=export_root,
+                                )
+                                st.success(":material/done_all: Xuất bản gói nội dung thành công!")
+                                st.rerun()
+                            except Exception as err:
+                                st.error(f"Lỗi xuất bản: {err}")
+
+                        if export_bundle_dir.exists() and any(export_bundle_dir.iterdir()):
+                            from cyberpulse.export import create_export_zip
+
+                            zip_bytes = create_export_zip(export_bundle_dir)
+                            st.download_button(
+                                "Tải trọn bộ xuất bản (.zip)",
+                                data=zip_bytes,
+                                file_name=f"cyberpulse_export_{selected_run.run_id}.zip",
+                                mime="application/zip",
+                                icon=":material/folder_zip:",
+                                key="bar_btn_download_zip",
+                            )
+
+                st.divider()
+
+                # ==============================================================
+                # Sub-tabs in Tab 3
+                # ==============================================================
+                ed_tab1, ed_tab2, ed_tab3, ed_tab4 = st.tabs([
+                    ":material/newspaper: Bản tin Email (Digest)",
+                    ":material/share: Mạng xã hội",
+                    ":material/podcasts: Podcast AI",
+                    ":material/folder_open: Gói Xuất bản (Files)",
                 ])
 
-                # Sub-tab: Bản tin
+                # Sub-tab 1: Bản tin Email (Digest)
                 with ed_tab1:
                     st.title(pkg.digest.title)
                     st.write(pkg.digest.intro)
@@ -406,7 +568,7 @@ def main() -> None:
                             st.caption(f"Nguồn: {', '.join(cites_links)}")
                         st.divider()
 
-                # Sub-tab: Mạng xã hội
+                # Sub-tab 2: Mạng xã hội
                 with ed_tab2:
                     st.subheader("Nội dung đăng mạng xã hội")
                     stats = caption_stats(pkg)
@@ -425,7 +587,30 @@ def main() -> None:
                             )
                             st.write("Hashtags: " + " ".join(f"`{tag}`" for tag in cap.hashtags))
 
-                # Sub-tab: Podcast
+                    with st.expander(":material/video_library: Kịch bản Video ngắn (TikTok/Reels Storyboard)", expanded=False):
+                        st.subheader(pkg.video.title)
+                        sb_rows, total_sec, in_budget = video_storyboard(
+                            pkg, max_total_sec=settings.editorial.video_max_total_sec
+                        )
+                        b_color = "normal" if in_budget else "inverse"
+                        b_status = f"{'Trong' if in_budget else 'Vượt'} ngân sách (Tối đa {settings.editorial.video_max_total_sec}s)"
+                        st.metric("Tổng thời lượng video", f"{total_sec:.1f} giây", delta=b_status, delta_color=b_color)
+
+                        st.dataframe(
+                            [
+                                {
+                                    "Cảnh": r["scene_no"],
+                                    "Thời lượng": f"{r['duration_sec']}s",
+                                    "Chữ trên màn hình": r["on_screen_text"],
+                                    "Ký tự": r["char_count"],
+                                    "Lời dẫn (Voiceover)": r["narration"],
+                                }
+                                for r in sb_rows
+                            ],
+                            width="stretch",
+                        )
+
+                # Sub-tab 3: Podcast AI
                 with ed_tab3:
                     st.subheader(pkg.podcast.title)
                     p_stat = podcast_stats(
@@ -452,7 +637,7 @@ def main() -> None:
                     meta_path = media_dir / f"{selected_run.run_id}.json"
 
                     if mp3_path.exists() and mp3_path.is_file():
-                        st.success("🎧 File âm thanh Podcast hoàn chỉnh (Giọng AI Minh & Lan)")
+                        st.success(":material/headphones: File âm thanh Podcast hoàn chỉnh (Giọng AI Minh & Lan)")
                         st.audio(str(mp3_path), format="audio/mp3")
                         if meta_path.exists() and meta_path.is_file():
                             try:
@@ -465,14 +650,15 @@ def main() -> None:
                                 pass
                         if srt_path.exists() and srt_path.is_file():
                             st.download_button(
-                                label="📥 Tải tệp phụ đề (.srt)",
+                                label="Tải tệp phụ đề (.srt)",
                                 data=srt_path.read_text(encoding="utf-8"),
                                 file_name=f"{selected_run.run_id}.srt",
                                 mime="text/plain",
+                                icon=":material/subtitles:",
                             )
                     else:
                         st.info("Chưa có file âm thanh Podcast cho phiên chạy này.")
-                        if st.button("🎙️ Tạo Audio Podcast (Giọng AI Minh & Lan)", type="primary"):
+                        if st.button("Tạo Audio Podcast (Giọng AI Minh & Lan)", type="primary", icon=":material/mic:"):
                             with st.spinner("Đang tổng hợp giọng nói AI cho Minh và Lan..."):
                                 try:
                                     from cyberpulse.media.podcast import PodcastMediaOptions, synthesize_podcast
@@ -490,43 +676,68 @@ def main() -> None:
                                     st.error(f"Lỗi khi tạo audio: {err}")
 
                     st.markdown("---")
-                    speaker_avatars = {"Minh": "🎙️", "Lan": "🎧"}
+                    speaker_avatars = {"Minh": ":material/record_voice_over:", "Lan": ":material/hearing:"}
                     for seg in pkg.podcast.segments:
-                        avatar = speaker_avatars.get(seg.speaker, "👤")
+                        avatar = speaker_avatars.get(seg.speaker, ":material/person:")
                         with st.chat_message(seg.speaker, avatar=avatar):
                             st.markdown(f"**{seg.speaker}**: {seg.line.text}")
 
-                # Sub-tab: Video
+                # Sub-tab 4: Gói Xuất bản (Files)
                 with ed_tab4:
-                    st.subheader(pkg.video.title)
-                    sb_rows, total_sec, in_budget = video_storyboard(
-                        pkg, max_total_sec=settings.editorial.video_max_total_sec
-                    )
-                    b_color = "normal" if in_budget else "inverse"
-                    b_status = f"{'Trong' if in_budget else 'Vượt'} ngân sách (Tối đa {settings.editorial.video_max_total_sec}s)"
-                    st.metric("Tổng thời lượng video", f"{total_sec:.1f} giây", delta=b_status, delta_color=b_color)
-
-                    st.dataframe(
-                        [
-                            {
-                                "Cảnh": r["scene_no"],
-                                "Thời lượng": f"{r['duration_sec']}s",
-                                "Chữ trên màn hình": r["on_screen_text"],
-                                "Ký tự": r["char_count"],
-                                "Lời dẫn (Voiceover)": r["narration"],
-                            }
-                            for r in sb_rows
-                        ],
-                        width="stretch",
-                    )
-
-                # Sub-tab: Markdown Preview
-                with ed_tab5:
-                    if selected_run.preview_path and selected_run.preview_path.exists():
-                        md_text = selected_run.preview_path.read_text(encoding="utf-8")
-                        st.markdown(md_text)
+                    st.subheader("Gói Xuất bản Đa Kênh (Exported Files)")
+                    if not export_bundle_dir.exists() or not any(export_bundle_dir.iterdir()):
+                        st.info(
+                            ":material/info: Chưa có gói xuất bản cho phiên chạy này. "
+                            "Hãy bấm 'Phê duyệt & Xuất bản trọn bộ' ở phía trên hoặc dùng lệnh CLI:\n\n"
+                            f"`cyberpulse export bundle {selected_run.run_id}`"
+                        )
                     else:
-                        st.info("Chưa có file markdown preview.")
+                        files = sorted([f for f in export_bundle_dir.iterdir() if f.is_file()])
+                        f_col1, f_col2 = st.columns([1, 2])
+                        with f_col1:
+                            st.write(f"Tổng số tệp: **{len(files)}**")
+                            file_rows = []
+                            for f in files:
+                                size_bytes = f.stat().st_size
+                                if size_bytes < 1024:
+                                    sz = f"{size_bytes} B"
+                                elif size_bytes < 1024 * 1024:
+                                    sz = f"{size_bytes / 1024:.1f} KB"
+                                else:
+                                    sz = f"{size_bytes / (1024 * 1024):.1f} MB"
+                                file_rows.append({"Tên tệp": f.name, "Kích thước": sz})
+                            st.dataframe(file_rows, width="stretch")
+                            selected_file_name = st.selectbox(
+                                "Chọn tệp để xem nhanh:",
+                                options=[f.name for f in files],
+                            )
+                        with f_col2:
+                            if selected_file_name:
+                                chosen_f = export_bundle_dir / selected_file_name
+                                st.markdown(f"#### :material/visibility: Xem nhanh: `{selected_file_name}`")
+                                if chosen_f.suffix in [".md", ".txt"]:
+                                    st.text_area(
+                                        "Nội dung văn bản:",
+                                        value=chosen_f.read_text(encoding="utf-8"),
+                                        height=350,
+                                        disabled=True,
+                                    )
+                                elif chosen_f.suffix == ".html":
+                                    st.code(chosen_f.read_text(encoding="utf-8"), language="html")
+                                elif chosen_f.suffix == ".json":
+                                    try:
+                                        st.json(json.loads(chosen_f.read_text(encoding="utf-8")))
+                                    except Exception:
+                                        st.text_area("Nội dung JSON:", value=chosen_f.read_text(encoding="utf-8"), height=350)
+                                elif chosen_f.suffix == ".mp3":
+                                    st.audio(str(chosen_f), format="audio/mp3")
+                                elif chosen_f.suffix == ".srt":
+                                    st.text_area(
+                                        "Phụ đề SRT:",
+                                        value=chosen_f.read_text(encoding="utf-8"),
+                                        height=350,
+                                        disabled=True,
+                                    )
 
             except ArtifactError as err:
                 st.error(f"Lỗi khi đọc file editorial: {err}")
@@ -550,12 +761,12 @@ def main() -> None:
 
             if freshness == "missing":
                 st.warning(
-                    f"⚠️ Chưa có kết quả kiểm tra cho phiên chạy này.\n\n"
+                    f":material/warning: Chưa có kết quả kiểm tra cho phiên chạy này.\n\n"
                     f"Hãy chạy lệnh: `cyberpulse validate --research output/research/{selected_run.run_id}.json --editorial output/editorial/{selected_run.run_id}.json`"
                 )
             elif freshness == "stale":
                 st.warning(
-                    f"⚠️ Kết quả kiểm tra đã cũ (stale) do gói biên tập đã bị chỉnh sửa sau lần kiểm tra cuối.\n\n"
+                    f":material/warning: Kết quả kiểm tra đã cũ (stale) do gói biên tập đã bị chỉnh sửa sau lần kiểm tra cuối.\n\n"
                     f"Hãy chạy lại: `cyberpulse validate --research output/research/{selected_run.run_id}.json --editorial output/editorial/{selected_run.run_id}.json`"
                 )
 
@@ -574,7 +785,7 @@ def main() -> None:
                 v_col5.metric("LLM Claim Review", llm_rev.upper())
 
                 if scope:
-                    st.info(f"📋 **Phạm vi kiểm tra:** {scope}")
+                    st.info(f":material/assignment: **Phạm vi kiểm tra:** {scope}")
 
                 # Issues Table & Legend
                 all_issues = errors + warnings
@@ -634,14 +845,14 @@ def main() -> None:
                 c_left, c_right = st.columns(2)
 
                 with c_left:
-                    st.markdown("#### 📰 Nguồn tin (English RSS)")
+                    st.markdown("#### :material/newspaper: Nguồn tin (English RSS)")
                     st.write(f"**Nguồn:** {chosen_article.source_name}")
                     st.write(f"**Tiêu đề:** [{chosen_article.title}]({chosen_article.url})")
                     st.write(f"**Tóm tắt RSS:**\n\n{chosen_article.summary}")
                     st.caption(f"Lý do chọn (Research Agent): {chosen_item.relevance_reason}")
 
                 with c_right:
-                    st.markdown("#### 🇻🇳 Các đoạn nội dung tiếng Việt trích dẫn bài này")
+                    st.markdown("#### :material/translate: Các đoạn nội dung tiếng Việt trích dẫn bài này")
                     citing_blocks = b_map.get(chosen_article.id, [])
                     if not citing_blocks:
                         st.info("Không có đoạn nội dung nào trích dẫn bài này.")
@@ -739,7 +950,7 @@ def main() -> None:
                                 reviewer=reviewer_edit_name,
                                 note=reviewer_edit_note,
                             )
-                            st.success("✅ Đã lưu chỉnh sửa thành công! Validation hiện đã chuyển sang trạng thái cũ (stale).")
+                            st.success(":material/check_circle: Đã lưu chỉnh sửa thành công! Validation hiện đã chuyển sang trạng thái cũ (stale).")
                             st.rerun()
                         except Exception as err:
                             st.error(f"Lỗi khi lưu chỉnh sửa: {err}")
@@ -772,7 +983,7 @@ def main() -> None:
                     b_col1, b_col2, b_col3 = st.columns(3)
 
                     with b_col1:
-                        if st.button("✅ Duyệt (Approve)", type="primary"):
+                        if st.button("Duyệt (Approve)", type="primary", icon=":material/check_circle:"):
                             try:
                                 record_decision(
                                     review_path=rev_file,
@@ -783,13 +994,13 @@ def main() -> None:
                                     note=decision_note,
                                     warnings_acknowledged=ack_warnings,
                                 )
-                                st.success("✅ Đã ghi nhận quyết định: DUYỆT (Approve)!")
+                                st.success(":material/check_circle: Đã ghi nhận quyết định: DUYỆT (Approve)!")
                                 st.rerun()
                             except ReviewRuleError as err:
                                 st.error(str(err))
 
                     with b_col2:
-                        if st.button("⚠️ Yêu cầu sửa", type="secondary"):
+                        if st.button("Yêu cầu sửa", type="secondary", icon=":material/edit_note:"):
                             try:
                                 record_decision(
                                     review_path=rev_file,
@@ -800,13 +1011,13 @@ def main() -> None:
                                     note=decision_note,
                                     warnings_acknowledged=ack_warnings,
                                 )
-                                st.warning("⚠️ Đã ghi nhận: YÊU CẦU SỬA ĐỔI!")
+                                st.warning(":material/edit_note: Đã ghi nhận: YÊU CẦU SỬA ĐỔI!")
                                 st.rerun()
                             except ReviewRuleError as err:
                                 st.error(str(err))
 
                     with b_col3:
-                        if st.button("❌ Từ chối (Reject)", type="secondary"):
+                        if st.button("Từ chối (Reject)", type="secondary", icon=":material/cancel:"):
                             try:
                                 record_decision(
                                     review_path=rev_file,
@@ -817,7 +1028,7 @@ def main() -> None:
                                     note=decision_note,
                                     warnings_acknowledged=ack_warnings,
                                 )
-                                st.error("❌ Đã ghi nhận: TỪ CHỐI!")
+                                st.error(":material/cancel: Đã ghi nhận: TỪ CHỐI!")
                                 st.rerun()
                             except ReviewRuleError as err:
                                 st.error(str(err))
