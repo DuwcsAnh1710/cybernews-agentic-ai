@@ -566,3 +566,84 @@ def test_p7_numbers_and_terms_checked_only_against_cited_articles() -> None:
     issue = next(e for e in report.errors if e.code == "E_NUMBER_UNSUPPORTED")
     assert issue.evidence == "999"
     assert report.passed is False
+
+
+# ==============================================================================
+# Task T4.2e: Tech Compound Masking, Citation & Builtin Terms Whitelisting Tests
+# ==============================================================================
+
+
+def test_t42e_extract_numbers_masks_tech_compounds() -> None:
+    """Verify tech compounds (5G, 2FA, 10Gbps, v2, SHA256, IPv6) yield zero numbers."""
+    phrase = "Chuan 5G va 2FA, bang thong 10Gbps, v2 moi, ma SHA256 va IPv6"
+    extracted = _extract_numbers(phrase)
+    assert extracted == []
+
+
+def test_t42e_extract_numbers_various_tech_units_and_compounds() -> None:
+    """Verify various bandwidth, frequency, storage, bit, cellular, auth, and version patterns."""
+    samples = [
+        "mang di dong 5G va 4G",
+        "bao mat voi 2FA va 3fa",
+        "bang thong 10Gbps, 100kbps, 1.5GHz, 2.4GHz",
+        "dung luong 16GB, 512MB, 1TiB",
+        "ma hoa 256-bit, 64bit, 128 bits, 1024 bytes",
+        "cap nhat len v2 moi",
+        "phien ban V3 da ra mat",
+    ]
+    for sample in samples:
+        assert _extract_numbers(sample) == []
+
+
+def test_t42e_real_numbers_preserved_alongside_tech_compounds() -> None:
+    """Standalone numbers are still extracted when mixed with masked tech tokens."""
+    text = "He thong 5G da ghi nhan 42 su co bao mat qua 2FA voi bang thong 10Gbps trong v2"
+    assert _extract_numbers(text) == ["42"]
+
+
+def test_t42e_subversion_tokens_not_masked_by_standalone_version() -> None:
+    """Sub-versions like v2.1.313 or v2.0 are not masked by _STANDALONE_VERSION_PATTERN."""
+    assert _extract_numbers("phien ban v2.1.313") == ["2.1.313"]
+    assert _extract_numbers("phien ban v2.0") == ["2.0"]
+
+
+def test_t42e_validation_package_zero_unsupported_numbers_for_tech_compounds() -> None:
+    """End-to-end validate_package yields zero E_NUMBER_UNSUPPORTED for tech compound phrase."""
+    res, pkg, st = _make_synthetic_bundle(
+        source_title="An ninh mang va cong nghe moi",
+        source_summary="Bao cao danh gia ve xu huong tan cong mang tren the gioi.",
+        editorial_text="Chuan 5G va 2FA, bang thong 10Gbps, v2 moi, ma SHA256 va IPv6",
+    )
+    report = validate_package(res, pkg, st, llm=None)
+    num_errors = [e for e in report.errors if e.code == "E_NUMBER_UNSUPPORTED"]
+    assert len(num_errors) == 0
+
+
+def test_t42e_citation_tags_exemption_in_validation() -> None:
+    """Citation tags [A1], A2, [A3], A4 do not trigger W_TERM_UNSUPPORTED."""
+    res, pkg, st = _make_synthetic_bundle(
+        source_title="Security Advisory Report",
+        source_summary="Details on vulnerabilities and mitigations.",
+        editorial_text="Theo thong tin tu bai viet [A1] va A2, cung nhu nguon [A3] va A4",
+    )
+    report = validate_package(res, pkg, st, llm=None)
+    citation_warnings = [
+        w for w in report.warnings
+        if w.code == "W_TERM_UNSUPPORTED" and w.evidence.upper() in {"A1", "A2", "A3", "A4"}
+    ]
+    assert len(citation_warnings) == 0
+
+
+def test_t42e_builtin_terms_expanded_allowlist() -> None:
+    """CNTT, ATTT, CSDL, VND in editorial do not trigger W_TERM_UNSUPPORTED."""
+    res, pkg, st = _make_synthetic_bundle(
+        source_title="Bao mat he thong",
+        source_summary="Cap nhat cac bien phap an ninh mang toan dien.",
+        editorial_text="Nganh CNTT va linh vuc ATTT can bao ve CSDL voi chi phi hang ty VND",
+    )
+    report = validate_package(res, pkg, st, llm=None)
+    builtin_warnings = [
+        w for w in report.warnings
+        if w.code == "W_TERM_UNSUPPORTED" and w.evidence.lower() in {"cntt", "attt", "csdl", "vnd"}
+    ]
+    assert len(builtin_warnings) == 0

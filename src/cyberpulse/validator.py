@@ -215,7 +215,15 @@ NUMBER_WORDS = {
     "twenty": "20",
 }
 
-_BUILTIN_TERMS: set[str] = {"internet"}
+_BUILTIN_TERMS: set[str] = {"internet", "cntt", "attt", "csdl", "vnd"}
+
+_TECH_UNIT_PATTERN = re.compile(
+    r"(?<!\w)\d+(?:[.,]\d+)?\s*(?:[KkMmGgTtPp]bps|bps|[KkMmGgTt]Hz|Hz|[KkMmGgTtPp]B|[KkMmGgTtPp]iB|-?bit|-?bits|byte|bytes)\b",
+    re.IGNORECASE,
+)
+_CELLULAR_GEN_PATTERN = re.compile(r"\b\d+G\b", re.IGNORECASE)
+_AUTH_PATTERN = re.compile(r"\b\d+FA\b", re.IGNORECASE)
+_STANDALONE_VERSION_PATTERN = re.compile(r"\bv\d+(?!\.\d)\b", re.IGNORECASE)
 
 _NUM_WORD_PATTERN = re.compile(
     r"\b(" + "|".join(NUMBER_WORDS.keys()) + r")\b",
@@ -329,12 +337,22 @@ def _extract_cves(text: str) -> list[str]:
     return _CVE_PATTERN.findall(text)
 
 
+def _mask_tech_tokens(text: str) -> str:
+    """Mask technology units, cellular gen, auth, and standalone version tokens."""
+    masked = _TECH_UNIT_PATTERN.sub(lambda m: " " * len(m.group(0)), text)
+    masked = _CELLULAR_GEN_PATTERN.sub(lambda m: " " * len(m.group(0)), masked)
+    masked = _AUTH_PATTERN.sub(lambda m: " " * len(m.group(0)), masked)
+    masked = _STANDALONE_VERSION_PATTERN.sub(lambda m: " " * len(m.group(0)), masked)
+    return masked
+
+
 def _extract_numbers(text: str) -> list[str]:
-    """Extract standalone numbers from text after removing enumerators and CVEs."""
+    """Extract standalone numbers from text after removing enumerators, CVEs, and tech units."""
     no_enum = _drop_list_enumerators(text)
     no_cves = _CVE_PATTERN.sub(lambda m: " " * len(m.group(0)), no_enum)
+    masked = _mask_tech_tokens(no_cves)
     normalized: list[str] = []
-    for m in _NUM_TOKEN_RE.finditer(no_cves):
+    for m in _NUM_TOKEN_RE.finditer(masked):
         raw_num = m.group(3)
         _kind, canon = _classify_and_canonicalize(raw_num)
         normalized.append(canon)
@@ -345,8 +363,9 @@ def _get_source_numbers(source_text: str) -> set[str]:
     """Extract all numbers from source text including mapped number words zero-twenty."""
     no_cves = _CVE_PATTERN.sub(lambda m: " " * len(m.group(0)), source_text)
     expanded = _NUM_WORD_PATTERN.sub(lambda m: NUMBER_WORDS[m.group(0).lower()], no_cves)
+    masked = _mask_tech_tokens(expanded)
     nums: set[str] = set()
-    for m in _NUM_TOKEN_RE.finditer(expanded):
+    for m in _NUM_TOKEN_RE.finditer(masked):
         raw_num = m.group(3)
         kind, canon = _classify_and_canonicalize(raw_num)
         nums.add(canon)
@@ -829,6 +848,8 @@ def validate_package(
         # W_TERM_UNSUPPORTED
         candidate_terms = _extract_candidate_terms(block.text, path=block.path)
         for term in candidate_terms:
+            if re.match(r"^A\d+$", term, re.IGNORECASE):
+                continue
             if term.lower() in effective_allowlist:
                 continue
             # USD rule: supported if source contains "$" or "USD"

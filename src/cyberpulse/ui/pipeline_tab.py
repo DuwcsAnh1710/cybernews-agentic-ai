@@ -387,14 +387,14 @@ def render_pipeline_tab(output_dir: Path, settings_path: Path) -> None:
                 "Job ID": j.job_id,
                 "Bước": j.step,
                 "Trạng thái": j.status.value,
-                "Mã thoát": j.exit_code if j.exit_code is not None else "—",
+                "Mã thoát": str(j.exit_code) if j.exit_code is not None else "—",
                 "Ý nghĩa": j.exit_label_vi or "—",
                 "Thời gian bắt đầu": j.started_at,
                 "Tệp sinh ra": ", ".join(j.new_files) if j.new_files else "—",
             }
             for j in history_jobs
         ]
-        st.dataframe(history_data, use_container_width=True)
+        st.dataframe(history_data, width="stretch")
 
     # 5. Early failed runs from SQLite (absent from disk files)
     db_path = output_dir.parent / "data" / "cyberpulse.db"
@@ -404,5 +404,5 @@ def render_pipeline_tab(output_dir: Path, settings_path: Path) -> None:
     if early_failures:
         with st.expander("Các lượt chạy thất bại sớm (chỉ ghi trong CSDL, không có tệp kết quả)", expanded=False):
             st.caption("Các lượt chạy gặp lỗi trước khi kịp tạo tệp kết quả (ví dụ lỗi gọi API hoặc gián đoạn).")
-            st.dataframe(early_failures, use_container_width=True)
+            st.dataframe(early_failures, width="stretch")
 

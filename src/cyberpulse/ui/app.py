@@ -156,7 +156,7 @@ def main() -> None:
             {"Nguồn": s.name, "URL": s.url, "Kích hoạt": "Bật" if s.enabled else "Tắt"}
             for s in sources
         ]
-        st.dataframe(sources_data, use_container_width=True)
+        st.dataframe(sources_data, width="stretch")
 
         st.divider()
         st.subheader("Cơ sở dữ liệu tin tức")
@@ -222,7 +222,7 @@ def main() -> None:
             st.dataframe(
                 display_rows,
                 column_config={"Link": st.column_config.LinkColumn("Link gốc")},
-                use_container_width=True,
+                width="stretch",
             )
 
     # --------------------------------------------------------------------------
@@ -262,7 +262,7 @@ def main() -> None:
                 st.dataframe(
                     sel_rows,
                     column_config={"URL": st.column_config.LinkColumn("Bài viết gốc")},
-                    use_container_width=True,
+                    width="stretch",
                 )
 
                 # Source cap view
@@ -299,7 +299,7 @@ def main() -> None:
                         st.dataframe(
                             unsel_rows,
                             column_config={"URL": st.column_config.LinkColumn("Link gốc")},
-                            use_container_width=True,
+                            width="stretch",
                         )
                     else:
                         st.info("Chưa có cơ sở dữ liệu để đối chiếu bài không được chọn.")
@@ -414,7 +414,7 @@ def main() -> None:
                             }
                             for r in sb_rows
                         ],
-                        use_container_width=True,
+                        width="stretch",
                     )
 
                 # Sub-tab: Markdown Preview
@@ -496,7 +496,7 @@ def main() -> None:
                             }
                             for iss in filtered_issues
                         ],
-                        use_container_width=True,
+                        width="stretch",
                     )
 
                 with st.expander("Ý nghĩa các mã kiểm tra (Check Code Legend)", expanded=False):
@@ -732,7 +732,7 @@ def main() -> None:
                         }
                         for d in reversed(review_data["decisions"])
                     ]
-                    st.dataframe(dec_rows, use_container_width=True)
+                    st.dataframe(dec_rows, width="stretch")
 
                 # Edit History
                 if review_data.get("edits"):
@@ -748,7 +748,7 @@ def main() -> None:
                         }
                         for e in reversed(review_data["edits"])
                     ]
-                    st.dataframe(edit_rows, use_container_width=True)
+                    st.dataframe(edit_rows, width="stretch")
 
     # --------------------------------------------------------------------------
     # Tab 5: Pipeline Runner
