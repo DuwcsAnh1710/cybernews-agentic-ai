@@ -217,6 +217,7 @@ class Orchestrator:
         backoff_base_sec: float = 5.0,
         rewrite_step: Callable[[ResearchResult, EditorialPackage, Sequence[Any]], EditorialPackage] | None = None,
         max_rewrites: int = 2,
+        final_review_step: Callable[[ResearchResult, EditorialPackage, Any], Any] | None = None,
     ) -> None:
         self.conn = conn
         self.settings = settings
@@ -231,6 +232,7 @@ class Orchestrator:
         self.backoff_base_sec = backoff_base_sec
         self.rewrite_step = rewrite_step
         self.max_rewrites = max(0, min(3, max_rewrites))
+        self.final_review_step = final_review_step
         self._current_status: dict[str, RunStatus] = {}
 
     def _transition_to(
@@ -608,6 +610,13 @@ class Orchestrator:
 
         # 3. Check if initial validation passed
         if getattr(report, "passed", False):
+            if self.final_review_step is not None:
+                try:
+                    report = self.final_review_step(research, pkg, report)
+                    self._persist_validation_artifacts(run_id, report, artifacts)
+                except Exception as exc:
+                    logger.warning("Layer 3 final review step encountered error: %s", exc)
+
             self._append_event_log(
                 run_id=run_id,
                 step="validate",
@@ -652,6 +661,12 @@ class Orchestrator:
         )
 
         # 7. Finalize BEST attempt artifacts (overwriting with best if changed)
+        if getattr(best_report, "passed", False) and self.final_review_step is not None:
+            try:
+                best_report = self.final_review_step(research, best_pkg, best_report)
+            except Exception as exc:
+                logger.warning("Layer 3 final review step encountered error: %s", exc)
+
         self._finalize_best_artifacts(run_id, research, best_pkg, best_report, artifacts)
 
         if fail_reason is not None:

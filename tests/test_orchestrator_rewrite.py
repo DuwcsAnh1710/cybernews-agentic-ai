@@ -72,7 +72,7 @@ def conn(tmp_path: Path) -> sqlite3.Connection:
 
 
 def _make_article(art_id: str, title: str = "Threat Advisory") -> Article:
-    now = datetime(2026, 10, 31, 12, 0, 0, tzinfo=timezone.utc)
+    now = datetime.now(timezone.utc).replace(microsecond=0)
     return Article(
         id=art_id,
         source_name="Source A",
