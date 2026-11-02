@@ -5,11 +5,12 @@ from __future__ import annotations
 import argparse
 from datetime import datetime, timedelta, timezone
 import importlib.util
+import json
 import os
 from pathlib import Path
 import subprocess
 import sys
-from typing import Literal
+from typing import Any, Literal, Sequence
 
 from dotenv import load_dotenv
 from pydantic import BaseModel
@@ -25,9 +26,11 @@ from cyberpulse.config import ConfigError, check_secrets, load_app_config, load_
 from cyberpulse.fetcher import RawItem, fetch_all
 from cyberpulse.llm import LLMError, create_llm_client
 from cyberpulse.logging_setup import setup_logging
-from cyberpulse.models import EditorialPackage, ResearchResult
+from cyberpulse.models import Article, EditorialPackage, ResearchResult, RunStatus
 from cyberpulse.normalize import normalize_items
+from cyberpulse.orchestrator import FailureReason, Orchestrator, RunResult, sanitize_error_message
 from cyberpulse.render_preview import render_markdown
+from cyberpulse.runlock import RunLock, RunLockBusyError
 from cyberpulse.storage import connect, get_db_path, init_db, list_recent_articles, upsert_article
 from cyberpulse.validator import ValidationIssue, ValidationReport, validate_package
 
@@ -39,6 +42,47 @@ def build_parser() -> argparse.ArgumentParser:
         description="CyberPulse AI - Automated cybersecurity news intelligence and multimedia pipeline",
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
+
+    # run subcommand (T5.2)
+    run_parser = subparsers.add_parser(
+        "run", help="Execute complete automated pipeline run (Agent 1 -> Agent 2 -> Validate -> Layer 3)"
+    )
+    run_parser.add_argument(
+        "--settings",
+        type=Path,
+        default=Path("config/settings.toml"),
+        help="Path to settings.toml (default: config/settings.toml)",
+    )
+    run_parser.add_argument(
+        "--sources",
+        type=Path,
+        default=Path("config/sources.toml"),
+        help="Path to sources.toml (default: config/sources.toml)",
+    )
+    run_parser.add_argument(
+        "--allow-insufficient",
+        action="store_true",
+        default=False,
+        help="Allow run to proceed in degraded mode if candidates are insufficient",
+    )
+    run_parser.add_argument(
+        "--max-rewrites",
+        type=int,
+        default=2,
+        help="Maximum rewrite attempts (0 to 3, default: 2)",
+    )
+    run_parser.add_argument(
+        "--no-llm-review",
+        action="store_true",
+        default=False,
+        help="Skip post-loop Layer 3 LLM claim review",
+    )
+    run_parser.add_argument(
+        "--run-id",
+        type=str,
+        default=None,
+        help="Custom run ID (optional, default auto-generated)",
+    )
 
     # version subcommand
     subparsers.add_parser("version", help="Show application version")
@@ -738,6 +782,162 @@ def run_ui(
         return 0
 
 
+EXIT_CODE_MAP: dict[FailureReason, int] = {
+    FailureReason.insufficient_research: 3,
+    FailureReason.llm_error: 5,
+    FailureReason.validation_failed: 8,
+    FailureReason.research_failed: 11,
+    FailureReason.editorial_failed: 11,
+    FailureReason.internal_error: 11,
+    FailureReason.interrupted: 11,
+}
+
+
+def _print_run_summary(result: RunResult) -> None:
+    """Print ASCII-safe summary of run outcome with masked secrets."""
+    val_errors = 0
+    val_warnings = 0
+    val_path = result.artifacts.get("validation")
+    if val_path and val_path.exists():
+        try:
+            data = json.loads(val_path.read_text(encoding="utf-8"))
+            val_errors = len(data.get("errors", []))
+            val_warnings = len(data.get("warnings", []))
+        except Exception:
+            pass
+
+    print("=" * 60)
+    print("CyberPulse Run Summary")
+    print("=" * 60)
+    print(f"Run ID: {result.run_id}")
+    print(f"Status: {result.status.value}")
+    print(f"Failure Reason: {result.failure_reason.value if result.failure_reason else 'None'}")
+    if result.error_message:
+        print(f"Error: {sanitize_error_message(result.error_message)}")
+    print(f"Degraded: {result.degraded}")
+    print(f"Rewrite Attempts: {result.rewrite_attempts}")
+    print(f"Stop Reason: {result.stop_reason or 'None'}")
+    print(f"Step Attempts: {result.step_attempts}")
+    print("Artifacts:")
+    if result.artifacts:
+        for k, p in sorted(result.artifacts.items()):
+            print(f"  - {k}: {p}")
+    else:
+        print("  (None)")
+    print(f"Validation: {val_errors} error(s), {val_warnings} warning(s)")
+    print("=" * 60)
+
+
+def run_run(
+    settings_path: Path,
+    sources_path: Path,
+    allow_insufficient: bool = False,
+    max_rewrites: int = 2,
+    no_llm_review: bool = False,
+    run_id: str | None = None,
+) -> int:
+    """Execute end-to-end cyberpulse pipeline run with cross-process run lock."""
+    # 1. Load configuration
+    try:
+        settings = load_settings(settings_path)
+    except ConfigError as err:
+        print(f"ConfigError: {err}", file=sys.stderr)
+        return 1
+
+    # 2. Validate input options
+    if not (0 <= max_rewrites <= 3):
+        print(f"Error: --max-rewrites must be between 0 and 3, got {max_rewrites}", file=sys.stderr)
+        return 7
+
+    if run_id is not None and not run_id.strip():
+        print("Error: --run-id cannot be empty", file=sys.stderr)
+        return 7
+
+    # 3. Require API key if using Gemini provider
+    if settings.llm.provider == "gemini":
+        load_dotenv(override=False)
+        api_key = os.environ.get("GEMINI_API_KEY")
+        if not api_key or not api_key.strip():
+            print("GEMINI_API_KEY: missing — live LLM check skipped. See README \"LLM setup\".")
+            return 4
+
+    # 4. Open/init DB
+    db_path = get_db_path(settings)
+    conn = connect(db_path)
+
+    # 5. Acquire cross-process lock BEFORE any LLM call
+    adopt_token = os.environ.get("CYBERPULSE_LOCK_TOKEN")
+    lock = RunLock(output_dir=settings.paths.output_dir, step="run", adopt_token=adopt_token)
+    try:
+        lock.acquire()
+    except RunLockBusyError as err:
+        print(f"[PIPELINE BUSY] {err}", file=sys.stderr)
+        conn.close()
+        return 10
+
+    try:
+        init_db(conn)
+        setup_logging(
+            log_level=settings.log_level,
+            log_dir=settings.paths.log_dir,
+            logger_name="cyberpulse",
+        )
+
+        client = create_llm_client(settings)
+        research_agent = ResearchAgent(llm=client, settings=settings)
+        editorial_agent = EditorialAgent(llm=client, settings=settings)
+
+        def research_step(r_id: str, candidates: list[Article]) -> ResearchResult:
+            return research_agent.run(run_id=r_id, candidates=candidates)
+
+        def editorial_step(research: ResearchResult) -> EditorialPackage:
+            return editorial_agent.run(research)
+
+        def rewrite_step(research: ResearchResult, prev: EditorialPackage, feedback: Sequence[Any]) -> EditorialPackage:
+            return editorial_agent.rewrite(research, prev, feedback)
+
+        def validate_step(research: ResearchResult, pkg: EditorialPackage) -> Any:
+            return validate_package(research, pkg, settings, llm=None)
+
+        final_review_step = None
+        if not no_llm_review:
+            def final_review_step(research: ResearchResult, pkg: EditorialPackage, report: Any) -> Any:
+                return validate_package(research, pkg, settings, llm=client)
+
+        orchestrator = Orchestrator(
+            conn=conn,
+            settings=settings,
+            research_step=research_step,
+            editorial_step=editorial_step,
+            validate_step=validate_step,
+            rewrite_step=rewrite_step,
+            max_rewrites=max_rewrites,
+            allow_insufficient=allow_insufficient,
+            final_review_step=final_review_step,
+        )
+
+        result = orchestrator.run(run_id=run_id)
+        _print_run_summary(result)
+
+        if result.status == RunStatus.awaiting_review:
+            return 0
+        if result.failure_reason:
+            return EXIT_CODE_MAP.get(result.failure_reason, 11)
+        return 11
+    except KeyboardInterrupt:
+        print("\n[PIPELINE INTERRUPTED] Run cancelled by user.", file=sys.stderr)
+        return 11
+    except LLMError as err:
+        print(f"[LLM ERROR] {err.__class__.__name__}: {err}", file=sys.stderr)
+        return 5
+    except Exception as err:
+        print(f"[ERROR] {err.__class__.__name__}: {err}", file=sys.stderr)
+        return 11
+    finally:
+        conn.close()
+        lock.release()
+
+
 def main(argv: list[str] | None = None) -> int:
     """CLI main entry point."""
     if sys.stdout and hasattr(sys.stdout, "reconfigure"):
@@ -752,7 +952,16 @@ def main(argv: list[str] | None = None) -> int:
     except SystemExit as exc:
         return exc.code if isinstance(exc.code, int) else 0
 
-    if args.command == "version":
+    if args.command == "run":
+        return run_run(
+            settings_path=args.settings,
+            sources_path=args.sources,
+            allow_insufficient=args.allow_insufficient,
+            max_rewrites=args.max_rewrites,
+            no_llm_review=args.no_llm_review,
+            run_id=args.run_id,
+        )
+    elif args.command == "version":
         return run_version()
     elif args.command == "check-config":
         return run_check_config(

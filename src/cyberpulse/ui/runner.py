@@ -15,11 +15,23 @@ import logging
 import os
 from pathlib import Path
 import re
+import secrets
 import subprocess
 import sys
 import threading
 import time
 from typing import Any, Callable
+
+from cyberpulse.runlock import (
+    RunLockBusyError,
+    acquire_lock as runlock_acquire_lock,
+    adopt_lock as runlock_adopt_lock,
+    get_lock_path,
+    is_pid_alive,
+    read_lock_info,
+    release_lock,
+    update_lock_child_pid,
+)
 
 logger = logging.getLogger("cyberpulse.ui.runner")
 
@@ -49,6 +61,8 @@ EXIT_LABELS_VI: dict[int | str, str] = {
     7: "Dữ liệu đầu vào hoặc tham chiếu không hợp lệ",
     8: "Phát hiện lỗi đối soát (Validation errors)",
     9: "Thiếu thư viện Streamlit",
+    10: "Pipeline đang bận (tiến trình khác đang giữ khóa)",
+    11: "Thất bại trong pipeline (Nội bộ / Nghiên cứu / Biên tập)",
     "timeout": "Hết thời gian chờ (Timeout)",
     "cancelled": "Đã bị hủy bởi người dùng",
     "interrupted": "Bị gián đoạn (ứng dụng hoặc tiến trình dừng đột ngột)",
@@ -56,6 +70,12 @@ EXIT_LABELS_VI: dict[int | str, str] = {
 
 # Step configurations
 STEP_SPECS: dict[str, dict[str, Any]] = {
+    "run": {
+        "timeout_s": 1800,
+        "soft_exit_codes": {3, 8},
+        "calls_llm": True,
+        "required_params": [],
+    },
     "fetch": {
         "timeout_s": 180,
         "soft_exit_codes": set(),
@@ -102,7 +122,7 @@ class InvalidInputError(RunnerError):
     """Raised when input parameters or file paths are invalid."""
 
 
-class PipelineBusyError(RunnerError):
+class PipelineBusyError(RunnerError, RunLockBusyError):
     """Raised when another job currently holds the lock."""
 
 
@@ -201,25 +221,7 @@ def redact_argv(argv: list[str]) -> list[str]:
 
 def _default_is_pid_alive(pid: int) -> bool:
     """Check if process is alive on Windows using OpenProcess and GetExitCodeProcess."""
-    if sys.platform == "win32":
-        import ctypes
-        from ctypes import wintypes
-
-        PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
-        STILL_ACTIVE = 259
-        kernel32 = ctypes.windll.kernel32
-        handle = kernel32.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, False, pid)
-        if not handle:
-            return False
-        try:
-            exit_code = wintypes.DWORD()
-            if kernel32.GetExitCodeProcess(handle, ctypes.byref(exit_code)):
-                return exit_code.value == STILL_ACTIVE
-            return False
-        finally:
-            kernel32.CloseHandle(handle)
-    else:
-        raise NotImplementedError("Windows only")
+    return is_pid_alive(pid)
 
 
 # ==============================================================================
@@ -291,33 +293,6 @@ def validate_input_path(path: Path | str, output_dir: Path) -> Path:
 # ==============================================================================
 
 
-def get_lock_path(output_dir: Path) -> Path:
-    """Return path to pipeline.lock file."""
-    return output_dir / "pipeline" / "pipeline.lock"
-
-
-def read_lock_info(output_dir: Path) -> dict[str, Any] | None:
-    """Read lock file data if present; return None if missing or corrupt."""
-    lock_file = get_lock_path(output_dir)
-    if not lock_file.exists():
-        return None
-    try:
-        content = lock_file.read_text(encoding="utf-8")
-        return json.loads(content)
-    except Exception:
-        return None
-
-
-def release_lock(output_dir: Path) -> None:
-    """Safely release and remove pipeline.lock file."""
-    lock_file = get_lock_path(output_dir)
-    try:
-        if lock_file.exists():
-            lock_file.unlink()
-    except OSError:
-        pass
-
-
 def _cleanup_stale_job(output_dir: Path, job_id: str | None) -> None:
     """Mark an orphaned running job as FAILED (A3)."""
     if not job_id:
@@ -343,79 +318,23 @@ def acquire_lock(
     step: str,
     job_id: str,
     is_pid_alive_fn: Callable[[int], bool] | None = None,
+    token: str | None = None,
 ) -> dict[str, Any]:
     """Atomically acquire the pipeline lock, cleaning stale locks if necessary.
 
     Raises PipelineBusyError if held by an active process.
     """
-    is_alive = is_pid_alive_fn or _default_is_pid_alive
-    lock_file = get_lock_path(output_dir)
-    lock_file.parent.mkdir(parents=True, exist_ok=True)
-
-    started_at = datetime.now(timezone.utc).isoformat()
-    payload = {
-        "owner_pid": os.getpid(),
-        "child_pid": None,
-        "step": step,
-        "job_id": job_id,
-        "started_at": started_at,
-    }
-
-    # Attempt atomic creation
-    while True:
-        try:
-            fd = os.open(str(lock_file), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
-            with os.fdopen(fd, "w", encoding="utf-8") as f:
-                json.dump(payload, f, indent=2)
-            return payload
-        except FileExistsError:
-            # Check if stale
-            lock_data = read_lock_info(output_dir)
-            if lock_data is None:
-                # Corrupt lock file -> clean it up
-                release_lock(output_dir)
-                continue
-
-            child_pid = lock_data.get("child_pid")
-            owner_pid = lock_data.get("owner_pid")
-            is_stale = False
-
-            if child_pid is not None:
-                if not is_alive(int(child_pid)):
-                    is_stale = True
-            else:
-                if owner_pid is None or not is_alive(int(owner_pid)):
-                    is_stale = True
-
-            if is_stale:
-                # Stale lock: clean up orphaned job (A3) and unlink
-                _cleanup_stale_job(output_dir, lock_data.get("job_id"))
-                release_lock(output_dir)
-                continue
-            else:
-                h_step = lock_data.get("step", "unknown")
-                h_pid = child_pid or owner_pid
-                h_start = lock_data.get("started_at", "unknown")
-                h_job = lock_data.get("job_id", "unknown")
-                raise PipelineBusyError(
-                    f"Pipeline đang bận: bước '{h_step}' (PID: {h_pid}, Job: {h_job}) đang chạy từ {h_start}"
-                )
-
-
-def update_lock_child_pid(output_dir: Path, child_pid: int) -> None:
-    """Update child_pid in lock file atomically."""
-    lock_file = get_lock_path(output_dir)
-    if not lock_file.exists():
-        return
     try:
-        lock_data = read_lock_info(output_dir)
-        if lock_data:
-            lock_data["child_pid"] = child_pid
-            tmp_file = lock_file.with_suffix(".tmp")
-            tmp_file.write_text(json.dumps(lock_data, indent=2), encoding="utf-8")
-            os.replace(tmp_file, lock_file)
-    except Exception as err:
-        logger.warning("Failed to update child_pid in lock file: %s", err)
+        return runlock_acquire_lock(
+            output_dir=output_dir,
+            step=step,
+            job_id=job_id,
+            token=token,
+            is_pid_alive_fn=is_pid_alive_fn,
+            on_stale_cleaned=lambda data: _cleanup_stale_job(output_dir, data.get("job_id")),
+        )
+    except RunLockBusyError as err:
+        raise PipelineBusyError(str(err)) from err
 
 
 # ==============================================================================
@@ -532,7 +451,17 @@ def build_argv(
     if settings_path is not None:
         argv.extend(["--settings", str(settings_path)])
 
-    if step == "fetch":
+    if step == "run":
+        if params.get("allow_insufficient", False):
+            argv.append("--allow-insufficient")
+        if "max_rewrites" in params:
+            argv.extend(["--max-rewrites", str(int(params["max_rewrites"]))])
+        if params.get("no_llm_review", False):
+            argv.append("--no-llm-review")
+        if "run_id" in params and params["run_id"]:
+            argv.extend(["--run-id", str(params["run_id"])])
+
+    elif step == "fetch":
         if "limit" in params:
             argv.extend(["--limit", str(int(params["limit"]))])
         if "sources" in params:
@@ -643,8 +572,9 @@ def start_job(
     job_file = jobs_dir / f"{job_id}.json"
     log_file_path = jobs_dir / f"{job_id}.log"
 
-    # 3. Acquire lock
-    acquire_lock(output_dir, step=step, job_id=job_id, is_pid_alive_fn=is_pid_alive_fn)
+    # 3. Acquire lock with unique token for handshake
+    lock_token = secrets.token_hex(16)
+    acquire_lock(output_dir, step=step, job_id=job_id, is_pid_alive_fn=is_pid_alive_fn, token=lock_token)
 
     # 4. Prepare initial record and snapshot
     record = JobRecord(
@@ -668,6 +598,7 @@ def start_job(
     env = os.environ.copy()
     env["PYTHONUTF8"] = "1"
     env["PYTHONIOENCODING"] = "utf-8"
+    env["CYBERPULSE_LOCK_TOKEN"] = lock_token
 
     creationflags = subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0
 
