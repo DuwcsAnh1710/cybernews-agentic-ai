@@ -76,4 +76,14 @@ host = "127.0.0.1"
 port = 8000
 secret_key = "cyberpulse-intel-secret-token"
 
+[scheduler]
+enabled = true
+interval_hours = 12             # Chu kỳ chạy (mặc định mỗi 12 tiếng: 06:00 và 18:00)
+run_pipeline = true            # Thu thập tin & kiểm định
+generate_podcast = true        # Tự động sinh Podcast MP3 & SRT
+generate_video = true          # Tự động sinh Video MP4 9:16
+build_portal = true            # Tự động xuất bản web portal vào dist/
+dispatch_notifications = true  # Tự động phát tin (Telegram, Discord, Email)
+
+
 

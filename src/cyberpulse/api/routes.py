@@ -29,6 +29,9 @@ from cyberpulse.api.models import (
     HealthResponse,
     PipelineTriggerRequest,
     PipelineTriggerResponse,
+    SchedulerStatusResponse,
+    SchedulerTriggerRequest,
+    SchedulerTriggerResponse,
     ThreatRadarResponse,
 )
 from cyberpulse.api.service import ThreatIntelService
@@ -266,3 +269,77 @@ def trigger_pipeline(
         message="Intelligence pipeline collection triggered successfully",
         mode="background",
     )
+
+
+@router.get("/scheduler/status", response_model=SchedulerStatusResponse)
+def get_scheduler_status(
+    service: ThreatIntelService = Depends(get_service),
+) -> SchedulerStatusResponse:
+    """Retrieve autonomous scheduler daemon operational state, health, and projected next run time."""
+    data = service.get_scheduler_status()
+    return SchedulerStatusResponse(**data)
+
+
+@router.post(
+    "/scheduler/trigger",
+    response_model=SchedulerTriggerResponse,
+    status_code=status.HTTP_200_OK,
+)
+def trigger_scheduler(
+    request: Request,
+    payload: SchedulerTriggerRequest | None = None,
+    background_tasks: BackgroundTasks = BackgroundTasks(),
+    _auth: str = Depends(verify_api_key),
+    settings: Settings = Depends(get_settings),
+    service: ThreatIntelService = Depends(get_service),
+) -> SchedulerTriggerResponse:
+    """Trigger an immediate autonomous 5-stage orchestration cycle via authenticated webhook."""
+    # 1. Check if pipeline lock is busy
+    lock_path = get_lock_path(settings.paths.output_dir)
+    if lock_path.exists():
+        info = read_lock_info(settings.paths.output_dir)
+        owner_pid = info.get("child_pid") or info.get("owner_pid") if info else None
+        if owner_pid and is_pid_alive(int(owner_pid)):
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail=f"Pipeline is currently executing (PID: {owner_pid})",
+            )
+
+    # 2. Check if scheduler status reports running with active PID
+    sched_status = service.get_scheduler_status()
+    if sched_status.get("status") == "running":
+        pid = sched_status.get("pid")
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=f"Scheduler is currently running (PID: {pid})",
+        )
+
+    # 3. Allow custom/mock scheduler runner on app state (for tests)
+    custom_runner = getattr(request.app.state, "scheduler_runner", None)
+    if custom_runner is not None:
+        background_tasks.add_task(custom_runner, payload, settings)
+    else:
+        def _bg_scheduler_run() -> None:
+            try:
+                from cyberpulse.scheduler import PipelineScheduler
+
+                sched = PipelineScheduler(
+                    settings=settings,
+                    run_pipeline=payload.run_pipeline if payload else None,
+                    generate_podcast=payload.generate_podcast if payload else None,
+                    generate_video=payload.generate_video if payload else None,
+                    build_portal=payload.build_portal if payload else None,
+                    dispatch_notifications=payload.dispatch_notifications if payload else None,
+                )
+                sched.run_cycle()
+            except Exception as err:
+                logger.error("Failed executing triggered scheduler cycle: %s", err)
+
+        background_tasks.add_task(_bg_scheduler_run)
+
+    return SchedulerTriggerResponse(
+        status="triggered",
+        message="Autonomous scheduler cycle triggered successfully",
+        mode="background",
+    )
+

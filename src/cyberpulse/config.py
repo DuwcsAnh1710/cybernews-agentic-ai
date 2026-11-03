@@ -357,6 +357,25 @@ class ApiConfig(BaseModel):
     secret_key: str = ""
 
 
+class SchedulerConfig(BaseModel):
+    """Autonomous Docker scheduler daemon configuration."""
+
+    enabled: bool = True
+    interval_hours: int = 12
+    run_pipeline: bool = True
+    generate_podcast: bool = True
+    generate_video: bool = True
+    build_portal: bool = True
+    dispatch_notifications: bool = True
+
+    @field_validator("interval_hours")
+    @classmethod
+    def validate_interval_hours(cls, v: int) -> int:
+        if v <= 0:
+            raise ValueError(f"interval_hours must be greater than 0, got {v}")
+        return v
+
+
 class Settings(BaseModel):
     """Application settings."""
 
@@ -375,6 +394,7 @@ class Settings(BaseModel):
     validator: ValidatorConfig = Field(default_factory=ValidatorConfig)
     dispatch: DispatchConfig = Field(default_factory=DispatchConfig)
     api: ApiConfig = Field(default_factory=ApiConfig)
+    scheduler: SchedulerConfig = Field(default_factory=SchedulerConfig)
 
     @field_validator("project_name")
     @classmethod
