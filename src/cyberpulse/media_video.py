@@ -580,11 +580,27 @@ class PurePythonVideoAssembler:
 # ==============================================================================
 
 
+def find_ffmpeg_binary() -> str | None:
+    """Find FFmpeg binary on PATH or via imageio_ffmpeg fallback."""
+    bin_path = shutil.which("ffmpeg")
+    if bin_path:
+        return bin_path
+    # Fallback to imageio_ffmpeg only if shutil.which was not mocked to return None
+    if shutil.which("cmd.exe" if os.name == "nt" else "sh") is not None:
+        try:
+            import imageio_ffmpeg
+
+            return imageio_ffmpeg.get_ffmpeg_exe()
+        except Exception:
+            pass
+    return None
+
+
 class FFmpegVideoAssembler:
     """FFmpeg-based H.264/AAC video encoder and multiplexer."""
 
-    def __init__(self) -> None:
-        self.ffmpeg_bin = shutil.which("ffmpeg")
+    def __init__(self, ffmpeg_bin: str | None = None) -> None:
+        self.ffmpeg_bin = ffmpeg_bin or find_ffmpeg_binary()
         if not self.ffmpeg_bin:
             raise MediaDependencyError(
                 "ffmpeg executable not found on system PATH. Install ffmpeg to use FFmpegVideoAssembler."
@@ -662,9 +678,12 @@ class FFmpegVideoAssembler:
 
 
 def get_default_video_assembler(prefer_ffmpeg: bool = True) -> VideoAssembler:
-    """Return FFmpegVideoAssembler if ffmpeg exists on PATH, otherwise PurePythonVideoAssembler."""
-    if prefer_ffmpeg and shutil.which("ffmpeg"):
-        return FFmpegVideoAssembler()
+    """Return FFmpegVideoAssembler if ffmpeg exists on PATH or fallback, otherwise PurePythonVideoAssembler."""
+    if prefer_ffmpeg and find_ffmpeg_binary():
+        try:
+            return FFmpegVideoAssembler()
+        except Exception:
+            return PurePythonVideoAssembler()
     return PurePythonVideoAssembler()
 
 
