@@ -1,0 +1,84 @@
+{
+  "run_id": "standalone-20261029T084208Z",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "7cd598614444dd0a",
+        "source_name": "The Hacker News",
+        "title": "Attackers Exploit PHP2Shell Flaws in Internet-Exposed Palo Alto Networks Management Interfaces",
+        "url": "https://thehackernews.com/2026/10/attackers-exploit-php2shell-flaws-in.html",
+        "published_at": "2026-10-29T05:50:17Z",
+        "summary": "Palo Alto Networks on Wednesday warned that threat actors are exploiting the recently patched PHP2Shell vulnerabilities against publicly-accessible management interfaces. \"Active exploitation has been observed targeting the Palo Alto Networks management interface exposed to the internet,\" the network security company said in an update to its advisory. The vulnerabilities, tracked as",
+        "fetched_at": "2026-10-29T08:41:58.868113Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Palo Alto Networks cảnh báo các lỗ hổng PHP2Shell đang bị kẻ tấn công khai thác tích cực trên các giao diện quản lý kết nối internet."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "48f467fc9990539a",
+        "source_name": "The Hacker News",
+        "title": "China-Linked Hackers Exploited VMware ESX Zero-Day to Reduce Audit Trail Visibility",
+        "url": "https://thehackernews.com/2026/10/china-linked-hackers-exploited-vmware.html",
+        "published_at": "2026-10-29T06:22:33Z",
+        "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) on Wednesday added a security flaw impacting Broadcom VMware ESX to its Known Exploited Vulnerabilities (KEV) catalog, after CrowdStrike revealed that it had been weaponized by a China-nexus threat actor known as Warp Panda in attacks targeting the U.S. legal sector. The vulnerability in question is CVE-2026-41709 (CVSS score:",
+        "fetched_at": "2026-10-29T08:41:58.868113Z",
+        "topics_matched": [
+          "cybersecurity",
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "CISA đưa lỗ hổng VMware ESX bị nhóm tin tặc Warp Panda khai thác làm zero-day vào danh mục lỗ hổng bị khai thác phổ biến."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "7e36f21bdb4e1f0e",
+        "source_name": "BleepingComputer",
+        "title": "CISA warns of hackers now exploiting critical Node2Shell flaw",
+        "url": "https://bleepingcomputer.com/news/security/cisa-warns-of-hackers-now-exploiting-critical-node2shell-flaw",
+        "published_at": "2026-10-28T10:46:23Z",
+        "summary": "On Tuesday, the US Cybersecurity and Infrastructure Security Agency (CISA) confirmed that hackers have begun exploiting a critical Brotli vulnerability known as Node2Shell, Broccoli2Shell, and HTTP2Shell. [...]",
+        "fetched_at": "2026-10-29T08:41:59.112469Z",
+        "topics_matched": [
+          "cybersecurity",
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "CISA cảnh báo tin tặc đang tích cực khai thác lỗ hổng nghiêm trọng Node2Shell trong thư viện Brotli."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "cfbcd1a063b6a25b",
+        "source_name": "SecurityWeek",
+        "title": "Chrome and Firefox Updates Patch Over 200 Vulnerabilities",
+        "url": "https://securityweek.com/chrome-and-firefox-updates-patch-over-200-vulnerabilities",
+        "published_at": "2026-10-28T13:39:35Z",
+        "summary": "The Chrome 156 update fixes 52 bugs, while Firefox 159 was rolled out with 167 security patches. The post Chrome and Firefox Updates Patch Over 200 Vulnerabilities appeared first on SecurityWeek .",
+        "fetched_at": "2026-10-29T08:41:59.727576Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Bản cập nhật Chrome 156 và Firefox 159 vừa ra mắt để vá hơn 200 lỗ hổng bảo mật nghiêm trọng."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "a68f3e5c49ccdd8f",
+        "source_name": "SecurityWeek",
+        "title": "TLS Flaws Found in GoAhead Web Server Used in Hundreds of Millions of Devices",
+        "url": "https://securityweek.com/tls-flaws-found-in-goahead-web-server-used-in-hundreds-of-millions-of-devices",
+        "published_at": "2026-10-28T13:10:34Z",
+        "summary": "FoxIO disclosed three GoAhead TLS bugs that can let revoked certificates through or expose some encrypted sessions to eavesdroppers. The post TLS Flaws Found in GoAhead Web Server Used in Hundreds of Millions of Devices appeared first on SecurityWeek .",
+        "fetched_at": "2026-10-29T08:41:59.727576Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Phát hiện các lỗ hổng TLS trong máy chủ web GoAhead đe dọa hàng trăm triệu thiết bị IoT và nhúng."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=2"
+}

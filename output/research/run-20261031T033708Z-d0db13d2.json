@@ -1,0 +1,84 @@
+{
+  "run_id": "run-20261031T033708Z-d0db13d2",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "0c1324d8258c5ba1",
+        "source_name": "Infosecurity Magazine",
+        "title": "Binance Hit by Record-Breaking $6.3bn Hack in Largest Cryptocurrency Heist in History",
+        "url": "https://infosecurity-magazine.com/news/binance-record-hack-crypto-heist",
+        "published_at": "2026-10-30T11:25:00Z",
+        "summary": "Leading cryptocurrency analysts have attributed the cyber-attack to a North Korean elite hacking unit",
+        "fetched_at": "2026-10-31T03:33:06.883649Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Vụ đánh cắp 6,3 tỷ USD từ Binance được cho là vụ trộm tiền điện tử lớn nhất trong lịch sử do nhóm hacker Triều Tiên thực hiện."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "41afcfcd79a71253",
+        "source_name": "SecurityWeek",
+        "title": "Max-Severity GitLab Vulnerability Exploited Against Alpine Linux",
+        "url": "https://securityweek.com/max-severity-gitlab-vulnerability-exploited-against-alpine-linux",
+        "published_at": "2026-10-30T09:32:27Z",
+        "summary": "Tracked as CVE-2026-97229, the bug allows unauthenticated attackers to execute arbitrary code on the server. The post Max-Severity GitLab Vulnerability Exploited Against Alpine Linux appeared first on SecurityWeek .",
+        "fetched_at": "2026-10-31T03:33:05.788535Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Lỗ hổng nghiêm trọng tối đa CVE-2026-97229 trên GitLab đang bị khai thác thực tế để thực thi mã từ xa trên máy chủ."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "8fc971e55b17c65a",
+        "source_name": "The Hacker News",
+        "title": "WordPress RCE Flaw Draws Nearly 63,000 Attack Attempts in Just 24 Hours",
+        "url": "https://thehackernews.com/2026/10/wordpress-rce-flaw-draws-nearly-63000.html",
+        "published_at": "2026-10-30T14:08:14Z",
+        "summary": "Threat actors have been observed attempting to exploit a high-severity security flaw in WordPress Core shortly after patches were released. The vulnerability, which does not have a CVE identifier, relates to a case of remote code execution impacting WordPress Core versions 4.7 through 7.1.3. It carries a CVSS score of 8.1 on the CVSS scoring system. Patches for the flaw were released on October",
+        "fetched_at": "2026-10-31T03:33:04.103691Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Một lỗ hổng thực thi mã từ xa nghiêm trọng trong WordPress Core đang phải chịu tới 63.000 đợt tấn công chỉ trong 24 giờ."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "5656b991b4f79bb6",
+        "source_name": "Infosecurity Magazine",
+        "title": "Chinese Actor Compromises US Government Network Via Chained PHP2Shell Exploit",
+        "url": "https://infosecurity-magazine.com/news/chinese-us-government-chained-php2",
+        "published_at": "2026-10-30T12:00:00Z",
+        "summary": "Dream found that a suspected Chinese-nexus actor gained root access to Palo Alto Network firewall servers to target government organizations",
+        "fetched_at": "2026-10-31T03:33:06.883649Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Tin tặc Trung Quốc đã khai thác chuỗi lỗ hổng PHP2Shell để chiếm quyền root trên tường lửa Palo Alto Networks của cơ quan chính phủ Mỹ."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "4b53227f9f3bab60",
+        "source_name": "The Hacker News",
+        "title": "Official Claude Code Extension on Cursor Marketplace Trojanized with Persistent SSH Backdoor",
+        "url": "https://thehackernews.com/2026/10/official-claude-code-vs-code-extension.html",
+        "published_at": "2026-10-30T08:55:47Z",
+        "summary": "Cybersecurity researchers have disclosed that a trojanized version of Anthropic's official Claude Code extension was distributed through the Cursor Marketplace as a legitimate update, attempting to install a persistent SSH backdoor on affected systems. The malicious update, version 2.1.313, was distributed under the extension's legitimate publisher identity, prompting Cursor to temporarily shut",
+        "fetched_at": "2026-10-31T03:33:04.103691Z",
+        "topics_matched": [
+          "cybersecurity"
+        ]
+      },
+      "relevance_reason": "Tiện ích mở rộng Claude Code chính thức trên chợ ứng dụng Cursor bị chèn mã độc nhằm cài đặt backdoor SSH bền vững trên máy lập trình viên."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=0"
+}

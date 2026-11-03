@@ -23,7 +23,14 @@ htmlcov/
 
 # Application runtime directories
 data/
-output/
 logs/
-
 export/
+
+# Output folder: ignore temp pipelines and reviews, keep editorial packages and media
+output/*
+!output/editorial/
+!output/research/
+!output/validation/
+!output/media/
+output/media/*
+!output/media/podcast/

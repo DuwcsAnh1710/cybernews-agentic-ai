@@ -1,0 +1,232 @@
+{
+  "run_id": "run-20261101T160345Z-4cea6728",
+  "language": "vi",
+  "digest": {
+    "title": "Điểm tin an ninh mạng: Nhóm Vapor Panda khai thác AI ARTEX, nhà bán lẻ Resolve lộ thông tin thẻ và lo ngại bảo mật dữ liệu Character.AI",
+    "intro": "Bản tin an ninh mạng hôm nay cập nhật về việc nhóm Hacker Trung Quốc Vapor Panda sử dụng công cụ kiểm thử xâm nhập AI ARTEX tấn công hơn 200 tổ chức. Bên cạnh đó, nhà bán lẻ thời trang Resolve gặp sự cố lộ dữ liệu thẻ thanh toán và Bộ Tư pháp Mỹ lên tiếng về rủi ro quyền riêng tư dữ liệu của Character.AI.",
+    "sections": [
+      {
+        "heading": "Hacker Trung Quốc sử dụng AI-powered ARTEX tấn công hơn 200 tổ chức",
+        "body": {
+          "text": "Các tác nhân đe dọa do chính phủ Trung Quốc tài trợ đã sử dụng ARTEX, một khung kiểm thử xâm nhập (penetration testing framework - công cụ mô phỏng tấn công để tìm lỗ hổng) dựa trên ngôn ngữ Go tích hợp trí tuệ nhân tạo (AI). Theo CrowdStrike, nhóm tấn công này có tên Vapor Panda (trước đây là VexatiousTemper). Công cụ ARTEX cho phép chúng nhắm mục tiêu đồng thời vào hơn 200 tổ chức có giá trị cao trên phạm vi toàn cầu.",
+          "cited_article_ids": [
+            "4fa40013294f33eb"
+          ]
+        }
+      },
+      {
+        "heading": "Nhà bán lẻ thời trang Resolve bị đánh cắp thông tin thẻ thanh toán",
+        "body": {
+          "text": "Công ty thời trang Resolve, nền tảng hướng tới khách hàng Thế hệ Millennial và Gen Z, vừa thông báo về một sự cố tấn công mạng. Nhóm hacker đã xâm nhập hệ thống và làm rò rỉ thông tin thẻ thanh toán (payment card information) của các khách hàng từng giao dịch trên hệ thống này.",
+          "cited_article_ids": [
+            "06d1f3082aff4728"
+          ]
+        }
+      },
+      {
+        "heading": "Bộ Tư pháp Mỹ lo ngại về việc bán dữ liệu trò chuyện của Character.AI",
+        "body": {
+          "text": "Văn phòng Chấp hành Viên Quản tài Mỹ thuộc Bộ Tư pháp (DOJ) đã bày tỏ lo ngại về quyền riêng tư liên quan đến kế hoạch bán dữ liệu đoạn chat từ Character.AI. DOJ kiến nghị cần có một thanh tra viên bảo vệ quyền riêng tư người tiêu dùng để tư vấn cho tòa án về việc điều chỉnh các điều khoản và phạm vi dữ liệu có thể được bán.",
+          "cited_article_ids": [
+            "648e9014a3f5b42a"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: AI Trong Tấn Công Mạng Và Nguy Cơ Rò Rỉ Dữ Liệu",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin an ninh mạng tuần này! Tôi là Minh, đồng hành cùng cô bạn đồng nghiệp quen thuộc là Lan. Hôm nay chúng ta sẽ cập nhật những tin tức đáng chú ý về trí tuệ nhân tạo AI trong tấn công mạng, vi phạm dữ liệu thẻ thanh toán và vấn đề quyền riêng tư dữ liệu.",
+          "cited_article_ids": [
+            "4fa40013294f33eb",
+            "06d1f3082aff4728",
+            "648e9014a3f5b42a"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào Minh và chào tất cả khán giả! Tin tức đầu tiên cực kỳ nóng hổi liên quan đến việc công cụ AI đang bị các nhóm hacker lợi dụng. Theo CrowdStrike, nhóm tấn công Vapor Panda từ Trung Quốc đang sử dụng một framework thử nghiệm xâm nhập dựa trên AI viết bằng ngôn ngữ Go, có tên là ARTEX.",
+          "cited_article_ids": [
+            "4fa40013294f33eb"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đúng vậy Lan. Nhóm Vapor Panda, trước đây còn được biết đến với tên gọi VexatiousTemper, đã dùng công cụ ARTEX này để nhắm mục tiêu đồng thời vào hơn 200 tổ chức có giá trị cao trên toàn thế giới. Việc tự động hóa bằng AI giúp tốc độ và quy mô tấn công tăng lên đáng kể.",
+          "cited_article_ids": [
+            "4fa40013294f33eb"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chuyển sang một tin tức khác liên quan đến người tiêu dùng và ngành bán lẻ. Nhà bán lẻ thời trang Revolve, đơn vị tự mô tả là thương hiệu thời trang thế hệ mới dành cho thế hệ Millennial và Gen Z, vừa công bố một sự cố an ninh mạng nghiêm trọng.",
+          "cited_article_ids": [
+            "06d1f3082aff4728"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Theo thông báo từ Revolve, một vụ tấn công gần đây đã làm lộ thông tin thẻ thanh toán của khách hàng. Đây là lời cảnh báo lớn cho người tiêu dùng khi mua sắm trực tuyến, đặc biệt là giới trẻ thường xuyên mua hàng trên các nền tảng thương mại điện tử.",
+          "cited_article_ids": [
+            "06d1f3082aff4728"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cuối cùng là tin tức về pháp lý và bảo mật dữ liệu cá nhân tại Mỹ. Văn phòng Giám sát Phá sản thuộc Bộ Tư pháp Mỹ (DOJ) vừa đưa ra các quan ngại sâu sắc về quyền riêng tư đối với khả năng bán dữ liệu đoạn chat của người dùng trên nền tảng Character.AI.",
+          "cited_article_ids": [
+            "648e9014a3f5b42a"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Phía Bộ Tư pháp Mỹ cho rằng cần phải có một Ombudsman chuyên trách về quyền riêng tư của người tiêu dùng để tư vấn cho tòa án. Cơ quan này sẽ xem xét quy định những dữ liệu nào từ Character.AI có thể được bán và bán theo các điều khoản cụ thể nào để bảo vệ người dùng.",
+          "cited_article_ids": [
+            "648e9014a3f5b42a"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Những thông tin vừa rồi cho thấy thách thức an ninh mạng ngày càng đa dạng, từ tấn công AI quy mô lớn đến rủi ro quyền riêng tư cá nhân. Cảm ơn các bạn đã lắng nghe bản tin hôm nay. Hãy luôn cẩn trọng và bảo vệ dữ liệu của mình nhé!",
+          "cited_article_ids": [
+            "4fa40013294f33eb",
+            "06d1f3082aff4728",
+            "648e9014a3f5b42a"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Cảnh Báo An Ninh Mạng: Hacker AI Và Rò Rỉ Dữ Liệu",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "CẢNH BÁO AN NINH MẠNG TẠI NGUY HẠI",
+        "narration": {
+          "text": "Cùng điểm qua những tin tức an ninh mạng nóng hổi nhất hôm nay!",
+          "cited_article_ids": [
+            "4fa40013294f33eb",
+            "06d1f3082aff4728",
+            "648e9014a3f5b42a"
+          ]
+        },
+        "duration_sec": 8.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "Vapor Panda Dùng AI ARTEX Tấn Công 200+ Tổ Chức",
+        "narration": {
+          "text": "Nhóm hacker Vapor Panda sử dụng công cụ AI ARTEX tấn công hơn 200 tổ chức lớn.",
+          "cited_article_ids": [
+            "4fa40013294f33eb"
+          ]
+        },
+        "duration_sec": 15.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "Revolve Rò Rỉ Thẻ Thanh Toán Khách Hàng",
+        "narration": {
+          "text": "Nhà bán lẻ thời trang Revolve bị hacker xâm nhập, làm lộ thông tin thẻ thanh toán.",
+          "cited_article_ids": [
+            "06d1f3082aff4728"
+          ]
+        },
+        "duration_sec": 15.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "DOJ Lo Ngại Bán Dữ Liệu Chat Character.AI",
+        "narration": {
+          "text": "Bộ Tư pháp Mỹ lo ngại về quyền riêng tư khi dữ liệu chat Character.AI có thể bị bán.",
+          "cited_article_ids": [
+            "648e9014a3f5b42a"
+          ]
+        },
+        "duration_sec": 15.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "Theo Dõi Để Cập Nhật Tin Tức Mới Nhất!",
+        "narration": {
+          "text": "Hãy theo dõi chúng tôi để không bỏ lỡ tin tức an ninh mạng quan trọng!",
+          "cited_article_ids": [
+            "4fa40013294f33eb",
+            "06d1f3082aff4728",
+            "648e9014a3f5b42a"
+          ]
+        },
+        "duration_sec": 7.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "Cập nhật an ninh mạng nổi bật:\n1. Tác nhân đe dọa Vapor Panda dùng công cụ AI ARTEX tấn công hơn 200 tổ chức.\n2. Thương hiệu thời trang Resolve bị hack rò rỉ thông tin thẻ thanh toán.\n3. DOJ cảnh báo rủi ro quyền riêng tư khi dữ liệu trò chuyện Character.AI có nguy cơ bị bán.\n\nChi tiết xem tại bản tin!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#CyberSecurity",
+        "#VaporPanda",
+        "#ARTEX",
+        "#Resolve",
+        "#CharacterAI"
+      ],
+      "cited_article_ids": [
+        "4fa40013294f33eb",
+        "06d1f3082aff4728",
+        "648e9014a3f5b42a"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Bản tin An ninh mạng hôm nay bao gồm các tin tức chính:\n- Nhóm Vapor Panda sử dụng AI-powered ARTEX, một khung kiểm thử xâm nhập bằng Go, nhắm vào hơn 200 tổ chức toàn cầu.\n- Nhà bán lẻ Resolve thông báo sự cố lộ dữ liệu thẻ thanh toán của khách hàng.\n- Bộ Tư pháp Mỹ (DOJ) yêu cầu thanh tra viên bảo vệ quyền riêng tư để giám sát việc bán dữ liệu chat của Character.AI.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#TinTucCongNghe",
+        "#CyberSecurity",
+        "#CrowdStrike",
+        "#DOJ"
+      ],
+      "cited_article_ids": [
+        "4fa40013294f33eb",
+        "06d1f3082aff4728",
+        "648e9014a3f5b42a"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Tin an ninh mạng nổi bật: Vapor Panda dùng AI ARTEX tấn công 200 tổ chức; Resolve lộ dữ liệu thẻ thanh toán; DOJ lo ngại việc bán dữ liệu Character.AI!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#TinCongNghe",
+        "#AI",
+        "#CyberSecurity"
+      ],
+      "cited_article_ids": [
+        "4fa40013294f33eb",
+        "06d1f3082aff4728",
+        "648e9014a3f5b42a"
+      ]
+    }
+  ]
+}

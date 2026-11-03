@@ -1,0 +1,66 @@
+{
+  "run_id": "standalone-20261030T064718Z",
+  "status": "insufficient",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "d563e9e1aaec1f91",
+        "source_name": "The Hacker News",
+        "title": "Binance Suffers Security Breach Affecting $6.3 Billion in Assets, Nearly $3 Billion Frozen",
+        "url": "https://thehackernews.com/2026/10/binance-suffers-security-breach.html",
+        "published_at": "2026-10-30T04:14:59Z",
+        "summary": "Cryptocurrency giant Binance said on Thursday that a \"security incident\" on its platform has impacted about $6.3 billion worth of assets. The world's biggest cryptocurrency exchange said nearly $3 billion of those assets have been frozen on-chain so far. Tether and Circle said they have frozen more than 1.567 billion USDT and 800 million related to the incident, respectively. The",
+        "fetched_at": "2026-10-30T06:47:13.717461Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Sự cố bảo mật nghiêm trọng tại Binance ảnh hưởng đến 6,3 tỷ USD tài sản là lời cảnh báo lớn cho cộng đồng tài chính số và công nghệ thông tin."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "1be6a1df25ca72b4",
+        "source_name": "The Hacker News",
+        "title": "Linux Kernel TCP Flaw With 9.8 CVSS Score Affects Ubuntu, Red Hat and Other Distributions",
+        "url": "https://thehackernews.com/2026/10/linux-kernel-tcp-flaw-with-98-cvss.html",
+        "published_at": "2026-10-29T15:57:05Z",
+        "summary": "A flaw in the Linux kernel's TCP code, tracked as CVE-2026-98432, affects Ubuntu, Red Hat Enterprise Linux (RHEL), and other Linux distributions. The kernel's own CVE team rates it 9.8 out of 10 on the CVSS scale. Anthropic said on October 27 that its AI model wrote an exploit that uses the flaw to let a remote attacker with no credentials run commands as root on Linux servers with a",
+        "fetched_at": "2026-10-30T06:47:13.717461Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Lỗ hổng TCP trong Linux Kernel đạt điểm CVSS 9.8 ảnh hưởng trực tiếp đến các hệ điều hành phổ biến như Ubuntu và RHEL mà các kỹ sư IT thường xuyên sử dụng."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "c4e5ac10e6d30779",
+        "source_name": "SecurityWeek",
+        "title": "HHS Filing Puts iRhythm Data Breach Toll at 8.2 Million",
+        "url": "https://securityweek.com/hhs-filing-puts-irhythm-data-breach-toll-at-8-2-million",
+        "published_at": "2026-10-29T08:27:16Z",
+        "summary": "Hackers stole personal information and iRhythm account and device data from third-party-hosted business applications. The post HHS Filing Puts iRhythm Data Breach Toll at 8.2 Million appeared first on SecurityWeek .",
+        "fetched_at": "2026-10-29T08:41:59.727576Z",
+        "topics_matched": [
+          "data breach"
+        ]
+      },
+      "relevance_reason": "Báo cáo mới xác nhận sự cố rò rỉ dữ liệu khổng lồ ảnh hưởng đến 8,2 triệu người dùng tại iRhythm."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "d54fc179d2f0ee9a",
+        "source_name": "SecurityWeek",
+        "title": "Hackers Steal 2.6 Million Records From Sony’s Japanese ISP So-net",
+        "url": "https://securityweek.com/hackers-steal-2-6-million-records-from-sonys-japanese-isp-so-net",
+        "published_at": "2026-10-29T11:00:00Z",
+        "summary": "The data of So-net and Plala customers in Japan was exposed, along with 54,401 email account passwords and 16 bank account records. The post Hackers Steal 2.6 Million Records From Sony’s Japanese ISP So-net appeared first on SecurityWeek .",
+        "fetched_at": "2026-10-30T06:47:14.395660Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Hacker đã đánh cắp 2,6 triệu bản ghi dữ liệu cùng mật khẩu email và thông tin ngân hàng từ nhà mạng So-net của Sony."
+    }
+  ],
+  "notes": "insufficient items: requested 5, kept 4; candidates_available=30; hallucinated=0; duplicates=0; source_cap_dropped=6; model=gemini-3.6-flash; attempts=1"
+}

@@ -1,0 +1,15 @@
+{
+  "run_id": "standalone-20261029T084208Z",
+  "backend": {
+    "name": "edge-tts",
+    "version": "7.3.1"
+  },
+  "assembler": {
+    "name": "pure-python-mp3"
+  },
+  "total_duration_sec": 129.98400000000402,
+  "files": {
+    "audio": "standalone-20261029T084208Z.mp3",
+    "subtitles": "standalone-20261029T084208Z.srt"
+  }
+}

@@ -1,0 +1,306 @@
+{
+  "run_id": "standalone-20261029T084208Z",
+  "language": "vi",
+  "digest": {
+    "title": "Điểm tin An ninh mạng: Các lỗ hổng nghiêm trọng bị khai thác và bản vá từ các trình duyệt",
+    "intro": "Bản tin an ninh mạng hôm nay cập nhật về việc các nhóm tấn công đang tích cực khai thác lỗ hổng trên giao diện quản trị của Palo Alto Networks, VMware ESX và Node2Shell. Đồng thời, CISA đưa ra các cảnh báo mới và Chrome, Firefox phát hành bản vá cho hơn 200 lỗ hổng bảo mật. Tình trạng lỗ hổng TLS trên máy chủ web GoAhead cũng ảnh hưởng đến hàng trăm triệu thiết bị.",
+    "sections": [
+      {
+        "heading": "Cảnh báo khai thác lỗ hổng PHP2Shell trên giao diện quản trị Palo Alto Networks",
+        "body": {
+          "text": "Palo Alto Networks đã phát đi cảnh báo về việc kẻ tấn công đang tích cực khai thác các lỗ hổng PHP2Shell vừa được vá, nhắm vào các giao diện quản trị (Management Interfaces - giao diện cho phép quản trị viên cấu hình thiết bị) truy cập công khai qua internet. Công ty an ninh mạng này ghi nhận các hoạt động tấn công thực tế nhắm đến các giao diện chưa được bảo vệ.",
+          "cited_article_ids": [
+            "7cd598614444dd0a"
+          ]
+        }
+      },
+      {
+        "heading": "Nhóm tấn công liên quan đến Trung Quốc khai thác lỗ hổng VMware ESX",
+        "body": {
+          "text": "Cơ quan An ninh Cơ sở hạ tầng và An ninh mạng Mỹ (CISA) đã thêm lỗ hổng CVE-2026-41709 ảnh hưởng đến Broadcom VMware ESX vào danh mục Lỗ hổng bị khai thác trong thực tế (KEV). Theo CrowdStrike, nhóm tấn công Warp Panda có liên hệ với Trung Quốc đã lợi dụng lỗ hổng này nhằm làm giảm khả năng ghi vết giám sát (audit trail visibility) trong các đợt tấn công nhắm vào ngành pháp lý tại Mỹ.",
+          "cited_article_ids": [
+            "48f467fc9990539a"
+          ]
+        }
+      },
+      {
+        "heading": "CISA cảnh báo việc khai thác lỗ hổng Node2Shell nghiêm trọng",
+        "body": {
+          "text": "CISA chính thức xác nhận các tin tặc đã bắt đầu khai thác lỗ hổng nghiêm trọng liên quan đến Brotli, còn được gọi là Node2Shell, Broccoli2Shell hoặc HTTP2Shell. Việc đưa cảnh báo này nhằm thúc đẩy các tổ chức nhanh chóng rà soát và khắc phục nhằm tránh nguy cơ bị xâm nhập hệ thống.",
+          "cited_article_ids": [
+            "7e36f21bdb4e1f0e"
+          ]
+        }
+      },
+      {
+        "heading": "Chrome và Firefox phát hành cập nhật vá hơn 200 lỗ hổng",
+        "body": {
+          "text": "Các nhà phát triển trình duyệt web vừa phát hành bản cập nhật bảo mật quy mô lớn. Phiên bản Chrome 156 khắc phục 52 lỗi an ninh mạng, trong khi phiên bản Firefox 159 được cập nhật với 167 bản vá bảo mật nhằm bảo vệ người dùng khỏi các nguy cơ tấn công mạng.",
+          "cited_article_ids": [
+            "cfbcd1a063b6a25b"
+          ]
+        }
+      },
+      {
+        "heading": "Phát hiện các lỗ hổng TLS trong máy chủ web nhúng GoAhead",
+        "body": {
+          "text": "FoxIO đã công bố ba lỗ hổng mã hóa TLS (Transport Layer Security - giao thức bảo mật truyền tải) trong máy chủ web GoAhead, vốn được sử dụng trên hàng trăm triệu thiết bị. Các lỗi này có thể cho phép chấp nhận các chứng thư đã bị thu hồi hoặc làm lộ các phiên làm việc đã mã hóa cho kẻ nghe lén.",
+          "cited_article_ids": [
+            "a68f3e5c49ccdd8f"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: Các Lỗ Hổng Chiếm Quyền và Khai Thác Mới Nhất",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào Lan và xin chào tất cả các bạn đang nghe podcast an ninh mạng hôm nay. Chúng ta sẽ cùng điểm qua 5 tin tức bảo mật rất đáng chú ý gần đây liên quan đến Palo Alto Networks, VMware ESX, Node2Shell, các bản cập nhật trình duyệt và GoAhead Web Server.",
+          "cited_article_ids": [
+            "7cd598614444dd0a",
+            "48f467fc9990539a",
+            "7e36f21bdb4e1f0e",
+            "cfbcd1a063b6a25b",
+            "a68f3e5c49ccdd8f"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào anh Minh và các bạn. Đầu tiên, Palo Alto Networks vừa đưa ra cảnh báo rằng các cuộc tấn công đang tích cực khai thác lỗ hổng PHP2Shell vừa được vá, nhắm vào các giao diện quản lý bị lộ ra internet.",
+          "cited_article_ids": [
+            "7cd598614444dd0a"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đúng vậy, việc giao diện quản lý kết nối trực tiếp với internet luôn mang lại rủi ro rất cao nếu không kịp thời cập nhật bản vá. Tiếp theo là thông tin về VMware ESX.",
+          "cited_article_ids": [
+            "7cd598614444dd0a",
+            "48f467fc9990539a"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Đúng thế, CISA đã thêm lỗ hổng CVE-2026-41709 trên Broadcom VMware ESX vào danh mục KEV. Lỗ hổng zero-day này đã bị nhóm hacker Warp Panda liên quan đến Trung Quốc khai thác nhằm giảm khả năng theo dõi của nhật ký kiểm toán trong các đợt tấn công ngành pháp lý tại Mỹ.",
+          "cited_article_ids": [
+            "48f467fc9990539a"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Giảm vết nhật ký khiến việc phát hiện xâm nhập trở nên khó khăn hơn nhiều. Bên cạnh đó, CISA cũng cảnh báo về lỗ hổng nghiêm trọng Brotli được gọi là Node2Shell, Broccoli2Shell, hoặc HTTP2Shell đang bị kẻ tấn công tích cực khai thác.",
+          "cited_article_ids": [
+            "7e36f21bdb4e1f0e"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chắc chắn các quản trị viên hệ thống cần rà soát ngay. Chuyển sang tin tức về các ứng dụng quen thuộc hơn: Chrome và Firefox vừa nhận hàng loạt bản vá an ninh lớn.",
+          "cited_article_ids": [
+            "7e36f21bdb4e1f0e",
+            "cfbcd1a063b6a25b"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chính xác, bản cập nhật Chrome 156 đã sửa 52 lỗi bảo mật, trong khi Firefox 159 tung ra tới 167 bản vá, giải quyết tổng cộng hơn 200 lỗ hổng trên cả hai trình duyệt.",
+          "cited_article_ids": [
+            "cfbcd1a063b6a25b"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Người dùng cần cập nhật trình duyệt ngay lập tức. Cuối cùng, FoxIO vừa tiết lộ 3 lỗi TLS trong GoAhead Web Server - máy chủ được dùng trong hàng trăm triệu thiết bị.",
+          "cited_article_ids": [
+            "cfbcd1a063b6a25b",
+            "a68f3e5c49ccdd8f"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Các lỗi TLS này có thể cho phép các chứng chỉ bị thu hồi vượt qua hệ thống kiểm tra hoặc khiến các phiên làm việc mã hóa bị nghe lén. Rất nguy hiểm cho thiết bị IoT.",
+          "cited_article_ids": [
+            "a68f3e5c49ccdd8f"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cảm ơn anh Minh. Hãy luôn kiểm tra và cập nhật thiết bị cũng như phần mềm của bạn để giữ an toàn. Hẹn gặp lại các bạn trong tập tiếp theo!",
+          "cited_article_ids": [
+            "7cd598614444dd0a",
+            "48f467fc9990539a",
+            "7e36f21bdb4e1f0e",
+            "cfbcd1a063b6a25b",
+            "a68f3e5c49ccdd8f"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Cảnh Báo Nóng: 5 Lỗ Hổng Bảo Mật Nguy Hiểm Đang Bị Khai Thác",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "CẢNH BÁO BẢO MẬT NÓNG!",
+        "narration": {
+          "text": "Cùng điểm qua 5 cảnh báo an ninh mạng quan trọng nhất mà bạn cần biết ngay hôm nay!",
+          "cited_article_ids": [
+            "7cd598614444dd0a",
+            "48f467fc9990539a",
+            "7e36f21bdb4e1f0e",
+            "cfbcd1a063b6a25b",
+            "a68f3e5c49ccdd8f"
+          ]
+        },
+        "duration_sec": 8.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "Palo Alto Networks bị khai thác PHP2Shell",
+        "narration": {
+          "text": "Hacker đang tích cực khai thác lỗ hổng PHP2Shell trên giao diện quản lý Palo Alto Networks kết nối internet.",
+          "cited_article_ids": [
+            "7cd598614444dd0a"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "Zero-Day VMware ESX: CVE-2026-41709",
+        "narration": {
+          "text": "CISA thêm lỗ hổng VMware ESX CVE-2026-41709 vào KEV do bị nhóm Warp Panda khai thác xóa vết nhật ký.",
+          "cited_article_ids": [
+            "48f467fc9990539a"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Lỗ hổng Brotli: Node2Shell bị khai thác",
+        "narration": {
+          "text": "CISA xác nhận lỗ hổng Brotli có tên Node2Shell hoặc HTTP2Shell đang bị kẻ tấn công lợi dụng.",
+          "cited_article_ids": [
+            "7e36f21bdb4e1f0e"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "Chrome & Firefox vá hơn 200 lỗ hổng",
+        "narration": {
+          "text": "Chrome 156 vá 52 lỗi và Firefox 159 vá 167 lỗi an ninh. Hãy cập nhật trình duyệt ngay!",
+          "cited_article_ids": [
+            "cfbcd1a063b6a25b"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "Lỗi TLS GoAhead ảnh hưởng hàng trăm triệu thiết bị",
+        "narration": {
+          "text": "FoxIO phát hiện 3 lỗi TLS trên GoAhead Web Server có thể khiến các phiên mã hóa bị nghe lén.",
+          "cited_article_ids": [
+            "a68f3e5c49ccdd8f"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "CẬP NHẬT BẢN VÁ NGAY!",
+        "narration": {
+          "text": "Kiểm tra hệ thống và cập nhật bản vá an ninh ngay hôm nay để tự bảo vệ!",
+          "cited_article_ids": [
+            "7cd598614444dd0a",
+            "48f467fc9990539a",
+            "7e36f21bdb4e1f0e",
+            "cfbcd1a063b6a25b",
+            "a68f3e5c49ccdd8f"
+          ]
+        },
+        "duration_sec": 8.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "Cập nhật an ninh mạng mới nhất: Palo Alto Networks cảnh báo lỗ hổng PHP2Shell đang bị khai thác trên giao diện quản trị công khai. CISA bổ sung lỗ hổng VMware ESX liên quan đến nhóm Warp Panda và lỗ hổng Node2Shell vào danh mục KEV. Chrome cùng Firefox vá hơn 200 lỗ hổng, trong khi máy chủ GoAhead đối mặt với các lỗi TLS nghiêm trọng.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#BaoMatThôngTin",
+        "#Vulnerability",
+        "#CISA",
+        "#PaloAltoNetworks"
+      ],
+      "cited_article_ids": [
+        "7cd598614444dd0a",
+        "48f467fc9990539a",
+        "7e36f21bdb4e1f0e",
+        "cfbcd1a063b6a25b",
+        "a68f3e5c49ccdd8f"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Cập nhật bản tin an ninh mạng hôm nay bao gồm các thông tin quan trọng:\n- Palo Alto Networks phát hiện làn sóng tấn công khai thác lỗ hổng PHP2Shell trên giao diện quản trị exposed internet.\n- CISA cảnh báo việc khai thác lỗ hổng VMware ESX (CVE-2026-41709) bởi nhóm Warp Panda và lỗ hổng Node2Shell.\n- Chrome 156 và Firefox 159 đồng loạt phát hành bản vá cho hơn 200 lỗi an ninh.\n- Phát hiện 3 lỗ hổng TLS trên GoAhead Web Server ảnh hưởng hàng trăm triệu thiết bị.",
+      "hashtags": [
+        "#CyberSecurity",
+        "#AnToanThongTin",
+        "#PatchTuesday",
+        "#CISA",
+        "#Chrome",
+        "#Firefox"
+      ],
+      "cited_article_ids": [
+        "7cd598614444dd0a",
+        "48f467fc9990539a",
+        "7e36f21bdb4e1f0e",
+        "cfbcd1a063b6a25b",
+        "a68f3e5c49ccdd8f"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Cảnh báo an ninh mạng: Khai thác lỗ hổng PHP2Shell trên Palo Alto Networks, VMware ESX bị nhóm Warp Panda tấn công, Node2Shell bị khai thác. Cập nhật ngay Chrome và Firefox với hơn 200 bản vá mới!",
+      "hashtags": [
+        "#TikTokNews",
+        "#CyberSecurity",
+        "#CongNghe",
+        "#BaoMat"
+      ],
+      "cited_article_ids": [
+        "7cd598614444dd0a",
+        "48f467fc9990539a",
+        "7e36f21bdb4e1f0e",
+        "cfbcd1a063b6a25b"
+      ]
+    }
+  ]
+}

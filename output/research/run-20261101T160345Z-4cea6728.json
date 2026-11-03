@@ -1,0 +1,50 @@
+{
+  "run_id": "run-20261101T160345Z-4cea6728",
+  "status": "insufficient",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "4fa40013294f33eb",
+        "source_name": "The Hacker News",
+        "title": "Chinese Hackers Use AI-Powered ARTEX to Target Over 200 Organizations Worldwide",
+        "url": "https://thehackernews.com/2026/10/chinese-hackers-use-ai-powered-artex-to.html",
+        "published_at": "2026-10-30T16:58:44Z",
+        "summary": "Chinese state-sponsored threat actors have been observed using a Go-based artificial intelligence (AI)-powered penetration testing framework called ARTEX in attacks aimed at high-value targets simultaneously. The activity has been attributed by CrowdStrike to a China-based \"targeted intrusion adversary\" it tracks under the moniker Vapor Panda (previously VexatiousTemper). First identified in",
+        "fetched_at": "2026-10-31T03:33:04.103691Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Nhóm tấn công do chính phủ Trung Quốc bảo trợ đang sử dụng công cụ kiểm thử xâm nhập tích hợp AI mang tên ARTEX để tấn công hơn 200 tổ chức lớn trên toàn thế giới."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "06d1f3082aff4728",
+        "source_name": "The Record",
+        "title": "Fashion retailer Resolve says hackers stole payment card information",
+        "url": "https://therecord.media/resolve-fashion-retailer-data-breach-payment-cards",
+        "published_at": "2026-10-30T19:00:00Z",
+        "summary": "The company, billing itself as “the next-generation fashion retailer for Millennial and Generation Z consumers,” said a recent hack exposed customer payment card numbers.",
+        "fetched_at": "2026-10-31T03:33:05.258974Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Nhà bán lẻ thời trang Resolve đã xác nhận sự cố đánh cắp thông tin thẻ thanh toán của khách hàng sau một vụ tấn công mạng gần đây."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "648e9014a3f5b42a",
+        "source_name": "The Record",
+        "title": "DOJ raises privacy concerns over potential sale of Character.AI chats",
+        "url": "https://therecord.media/doj-raises-privacy-concerns-over-character-ai-sale",
+        "published_at": "2026-10-30T20:45:00Z",
+        "summary": "The DOJ’s Executive Office for U.S. Trustees said a consumer privacy ombudsman is needed to advise the court on how to regulate what data from Character.AI can be sold and under what terms.",
+        "fetched_at": "2026-10-31T03:33:05.258974Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Bộ Tư pháp Mỹ đưa ra quan ngại về quyền riêng tư đối với khả năng bán dữ liệu trò chuyện của người dùng Character.AI trong quá trình phá sản."
+    }
+  ],
+  "notes": "insufficient items: requested 5, kept 3; candidates_available=3; hallucinated=0; duplicates=0; source_cap_dropped=0; model=gemini-3.6-flash; attempts=1"
+}

@@ -1,0 +1,43 @@
+{
+  "run_id": "standalone-20261030T064718Z",
+  "passed": false,
+  "errors": [
+    {
+      "code": "E_NUMBER_UNSUPPORTED",
+      "severity": "error",
+      "path": "video.scenes[4].narration.text",
+      "message": "Number '54' not found in cited source text",
+      "evidence": "54"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "W_PODCAST_LENGTH",
+      "severity": "warning",
+      "path": "podcast.segments",
+      "message": "Total podcast words (479) outside target range [480, 720] (target 600 ± 20%)",
+      "evidence": "479 words (expected 480-720)"
+    },
+    {
+      "code": "W_SECTION_LENGTH",
+      "severity": "warning",
+      "path": "digest.sections[2].body.text",
+      "message": "Section body word count (56) outside allowed range [60, 120]",
+      "evidence": "56 words"
+    },
+    {
+      "code": "W_SECTION_LENGTH",
+      "severity": "warning",
+      "path": "digest.sections[3].body.text",
+      "message": "Section body word count (54) outside allowed range [60, 120]",
+      "evidence": "54 words"
+    }
+  ],
+  "checks_run": [
+    "layer1_structural",
+    "layer2_source_consistency",
+    "layer3_llm_claim_review (skipped)"
+  ],
+  "llm_review": "skipped",
+  "scope_note": "Structural and source-consistency checks against RSS title/summary only. Facts are NOT independently verified."
+}
