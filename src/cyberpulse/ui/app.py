@@ -639,6 +639,38 @@ def main() -> None:
                             width="stretch",
                         )
 
+                    with st.expander(":material/send: Kênh phát tin tự động (Telegram / Discord Dispatch)", expanded=True):
+                        st.subheader("Phát tin tức thời đến kênh cộng đồng")
+                        st.caption("Gửi điểm tin nóng tự động kèm liên kết bài viết tới Telegram Channel hoặc Discord Webhook.")
+
+                        from cyberpulse.dispatch import dispatch_package, format_discord_payload, format_telegram_message
+
+                        disp_c1, disp_c2 = st.columns(2)
+                        with disp_c1:
+                            st.markdown("**Bản tin Telegram (HTML):**")
+                            tg_preview = format_telegram_message(pkg, base_url=settings.dispatch.portal_base_url)
+                            st.text_area("Nội dung Telegram", value=tg_preview, height=220, disabled=True, key=f"disp_tg_preview_{pkg.run_id}")
+                        with disp_c2:
+                            st.markdown("**Embed Discord (JSON):**")
+                            dc_preview = format_discord_payload(pkg, base_url=settings.dispatch.portal_base_url)
+                            st.json(dc_preview, expanded=False)
+
+                        btn_col1, btn_col2 = st.columns([1, 1])
+                        with btn_col1:
+                            if st.button("Phát tin ngay (Live Dispatch)", icon=":material/send:", type="primary", key=f"btn_live_dispatch_{pkg.run_id}"):
+                                with st.spinner("Đang phát tin đến các kênh..."):
+                                    res = dispatch_package(package=pkg, base_url=settings.dispatch.portal_base_url, dry_run=False)
+                                    for cr in res.channel_results:
+                                        if cr.skipped:
+                                            st.info(f":material/info: {cr.channel.upper()}: Bỏ qua (Chưa cấu hình Secret)")
+                                        elif cr.success:
+                                            st.success(f":material/check_circle: {cr.channel.upper()}: Gửi thành công!")
+                                        else:
+                                            st.error(f":material/error: {cr.channel.upper()} Thất bại: {cr.error}")
+                        with btn_col2:
+                            if st.button("Xem thử nghiệm (Dry-Run)", icon=":material/visibility:", key=f"btn_dry_dispatch_{pkg.run_id}"):
+                                st.info(":material/info: Chế độ chạy thử nghiệm thành công! Không có request thực tế nào được gửi đi.")
+
                 # Sub-tab 3: Podcast AI
                 with ed_tab3:
                     st.subheader(pkg.podcast.title)

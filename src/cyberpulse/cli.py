@@ -380,6 +380,42 @@ def build_parser() -> argparse.ArgumentParser:
         help="Port for local HTTP server (default: 8000)",
     )
 
+    # dispatch subcommand (T8.2)
+    dispatch_parser = subparsers.add_parser(
+        "dispatch",
+        help="Broadcast editorial package alerts to Telegram and Discord channels",
+    )
+    dispatch_parser.add_argument(
+        "run_id",
+        nargs="?",
+        default=None,
+        help="Run ID to dispatch (default: newest package in output/editorial/)",
+    )
+    dispatch_parser.add_argument(
+        "--telegram-only",
+        action="store_true",
+        default=False,
+        help="Dispatch to Telegram only",
+    )
+    dispatch_parser.add_argument(
+        "--discord-only",
+        action="store_true",
+        default=False,
+        help="Dispatch to Discord only",
+    )
+    dispatch_parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        default=False,
+        help="Preview rendered notification payloads without sending network requests",
+    )
+    dispatch_parser.add_argument(
+        "--settings",
+        type=Path,
+        default=Path("config/settings.toml"),
+        help="Path to settings.toml (default: config/settings.toml)",
+    )
+
     return parser
 
 
@@ -1101,6 +1137,85 @@ def run_export_portal(
         return 1
 
 
+def run_dispatch(
+    run_id: str | None = None,
+    telegram_only: bool = False,
+    discord_only: bool = False,
+    dry_run: bool = False,
+    settings_path: Path = Path("config/settings.toml"),
+) -> int:
+    """Broadcast editorial package alerts to Telegram and Discord."""
+    load_dotenv(override=False)
+
+    try:
+        settings = load_settings(settings_path)
+    except ConfigError as err:
+        print(f"ConfigError: {err}", file=sys.stderr)
+        return 1
+
+    editorial_dir = settings.paths.output_dir / "editorial"
+    if not editorial_dir.exists():
+        print(f"Error: Editorial output directory not found: '{editorial_dir}'", file=sys.stderr)
+        return 2
+
+    # Discover package
+    if run_id:
+        target_file = editorial_dir / f"{run_id}.json"
+        if not target_file.exists():
+            print(f"Error: Editorial package not found: '{target_file}'", file=sys.stderr)
+            return 2
+    else:
+        candidates = sorted(editorial_dir.glob("*.json"), key=lambda p: p.stat().st_mtime, reverse=True)
+        valid_candidates = [c for c in candidates if not c.name.endswith(".original.json")]
+        if not valid_candidates:
+            print("Error: No editorial packages found to dispatch.", file=sys.stderr)
+            return 2
+        target_file = valid_candidates[0]
+
+    try:
+        pkg = EditorialPackage.model_validate_json(target_file.read_text(encoding="utf-8"))
+    except Exception as err:
+        print(f"Error: Could not parse editorial package '{target_file}': {err}", file=sys.stderr)
+        return 7
+
+    print(f"[*] Dispatching edition: {pkg.run_id} ('{pkg.digest.title}')")
+    base_url = settings.dispatch.portal_base_url
+
+    telegram_token = None if not discord_only else ""
+    telegram_chat_id = None if not discord_only else ""
+    discord_webhook = None if not telegram_only else ""
+
+    from cyberpulse.dispatch import dispatch_package
+
+    res = dispatch_package(
+        package=pkg,
+        telegram_token=telegram_token,
+        telegram_chat_id=telegram_chat_id,
+        discord_webhook_url=discord_webhook,
+        base_url=base_url,
+        dry_run=dry_run,
+    )
+
+    for cr in res.channel_results:
+        if cr.skipped:
+            print(f"  [-] {cr.channel.upper()}: Bo qua (Chua cau hinh Secret hoac da bi vo hieu hoa)")
+        elif cr.success:
+            if dry_run:
+                print(f"  [+] {cr.channel.upper()} (DRY-RUN):")
+                if isinstance(cr.rendered_payload, dict):
+                    import json
+                    print(json.dumps(cr.rendered_payload, indent=2, ensure_ascii=False))
+                else:
+                    print(cr.rendered_payload)
+            else:
+                msg_info = f" (Message ID: {cr.message_id})" if cr.message_id else ""
+                print(f"  [+] {cr.channel.upper()}: Gui thanh cong{msg_info}")
+        else:
+            print(f"  [x] {cr.channel.upper()} THAT BAI: {cr.error}", file=sys.stderr)
+
+    return 0 if res.all_successful else 5
+
+
 EXIT_CODE_MAP: dict[FailureReason, int] = {
     FailureReason.insufficient_research: 3,
     FailureReason.llm_error: 5,
@@ -1351,6 +1466,14 @@ def main(argv: list[str] | None = None) -> int:
                 serve=args.serve,
                 port=args.port,
             )
+    elif args.command == "dispatch":
+        return run_dispatch(
+            run_id=args.run_id,
+            telegram_only=args.telegram_only,
+            discord_only=args.discord_only,
+            dry_run=args.dry_run,
+            settings_path=args.settings,
+        )
     return 0
 
 

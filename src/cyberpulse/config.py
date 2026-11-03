@@ -14,7 +14,13 @@ class ConfigError(Exception):
     """Raised when configuration file is missing, malformed, or invalid."""
 
 
-KNOWN_SECRETS: tuple[str, ...] = ("GEMINI_API_KEY", "GEMINI_MODEL")
+KNOWN_SECRETS: tuple[str, ...] = (
+    "GEMINI_API_KEY",
+    "GEMINI_MODEL",
+    "TELEGRAM_BOT_TOKEN",
+    "TELEGRAM_CHAT_ID",
+    "DISCORD_WEBHOOK_URL",
+)
 
 
 class PathsConfig(BaseModel):
@@ -326,6 +332,15 @@ class ValidatorConfig(BaseModel):
         return self
 
 
+class DispatchConfig(BaseModel):
+    """Multi-channel broadcast configuration (Telegram, Discord)."""
+
+    enabled: bool = True
+    telegram_enabled: bool = True
+    discord_enabled: bool = True
+    portal_base_url: str = "https://duwcsanh1710.github.io/cybernews-agentic-ai"
+
+
 class Settings(BaseModel):
     """Application settings."""
 
@@ -342,6 +357,7 @@ class Settings(BaseModel):
     research: ResearchConfig = Field(default_factory=ResearchConfig)
     editorial: EditorialConfig = Field(default_factory=EditorialConfig)
     validator: ValidatorConfig = Field(default_factory=ValidatorConfig)
+    dispatch: DispatchConfig = Field(default_factory=DispatchConfig)
 
     @field_validator("project_name")
     @classmethod

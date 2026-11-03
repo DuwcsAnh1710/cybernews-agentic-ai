@@ -58,3 +58,9 @@ section_words_min = 60
 section_words_max = 120
 term_allowlist = ["Trung"]
 
+[dispatch]
+enabled = true
+telegram_enabled = true
+discord_enabled = true
+portal_base_url = "https://duwcsanh1710.github.io/cybernews-agentic-ai"
+
