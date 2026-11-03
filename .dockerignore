@@ -1,0 +1,42 @@
+# Git and Environment
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+
+# Python cache & virtual environment
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+*.egg-info/
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+parts/
+var/
+sdist/
+wheels/
+
+# Testing & Quality
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+tests/
+
+# Temporary, OS and IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+tmp/
+brain/

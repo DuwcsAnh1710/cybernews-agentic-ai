@@ -89,6 +89,25 @@ def test_cli_ui_print_command(
     assert str(settings_file.resolve()) in lines
 
 
+def test_cli_ui_print_command_with_custom_host(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    settings_file = tmp_path / "settings.toml"
+    settings_file.write_text("project_name = 'CyberPulse AI'\ntopics = ['cybersecurity']\n", encoding="utf-8")
+
+    ret = main(["ui", "--host", "0.0.0.0", "--port", "8501", "--settings", str(settings_file), "--print-command"])
+    assert ret == 0
+
+    out = capsys.readouterr().out
+    lines = out.strip().splitlines()
+
+    assert "--server.address" in lines
+    assert "0.0.0.0" in lines
+    assert "--server.port" in lines
+    assert "8501" in lines
+
+
 def test_cli_ui_launch_invokes_subprocess(
     tmp_path: Path,
     capsys: pytest.CaptureFixture[str],

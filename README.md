@@ -250,6 +250,52 @@ Print the launch command without running:
 cyberpulse ui --print-command
 ```
 
+## Docker Containerization & Single-Command Deployment (Task T8.3)
+
+Run the entire CyberPulse AI platform (Streamlit Editorial Studio, Static Web Reader Portal, and Pipeline Runner) with a single command via Docker Compose.
+
+### 1. Prerequisites
+- Docker Desktop or Docker Engine (20.10+) with Docker Compose v2.
+
+### 2. Configure Environment
+Ensure your `.env` file exists with your API keys:
+```powershell
+# Required for LLM and Multi-channel Broadcast
+GEMINI_API_KEY=AIzaSy...
+TELEGRAM_BOT_TOKEN=...
+TELEGRAM_CHAT_ID=-100...
+```
+
+### 3. Launch Services
+Start the Streamlit Editorial Studio and Nginx Web Reader in the background:
+```powershell
+docker compose up -d
+```
+Or use the automated PowerShell controller:
+```powershell
+.\scripts\docker_control.ps1 up
+```
+
+**Accessing Services**:
+- **Editorial Studio**: http://localhost:8501
+- **Reader Portal**: http://localhost:8080
+
+### 4. Trigger Automated Pipeline in Container
+To trigger a fresh intelligence run inside an isolated container:
+```powershell
+docker compose run --rm cyberpulse-runner
+```
+Or via helper:
+```powershell
+.\scripts\docker_control.ps1 run-pipeline
+```
+
+### 5. Stop Containers
+```powershell
+docker compose down
+# or: .\scripts\docker_control.ps1 down
+```
+
 
 
 

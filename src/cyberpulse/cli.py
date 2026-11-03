@@ -258,6 +258,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="Port to bind the Streamlit server (default: 8501, range: 1024-65535)",
     )
     ui_parser.add_argument(
+        "--host",
+        type=str,
+        default="127.0.0.1",
+        help="Host address to bind the Streamlit server (default: 127.0.0.1)",
+    )
+    ui_parser.add_argument(
         "--settings",
         type=Path,
         default=Path("config/settings.toml"),
@@ -884,6 +890,7 @@ def run_ui(
     port: int,
     settings_path: Path,
     print_command: bool = False,
+    host: str = "127.0.0.1",
 ) -> int:
     """Launch or print command for the Streamlit workbench."""
     if not (1024 <= port <= 65535):
@@ -911,7 +918,7 @@ def run_ui(
         "run",
         str(app_path.resolve()),
         "--server.address",
-        "127.0.0.1",
+        host,
         "--server.port",
         str(port),
         "--server.headless",
@@ -928,7 +935,7 @@ def run_ui(
             print(arg)
         return 0
 
-    print(f"Workbench: http://127.0.0.1:{port}  (Ctrl+C to stop)")
+    print(f"Workbench: http://{host}:{port}  (Ctrl+C to stop)")
     try:
         res = subprocess.run(cmd)
         return res.returncode
@@ -1440,6 +1447,7 @@ def main(argv: list[str] | None = None) -> int:
             port=args.port,
             settings_path=args.settings,
             print_command=args.print_command,
+            host=args.host,
         )
     elif args.command == "media":
         if args.subcommand == "podcast":

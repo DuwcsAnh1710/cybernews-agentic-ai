@@ -1,0 +1,66 @@
+services:
+  # Service 1: CyberPulse Streamlit Editorial Studio & Inspection Workbench
+  cyberpulse-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cyberpulse-ui
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+      - ./logs:/app/logs
+      - ./dist:/app/dist
+      - ./config:/app/config:ro
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GEMINI_API_KEYS=${GEMINI_API_KEYS:-}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL:-}
+      - FTP_PASSWORD=${FTP_PASSWORD:-}
+    command: ["cyberpulse", "ui", "--host", "0.0.0.0", "--port", "8501", "--settings", "config/settings.toml"]
+
+  # Service 2: On-demand Automated Intelligence Pipeline Runner
+  cyberpulse-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cyberpulse-runner
+    profiles:
+      - runner
+      - tools
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+      - ./logs:/app/logs
+      - ./dist:/app/dist
+      - ./config:/app/config:ro
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GEMINI_API_KEYS=${GEMINI_API_KEYS:-}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL:-}
+      - FTP_PASSWORD=${FTP_PASSWORD:-}
+    command: ["cyberpulse", "run", "--settings", "config/settings.toml", "--sources", "config/sources.toml", "--allow-insufficient", "--max-rewrites", "3"]
+
+  # Service 3: High-Performance Local Static Web Portal (The Hacker News Style Reader)
+  cyberpulse-portal:
+    image: nginx:1.27-alpine
+    container_name: cyberpulse-portal
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./dist:/usr/share/nginx/html:ro
+    depends_on:
+      - cyberpulse-ui
