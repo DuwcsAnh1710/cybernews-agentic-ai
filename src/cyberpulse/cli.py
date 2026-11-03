@@ -487,6 +487,42 @@ def build_parser() -> argparse.ArgumentParser:
         help="Path to settings.toml (default: config/settings.toml)",
     )
 
+    # api subcommand (T10)
+    api_parser = subparsers.add_parser(
+        "api",
+        help="Launch FastAPI Threat Intelligence REST API & Webhook Service",
+    )
+    api_parser.add_argument(
+        "--port",
+        type=int,
+        default=8000,
+        help="Listening port (default: 8000)",
+    )
+    api_parser.add_argument(
+        "--host",
+        type=str,
+        default="127.0.0.1",
+        help="Host address (default: 127.0.0.1)",
+    )
+    api_parser.add_argument(
+        "--reload",
+        action="store_true",
+        default=False,
+        help="Enable hot reload for development",
+    )
+    api_parser.add_argument(
+        "--settings",
+        type=Path,
+        default=Path("config/settings.toml"),
+        help="Path to settings.toml (default: config/settings.toml)",
+    )
+    api_parser.add_argument(
+        "--print-command",
+        action="store_true",
+        default=False,
+        help="Print command line arguments and exit without starting uvicorn",
+    )
+
     return parser
 
 
@@ -1006,6 +1042,72 @@ def run_ui(
         return res.returncode
     except KeyboardInterrupt:
         return 0
+
+
+def run_api(
+    port: int = 8000,
+    host: str = "127.0.0.1",
+    reload: bool = False,
+    settings_path: Path = Path("config/settings.toml"),
+    print_command: bool = False,
+) -> int:
+    """Launch or print command for the FastAPI Threat Intelligence REST API & Webhook Service."""
+    if not (1 <= port <= 65535):
+        print(f"Error: port must be between 1 and 65535, got {port}", file=sys.stderr)
+        return 1
+
+    try:
+        load_settings(settings_path)
+    except ConfigError as err:
+        print(f"ConfigError: {err}", file=sys.stderr)
+        return 1
+
+    if importlib.util.find_spec("fastapi") is None or importlib.util.find_spec("uvicorn") is None:
+        print(
+            "FastAPI or Uvicorn is not installed. Run: .\\.venv\\Scripts\\python.exe -m pip install -e \".[api]\"",
+            file=sys.stderr,
+        )
+        return 9
+
+    cmd = [
+        sys.executable,
+        "-m",
+        "uvicorn",
+        "cyberpulse.api.app:create_app",
+        "--factory",
+        "--host",
+        host,
+        "--port",
+        str(port),
+    ]
+    if reload:
+        cmd.append("--reload")
+
+    if print_command:
+        for arg in cmd:
+            print(arg)
+        return 0
+
+    print(f"[CYBERPULSE INTEL] REST API & Webhook Service: http://{host}:{port} (Docs: http://{host}:{port}/docs) (Ctrl+C to stop)")
+    os.environ["CYBERPULSE_SETTINGS_PATH"] = str(settings_path.resolve())
+
+    try:
+        import uvicorn
+
+        uvicorn.run(
+            "cyberpulse.api.app:create_app",
+            host=host,
+            port=port,
+            reload=reload,
+            factory=True,
+        )
+        return 0
+    except KeyboardInterrupt:
+        return 0
+    except Exception as err:
+        print(f"[ERROR] Failed to start API service: {err}", file=sys.stderr)
+        return 1
+
 
 
 def run_media_podcast(
@@ -1707,6 +1809,14 @@ def main(argv: list[str] | None = None) -> int:
             email_only=args.email_only,
             dry_run=args.dry_run,
             settings_path=args.settings,
+        )
+    elif args.command == "api":
+        return run_api(
+            port=args.port,
+            host=args.host,
+            reload=args.reload,
+            settings_path=args.settings,
+            print_command=args.print_command,
         )
     return 0
 

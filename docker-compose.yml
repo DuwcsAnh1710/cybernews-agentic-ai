@@ -64,3 +64,31 @@ services:
       - ./dist:/usr/share/nginx/html:ro
     depends_on:
       - cyberpulse-ui
+
+  # Service 4: CyberPulse AI Threat Intelligence REST API & Enterprise Webhook Service
+  cyberpulse-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cyberpulse-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output:ro
+      - ./logs:/app/logs
+      - ./dist:/app/dist:ro
+      - ./config:/app/config:ro
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GEMINI_API_KEYS=${GEMINI_API_KEYS:-}
+      - API_SECRET_KEY=${API_SECRET_KEY:-}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL:-}
+    command: ["cyberpulse", "api", "--host", "0.0.0.0", "--port", "8000", "--settings", "config/settings.toml"]
+

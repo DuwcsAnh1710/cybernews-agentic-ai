@@ -29,7 +29,7 @@ COPY --chown=cyberpulse:cyberpulse config/ ./config/
 COPY --chown=cyberpulse:cyberpulse scripts/ ./scripts/
 
 # Step 2: Install dependencies and cyberpulse package
-RUN pip install --no-cache-dir ".[ui,media]"
+RUN pip install --no-cache-dir ".[ui,media,api]"
 
 # Step 3: Prepare persistent data directories with proper permissions
 RUN mkdir -p /app/data /app/output /app/logs /app/dist && \
@@ -38,8 +38,8 @@ RUN mkdir -p /app/data /app/output /app/logs /app/dist && \
 # Switch to unprivileged user
 USER cyberpulse
 
-# Expose Streamlit Editorial Studio port
-EXPOSE 8501
+# Expose Streamlit Editorial Studio and FastAPI REST ports
+EXPOSE 8501 8000
 
 # Container healthcheck monitoring Streamlit core health endpoint
 HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 \

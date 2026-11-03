@@ -348,6 +348,15 @@ class DispatchConfig(BaseModel):
     email_subject_prefix: str = "[CYBERPULSE INTEL]"
 
 
+class ApiConfig(BaseModel):
+    """Threat Intelligence REST API and Webhook configuration."""
+
+    enabled: bool = True
+    host: str = "127.0.0.1"
+    port: int = 8000
+    secret_key: str = ""
+
+
 class Settings(BaseModel):
     """Application settings."""
 
@@ -365,6 +374,7 @@ class Settings(BaseModel):
     editorial: EditorialConfig = Field(default_factory=EditorialConfig)
     validator: ValidatorConfig = Field(default_factory=ValidatorConfig)
     dispatch: DispatchConfig = Field(default_factory=DispatchConfig)
+    api: ApiConfig = Field(default_factory=ApiConfig)
 
     @field_validator("project_name")
     @classmethod

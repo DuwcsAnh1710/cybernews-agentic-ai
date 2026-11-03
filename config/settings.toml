@@ -70,3 +70,10 @@ smtp_use_tls = true
 email_subject_prefix = "[CYBERPULSE INTEL]"
 email_recipients = []
 
+[api]
+enabled = true
+host = "127.0.0.1"
+port = 8000
+secret_key = "cyberpulse-intel-secret-token"
+
+
