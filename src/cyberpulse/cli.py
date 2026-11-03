@@ -25,7 +25,7 @@ from cyberpulse.agents import (
 )
 from cyberpulse.config import ConfigError, check_secrets, load_app_config, load_settings
 from cyberpulse.fetcher import RawItem, fetch_all
-from cyberpulse.llm import LLMError, create_llm_client
+from cyberpulse.llm import LLMError, create_llm_client, mask_api_key, parse_api_keys
 from cyberpulse.logging_setup import setup_logging
 from cyberpulse.models import Article, EditorialPackage, ResearchResult, RunStatus
 from cyberpulse.normalize import normalize_items
@@ -567,8 +567,8 @@ def run_llm_check(settings_path: Path) -> int:
         print(f"ConfigError: {err}", file=sys.stderr)
         return 1
 
-    api_key = os.environ.get("GEMINI_API_KEY")
-    if not api_key or not api_key.strip():
+    keys = parse_api_keys()
+    if not keys:
         print("GEMINI_API_KEY: missing — live LLM check skipped. See README \"LLM setup\".")
         return 4
 
@@ -627,8 +627,8 @@ def run_research(settings_path: Path, sources_path: Path | None = None) -> int:
 
     if settings.llm.provider == "gemini":
         load_dotenv(override=False)
-        api_key = os.environ.get("GEMINI_API_KEY")
-        if not api_key or not api_key.strip():
+        keys = parse_api_keys()
+        if not keys:
             print("GEMINI_API_KEY: missing — live LLM check skipped. See README \"LLM setup\".")
             return 4
 
@@ -685,8 +685,8 @@ def run_editorial(research_path: Path, settings_path: Path) -> int:
 
     if settings.llm.provider == "gemini":
         load_dotenv(override=False)
-        api_key = os.environ.get("GEMINI_API_KEY")
-        if not api_key or not api_key.strip():
+        keys = parse_api_keys()
+        if not keys:
             print('GEMINI_API_KEY: missing — live LLM check skipped. See README "LLM setup".')
             return 4
 
@@ -788,8 +788,8 @@ def run_validate(
     if not no_llm_review and settings.validator.llm_review:
         if settings.llm.provider == "gemini":
             load_dotenv(override=False)
-            api_key = os.environ.get("GEMINI_API_KEY")
-            if not api_key or not api_key.strip():
+            keys = parse_api_keys()
+            if not keys:
                 print("LLM review skipped: GEMINI_API_KEY missing")
                 missing_key_warning = True
             else:
@@ -1175,8 +1175,8 @@ def run_run(
     # 3. Require API key if using Gemini provider
     if settings.llm.provider == "gemini":
         load_dotenv(override=False)
-        api_key = os.environ.get("GEMINI_API_KEY")
-        if not api_key or not api_key.strip():
+        keys = parse_api_keys()
+        if not keys:
             print("GEMINI_API_KEY: missing — live LLM check skipped. See README \"LLM setup\".")
             return 4
 

@@ -34,14 +34,16 @@ CyberPulse AI is an automated cybersecurity news intelligence and multimedia pip
    Copy-Item .env.example .env
    ```
 
-## LLM setup (Gemini API key)
+## LLM setup (Gemini API key & Multi-Key Pool)
 
 To enable live LLM intelligence features with Google Gemini:
-1. Create a free API key in [Google AI Studio](https://aistudio.google.com/).
-2. Put `GEMINI_API_KEY="your-key-here"` into `.env` (this file is git-ignored and must never be committed). The model is set in `config/settings.toml` (`[llm].model`); only set `GEMINI_MODEL` in `.env` if you deliberately want to override it.
-3. **Data usage note**: On the Google AI Studio free tier, Google may use submitted content to improve its products. This is acceptable for CyberPulse AI because pipeline inputs are public cybersecurity news articles and RSS feeds. Never send private, sensitive, or confidential data.
+1. Create one or more free API keys in [Google AI Studio](https://aistudio.google.com/).
+2. Put `GEMINI_API_KEY="your-key-here"` into `.env` (this file is git-ignored and must never be committed).
+   - **Multi-key failover pool**: You can specify multiple keys separated by commas (e.g. `GEMINI_API_KEY="key1,key2,key3"`) or use `GEMINI_API_KEYS="key1\nkey2"`. When an active key hits the free-tier daily rate limit (`429 RESOURCE_EXHAUSTED`), CyberPulse automatically rotates to the next available key without interrupting the pipeline!
+3. The model is set in `config/settings.toml` (`[llm].model`); only set `GEMINI_MODEL` in `.env` if you deliberately want to override it.
+4. **Data usage note**: On the Google AI Studio free tier, Google may use submitted content to improve its products. This is acceptable for CyberPulse AI because pipeline inputs are public cybersecurity news articles and RSS feeds. Never send private, sensitive, or confidential data.
 
-To verify your key and client connectivity:
+To verify your key pool and client connectivity:
 ```powershell
 cyberpulse llm-check
 ```

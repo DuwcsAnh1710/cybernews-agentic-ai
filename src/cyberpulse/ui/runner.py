@@ -208,9 +208,15 @@ _JOB_REGISTRY: dict[str, _ActiveHandle] = {}
 def redact_secrets(text: str) -> str:
     """Redact Gemini API keys from text using pattern matching and os.environ."""
     redacted = _AIZA_REGEX.sub("[REDACTED_GEMINI_KEY]", text)
-    env_key = os.environ.get("GEMINI_API_KEY")
-    if env_key and len(env_key) >= 8:
-        redacted = redacted.replace(env_key, "[REDACTED_GEMINI_KEY]")
+    try:
+        from cyberpulse.llm import parse_api_keys
+        for k in parse_api_keys():
+            if len(k) >= 8:
+                redacted = redacted.replace(k, "[REDACTED_GEMINI_KEY]")
+    except Exception:
+        env_key = os.environ.get("GEMINI_API_KEY")
+        if env_key and len(env_key) >= 8:
+            redacted = redacted.replace(env_key, "[REDACTED_GEMINI_KEY]")
     return redacted
 
 

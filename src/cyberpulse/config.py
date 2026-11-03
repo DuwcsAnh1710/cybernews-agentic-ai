@@ -491,6 +491,9 @@ def check_secrets(env_file: Path | str | None = None) -> dict[str, str]:
     status: dict[str, str] = {}
     for secret_name in KNOWN_SECRETS:
         val = os.environ.get(secret_name)
+        if secret_name == "GEMINI_API_KEY" and (val is None or not val.strip()):
+            val = os.environ.get("GEMINI_API_KEYS") or os.environ.get("GEMINI_API_KEY_FALLBACK")
+
         if val is not None and val.strip() != "":
             status[secret_name] = "set"
         else:

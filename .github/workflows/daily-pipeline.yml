@@ -43,6 +43,7 @@ jobs:
       - name: Execute CyberPulse AI Daily Run
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEYS: ${{ secrets.GEMINI_API_KEYS }}
         run: |
           EXIT_CODE=0
           for attempt in 1 2 3; do

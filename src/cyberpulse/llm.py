@@ -6,6 +6,7 @@ from dataclasses import dataclass
 import json
 import logging
 import os
+import re
 import time
 from typing import Any, Callable, Generic, Literal, Protocol, TypeVar
 import httpx
@@ -101,11 +102,65 @@ class LLMClient(Protocol):
         ...
 
 
-def _sanitize(text: str, key: str | None) -> str:
-    """Scrub sensitive API key from strings."""
-    if key and key in text:
-        return text.replace(key, "***")
-    return text
+def mask_api_key(key: str) -> str:
+    """Mask API key for safe display (e.g. AIza...4a1b)."""
+    if not key or len(key) <= 8:
+        return "***"
+    return f"{key[:4]}...{key[-4:]}"
+
+
+def parse_api_keys(
+    api_key: str | None = None,
+    api_keys: list[str] | str | None = None,
+) -> list[str]:
+    """Extract ordered unique non-empty API keys from parameters and environment variables.
+
+    Lookup priority:
+    1. Explicit `api_keys` (list or comma/newline/semicolon delimited string)
+    2. Explicit `api_key` (single or comma-delimited string)
+    3. Environment variable `GEMINI_API_KEYS`
+    4. Environment variable `GEMINI_API_KEY`
+    5. Environment variable `GEMINI_API_KEY_FALLBACK`
+    """
+    raw: list[str] = []
+
+    if api_keys is not None:
+        if isinstance(api_keys, str):
+            raw.extend(re.split(r"[,;\n\r]+", api_keys))
+        elif isinstance(api_keys, (list, tuple)):
+            for item in api_keys:
+                if isinstance(item, str):
+                    raw.extend(re.split(r"[,;\n\r]+", item))
+
+    if api_key is not None:
+        raw.extend(re.split(r"[,;\n\r]+", api_key))
+
+    for env_name in ("GEMINI_API_KEYS", "GEMINI_API_KEY", "GEMINI_API_KEY_FALLBACK"):
+        val = os.environ.get(env_name)
+        if val and val.strip():
+            raw.extend(re.split(r"[,;\n\r]+", val))
+
+    seen: set[str] = set()
+    cleaned: list[str] = []
+    for k in raw:
+        stripped = k.strip()
+        if stripped and stripped not in seen:
+            seen.add(stripped)
+            cleaned.append(stripped)
+
+    return cleaned
+
+
+def _sanitize(text: str, key: str | list[str] | tuple[str, ...] | None) -> str:
+    """Scrub sensitive API key(s) from strings."""
+    if not text or not key:
+        return text
+    keys = [key] if isinstance(key, str) else list(key)
+    result = text
+    for k in keys:
+        if k and k in result:
+            result = result.replace(k, "***")
+    return result
 
 
 # ==============================================================================
@@ -122,7 +177,7 @@ def _run_with_retry_and_validation(
     task_name: str,
     cfg: LLMConfig,
     sleep: Callable[[float], None],
-    api_key: str | None,
+    api_key: str | list[str] | tuple[str, ...] | None,
 ) -> LLMResult[T]:
     """Shared execution loop supporting transient retries and schema correction retries.
 
@@ -259,58 +314,119 @@ def _run_with_retry_and_validation(
 
 
 class GeminiClient:
-    """Official Google Gen AI SDK client implementation."""
+    """Official Google Gen AI SDK client implementation with multi-key failover."""
 
     def __init__(
         self,
         cfg: LLMConfig,
         api_key: str | None = None,
+        api_keys: list[str] | str | None = None,
         sdk_client: object | None = None,
         sleep: Callable[[float], None] = time.sleep,
     ) -> None:
         self.cfg = cfg
         self.sleep = sleep
+        self._sdk_client_override: object | None = None
+        self._clients: dict[str, Any] = {}
 
-        resolved_key = api_key if api_key is not None else os.environ.get("GEMINI_API_KEY")
-        if not resolved_key or not resolved_key.strip():
+        if sdk_client is not None:
+            if isinstance(sdk_client, dict):
+                self._clients = dict(sdk_client)
+            else:
+                self._sdk_client_override = sdk_client
+
+        self.api_keys = parse_api_keys(api_key=api_key, api_keys=api_keys)
+        if not self.api_keys:
             raise LLMConfigError("GEMINI_API_KEY is not set")
-        self.api_key = resolved_key.strip()
+
+        self._active_key_index = 0
 
         env_model = os.environ.get("GEMINI_MODEL")
         self.model = env_model.strip() if env_model and env_model.strip() else cfg.model
 
-        if sdk_client is not None:
-            self._client = sdk_client
-        else:
-            if genai is None:  # pragma: no cover
-                raise LLMConfigError("google-genai package is not installed")
-            self._client = genai.Client(
-                api_key=self.api_key,
-                http_options=genai_types.HttpOptions(
-                    timeout=cfg.timeout_sec * 1000
-                ),
-            )
+    @property
+    def api_key(self) -> str:
+        """Currently active API key."""
+        return self.api_keys[self._active_key_index]
+
+    @property
+    def active_key_index(self) -> int:
+        """Zero-based index of currently active key."""
+        return self._active_key_index
+
+    def rotate_key(self) -> str:
+        """Rotate to next available API key in the pool and return the new key."""
+        old_masked = mask_api_key(self.api_key)
+        self._active_key_index = (self._active_key_index + 1) % len(self.api_keys)
+        new_masked = mask_api_key(self.api_key)
+        logger.warning(
+            "[GeminiClient] Rotated API key from %s to %s (key %d/%d in pool)",
+            old_masked,
+            new_masked,
+            self._active_key_index + 1,
+            len(self.api_keys),
+        )
+        return self.api_key
+
+    def _get_client(self, key: str) -> Any:
+        if self._sdk_client_override is not None:
+            return self._sdk_client_override
+        if key in self._clients:
+            return self._clients[key]
+
+        if genai is None:  # pragma: no cover
+            raise LLMConfigError("google-genai package is not installed")
+
+        new_client = genai.Client(
+            api_key=key,
+            http_options=genai_types.HttpOptions(
+                timeout=self.cfg.timeout_sec * 1000
+            ),
+        )
+        self._clients[key] = new_client
+        return new_client
 
     def _call_gemini(
         self, prompt: str, system: str, schema: type[T]
     ) -> tuple[str, str, int | None, int | None]:
-        try:
-            config = genai_types.GenerateContentConfig(
-                system_instruction=system,
-                response_mime_type="application/json",
-                response_schema=schema,
-                max_output_tokens=self.cfg.max_output_tokens,
-                thinking_config=genai_types.ThinkingConfig(
-                    thinking_level=self.cfg.thinking_level
-                ),
-            )
-            response = self._client.models.generate_content(  # type: ignore[union-attr]
-                model=self.model,
-                contents=prompt,
-                config=config,
-            )
-        except Exception as exc:
-            self._handle_sdk_exception(exc)
+        keys_pool_size = len(self.api_keys)
+        last_error: Exception | None = None
+        response: Any = None
+
+        for attempt_key_idx in range(keys_pool_size):
+            active_key = self.api_key
+            client = self._get_client(active_key)
+
+            try:
+                config = genai_types.GenerateContentConfig(
+                    system_instruction=system,
+                    response_mime_type="application/json",
+                    response_schema=schema,
+                    max_output_tokens=self.cfg.max_output_tokens,
+                    thinking_config=genai_types.ThinkingConfig(
+                        thinking_level=self.cfg.thinking_level
+                    ),
+                )
+                response = client.models.generate_content(  # type: ignore[union-attr]
+                    model=self.model,
+                    contents=prompt,
+                    config=config,
+                )
+                break
+            except Exception as exc:
+                try:
+                    self._handle_sdk_exception(exc)
+                except (LLMRateLimitError, LLMAuthError) as mapped_err:
+                    last_error = mapped_err
+                    if keys_pool_size > 1 and attempt_key_idx < keys_pool_size - 1:
+                        self.rotate_key()
+                        continue
+                    raise mapped_err
+                except Exception as other_err:
+                    raise other_err
+        else:
+            if last_error:
+                raise last_error
 
         # Check candidate safety and presence
         candidates = getattr(response, "candidates", None)
@@ -340,7 +456,7 @@ class GeminiClient:
         if code is None and hasattr(exc, "status_code"):
             code = getattr(exc, "status_code")
 
-        msg = _sanitize(str(exc), self.api_key)
+        msg = _sanitize(str(exc), self.api_keys)
 
         if code in (401, 403):
             raise LLMAuthError(f"Authentication failed ({code}): {msg}") from exc
@@ -369,6 +485,9 @@ class GeminiClient:
 
         # Check for safety / block keywords in message
         lower_msg = msg.lower()
+        if "quota exceeded" in lower_msg or "resource_exhausted" in lower_msg:
+            raise LLMRateLimitError(f"Quota exceeded: {msg}") from exc
+
         if "safety" in lower_msg or "blocked" in lower_msg:
             raise LLMBlockedError(f"Generation blocked: {msg}") from exc
 
@@ -392,7 +511,7 @@ class GeminiClient:
             task_name=task_name,
             cfg=self.cfg,
             sleep=self.sleep,
-            api_key=self.api_key,
+            api_key=self.api_keys,
         )
 
 
