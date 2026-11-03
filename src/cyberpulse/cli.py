@@ -523,6 +523,66 @@ def build_parser() -> argparse.ArgumentParser:
         help="Print command line arguments and exit without starting uvicorn",
     )
 
+    # scheduler subcommand (T12)
+    scheduler_parser = subparsers.add_parser(
+        "scheduler",
+        help="Launch autonomous 24/7 background scheduler daemon",
+    )
+    scheduler_parser.add_argument(
+        "--once",
+        action="store_true",
+        default=False,
+        help="Execute all scheduled pipeline stages once and exit",
+    )
+    scheduler_parser.add_argument(
+        "--daemon",
+        action="store_true",
+        default=False,
+        help="Run continuously in background daemon loop",
+    )
+    scheduler_parser.add_argument(
+        "--interval-hours",
+        type=float,
+        default=None,
+        help="Override cycle interval in hours",
+    )
+    scheduler_parser.add_argument(
+        "--no-video",
+        action="store_true",
+        default=False,
+        help="Skip video rendering stage",
+    )
+    scheduler_parser.add_argument(
+        "--no-podcast",
+        action="store_true",
+        default=False,
+        help="Skip podcast synthesis stage",
+    )
+    scheduler_parser.add_argument(
+        "--no-dispatch",
+        action="store_true",
+        default=False,
+        help="Skip multi-channel notification dispatch stage",
+    )
+    scheduler_parser.add_argument(
+        "--settings",
+        type=Path,
+        default=Path("config/settings.toml"),
+        help="Path to settings.toml (default: config/settings.toml)",
+    )
+    scheduler_parser.add_argument(
+        "--sources",
+        type=Path,
+        default=Path("config/sources.toml"),
+        help="Path to sources.toml (default: config/sources.toml)",
+    )
+    scheduler_parser.add_argument(
+        "--dist-dir",
+        type=Path,
+        default=Path("dist"),
+        help="Destination directory for static portal (default: dist)",
+    )
+
     return parser
 
 
@@ -1539,6 +1599,52 @@ def run_dispatch(
     return 0 if res.all_successful else 5
 
 
+def run_scheduler(
+    settings_path: Path = Path("config/settings.toml"),
+    sources_path: Path = Path("config/sources.toml"),
+    dist_dir: Path = Path("dist"),
+    once: bool = False,
+    daemon: bool = False,
+    interval_hours: float | None = None,
+    no_video: bool = False,
+    no_podcast: bool = False,
+    no_dispatch: bool = False,
+) -> int:
+    """Run autonomous background scheduler daemon or single-shot execution."""
+    try:
+        settings = load_settings(settings_path)
+    except ConfigError as err:
+        print(f"ConfigError: {err}", file=sys.stderr)
+        return 1
+
+    setup_logging(
+        log_level=settings.log_level,
+        log_dir=settings.paths.log_dir,
+        logger_name="cyberpulse",
+    )
+
+    from cyberpulse.scheduler import PipelineScheduler
+
+    generate_podcast = False if no_podcast else None
+    generate_video = False if no_video else None
+    dispatch_notifications = False if no_dispatch else None
+
+    scheduler = PipelineScheduler(
+        settings=settings,
+        settings_path=settings_path,
+        sources_path=sources_path,
+        dist_dir=dist_dir,
+        interval_hours=interval_hours,
+        generate_podcast=generate_podcast,
+        generate_video=generate_video,
+        dispatch_notifications=dispatch_notifications,
+    )
+
+    if daemon:
+        return scheduler.run_daemon()
+    return scheduler.run_once()
+
+
 EXIT_CODE_MAP: dict[FailureReason, int] = {
     FailureReason.insufficient_research: 3,
     FailureReason.llm_error: 5,
@@ -1817,6 +1923,18 @@ def main(argv: list[str] | None = None) -> int:
             reload=args.reload,
             settings_path=args.settings,
             print_command=args.print_command,
+        )
+    elif args.command == "scheduler":
+        return run_scheduler(
+            settings_path=args.settings,
+            sources_path=args.sources,
+            dist_dir=args.dist_dir,
+            once=args.once,
+            daemon=args.daemon,
+            interval_hours=args.interval_hours,
+            no_video=args.no_video,
+            no_podcast=args.no_podcast,
+            no_dispatch=args.no_dispatch,
         )
     return 0
 

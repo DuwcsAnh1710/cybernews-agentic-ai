@@ -199,3 +199,49 @@ section_words_max = 50
         load_settings(settings_file)
     assert "section_words_min" in str(exc_info.value)
 
+
+def test_scheduler_config_loaded(tmp_path: Path) -> None:
+    """[scheduler] table is parsed into SchedulerConfig."""
+    settings_file = tmp_path / "settings_scheduler.toml"
+    settings_file.write_text(
+        """project_name = "CyberPulse AI"
+topics = ["cybersecurity"]
+
+[scheduler]
+enabled = true
+interval_hours = 6
+run_pipeline = true
+generate_podcast = false
+generate_video = false
+build_portal = true
+dispatch_notifications = false
+""",
+        encoding="utf-8",
+    )
+    settings = load_settings(settings_file)
+    assert settings.scheduler.enabled is True
+    assert settings.scheduler.interval_hours == 6
+    assert settings.scheduler.run_pipeline is True
+    assert settings.scheduler.generate_podcast is False
+    assert settings.scheduler.generate_video is False
+    assert settings.scheduler.build_portal is True
+    assert settings.scheduler.dispatch_notifications is False
+
+
+def test_scheduler_invalid_interval_hours(tmp_path: Path) -> None:
+    """interval_hours <= 0 raises ConfigError."""
+    settings_file = tmp_path / "settings_bad_scheduler.toml"
+    settings_file.write_text(
+        """project_name = "CyberPulse AI"
+topics = ["cybersecurity"]
+
+[scheduler]
+interval_hours = 0
+""",
+        encoding="utf-8",
+    )
+    with pytest.raises(ConfigError) as exc_info:
+        load_settings(settings_file)
+    assert "interval_hours" in str(exc_info.value)
+
+
