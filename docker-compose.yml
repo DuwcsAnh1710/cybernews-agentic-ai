@@ -92,3 +92,31 @@ services:
       - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL:-}
     command: ["cyberpulse", "api", "--host", "0.0.0.0", "--port", "8000", "--settings", "config/settings.toml"]
 
+  # Service 5: Autonomous Docker Scheduler Daemon (Task T12)
+  cyberpulse-scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cyberpulse-scheduler
+    restart: unless-stopped
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+      - ./logs:/app/logs
+      - ./dist:/app/dist
+      - ./config:/app/config:ro
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GEMINI_API_KEYS=${GEMINI_API_KEYS:-}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL:-}
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD:-}
+      - EMAIL_SENDER=${EMAIL_SENDER:-}
+      - EMAIL_RECIPIENTS=${EMAIL_RECIPIENTS:-}
+    command: ["cyberpulse", "scheduler", "--daemon", "--settings", "config/settings.toml", "--sources", "config/sources.toml"]
+
+

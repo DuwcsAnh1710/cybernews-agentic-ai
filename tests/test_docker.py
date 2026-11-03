@@ -52,6 +52,8 @@ def test_docker_compose_specifications() -> None:
     assert "cyberpulse-ui:" in content, "cyberpulse-ui service must be defined"
     assert "cyberpulse-runner:" in content, "cyberpulse-runner service must be defined"
     assert "cyberpulse-portal:" in content, "cyberpulse-portal service must be defined"
+    assert "cyberpulse-scheduler:" in content, "cyberpulse-scheduler service must be defined"
+    assert "scheduler" in content and "--daemon" in content, "Must configure scheduler in daemon mode"
 
     # Port mappings
     assert '"8501:8501"' in content, "Must expose Streamlit UI on port 8501"
