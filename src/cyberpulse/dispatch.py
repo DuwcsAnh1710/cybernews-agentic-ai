@@ -8,10 +8,11 @@ Strictly adheres to zero-emoji and clean technical typography guidelines.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import html
 import logging
 import os
+import re
 from typing import Any
 import httpx
 
@@ -20,6 +21,18 @@ from cyberpulse.models import EditorialPackage
 logger = logging.getLogger("cyberpulse.dispatch")
 
 DEFAULT_PORTAL_BASE_URL: str = "https://duwcsanh1710.github.io/cybernews-agentic-ai"
+
+
+def format_run_date_vn(run_id: str) -> str:
+    """Format run_id timestamp into Vietnam datetime string 'DD/MM/YYYY HH:MM'."""
+    match = re.search(r"^(?:run|standalone)-(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z", run_id)
+    if match:
+        y, m, d, hh, mm, ss = match.groups()
+        utc_dt = datetime(int(y), int(m), int(d), int(hh), int(mm), int(ss), tzinfo=timezone.utc)
+        vn_dt = utc_dt.astimezone(timezone(timedelta(hours=7)))
+        return vn_dt.strftime("%d/%m/%Y %H:%M")
+    vn_now = datetime.now(timezone(timedelta(hours=7)))
+    return vn_now.strftime("%d/%m/%Y %H:%M")
 
 
 @dataclass
@@ -54,9 +67,11 @@ def format_telegram_message(
 ) -> str:
     """Format editorial package into clean Telegram HTML message without emojis."""
     edition_url = f"{base_url.rstrip('/')}/editions/{package.run_id}.html"
+    date_vn = format_run_date_vn(package.run_id)
 
     lines: list[str] = [
         f"<b>[CYBERPULSE INTEL] {html.escape(package.digest.title)}</b>",
+        f"<i>Thời gian: {date_vn} (UTC+7)</i>",
         "",
         f"<i>{html.escape(package.digest.intro)}</i>",
         "",
@@ -85,6 +100,7 @@ def format_discord_payload(
 ) -> dict[str, Any]:
     """Format editorial package into rich Discord Embed payload without emojis."""
     edition_url = f"{base_url.rstrip('/')}/editions/{package.run_id}.html"
+    date_vn = format_run_date_vn(package.run_id)
 
     fields: list[dict[str, Any]] = []
     for sec in package.digest.sections:
@@ -100,7 +116,7 @@ def format_discord_payload(
     embed = {
         "title": package.digest.title[:256],
         "url": edition_url,
-        "description": package.digest.intro[:2000],
+        "description": f"**Thời gian:** {date_vn} (UTC+7)\n\n" + package.digest.intro[:1900],
         "color": 0x0369A1,  # CyberPulse Cyan / Primary Accent
         "fields": fields,
         "footer": {

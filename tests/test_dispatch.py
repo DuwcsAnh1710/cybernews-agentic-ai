@@ -11,10 +11,21 @@ from cyberpulse.dispatch import (
     DispatchResult,
     dispatch_package,
     format_discord_payload,
+    format_run_date_vn,
     format_telegram_message,
     send_discord,
     send_telegram,
 )
+
+
+def test_format_run_date_vn() -> None:
+    # 2026-11-03 10:00:00 UTC -> 17:00:00 UTC+7
+    date_str = format_run_date_vn("run-20261103T100000Z-test01")
+    assert date_str == "03/11/2026 17:00"
+
+    # Fallback to current time if no pattern matched
+    fallback = format_run_date_vn("invalid-run-id")
+    assert len(fallback) == 16  # DD/MM/YYYY HH:MM
 
 
 def test_format_telegram_message_contains_key_elements() -> None:
@@ -25,6 +36,9 @@ def test_format_telegram_message_contains_key_elements() -> None:
 
     # Must contain title
     assert pkg.digest.title in msg
+    # Must contain Vietnam timestamp
+    assert "03/11/2026 17:00" in msg
+    assert "(UTC+7)" in msg
     # Must contain intro
     assert pkg.digest.intro in msg
     # Must contain portal link
@@ -47,6 +61,8 @@ def test_format_discord_payload_structure() -> None:
     embed = payload["embeds"][0]
     assert embed["title"] == pkg.digest.title
     assert embed["url"] == f"{base_url}/editions/{pkg.run_id}.html"
+    assert "03/11/2026 17:00" in embed["description"]
+    assert "(UTC+7)" in embed["description"]
     assert len(embed["fields"]) >= 1
     # Check NO emojis in fields
     for field in embed["fields"]:
