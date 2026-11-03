@@ -355,3 +355,190 @@ def test_api_pipeline_trigger_conflict_when_locked(
         assert "busy" in resp.json()["detail"].lower() or "executing" in resp.json()["detail"].lower()
     finally:
         lock.release()
+
+
+# ------------------------------------------------------------------------------
+# 7. Scheduler Status & Webhook Triggering (Task T12)
+# ------------------------------------------------------------------------------
+
+
+def test_api_scheduler_status_default(api_client: TestClient) -> None:
+    """GET /api/v1/scheduler/status returns default status when no status file exists."""
+    from cyberpulse.scheduler import get_scheduler_status_path
+
+    status_file = get_scheduler_status_path(api_client.app.state.settings.paths.output_dir)
+    if status_file.exists():
+        status_file.unlink()
+
+    resp = api_client.get("/api/v1/scheduler/status")
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["status"] in ("idle", "stopped")
+    assert "interval_hours" in data
+    assert "config" in data
+    assert data["runs_completed"] >= 0
+
+
+def test_api_scheduler_status_with_file(
+    api_client: TestClient,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """GET /api/v1/scheduler/status returns serialized status from scheduler_status.json."""
+    from cyberpulse.scheduler import get_scheduler_status_path, write_scheduler_status
+
+    out_dir = api_client.app.state.settings.paths.output_dir
+    test_data = {
+        "status": "idle",
+        "pid": 5555,
+        "runs_completed": 42,
+        "last_run_id": "run-test-12345",
+        "last_run_time": "2026-11-03T18:00:00Z",
+        "last_status": "success",
+        "last_error": None,
+        "next_run_time": "2026-11-04T06:00:00Z",
+        "interval_hours": 12.0,
+        "config": {"run_pipeline": True},
+    }
+    write_scheduler_status(out_dir, test_data)
+
+    try:
+        resp = api_client.get("/api/v1/scheduler/status")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data["runs_completed"] == 42
+        assert data["last_run_id"] == "run-test-12345"
+        assert data["last_status"] == "success"
+    finally:
+        status_file = get_scheduler_status_path(out_dir)
+        if status_file.exists():
+            status_file.unlink()
+
+
+def test_api_scheduler_status_detects_crashed_pid(
+    api_client: TestClient,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """GET /api/v1/scheduler/status reports 'crashed' if PID died while status was 'running'."""
+    from cyberpulse.scheduler import get_scheduler_status_path, write_scheduler_status
+    import cyberpulse.api.service as service_mod
+
+    # Force is_pid_alive to return False for dead PID
+    monkeypatch.setattr(service_mod, "is_pid_alive", lambda pid: False)
+
+    out_dir = api_client.app.state.settings.paths.output_dir
+    write_scheduler_status(
+        out_dir,
+        {
+            "status": "running",
+            "pid": 999999,
+            "runs_completed": 0,
+            "interval_hours": 12.0,
+        },
+    )
+
+    try:
+        resp = api_client.get("/api/v1/scheduler/status")
+        assert resp.status_code == 200
+        assert resp.json()["status"] == "crashed"
+    finally:
+        status_file = get_scheduler_status_path(out_dir)
+        if status_file.exists():
+            status_file.unlink()
+
+
+def test_api_scheduler_trigger_unauthorized(api_client: TestClient) -> None:
+    """POST /api/v1/scheduler/trigger returns 401 when no auth header is provided."""
+    resp = api_client.post("/api/v1/scheduler/trigger", json={})
+    assert resp.status_code == 401
+
+
+def test_api_scheduler_trigger_authorized(
+    api_client: TestClient,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """POST /api/v1/scheduler/trigger returns 200 when authenticated via X-API-Key."""
+    mock_runner = MagicMock()
+    api_client.app.state.scheduler_runner = mock_runner
+
+    resp = api_client.post(
+        "/api/v1/scheduler/trigger",
+        headers={"X-API-Key": "test-secret-key-12345"},
+        json={"run_pipeline": True, "generate_video": False},
+    )
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["status"] == "triggered"
+    assert "Autonomous scheduler cycle triggered" in data["message"]
+    assert mock_runner.called
+
+
+def test_api_scheduler_trigger_conflict_when_locked(
+    api_client: TestClient,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """POST /api/v1/scheduler/trigger returns 409 Conflict when pipeline lock is active."""
+    import cyberpulse.api.routes as routes
+
+    monkeypatch.setattr(routes, "is_pid_alive", lambda pid: True)
+    mock_runner = MagicMock()
+    api_client.app.state.scheduler_runner = mock_runner
+
+    lock = RunLock(output_dir=api_client.app.state.settings.paths.output_dir, step="run")
+    lock.acquire()
+
+    try:
+        resp = api_client.post(
+            "/api/v1/scheduler/trigger",
+            headers={"X-API-Key": "test-secret-key-12345"},
+            json={},
+        )
+        assert resp.status_code == 409
+        assert "executing" in resp.json()["detail"].lower() or "busy" in resp.json()["detail"].lower()
+        assert not mock_runner.called
+    finally:
+        lock.release()
+
+
+def test_api_scheduler_trigger_conflict_when_scheduler_running(
+    api_client: TestClient,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """POST /api/v1/scheduler/trigger returns 409 Conflict when scheduler status is already running."""
+    import cyberpulse.api.routes as routes
+    import cyberpulse.api.service as service_mod
+
+    monkeypatch.setattr(routes, "is_pid_alive", lambda pid: True)
+    monkeypatch.setattr(service_mod, "is_pid_alive", lambda pid: True)
+    monkeypatch.setattr("cyberpulse.runlock.is_pid_alive", lambda pid: True)
+
+    mock_runner = MagicMock()
+    api_client.app.state.scheduler_runner = mock_runner
+
+    from cyberpulse.scheduler import get_scheduler_status_path, write_scheduler_status
+
+    out_dir = api_client.app.state.settings.paths.output_dir
+    write_scheduler_status(
+        out_dir,
+        {
+            "status": "running",
+            "pid": 88888,
+            "interval_hours": 12.0,
+        },
+    )
+
+    try:
+        resp = api_client.post(
+            "/api/v1/scheduler/trigger",
+            headers={"X-API-Key": "test-secret-key-12345"},
+            json={},
+        )
+        assert resp.status_code == 409
+        assert "currently running" in resp.json()["detail"].lower()
+        assert not mock_runner.called
+    finally:
+        status_file = get_scheduler_status_path(out_dir)
+        if status_file.exists():
+            status_file.unlink()
+
+

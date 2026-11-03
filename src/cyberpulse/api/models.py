@@ -141,3 +141,37 @@ class PipelineTriggerResponse(BaseModel):
     run_id: str
     message: str
     mode: str = "background"
+
+
+class SchedulerStatusResponse(BaseModel):
+    """Current autonomous scheduler daemon status."""
+
+    status: str = Field(description="Operational status: idle, running, stopped, or error")
+    pid: int | None = Field(default=None, description="Daemon process ID")
+    runs_completed: int = Field(default=0, description="Total completed execution cycles")
+    last_run_id: str | None = Field(default=None, description="Identifier of the last executed run")
+    last_run_time: datetime | None = Field(default=None, description="Timestamp of the last execution")
+    last_status: str | None = Field(default=None, description="Outcome of the last execution")
+    last_error: str | None = Field(default=None, description="Error details if the last execution encountered issues")
+    next_run_time: datetime | None = Field(default=None, description="Projected timestamp of the next execution cycle")
+    interval_hours: float = Field(default=12.0, description="Scheduled cycle interval in hours")
+    config: dict[str, Any] = Field(default_factory=dict, description="Active scheduler feature flags")
+
+
+class SchedulerTriggerRequest(BaseModel):
+    """Optional parameters for on-demand scheduler trigger."""
+
+    run_pipeline: bool | None = None
+    generate_podcast: bool | None = None
+    generate_video: bool | None = None
+    build_portal: bool | None = None
+    dispatch_notifications: bool | None = None
+
+
+class SchedulerTriggerResponse(BaseModel):
+    """Response acknowledging scheduler cycle trigger."""
+
+    status: str = "triggered"
+    message: str = "Autonomous scheduler cycle triggered successfully"
+    mode: str = "background"
+

@@ -30,6 +30,7 @@ from cyberpulse.portal import (
     format_vietnam_time,
     parse_run_timestamp,
 )
+from cyberpulse.runlock import is_pid_alive
 from cyberpulse.storage import connect, get_db_path, load_editorial_package, load_research_result
 
 logger = logging.getLogger("cyberpulse.api.service")
@@ -519,3 +520,42 @@ class ThreatIntelService:
             "language": "vi",
             "items": feed_items,
         }
+
+    def get_scheduler_status(self) -> dict[str, Any]:
+        """Retrieve current scheduler daemon operational status and metrics."""
+        from cyberpulse.scheduler import read_scheduler_status
+
+        status_data = read_scheduler_status(self.output_dir)
+        if status_data:
+            pid = status_data.get("pid")
+            if status_data.get("status") == "running" and pid and not is_pid_alive(int(pid)):
+                status_data["status"] = "crashed"
+            return status_data
+
+        interval = (
+            getattr(self.settings.scheduler, "interval_hours", 12.0)
+            if hasattr(self.settings, "scheduler")
+            else 12.0
+        )
+        cfg = {}
+        if hasattr(self.settings, "scheduler"):
+            cfg = {
+                "run_pipeline": self.settings.scheduler.run_pipeline,
+                "generate_podcast": self.settings.scheduler.generate_podcast,
+                "generate_video": self.settings.scheduler.generate_video,
+                "build_portal": self.settings.scheduler.build_portal,
+                "dispatch_notifications": self.settings.scheduler.dispatch_notifications,
+            }
+        return {
+            "status": "idle",
+            "pid": None,
+            "runs_completed": 0,
+            "last_run_id": None,
+            "last_run_time": None,
+            "last_status": None,
+            "last_error": None,
+            "next_run_time": None,
+            "interval_hours": float(interval),
+            "config": cfg,
+        }
+
