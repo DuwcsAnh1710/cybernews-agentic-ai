@@ -43,16 +43,30 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          set +e
-          python -m cyberpulse.cli run --settings config/settings.toml --sources config/sources.toml --allow-insufficient --max-rewrites 3
-          EXIT_CODE=$?
-          set -e
+          EXIT_CODE=0
+          for attempt in 1 2 3; do
+            echo "=== Attempt $attempt: Running CyberPulse AI Pipeline ==="
+            set +e
+            python -m cyberpulse.cli run --settings config/settings.toml --sources config/sources.toml --allow-insufficient --max-rewrites 3
+            EXIT_CODE=$?
+            set -e
+            if [ $EXIT_CODE -eq 0 ] || [ $EXIT_CODE -eq 8 ]; then
+              break
+            fi
+            if [ $EXIT_CODE -eq 5 ] && [ $attempt -lt 3 ]; then
+              echo "::warning::Hit transient Gemini 503 high-demand spike. Sleeping 30s before retry attempt $((attempt + 1))..."
+              sleep 30
+            else
+              break
+            fi
+          done
+
           if [ $EXIT_CODE -eq 0 ]; then
             echo "Pipeline run completed cleanly: AWAITING_REVIEW (passed all validation gates)."
           elif [ $EXIT_CODE -eq 8 ]; then
             echo "::warning::Validation reported non-critical issues (exit code 8, e.g. E_NUMBER_UNSUPPORTED). Proceeding with best-effort package for automated publishing."
           else
-            echo "::error::Pipeline failed with critical error code $EXIT_CODE"
+            echo "::error::Pipeline failed with error code $EXIT_CODE"
             exit $EXIT_CODE
           fi
 
