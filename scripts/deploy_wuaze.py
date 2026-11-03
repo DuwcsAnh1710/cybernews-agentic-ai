@@ -78,11 +78,20 @@ def upload_portal(
     password: str = "",
     dist_dir: Path = LOCAL_DIST_DIR,
     remote_root: str = DEFAULT_REMOTE_ROOT,
+    rebuild: bool = True,
 ) -> int:
-    """Recursively upload all files from dist_dir to FTP server."""
-    if not dist_dir.exists():
-        print(f"Loi: Thu muc nguon '{dist_dir}' khong ton tai. Hay chay 'cyberpulse export portal' truoc.")
-        return 1
+    """Recursively upload all files from dist_dir to FTP server, auto-building if needed."""
+    if rebuild or not dist_dir.exists() or not any(dist_dir.iterdir()):
+        print(f"[*] Dang tu dong bien dich CyberPulse Reader portal vao '{dist_dir}'...")
+        try:
+            from cyberpulse.portal import build_public_portal
+            build_res = build_public_portal(output_dir=Path("output"), dist_dir=dist_dir)
+            print(f"[+] Bien dich hoan tat: {build_res.editions_count} so bao, tao {len(build_res.files_created)} tep.")
+        except Exception as e:
+            print(f"[-] Khong the tu dong bien dich portal: {e}")
+            if not dist_dir.exists():
+                print(f"Loi: Thu muc '{dist_dir}' khong ton tai. Hay chay 'cyberpulse export portal' truoc.")
+                return 1
 
     local_files: list[tuple[Path, str]] = []
     for file_path in sorted(dist_dir.glob("**/*")):
