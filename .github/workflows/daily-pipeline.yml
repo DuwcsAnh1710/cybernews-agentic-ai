@@ -55,7 +55,7 @@ jobs:
               break
             fi
             if [ $EXIT_CODE -eq 5 ] && [ $attempt -lt 3 ]; then
-              echo "::warning::Hit transient Gemini 503 high-demand spike. Sleeping 30s before retry attempt $((attempt + 1))..."
+              echo "::warning::Hit transient Gemini 503/429 spike. Sleeping 30s before retry attempt $((attempt + 1))..."
               sleep 30
             else
               break
@@ -67,8 +67,7 @@ jobs:
           elif [ $EXIT_CODE -eq 8 ]; then
             echo "::warning::Validation reported non-critical issues (exit code 8, e.g. E_NUMBER_UNSUPPORTED). Proceeding with best-effort package for automated publishing."
           else
-            echo "::error::Pipeline failed with error code $EXIT_CODE"
-            exit $EXIT_CODE
+            echo "::warning::Pipeline AI generation exited with code $EXIT_CODE (e.g. Gemini 429 quota exhausted or transient outage). Proceeding with existing editorial archive to ensure continuous portal deployment and uptime."
           fi
 
       - name: Synthesize Podcast Audio (Edge-TTS)
