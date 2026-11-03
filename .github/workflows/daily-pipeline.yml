@@ -1,0 +1,69 @@
+name: Daily Cybersecurity Magazine Pipeline & Deploy
+
+on:
+  schedule:
+    # Runs at 00:00 UTC every day (07:00 AM Vietnam Time UTC+7)
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "daily-pipeline"
+  cancel-in-progress: false
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install .[media]
+
+      - name: Execute CyberPulse AI Daily Run
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python -m cyberpulse.cli run --settings config/settings.toml --sources config/sources.toml
+
+      - name: Synthesize Podcast Audio (Edge-TTS)
+        run: |
+          LATEST_RUN=$(ls -t output/editorial/*.json | head -n 1 | sed 's/output\/editorial\///' | sed 's/\.json//')
+          echo "Synthesizing podcast for run: $LATEST_RUN"
+          python -m cyberpulse.cli media podcast "$LATEST_RUN" || echo "Podcast synthesis skipped or failed"
+
+      - name: Build The Hacker News Style Static Portal
+        run: |
+          python -m cyberpulse.cli export portal --output-dir output --dist-dir dist
+
+      - name: Deploy to InfinityFree (cyberpulseDA.wuaze.com)
+        if: env.FTP_PASSWORD != ''
+        env:
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          python scripts/deploy_wuaze.py --password "$FTP_PASSWORD"
+
+      - name: Deploy to GitHub Pages (gh-pages branch)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          touch dist/.nojekyll
+          git add --force dist
+          TREE=$(git write-tree --prefix=dist/)
+          COMMIT=$(git commit-tree $TREE -m "Automated Daily Deploy $(date -u +'%Y-%m-%d %H:%M:%SZ')")
+          git push origin "${COMMIT}:refs/heads/gh-pages" --force
