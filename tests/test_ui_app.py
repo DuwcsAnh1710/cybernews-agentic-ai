@@ -7,13 +7,13 @@ from pathlib import Path
 import sys
 import pytest
 
+pytest.importorskip("streamlit")
+from streamlit.testing.v1 import AppTest
+
 from tests.test_ui_data import make_sample_editorial, make_sample_research
 from cyberpulse.ui.app import format_run_display
 from cyberpulse.ui.data import RunArtifacts
 from cyberpulse.ui.review import sha256_of_file
-
-pytest.importorskip("streamlit")
-from streamlit.testing.v1 import AppTest
 
 
 def test_core_modules_do_not_import_streamlit(monkeypatch: pytest.MonkeyPatch) -> None:

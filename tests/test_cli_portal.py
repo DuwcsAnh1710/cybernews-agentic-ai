@@ -169,3 +169,39 @@ def test_cli_export_portal_serve_flag(
     captured = capsys.readouterr()
     assert "Trang web độc giả đang chạy tại: http://localhost:8999" in captured.out
     assert "Đã dừng máy chủ web." in captured.out
+
+
+def test_cli_export_portal_generates_ux_overhaul_elements(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    """Task T9.3: CLI export portal generates filter-taskbar, edition-strip, article-utility-bar, and tldr-box."""
+    output_dir = tmp_path / "output"
+    dist_dir = tmp_path / "dist"
+    run_id = "run-20261102T020834Z-cli-ux"
+
+    _setup_cli_run(output_dir, run_id, with_audio=True)
+
+    code = main([
+        "export",
+        "portal",
+        "--output-dir",
+        str(output_dir),
+        "--dist-dir",
+        str(dist_dir),
+    ])
+
+    assert code == 0
+    index_html = (dist_dir / "index.html").read_text(encoding="utf-8")
+    assert "filter-taskbar" in index_html
+    assert "edition-strip-wrap" in index_html
+    assert "edition-views-count" in index_html
+
+    # Check generated article pages
+    article_files = list((dist_dir / "articles").glob("*.html"))
+    assert len(article_files) >= 1
+    for art_file in article_files:
+        content = art_file.read_text(encoding="utf-8")
+        assert "article-utility-bar" in content
+        assert "tldr-box" in content
+        assert "article-pagination" in content
+        assert "article-views-count" in content

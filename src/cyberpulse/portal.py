@@ -163,6 +163,32 @@ MATERIAL_FALLBACK_SVGS: dict[str, str] = {
         '<path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>'
         '<path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>'
     ),
+    "visibility": (
+        '<svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" '
+        'stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+        '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>'
+        '<circle cx="12" cy="12" r="3"></circle></svg>'
+    ),
+    "format_size": (
+        '<svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">'
+        '<path d="M9 4v3h5v12h3V7h5V4H9zm-6 8h3v7h3v-7h3V9H3v3z"></path></svg>'
+    ),
+    "bolt": (
+        '<svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">'
+        '<path d="M11 21h-1l1-7H7.5c-.88 0-.33-.75-.31-.78C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .77.34.64.67l-6.14 10.33z"></path></svg>'
+    ),
+    "calendar_month": (
+        '<svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" '
+        'stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+        '<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>'
+        '<line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line>'
+        '<line x1="3" y1="10" x2="21" y2="10"></line>'
+        '<circle cx="8" cy="14" r="1" fill="currentColor"></circle>'
+        '<circle cx="12" cy="14" r="1" fill="currentColor"></circle>'
+        '<circle cx="16" cy="14" r="1" fill="currentColor"></circle>'
+        '<circle cx="8" cy="18" r="1" fill="currentColor"></circle>'
+        '<circle cx="12" cy="18" r="1" fill="currentColor"></circle></svg>'
+    ),
 }
 
 
@@ -329,6 +355,199 @@ def format_vietnam_time(dt: datetime) -> str:
     vn_tz = timezone(timedelta(hours=7))
     dt_vn = dt.astimezone(vn_tz)
     return dt_vn.strftime("%d/%m/%Y %H:%M")
+
+
+def format_vietnam_date(dt: datetime) -> str:
+    """Format UTC datetime as Vietnam Date (UTC+7) 'DD/MM/YYYY'."""
+    vn_tz = timezone(timedelta(hours=7))
+    dt_vn = dt.astimezone(vn_tz)
+    return dt_vn.strftime("%d/%m/%Y")
+
+
+def calculate_baseline_views(seed_str: str) -> int:
+    """Calculate deterministic baseline view count between 800 and 2,500 based on seed hash."""
+    h = 0
+    for ch in seed_str:
+        h = ((h << 5) - h) + ord(ch)
+        h &= 0xFFFFFFFF
+    return 800 + (h % 1701)
+
+
+def extract_tldr_bullets(
+    article: Article,
+    relevance_reason: str,
+    matching_section_texts: list[str],
+) -> list[str]:
+    """Extract 3 concise executive bullet takeaways from article and editorial synthesis."""
+    bullets: list[str] = []
+
+    corpus = f"{article.title} {article.summary} {relevance_reason} {' '.join(matching_section_texts)}"
+    cves = extract_cves(corpus)
+    vendor_tags = extract_vendor_tags(corpus, topics=article.topics_matched)
+
+    # Bullet 1: Core threat & vulnerability details
+    cve_part = f" ({', '.join(cves[:2])})" if cves else ""
+    tech_part = f" trên hệ thống {', '.join(vendor_tags[:2])}" if vendor_tags else ""
+    if article.summary:
+        sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+", article.summary.strip()) if len(s.strip()) > 15]
+        if sentences:
+            bullets.append(sentences[0])
+    if not bullets:
+        bullets.append(f"Phát hiện rủi ro an ninh mạng{cve_part}{tech_part} ảnh hưởng trực tiếp tới hệ thống.")
+
+    # Bullet 2: Exploitation vector & editorial impact
+    if relevance_reason:
+        bullets.append(f"Đánh giá phân tích: {relevance_reason.strip()}")
+    elif len(matching_section_texts) > 0:
+        sec_text = matching_section_texts[0].split(":", 1)[-1].strip()
+        sec_sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+", sec_text) if len(s.strip()) > 15]
+        if sec_sentences:
+            bullets.append(sec_sentences[0])
+        else:
+            bullets.append("Kẻ tấn công có thể lợi dụng sơ hở để leo thang đặc quyền hoặc thực thi mã từ xa.")
+    else:
+        bullets.append("Lỗ hổng cho phép kẻ tấn công vượt qua rào cản kiểm soát và can thiệp tiến trình hệ thống.")
+
+    # Bullet 3: Mitigation recommendation
+    badge = detect_threat_badge(corpus)
+    if "patch" in badge.css_class:
+        bullets.append("Nhà sản xuất đã phát hành bản vá bảo mật khẩn cấp, khuyến nghị quản trị viên cập nhật ngay lập tức.")
+    elif "critical" in badge.css_class:
+        bullets.append("Mức độ đe dọa khẩn cấp (CVSS cao), cần cô lập các máy chủ bị ảnh hưởng và giám sát lưu lượng bất thường.")
+    else:
+        bullets.append("Cần kích hoạt giám sát hành vi trên giải pháp EDR/SIEM và rà soát đặc quyền truy cập tài khoản người dùng.")
+
+    # Guarantee exactly 3 bullets
+    while len(bullets) < 3:
+        bullets.append("Theo dõi cập nhật từ các kênh cảnh báo an ninh mạng chính thống để kịp thời phản ứng sự cố.")
+
+    return bullets[:3]
+
+
+def _render_tldr_box(bullets: list[str]) -> str:
+    """Render executive TL;DR highlight box with Google Material Symbol bolt (strictly 24x24 px)."""
+    bolt_icon = render_material_symbol("bolt")
+    items_html = "".join(f"<li>{html.escape(b)}</li>" for b in bullets[:3])
+    return f"""<div class="tldr-box">
+  <div class="tldr-header">{bolt_icon} <strong>Tóm tắt nhanh (TL;DR)</strong></div>
+  <ul class="tldr-list">
+    {items_html}
+  </ul>
+</div>"""
+
+
+def _render_article_pagination(
+    prev_article: Article | None,
+    next_article: Article | None,
+) -> str:
+    """Render 2-column continuous reading navigation cards (Bài trước / Bài kế tiếp)."""
+    arrow_back_icon = render_material_symbol("arrow_back")
+    arrow_forward_icon = render_material_symbol("arrow_forward")
+
+    prev_html = ""
+    if prev_article:
+        prev_html = f"""<a href="{prev_article.id}.html" class="pagination-card pagination-card-prev" rel="prev">
+  <div class="pagination-sublabel">{arrow_back_icon} <span>Bài trước</span></div>
+  <div class="pagination-title">{html.escape(prev_article.title)}</div>
+</a>"""
+    else:
+        prev_html = '<div class="pagination-placeholder"></div>'
+
+    next_html = ""
+    if next_article:
+        next_html = f"""<a href="{next_article.id}.html" class="pagination-card pagination-card-next" rel="next">
+  <div class="pagination-sublabel"><span>Bài kế tiếp</span> {arrow_forward_icon}</div>
+  <div class="pagination-title">{html.escape(next_article.title)}</div>
+</a>"""
+    else:
+        next_html = '<div class="pagination-placeholder"></div>'
+
+    return f"""<nav class="article-pagination" aria-label="Điều hướng bài viết">
+  {prev_html}
+  {next_html}
+</nav>"""
+
+
+def _render_filter_bar(
+    total_count: int,
+    critical_count: int,
+    warning_count: int,
+    patch_count: int,
+) -> str:
+    """Render interactive filter taskbar with live category counts and podcast quick button."""
+    podcasts_icon = render_material_symbol("podcasts")
+    return f"""<div class="filter-taskbar">
+  <div class="filter-pills">
+    <button class="filter-pill active" data-filter="all">Tất cả ({total_count})</button>
+    <button class="filter-pill" data-filter="critical"><span class="status-dot dot-critical"></span> Khẩn cấp ({critical_count})</button>
+    <button class="filter-pill" data-filter="warning"><span class="status-dot dot-warning"></span> Cảnh báo cao ({warning_count})</button>
+    <button class="filter-pill" data-filter="patch"><span class="status-dot dot-patch"></span> Bản vá ({patch_count})</button>
+  </div>
+  <a href="#podcast-radio-box" class="podcast-quick-btn">
+    {podcasts_icon} <span>Nghe Podcast số này</span>
+  </a>
+</div>"""
+
+
+def _render_article_utility_bar(
+    parent_edition_link: str,
+    edition_date: str,
+    baseline_views: int = 1248,
+) -> str:
+    """Render single article reading utility bar with back-to-edition link, font resizer, and view counter."""
+    arrow_back_icon = render_material_symbol("arrow_back")
+    visibility_icon = render_material_symbol("visibility")
+    formatted_views = f"{baseline_views:,}"
+    return f"""<div class="article-utility-bar">
+  <a href="../{parent_edition_link}" class="back-edition-btn">
+    {arrow_back_icon} <span>Về bản tin ngày {edition_date}</span>
+  </a>
+  <div class="utility-actions">
+    <div class="font-resizer">
+      <button id="font-decrease" title="Giảm cỡ chữ" aria-label="Giảm cỡ chữ">A-</button>
+      <button id="font-increase" title="Tăng cỡ chữ" aria-label="Tăng cỡ chữ">A+</button>
+    </div>
+    <span class="meta-item views-counter">
+      {visibility_icon} <span id="article-views-count">{formatted_views}</span> lượt xem
+    </span>
+  </div>
+</div>"""
+
+
+def _render_edition_strip(
+    editions_data: list[dict[str, Any]],
+    active_run_id: str = "",
+    base_prefix: str = "",
+    limit: int = 5,
+) -> str:
+    """Render horizontal daily edition strip below main header for 1-click date switching."""
+    calendar_month_icon = render_material_symbol("calendar_month")
+    date_pills: list[str] = []
+    archive_link = f"{base_prefix}archive.html"
+
+    for idx, ed in enumerate(editions_data[:limit]):
+        pkg = ed["package"]
+        ed_date_str = format_vietnam_date(ed["dt"])
+        is_active = (pkg.run_id == active_run_id)
+        active_cls = " active" if is_active else ""
+        current_attr = ' aria-current="page"' if is_active else ""
+        link = f"{base_prefix}editions/{pkg.run_id}.html"
+        label_suffix = " (Mới nhất)" if idx == 0 else ""
+        date_pills.append(
+            f'<a href="{link}" class="strip-date-pill{active_cls}"{current_attr}>'
+            f'{ed_date_str}{label_suffix}</a>'
+        )
+
+    pills_html = "\n        ".join(date_pills)
+    return f"""<div class="edition-strip-wrap">
+  <div class="container edition-strip-inner">
+    <span class="strip-label">{calendar_month_icon} Chọn ngày xem tin:</span>
+    <div class="strip-dates">
+      {pills_html}
+      <a href="{archive_link}" class="strip-date-all">Tất cả các ngày &rarr;</a>
+    </div>
+  </div>
+</div>"""
 
 
 def _get_style_css() -> str:
@@ -1461,6 +1680,326 @@ body {
   color: var(--text-muted);
 }
 
+/* Interactive Filter Taskbar */
+.filter-taskbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-pill:hover {
+  border-color: var(--accent-cyber);
+  color: var(--text-primary);
+  background-color: var(--bg-card-hover);
+}
+
+.filter-pill.active {
+  background-color: var(--accent-cyber);
+  color: #0b0f19;
+  border-color: var(--accent-cyber);
+  font-weight: 700;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.dot-critical {
+  background-color: var(--badge-critical-text);
+  box-shadow: 0 0 6px var(--badge-critical-text);
+}
+
+.dot-warning {
+  background-color: var(--badge-warning-text);
+  box-shadow: 0 0 6px var(--badge-warning-text);
+}
+
+.dot-patch {
+  background-color: var(--badge-patch-text);
+  box-shadow: 0 0 6px var(--badge-patch-text);
+}
+
+.podcast-quick-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid var(--accent-cyber);
+  color: var(--accent-cyber);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.podcast-quick-btn:hover {
+  background: var(--accent-cyber);
+  color: #0b0f19;
+}
+
+/* Article Reading Utility Bar */
+.article-utility-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.back-edition-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.back-edition-btn:hover {
+  color: var(--accent-cyber);
+}
+
+.utility-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.font-resizer {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: var(--bg-card);
+}
+
+.font-resizer button {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.font-resizer button:first-child {
+  border-right: 1px solid var(--border-color);
+}
+
+.font-resizer button:hover {
+  background-color: var(--accent-cyber);
+  color: #0b0f19;
+}
+
+.views-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Daily Edition Strip */
+.edition-strip-wrap {
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px 0;
+}
+
+.edition-strip-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.strip-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.strip-dates {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.strip-date-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 4px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.strip-date-pill:hover {
+  border-color: var(--accent-cyber);
+  color: var(--text-primary);
+}
+
+.strip-date-pill.active {
+  background-color: var(--accent-cyber-glow);
+  border-color: var(--accent-cyber);
+  color: var(--accent-cyber);
+  font-weight: 700;
+}
+
+.strip-date-all {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 4px 8px;
+  transition: color 0.15s ease;
+}
+
+.strip-date-all:hover {
+  color: var(--accent-cyber);
+}
+
+/* Article Pagination (Previous / Next) */
+.article-pagination {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin: 36px 0 20px 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-color);
+}
+
+.pagination-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 20px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.pagination-card:hover {
+  border-color: var(--accent-cyber);
+  background-color: var(--bg-card-hover);
+  transform: translateY(-2px);
+}
+
+.pagination-card-next {
+  text-align: right;
+  margin-left: auto;
+  width: 100%;
+}
+
+.pagination-sublabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.pagination-card-next .pagination-sublabel {
+  justify-content: flex-end;
+}
+
+.pagination-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+.pagination-placeholder {
+  min-height: 1px;
+}
+
+/* Executive TL;DR Box */
+.tldr-box {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.05) 0%, rgba(17, 24, 39, 0.8) 100%);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-left: 4px solid var(--accent-cyber);
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin: 24px 0 28px 0;
+}
+
+.tldr-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.05rem;
+  color: var(--accent-cyber);
+  margin-bottom: 12px;
+}
+
+.tldr-list {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.tldr-list li::marker {
+  color: var(--accent-cyber);
+}
+
 /* Responsive adjustments */
 @media (max-width: 900px) {
   .portal-grid {
@@ -1492,6 +2031,23 @@ body {
   .footer-inner {
     flex-direction: column;
     align-items: flex-start;
+  }
+  .filter-taskbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .article-utility-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .article-pagination {
+    grid-template-columns: 1fr;
+  }
+  .pagination-card-next {
+    text-align: left;
+  }
+  .pagination-card-next .pagination-sublabel {
+    justify-content: flex-start;
   }
 }
 """
@@ -1615,20 +2171,149 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // 4. Search Filter
+  // 4. Combined Filter and Search Function
+  function applyCardFilters() {
+    var activePill = document.querySelector('.filter-pill.active');
+    var filter = activePill ? activePill.getAttribute('data-filter') : 'all';
+    var searchInput = document.getElementById('search-input');
+    var query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+    var cards = document.querySelectorAll('.threat-card, .story-card, .hero-card, .filterable-card');
+    cards.forEach(function(card) {
+      var sev = card.getAttribute('data-severity') || '';
+      var matchFilter = false;
+      if (filter === 'all') {
+        matchFilter = true;
+      } else if (filter === 'critical') {
+        matchFilter = (sev === 'critical') || !!card.querySelector('.badge-critical');
+      } else if (filter === 'warning') {
+        matchFilter = (sev === 'warning' || sev === 'high') || !!card.querySelector('.badge-warning, .badge-high');
+      } else if (filter === 'patch') {
+        matchFilter = (sev === 'patch') || !!card.querySelector('.badge-patch');
+      }
+
+      var text = card.textContent.toLowerCase();
+      var matchSearch = !query || text.indexOf(query) !== -1;
+
+      if (matchFilter && matchSearch) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // 5. Search Filter
   var searchInput = document.getElementById('search-input');
   if (searchInput) {
     searchInput.addEventListener('input', function() {
-      var query = searchInput.value.toLowerCase().trim();
-      var cards = document.querySelectorAll('.filterable-card');
-      cards.forEach(function(card) {
-        var text = card.textContent.toLowerCase();
-        if (!query || text.indexOf(query) !== -1) {
-          card.style.display = '';
-        } else {
-          card.style.display = 'none';
+      applyCardFilters();
+    });
+  }
+
+  // 6. Live Interactive Filter Pills
+  var filterButtons = document.querySelectorAll('.filter-pill');
+  if (filterButtons.length > 0) {
+    filterButtons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        filterButtons.forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        applyCardFilters();
+      });
+    });
+  }
+
+  // 7. View Counters (Article & Edition)
+  function getBaselineViews(str) {
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) {
+      hash = ((hash << 5) - hash) + str.charCodeAt(i);
+      hash |= 0;
+    }
+    return 800 + (Math.abs(hash) % 1701);
+  }
+
+  var articleElem = document.querySelector('[data-article-id]') || document.querySelector('.single-article-main');
+  var articleId = articleElem ? articleElem.getAttribute('data-article-id') : null;
+  if (!articleId) {
+    var match = window.location.pathname.match(/\\/articles\\/([^\\/.]+)/);
+    if (match) articleId = match[1];
+  }
+  if (articleId) {
+    var key = 'cp_views_' + articleId;
+    var count = parseInt(localStorage.getItem(key), 10);
+    if (isNaN(count)) {
+      count = getBaselineViews(articleId) + 1;
+    } else {
+      count += 1;
+    }
+    localStorage.setItem(key, count);
+    var formatted = count.toLocaleString('vi-VN') || count.toLocaleString();
+    var viewEls = document.querySelectorAll('#article-views-count, #article-views');
+    viewEls.forEach(function(el) {
+      el.textContent = formatted;
+    });
+  }
+
+  var heroElem = document.querySelector('[data-run-id]');
+  var runId = heroElem ? heroElem.getAttribute('data-run-id') : null;
+  if (runId) {
+    var runKey = 'cp_views_edition_' + runId;
+    var edCount = parseInt(localStorage.getItem(runKey), 10);
+    if (isNaN(edCount)) {
+      edCount = (getBaselineViews(runId) * 4) + 1;
+    } else {
+      edCount += 1;
+    }
+    localStorage.setItem(runKey, edCount);
+    var edFormatted = edCount.toLocaleString('vi-VN') || edCount.toLocaleString();
+    var edViewEl = document.getElementById('edition-views-count');
+    if (edViewEl) {
+      edViewEl.textContent = edFormatted;
+    }
+  }
+
+  // 8. Font Resizer
+  var fontDec = document.getElementById('font-decrease');
+  var fontInc = document.getElementById('font-increase');
+  var bodyText = document.querySelector('.article-body-text');
+  if (bodyText && (fontDec || fontInc)) {
+    var savedSize = parseInt(localStorage.getItem('cp_font_size'), 10);
+    var curSize = (!isNaN(savedSize) && savedSize >= 15 && savedSize <= 22) ? savedSize : 16;
+    bodyText.style.fontSize = curSize + 'px';
+
+    if (fontDec) {
+      fontDec.addEventListener('click', function() {
+        if (curSize > 15) {
+          curSize -= 1;
+          bodyText.style.fontSize = curSize + 'px';
+          localStorage.setItem('cp_font_size', curSize);
         }
       });
+    }
+
+    if (fontInc) {
+      fontInc.addEventListener('click', function() {
+        if (curSize < 22) {
+          curSize += 1;
+          bodyText.style.fontSize = curSize + 'px';
+          localStorage.setItem('cp_font_size', curSize);
+        }
+      });
+    }
+  }
+
+  // 9. Podcast Quick Button Smooth Scroll
+  var podcastQuickBtn = document.querySelector('.podcast-quick-btn');
+  if (podcastQuickBtn) {
+    podcastQuickBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      var target = document.getElementById('podcast-radio-box');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        var playBtn = document.getElementById('podcast-play-btn');
+        if (playBtn) playBtn.focus();
+      }
     });
   }
 });
@@ -1672,27 +2357,29 @@ function showToast() {
 
 
 def _render_header(
-    active_nav: str,
+    active_nav: str = "",
     base_prefix: str = "",
+    sub_bar_html: str = "",
 ) -> str:
-    """Render top semantic header with brand, categories navigation, search, and theme toggle.
+    """Render top semantic header with brand, utility/filter bar, search, and theme toggle.
 
+    Eliminates broken static category anchor links (#vulnerabilities, #malware, #patches).
     ABSOLUTELY NO JSON FEED LINKS/BUTTONS.
     """
     home_link = f"{base_prefix}index.html"
-    archive_link = f"{base_prefix}archive.html"
-
-    home_active = " active" if active_nav == "home" else ""
-    archive_active = " active" if active_nav == "archive" else ""
-    vuln_active = " active" if active_nav == "vuln" else ""
-    malware_active = " active" if active_nav == "malware" else ""
-    patches_active = " active" if active_nav == "patches" else ""
-    podcast_active = " active" if active_nav == "podcast" else ""
-
     shield_icon = render_material_symbol("shield")
     search_icon = render_material_symbol("search")
     dark_icon = render_material_symbol("dark_mode", extra_class="icon-dark-mode")
     light_icon = render_material_symbol("light_mode", extra_class="icon-light-mode")
+
+    if not sub_bar_html:
+        archive_link = f"{base_prefix}archive.html"
+        home_active = " active" if active_nav == "home" else ""
+        archive_active = " active" if active_nav == "archive" else ""
+        sub_bar_html = f"""<nav class="nav-bar">
+      <a href="{home_link}" class="nav-link{home_active}">Trang chủ</a>
+      <a href="{archive_link}" class="nav-link{archive_active}">Bản tin theo ngày</a>
+    </nav>"""
 
     return f"""<header class="site-header">
   <div class="container">
@@ -1715,14 +2402,7 @@ def _render_header(
         </button>
       </div>
     </div>
-    <nav class="nav-bar">
-      <a href="{home_link}" class="nav-link{home_active}">Trang chủ</a>
-      <a href="{home_link}#vulnerabilities" class="nav-link{vuln_active}">Lỗ hổng (Vulnerabilities)</a>
-      <a href="{home_link}#malware" class="nav-link{malware_active}">Mã độc &amp; Tấn công</a>
-      <a href="{home_link}#patches" class="nav-link{patches_active}">Bản vá hệ thống</a>
-      <a href="{home_link}#podcast" class="nav-link{podcast_active}">Podcast AI</a>
-      <a href="{archive_link}" class="nav-link{archive_active}">Kho lưu trữ</a>
-    </nav>
+    {sub_bar_html}
   </div>
 </header>"""
 
@@ -1881,14 +2561,18 @@ def _render_sidebar(
 def _render_page(
     title: str,
     content_html: str,
-    active_nav: str,
+    active_nav: str = "",
     base_prefix: str = "",
+    sub_bar_html: str = "",
+    edition_strip_html: str = "",
 ) -> str:
     """Wrap content in complete semantic HTML5 document with Google Material Symbols."""
-    header_html = _render_header(active_nav=active_nav, base_prefix=base_prefix)
+    header_html = _render_header(active_nav=active_nav, base_prefix=base_prefix, sub_bar_html=sub_bar_html)
     footer_html = _render_footer(base_prefix=base_prefix)
     css_href = f"{base_prefix}assets/style.css"
     js_src = f"{base_prefix}assets/app.js"
+
+    strip_section = f"\n  {edition_strip_html}" if edition_strip_html else ""
 
     return f"""<!DOCTYPE html>
 <html lang="vi" data-theme="dark">
@@ -1902,7 +2586,7 @@ def _render_page(
 <body>
   <div id="reading-progress" class="reading-progress-bar"></div>
   <div id="toast-notify" class="toast-notification">Đã sao chép liên kết vào bộ nhớ tạm!</div>
-  {header_html}
+  {header_html}{strip_section}
   <main class="main-content">
     <div class="container">
       {content_html}
@@ -1925,6 +2609,8 @@ def _render_dedicated_article_page(
     audio_src: str | None,
     sidebar_html: str,
     base_prefix: str = "../",
+    prev_article: Article | None = None,
+    next_article: Article | None = None,
 ) -> str:
     """Render full standalone single article page under dist/articles/<article_id>.html."""
     home_link = f"{base_prefix}index.html"
@@ -1937,6 +2623,7 @@ def _render_dedicated_article_page(
     open_icon = render_material_symbol("open_in_new")
     podcasts_icon = render_material_symbol("podcasts")
     radar_icon = render_material_symbol("bug_report")
+    visibility_icon = render_material_symbol("visibility")
 
     # Combine text corpus for analysis
     corpus = f"{article.title} {article.summary} {relevance_reason} {' '.join(matching_section_texts)}"
@@ -1944,6 +2631,7 @@ def _render_dedicated_article_page(
     cves = extract_cves(corpus)
     vendor_tags = extract_vendor_tags(corpus, topics=article.topics_matched)
     reading_time = calculate_reading_time(corpus)
+    baseline_views = calculate_baseline_views(article.id)
 
     cve_str = ", ".join(cves) if cves else "Theo dõi sự cố / Chưa gán CVE"
     tech_str = ", ".join(vendor_tags) if vendor_tags else "Hạ tầng mạng & Hệ điều hành"
@@ -1966,6 +2654,13 @@ def _render_dedicated_article_page(
             f"<p><strong>Đánh giá của Ban Biên tập CyberPulse:</strong> {html.escape(relevance_reason)}</p>"
         )
 
+    # Executive TL;DR Box
+    tldr_bullets = extract_tldr_bullets(article, relevance_reason, matching_section_texts)
+    tldr_box_html = _render_tldr_box(tldr_bullets)
+
+    # Article Pagination (Prev / Next)
+    pagination_html = _render_article_pagination(prev_article, next_article)
+
     # Podcast dialogue snippet if available
     podcast_snippet_html = ""
     if podcast_snippets:
@@ -1978,11 +2673,11 @@ def _render_dedicated_article_page(
   {lines_html}
 </div>"""
 
-    main_col = f"""<article class="single-article-main">
+    main_col = f"""<article class="single-article-main" data-article-id="{html.escape(article.id)}">
   <nav class="breadcrumb">
     <a href="{home_link}">Trang chủ</a>
     <span>&gt;</span>
-    <a href="{home_link}#vulnerabilities">Lỗ hổng &amp; Sự cố</a>
+    <a href="{home_link}">Lỗ hổng &amp; Sự cố</a>
     <span>&gt;</span>
     <span>{html.escape(article.id[:8])}</span>
   </nav>
@@ -1994,6 +2689,7 @@ def _render_dedicated_article_page(
       <span class="meta-item">{person_icon} Ban Biên tập CyberPulse</span>
       <span class="meta-item">{schedule_icon} {html.escape(edition_dt_str)} (UTC+7)</span>
       <span class="meta-item">{timer_icon} {reading_time} phút đọc</span>
+      <span class="meta-item views-counter">{visibility_icon} <span id="article-views">{baseline_views:,}</span> lượt xem</span>
       <span class="badge {badge.css_class}">{html.escape(badge.label)}</span>
     </div>
     <div class="article-share-group">
@@ -2010,6 +2706,8 @@ def _render_dedicated_article_page(
   <div class="article-lead">
     {html.escape(article.summary or relevance_reason or article.title)}
   </div>
+
+  {tldr_box_html}
 
   <div class="article-body-text">
     {"".join(in_depth_paragraphs)}
@@ -2059,6 +2757,8 @@ def _render_dedicated_article_page(
       {open_icon}
     </a>
   </div>
+
+  {pagination_html}
 </article>"""
 
     grid_content = f"""<div class="portal-grid">
@@ -2066,11 +2766,18 @@ def _render_dedicated_article_page(
   {sidebar_html}
 </div>"""
 
+    utility_bar_html = _render_article_utility_bar(
+        parent_edition_link=f"editions/{package.run_id}.html",
+        edition_date=format_vietnam_date(parse_run_timestamp(package.run_id)),
+        baseline_views=baseline_views,
+    )
+
     return _render_page(
         title=article.title,
         content_html=grid_content,
         active_nav="vuln",
         base_prefix=base_prefix,
+        sub_bar_html=utility_bar_html,
     )
 
 
@@ -2230,22 +2937,47 @@ def build_public_portal(
             base_prefix="../",
         )
 
+        # Gather ordered list of articles for this edition to enable pagination
+        edition_articles: list[Article] = []
+        for sec in pkg.digest.sections:
+            for aid in sec.body.cited_article_ids:
+                if not any(a.id == aid for a in edition_articles):
+                    art = ed["article_lookup"].get(aid) or global_article_lookup.get(aid)
+                    if not art:
+                        art = Article(
+                            id=aid,
+                            source_name="The Hacker News",
+                            title=f"Phân tích chuyên sâu An ninh mạng — Mã sự cố #{aid[:8]}",
+                            url="https://thehackernews.com/",
+                            published_at=ed["dt"],
+                            fetched_at=ed["dt"],
+                            summary=f"Bản phân tích tình báo an ninh mạng cho sự cố #{aid[:8]} trong ấn bản {pkg.digest.title}.",
+                        )
+                    edition_articles.append(art)
+
+        # Include any remaining cited IDs not in section order
         for aid in pkg.all_cited_ids():
+            if not any(a.id == aid for a in edition_articles):
+                art = ed["article_lookup"].get(aid) or global_article_lookup.get(aid)
+                if not art:
+                    art = Article(
+                        id=aid,
+                        source_name="The Hacker News",
+                        title=f"Phân tích chuyên sâu An ninh mạng — Mã sự cố #{aid[:8]}",
+                        url="https://thehackernews.com/",
+                        published_at=ed["dt"],
+                        fetched_at=ed["dt"],
+                        summary=f"Bản phân tích tình báo an ninh mạng cho sự cố #{aid[:8]} trong ấn bản {pkg.digest.title}.",
+                    )
+                edition_articles.append(art)
+
+        for idx, art in enumerate(edition_articles):
+            aid = art.id
             if aid in articles_generated:
                 continue
 
-            art = ed["article_lookup"].get(aid) or global_article_lookup.get(aid)
-            if not art:
-                # Synthesize fallback Article model if research result not present
-                art = Article(
-                    id=aid,
-                    source_name="The Hacker News",
-                    title=f"Phân tích chuyên sâu An ninh mạng — Mã sự cố #{aid[:8]}",
-                    url="https://thehackernews.com/",
-                    published_at=ed["dt"],
-                    fetched_at=ed["dt"],
-                    summary=f"Bản phân tích tình báo an ninh mạng cho sự cố #{aid[:8]} trong ấn bản {pkg.digest.title}.",
-                )
+            prev_art = edition_articles[idx - 1] if idx > 0 else None
+            next_art = edition_articles[idx + 1] if idx < len(edition_articles) - 1 else None
 
             res_info = global_research_lookup.get(aid, {})
             relevance_reason = res_info.get("relevance_reason", "")
@@ -2275,6 +3007,8 @@ def build_public_portal(
                 audio_src=audio_src_rel,
                 sidebar_html=sidebar_article_html,
                 base_prefix="../",
+                prev_article=prev_art,
+                next_article=next_art,
             )
 
             art_file = articles_dir / f"{aid}.html"
@@ -2317,23 +3051,46 @@ def build_public_portal(
             base_prefix="",
         )
 
+        # Counts for interactive filter pills
+        sec_badges = [detect_threat_badge(f"{sec.heading} {sec.body.text}") for sec in featured_pkg.digest.sections]
+        total_cnt = len(featured_pkg.digest.sections)
+        crit_cnt = sum(1 for b in sec_badges if "critical" in b.css_class)
+        warn_cnt = sum(1 for b in sec_badges if "warning" in b.css_class or "high" in b.css_class)
+        patch_cnt = sum(1 for b in sec_badges if "patch" in b.css_class)
+        filter_bar_home = _render_filter_bar(total_cnt, crit_cnt, warn_cnt, patch_cnt)
+
+        # Edition strip
+        edition_strip_home = _render_edition_strip(editions_data, active_run_id=featured_pkg.run_id, base_prefix="")
+
+        # Baseline view count for edition
+        edition_aids = featured_pkg.all_cited_ids()
+        total_edition_views = sum(calculate_baseline_views(aid) for aid in edition_aids) if edition_aids else calculate_baseline_views(featured_pkg.run_id) * 4
+        formatted_edition_views = f"{total_edition_views:,}"
+
         # Breaking News Hero Card (Top story)
         first_sec = featured_pkg.digest.sections[0]
         hero_badge = detect_threat_badge(f"{first_sec.heading} {first_sec.body.text}")
+        hero_sev = "critical" if "critical" in hero_badge.css_class else (
+            "warning" if "warning" in hero_badge.css_class else (
+                "patch" if "patch" in hero_badge.css_class else "info"
+            )
+        )
         hero_reading_time = calculate_reading_time(f"{first_sec.heading} {first_sec.body.text}")
         hero_aid = first_sec.body.cited_article_ids[0] if first_sec.body.cited_article_ids else ""
         hero_link = f"articles/{hero_aid}.html" if hero_aid else "#"
 
+        visibility_icon = render_material_symbol("visibility")
         timer_icon = render_material_symbol("timer")
         person_icon = render_material_symbol("person")
         schedule_icon = render_material_symbol("schedule")
         forward_icon = render_material_symbol("arrow_forward")
 
-        hero_html = f"""<section class="hero-card filterable-card">
+        hero_html = f"""<section class="hero-card filterable-card threat-card" data-severity="{hero_sev}" data-run-id="{html.escape(featured_pkg.run_id)}">
   <div class="hero-meta">
     <span class="badge {hero_badge.css_class}">{html.escape(hero_badge.label)}</span>
     <span class="meta-item">{schedule_icon} {html.escape(featured_dt_str)} (UTC+7)</span>
     <span class="meta-item">{timer_icon} {hero_reading_time} phút đọc</span>
+    <span class="meta-item views-counter">{visibility_icon} <span id="edition-views-count">{formatted_edition_views}</span> lượt xem</span>
     <span class="meta-item">{person_icon} Ban Biên tập CyberPulse</span>
   </div>
   <h2 class="hero-title"><a href="{hero_link}">{html.escape(first_sec.heading)}</a></h2>
@@ -2348,13 +3105,18 @@ def build_public_portal(
         stories_html: list[str] = []
         for sec in featured_pkg.digest.sections[1:]:
             badge = detect_threat_badge(f"{sec.heading} {sec.body.text}")
+            sev_key = "critical" if "critical" in badge.css_class else (
+                "warning" if "warning" in badge.css_class else (
+                    "patch" if "patch" in badge.css_class else "info"
+                )
+            )
             reading_time = calculate_reading_time(f"{sec.heading} {sec.body.text}")
             primary_aid = sec.body.cited_article_ids[0] if sec.body.cited_article_ids else ""
             story_link = f"articles/{primary_aid}.html" if primary_aid else "#"
             vendor_tags = extract_vendor_tags(f"{sec.heading} {sec.body.text}")
             vendor_tags_html = "".join(f'<span class="vendor-tag">{html.escape(vt)}</span>' for vt in vendor_tags)
 
-            stories_html.append(f"""<article class="story-card filterable-card">
+            stories_html.append(f"""<article class="story-card filterable-card threat-card" data-severity="{sev_key}">
   <div class="story-header">
     <span class="badge {badge.css_class}">{html.escape(badge.label)}</span>
     <div class="vendor-tags">{vendor_tags_html}</div>
@@ -2376,7 +3138,7 @@ def build_public_portal(
 
         if not stories_html:
             # If only 1 section existed, render it as story too
-            stories_html.append(f"""<article class="story-card filterable-card">
+            stories_html.append(f"""<article class="story-card filterable-card threat-card" data-severity="{hero_sev}">
   <h3 class="story-title"><a href="{hero_link}">{html.escape(first_sec.heading)}</a></h3>
   <p class="story-body">{html.escape(first_sec.body.text)}</p>
 </article>""")
@@ -2405,6 +3167,8 @@ def build_public_portal(
             content_html=home_grid,
             active_nav="home",
             base_prefix="",
+            sub_bar_html=filter_bar_home,
+            edition_strip_html=edition_strip_home,
         )
     else:
         empty_html = (
@@ -2429,6 +3193,22 @@ def build_public_portal(
         pkg = ed["package"]
         ed_dt_str = ed["dt_vn_str"]
         audio_src_ed = f"../media/{pkg.run_id}.mp3" if ed["has_audio"] else None
+
+        # Counts for interactive filter pills
+        sec_badges = [detect_threat_badge(f"{sec.heading} {sec.body.text}") for sec in pkg.digest.sections]
+        total_cnt = len(pkg.digest.sections)
+        crit_cnt = sum(1 for b in sec_badges if "critical" in b.css_class)
+        warn_cnt = sum(1 for b in sec_badges if "warning" in b.css_class or "high" in b.css_class)
+        patch_cnt = sum(1 for b in sec_badges if "patch" in b.css_class)
+        filter_bar_ed = _render_filter_bar(total_cnt, crit_cnt, warn_cnt, patch_cnt)
+
+        # Edition strip
+        edition_strip_ed = _render_edition_strip(editions_data, active_run_id=pkg.run_id, base_prefix="../")
+
+        # Baseline view count for edition
+        edition_aids = pkg.all_cited_ids()
+        total_edition_views = sum(calculate_baseline_views(aid) for aid in edition_aids) if edition_aids else calculate_baseline_views(pkg.run_id) * 4
+        formatted_edition_views = f"{total_edition_views:,}"
 
         trending_ed: list[dict[str, Any]] = []
         ed_cves: list[str] = []
@@ -2463,16 +3243,22 @@ def build_public_portal(
         schedule_icon = render_material_symbol("schedule")
         timer_icon = render_material_symbol("timer")
         person_icon = render_material_symbol("person")
+        visibility_icon = render_material_symbol("visibility")
 
         for sec in pkg.digest.sections:
             badge = detect_threat_badge(f"{sec.heading} {sec.body.text}")
+            sev_key = "critical" if "critical" in badge.css_class else (
+                "warning" if "warning" in badge.css_class else (
+                    "patch" if "patch" in badge.css_class else "info"
+                )
+            )
             reading_time = calculate_reading_time(f"{sec.heading} {sec.body.text}")
             primary_aid = sec.body.cited_article_ids[0] if sec.body.cited_article_ids else ""
             story_link = f"../articles/{primary_aid}.html" if primary_aid else "#"
             vendor_tags = extract_vendor_tags(f"{sec.heading} {sec.body.text}")
             vendor_tags_html = "".join(f'<span class="vendor-tag">{html.escape(vt)}</span>' for vt in vendor_tags)
 
-            ed_stories_html.append(f"""<article class="story-card filterable-card">
+            ed_stories_html.append(f"""<article class="story-card filterable-card threat-card" data-severity="{sev_key}">
   <div class="story-header">
     <span class="badge {badge.css_class}">{html.escape(badge.label)}</span>
     <div class="vendor-tags">{vendor_tags_html}</div>
@@ -2499,15 +3285,16 @@ def build_public_portal(
     {back_icon} Về trang chủ
   </a>
   <a href="../archive.html" class="nav-link" style="display:inline-flex; align-items:center; gap:6px;">
-    {archive_icon} Kho lưu trữ
+    {archive_icon} Bản tin theo ngày
   </a>
 </div>"""
 
         ed_main_col = f"""<div class="portal-main">
   {top_bar}
-  <div class="hero-card">
+  <div class="hero-card" data-run-id="{html.escape(pkg.run_id)}">
     <div class="hero-meta">
       <span class="meta-item">{schedule_icon} {html.escape(ed_dt_str)} (UTC+7)</span>
+      <span class="meta-item views-counter">{visibility_icon} <span id="edition-views-count">{formatted_edition_views}</span> lượt xem</span>
       <span class="meta-item">Mã phiên: <code>{html.escape(pkg.run_id)}</code></span>
     </div>
     <h1 class="hero-title">{html.escape(pkg.digest.title)}</h1>
@@ -2528,6 +3315,8 @@ def build_public_portal(
             content_html=ed_grid,
             active_nav="",
             base_prefix="../",
+            sub_bar_html=filter_bar_ed,
+            edition_strip_html=edition_strip_ed,
         )
         ed_file = editions_dir / f"{pkg.run_id}.html"
         ed_file.write_text(ed_page_html, encoding="utf-8")
@@ -2572,11 +3361,13 @@ def build_public_portal(
   </div>
 </section>"""
 
+    archive_strip = _render_edition_strip(editions_data, active_run_id="", base_prefix="")
     archive_html = _render_page(
         title="Kho lưu trữ bản tin",
         content_html=archive_content,
         active_nav="archive",
         base_prefix="",
+        edition_strip_html=archive_strip,
     )
     (dist_path / "archive.html").write_text(archive_html, encoding="utf-8")
     files_created.append("archive.html")

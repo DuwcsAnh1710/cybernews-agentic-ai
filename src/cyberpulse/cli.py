@@ -347,7 +347,7 @@ def build_parser() -> argparse.ArgumentParser:
     # export portal subcommand (T9)
     portal_parser = export_subparsers.add_parser(
         "portal",
-        help="Generate public reader static editorial portal website (The Hacker News style)",
+        help="Generate public reader static editorial portal website (The Hacker News style with interactive UX)",
     )
     portal_parser.add_argument(
         "--output-dir",

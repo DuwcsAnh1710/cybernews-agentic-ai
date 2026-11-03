@@ -14,7 +14,10 @@ from pathlib import Path
 import re
 import sys
 
-import streamlit as st
+try:
+    import streamlit as st
+except ImportError:
+    st = None  # type: ignore
 
 from cyberpulse.config import load_app_config
 from cyberpulse.ui.data import (
@@ -558,7 +561,11 @@ def main() -> None:
                         if Path("dist/index.html").exists():
                             with st.expander(":material/language: Xem thông tin trang web độc giả (Public Portal)", expanded=False):
                                 st.caption(f"Đường dẫn file: `{Path('dist/index.html').resolve()}`")
-                                st.markdown("- **Trang chủ:** `dist/index.html`\n- **Kho lưu trữ:** `dist/archive.html`\n- **Bài viết độc lập:** `dist/articles/`")
+                                st.markdown(
+                                    "- **Trang chủ:** `dist/index.html` (Thanh lọc tương tác, Dải ngày ấn bản, Bộ đếm mắt xem)\n"
+                                    "- **Kho lưu trữ:** `dist/archive.html`\n"
+                                    "- **Bài viết chuyên sâu:** `dist/articles/` (Thanh tiện ích đọc, TL;DR, Điều hướng bài trước/sau)"
+                                )
 
                 st.divider()
 

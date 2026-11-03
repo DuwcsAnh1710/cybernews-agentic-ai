@@ -450,3 +450,251 @@ def test_zero_ai_emojis_in_generated_files(tmp_path: Path) -> None:
             # Also check for high surrogate emoji block
             emoji_matches = re.findall(r"[\U00010000-\U0010ffff]", content)
             assert not emoji_matches, f"Unicode emojis {emoji_matches} found in {path.name}"
+
+
+def test_interactive_filter_taskbar_on_homepage_and_edition(tmp_path: Path) -> None:
+    """Task T9.3: Filter taskbar replaces broken anchor links with live category count pills."""
+    output_dir = tmp_path / "output"
+    dist_dir = tmp_path / "dist"
+    run_id = "run-20261102T020834Z-filter-test"
+
+    _setup_mock_run(output_dir, run_id, with_audio=True)
+    build_public_portal(output_dir=output_dir, dist_dir=dist_dir)
+
+    index_html = (dist_dir / "index.html").read_text(encoding="utf-8")
+    ed_html = (dist_dir / "editions" / f"{run_id}.html").read_text(encoding="utf-8")
+
+    for html_doc in [index_html, ed_html]:
+        # 1. Filter taskbar and pills presence
+        assert "filter-taskbar" in html_doc
+        assert "filter-pills" in html_doc
+        assert 'data-filter="all"' in html_doc
+        assert 'data-filter="critical"' in html_doc
+        assert 'data-filter="warning"' in html_doc
+        assert 'data-filter="patch"' in html_doc
+
+        # 2. Live counts rendered
+        assert "Tất cả (" in html_doc
+        assert "Khẩn cấp (" in html_doc
+        assert "Cảnh báo cao (" in html_doc
+        assert "Bản vá (" in html_doc
+
+        # 3. Status dots
+        assert "status-dot dot-critical" in html_doc
+        assert "status-dot dot-warning" in html_doc
+        assert "status-dot dot-patch" in html_doc
+
+        # 4. Podcast quick button
+        assert "podcast-quick-btn" in html_doc
+        assert 'href="#podcast-radio-box"' in html_doc
+        assert "Nghe Podcast số này" in html_doc
+
+        # 5. Elimination of broken static category anchors
+        assert 'href="index.html#vulnerabilities"' not in html_doc
+        assert 'href="index.html#malware"' not in html_doc
+        assert 'href="index.html#patches"' not in html_doc
+        assert 'href="../index.html#vulnerabilities"' not in html_doc
+        assert 'href="../index.html#malware"' not in html_doc
+        assert 'href="../index.html#patches"' not in html_doc
+
+        # 6. Cards have threat-card class and data-severity attribute
+        assert "threat-card" in html_doc
+        assert 'data-severity="' in html_doc
+
+
+def test_horizontal_daily_edition_strip(tmp_path: Path) -> None:
+    """Task T9.3: Horizontal Daily Edition Strip rendered below main header with 1-click date switching."""
+    output_dir = tmp_path / "output"
+    dist_dir = tmp_path / "dist"
+
+    run_1 = "run-20261030T100000Z-edition1"
+    run_2 = "run-20261101T100000Z-edition2"
+    run_3 = "run-20261102T100000Z-edition3"
+
+    _setup_mock_run(output_dir, run_1)
+    _setup_mock_run(output_dir, run_2)
+    _setup_mock_run(output_dir, run_3)
+
+    build_public_portal(output_dir=output_dir, dist_dir=dist_dir)
+
+    index_html = (dist_dir / "index.html").read_text(encoding="utf-8")
+    archive_html = (dist_dir / "archive.html").read_text(encoding="utf-8")
+    ed3_html = (dist_dir / "editions" / f"{run_3}.html").read_text(encoding="utf-8")
+
+    # 1. Strip container and Material Symbol
+    for html_doc in [index_html, archive_html, ed3_html]:
+        assert "edition-strip-wrap" in html_doc
+        assert "edition-strip-inner" in html_doc
+        assert "strip-label" in html_doc
+        assert "calendar_month" in html_doc
+        assert "Chọn ngày xem tin:" in html_doc
+        assert "strip-dates" in html_doc
+        assert "strip-date-all" in html_doc
+        assert "Tất cả các ngày &rarr;" in html_doc
+
+    # 2. Chronological date pills present
+    assert "02/11/2026 (Mới nhất)" in index_html
+    assert "01/11/2026" in index_html
+    assert "30/10/2026" in index_html
+
+    # 3. Active highlight on edition page
+    assert 'class="strip-date-pill active"' in ed3_html
+    assert 'aria-current="page"' in ed3_html
+
+
+def test_article_reading_utility_bar_and_views_counter(tmp_path: Path) -> None:
+    """Task T9.3: Article reading utility bar, font resizer, and visibility view counters."""
+    output_dir = tmp_path / "output"
+    dist_dir = tmp_path / "dist"
+    run_id = "run-20261102T020834Z-utility-test"
+
+    _setup_mock_run(output_dir, run_id, with_audio=True)
+    build_public_portal(output_dir=output_dir, dist_dir=dist_dir)
+
+    art_html = (dist_dir / "articles" / f"{ID_1}.html").read_text(encoding="utf-8")
+    index_html = (dist_dir / "index.html").read_text(encoding="utf-8")
+
+    # 1. Article utility bar on article page
+    assert "article-utility-bar" in art_html
+    assert "back-edition-btn" in art_html
+    assert f"editions/{run_id}.html" in art_html
+    assert "Về bản tin ngày" in art_html
+
+    # 2. Font resizer buttons A- and A+
+    assert "font-resizer" in art_html
+    assert 'id="font-decrease"' in art_html
+    assert 'id="font-increase"' in art_html
+    assert ">A-<" in art_html
+    assert ">A+<" in art_html
+
+    # 3. View counter on article page (utility bar & meta bar)
+    assert 'id="article-views-count"' in art_html
+    assert 'id="article-views"' in art_html
+    assert "lượt xem" in art_html
+    assert "visibility" in art_html
+
+    # 4. Total edition views on homepage hero card
+    assert 'id="edition-views-count"' in index_html
+    assert "visibility" in index_html
+
+
+def test_article_continuous_reading_pagination(tmp_path: Path) -> None:
+    """Task T9.3: Two-column navigation cards for continuous reading across articles in the same edition."""
+    output_dir = tmp_path / "output"
+    dist_dir = tmp_path / "dist"
+    run_id = "run-20261102T020834Z-pagination-test"
+
+    _setup_mock_run(output_dir, run_id)
+    build_public_portal(output_dir=output_dir, dist_dir=dist_dir)
+
+    art1_html = (dist_dir / "articles" / f"{ID_1}.html").read_text(encoding="utf-8")
+    art2_html = (dist_dir / "articles" / f"{ID_2}.html").read_text(encoding="utf-8")
+
+    # 1. Article 1 is first article -> has next link pointing to Article 2
+    assert "article-pagination" in art1_html
+    assert f'href="{ID_2}.html"' in art1_html
+    assert 'rel="next"' in art1_html
+    assert "Bài kế tiếp" in art1_html
+    assert "arrow_forward" in art1_html
+
+    # 2. Article 2 is second article -> has prev link pointing to Article 1
+    assert "article-pagination" in art2_html
+    assert f'href="{ID_1}.html"' in art2_html
+    assert 'rel="prev"' in art2_html
+    assert "Bài trước" in art2_html
+    assert "arrow_back" in art2_html
+
+
+def test_executive_tldr_box(tmp_path: Path) -> None:
+    """Task T9.3: Executive TL;DR Box below lead paragraph with bolt icon and 3 takeaways."""
+    output_dir = tmp_path / "output"
+    dist_dir = tmp_path / "dist"
+    run_id = "run-20261102T020834Z-tldr-test"
+
+    _setup_mock_run(output_dir, run_id)
+    build_public_portal(output_dir=output_dir, dist_dir=dist_dir)
+
+    art_html = (dist_dir / "articles" / f"{ID_1}.html").read_text(encoding="utf-8")
+
+    # 1. TL;DR box container and bolt icon
+    assert "tldr-box" in art_html
+    assert "tldr-header" in art_html
+    assert "bolt" in art_html
+    assert "Tóm tắt nhanh (TL;DR)" in art_html
+
+    # 2. Exactly 3 list items
+    assert "tldr-list" in art_html
+    tldr_matches = re.findall(r"<ul class=\"tldr-list\">(.*?)</ul>", art_html, re.DOTALL)
+    assert len(tldr_matches) == 1
+    items = re.findall(r"<li>(.*?)</li>", tldr_matches[0])
+    assert len(items) == 3
+    for it in items:
+        assert len(it.strip()) > 10
+
+    # 3. Placement: after article-lead and before article-body-text
+    lead_idx = art_html.find("article-lead")
+    tldr_idx = art_html.find("tldr-box")
+    body_idx = art_html.find("article-body-text")
+    assert lead_idx < tldr_idx < body_idx
+
+
+def test_all_new_material_symbols_strictly_24px(tmp_path: Path) -> None:
+    """Task T9.3: All newly added icons use Google Material Symbols sized strictly at 24x24 px."""
+    output_dir = tmp_path / "output"
+    dist_dir = tmp_path / "dist"
+    run_id = "run-20261102T020834Z-symbols-test"
+
+    _setup_mock_run(output_dir, run_id, with_audio=True)
+    build_public_portal(output_dir=output_dir, dist_dir=dist_dir)
+
+    index_html = (dist_dir / "index.html").read_text(encoding="utf-8")
+    art_html = (dist_dir / "articles" / f"{ID_1}.html").read_text(encoding="utf-8")
+    combined = index_html + art_html
+
+    new_symbols = [
+        "visibility",
+        "arrow_back",
+        "arrow_forward",
+        "bolt",
+        "calendar_month",
+        "podcasts",
+    ]
+
+    for sym in new_symbols:
+        assert sym in combined, f"Google Material Symbol '{sym}' missing"
+        # Verify 24x24 inline styling
+        pattern = rf'<span class="material-symbols-outlined[^"]*" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true">.*?{sym}</span>'
+        assert re.search(pattern, combined, re.DOTALL), f"Symbol '{sym}' not strictly 24x24 px"
+
+
+def test_vanilla_js_ux_features(tmp_path: Path) -> None:
+    """Task T9.3: Vanilla JS contains live pill filtering, localStorage view counter, and font resizer."""
+    output_dir = tmp_path / "output"
+    dist_dir = tmp_path / "dist"
+    run_id = "run-20261102T020834Z-js-test"
+
+    _setup_mock_run(output_dir, run_id)
+    build_public_portal(output_dir=output_dir, dist_dir=dist_dir)
+
+    js_code = (dist_dir / "assets" / "app.js").read_text(encoding="utf-8")
+
+    # 1. Live Filter Pills
+    assert "filter-pill" in js_code
+    assert "applyCardFilters" in js_code
+    assert "data-severity" in js_code
+
+    # 2. LocalStorage View Counter
+    assert "cp_views_" in js_code
+    assert "getBaselineViews" in js_code
+    assert "article-views-count" in js_code
+    assert "edition-views-count" in js_code
+
+    # 3. Font Resizer
+    assert "font-decrease" in js_code
+    assert "font-increase" in js_code
+    assert "article-body-text" in js_code
+    assert "cp_font_size" in js_code
+
+    # 4. Podcast Quick Button
+    assert "podcast-quick-btn" in js_code
+    assert "podcast-radio-box" in js_code
