@@ -1,0 +1,135 @@
+1
+00:00:00,000 --> 00:00:03,389
+[Minh] Chào mừng các bạn đến với bản tin an ninh mạng tuần này!
+
+2
+00:00:03,389 --> 00:00:07,322
+Tôi là Minh, đồng hành cùng cô bạn đồng nghiệp quen thuộc là Lan.
+
+3
+00:00:07,322 --> 00:00:12,284
+Hôm nay chúng ta sẽ cập nhật những tin tức đáng chú ý về trí tuệ nhân tạo AI trong
+
+4
+00:00:12,284 --> 00:00:17,064
+tấn công mạng, vi phạm dữ liệu thẻ thanh toán và vấn đề quyền riêng tư dữ liệu.
+
+5
+00:00:17,414 --> 00:00:19,618
+[Lan] Chào Minh và chào tất cả khán giả!
+
+6
+00:00:19,618 --> 00:00:24,739
+Tin tức đầu tiên cực kỳ nóng hổi liên quan đến việc công cụ AI đang bị các nhóm
+
+7
+00:00:24,739 --> 00:00:26,943
+hacker lợi dụng. Theo CrowdStrike,
+
+8
+00:00:26,943 --> 00:00:32,193
+nhóm tấn công Vapor Panda từ Trung Quốc đang sử dụng một framework thử nghiệm xâm
+
+9
+00:00:32,193 --> 00:00:35,822
+nhập dựa trên AI viết bằng ngôn ngữ Go, có tên là ARTEX.
+
+10
+00:00:36,172 --> 00:00:38,261
+[Minh] Đúng vậy Lan. Nhóm Vapor Panda,
+
+11
+00:00:38,261 --> 00:00:42,035
+trước đây còn được biết đến với tên gọi VexatiousTemper,
+
+12
+00:00:42,035 --> 00:00:47,629
+đã dùng công cụ ARTEX này để nhắm mục tiêu đồng thời vào hơn 200 tổ chức có giá trị
+
+13
+00:00:47,629 --> 00:00:49,179
+cao trên toàn thế giới.
+
+14
+00:00:49,179 --> 00:00:54,100
+Việc tự động hóa bằng AI giúp tốc độ và quy mô tấn công tăng lên đáng kể.
+
+15
+00:00:54,450 --> 00:00:58,905
+[Lan] Chuyển sang một tin tức khác liên quan đến người tiêu dùng và ngành bán lẻ.
+
+16
+00:00:58,905 --> 00:01:00,687
+Nhà bán lẻ thời trang Revolve,
+
+17
+00:01:00,687 --> 00:01:05,558
+đơn vị tự mô tả là thương hiệu thời trang thế hệ mới dành cho thế hệ Millennial và
+
+18
+00:01:05,558 --> 00:01:08,826
+Gen Z, vừa công bố một sự cố an ninh mạng nghiêm trọng.
+
+19
+00:01:09,176 --> 00:01:10,601
+[Minh] Theo thông báo từ Revolve,
+
+20
+00:01:10,601 --> 00:01:14,656
+một vụ tấn công gần đây đã làm lộ thông tin thẻ thanh toán của khách hàng.
+
+21
+00:01:14,656 --> 00:01:18,328
+Đây là lời cảnh báo lớn cho người tiêu dùng khi mua sắm trực tuyến,
+
+22
+00:01:18,328 --> 00:01:22,712
+đặc biệt là giới trẻ thường xuyên mua hàng trên các nền tảng thương mại điện tử.
+
+23
+00:01:23,062 --> 00:01:27,152
+[Lan] Cuối cùng là tin tức về pháp lý và bảo mật dữ liệu cá nhân tại Mỹ.
+
+24
+00:01:27,152 --> 00:01:32,172
+Văn phòng Giám sát Phá sản thuộc Bộ Tư pháp Mỹ (DOJ) vừa đưa ra các quan ngại sâu
+
+25
+00:01:32,172 --> 00:01:37,378
+sắc về quyền riêng tư đối với khả năng bán dữ liệu đoạn chat của người dùng trên nền
+
+26
+00:01:37,378 --> 00:01:38,494
+tảng Character.AI.
+
+27
+00:01:38,844 --> 00:01:43,568
+[Minh] Phía Bộ Tư pháp Mỹ cho rằng cần phải có một Ombudsman chuyên trách về quyền riêng tư
+
+28
+00:01:43,568 --> 00:01:45,874
+của người tiêu dùng để tư vấn cho tòa án.
+
+29
+00:01:45,874 --> 00:01:50,598
+Cơ quan này sẽ xem xét quy định những dữ liệu nào từ Character.AI có thể được bán và
+
+30
+00:01:50,598 --> 00:01:53,748
+bán theo các điều khoản cụ thể nào để bảo vệ người dùng.
+
+31
+00:01:54,098 --> 00:01:58,885
+[Lan] Những thông tin vừa rồi cho thấy thách thức an ninh mạng ngày càng đa dạng,
+
+32
+00:01:58,885 --> 00:02:02,715
+từ tấn công AI quy mô lớn đến rủi ro quyền riêng tư cá nhân.
+
+33
+00:02:02,715 --> 00:02:05,523
+Cảm ơn các bạn đã lắng nghe bản tin hôm nay.
+
+34
+00:02:05,523 --> 00:02:08,714
+Hãy luôn cẩn trọng và bảo vệ dữ liệu của mình nhé!

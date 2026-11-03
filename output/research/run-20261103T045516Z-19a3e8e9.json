@@ -1,0 +1,82 @@
+{
+  "run_id": "run-20261103T045516Z-19a3e8e9",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "ea9cb89b4ab15bf2",
+        "source_name": "Help Net Security",
+        "title": "CISA to federal agencies: Remediate exploited Ivanti Connect Secure vulnerabilities (CVE-2026-111357, CVE-2026-118527)",
+        "url": "https://helpnetsecurity.com/2026/11/02/cisa-to-federal-agencies-remediate-exploited-ivanti-connect-secure-vulnerabilities-cve-2026-111357-cve-2026-118527",
+        "published_at": "2026-11-02T15:58:08Z",
+        "summary": "CISA added two new Ivanti Connect Secure vulnerabilities (CVE-2026-111357, CVE-2026-118527) to its Known Exploited Vulnerabilities catalog on Friday, after Ivanti updated an earlier security advisory with details about the flaws. Three flaws chained to gain a foothold CVE-2026-111357, a missing authentication for a critical function vulnerability that allows a local authenticated attacker to escalate their privileges, and CVE-2026-118527, a “Generation of Predictable Numbers or Identifiers Vulnerability” that makes remote authenticated file upload possible, have been … More → The post CISA to federal agencies: Remediate exploited Ivanti Connect Secure vulnerabilities (CVE-2026-111357, CVE-2026-118527) appeared first on Help Net Security .",
+        "fetched_at": "2026-11-03T04:55:14.616454Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "CISA bổ sung hai lỗ hổng đang bị khai thác thực tế trong Ivanti Connect Secure vào danh mục chỉ thị khắc phục khẩn cấp cho các cơ quan chức năng."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "f43e91605878bd5e",
+        "source_name": "Help Net Security",
+        "title": "FBI pins $6.3 billion Binance crypto heist on North Korea while scammers circle anxious users",
+        "url": "https://helpnetsecurity.com/2026/11/02/fbi-north-korea-binance-hack",
+        "published_at": "2026-11-02T10:12:51Z",
+        "summary": "North Korea was behind the theft of more than $6 billion in cryptocurrency from Binance, the FBI has confirmed. “The Federal Bureau of Investigation (FBI) is releasing information advising the Democratic People’s Republic of Korea (North Korea) was responsible for the theft of more than $6 billion USD in virtual assets from cryptocurrency exchange Binance, on or about October 29, 2026,” the bureau said in an alert published on October 31. The FBI tied the … More → The post FBI pins $6.3 billion Binance crypto heist on North Korea while scammers circle anxious users appeared first on Help Net Security .",
+        "fetched_at": "2026-11-03T04:55:14.616454Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "FBI xác nhận nhóm tin tặc Triều Tiên đứng sau vụ trộm tiền mã hóa kỷ lục trị giá 6,3 tỷ USD từ sàn giao dịch Binance."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "5eac2a1ee9b14040",
+        "source_name": "Krebs on Security",
+        "title": "Tech Firms Dismantle Botnet That Turned 1.3M TV Boxes Into Proxies",
+        "url": "https://krebsonsecurity.com/2026/11/tech-firms-dismantle-botnet-that-turned-1-3m-tv-boxes-into-proxies",
+        "published_at": "2026-11-03T02:24:31Z",
+        "summary": "Google said today it worked with industry partners to dismantle a botnet made up of more than 1.3 million Android TV set-top boxes that ship with malicious software which secretly rents the user's Internet connection out to strangers and conducts advertising fraud. Experts involved in the takedown say the action is likely to sever the botnet's access to more than 10 million additional compromised systems, including other Internet of Things (IoT) products such as Android-based healthcare devices and karaoke machines.",
+        "fetched_at": "2026-11-03T04:55:13.999887Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Google cùng các đối tác công nghệ đã triệt phá mạng lưới botnet hơn 1,3 triệu thiết bị Android TV Box bị cài mã độc ngầm."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "0bed561f10e179cb",
+        "source_name": "The Hacker News",
+        "title": "Critical Langflow Flaws Could Let Unauthenticated Attackers Run Code on Servers",
+        "url": "https://thehackernews.com/2026/11/critical-langflow-flaws-could-let.html",
+        "published_at": "2026-11-02T11:50:00Z",
+        "summary": "Two critical flaws in Langflow could let a remote attacker with no account bypass authentication or run arbitrary code, IBM said last week. Langflow is an open-source tool for building AI agents and workflows, and its vulnerability reports go to IBM. Every release from 1.0.0 through 1.12.8 has the flaws, and the only fix is version 1.13.0. Neither flaw is in CISA's Known",
+        "fetched_at": "2026-11-03T04:55:13.349391Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Hai lỗ hổng nghiêm trọng trong công cụ mã nguồn mở Langflow cho phép kẻ tấn công thực thi mã từ xa mà không cần xác thực."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "5621acfb0e5a1d8b",
+        "source_name": "SecurityWeek",
+        "title": "Malicious Claude Code Extension Served in Cursor Supply Chain Attack",
+        "url": "https://securityweek.com/malicious-claude-code-extension-served-in-cursor-supply-chain-attack",
+        "published_at": "2026-11-02T11:29:39Z",
+        "summary": "The extension performed host reconnaissance and attempted to create a reverse SSH tunnel. The post Malicious Claude Code Extension Served in Cursor Supply Chain Attack appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-03T04:55:14.157658Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Một tiện ích mở rộng Claude Code độc hại bị phát hiện trong chuỗi cung ứng Cursor nhằm thu thập thông tin và tạo đường hầm SSH ngược."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=1"
+}
