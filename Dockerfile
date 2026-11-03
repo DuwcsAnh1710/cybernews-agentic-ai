@@ -22,19 +22,16 @@ RUN groupadd -g 1000 cyberpulse && \
 
 WORKDIR /app
 
-# Step 1: Copy metadata & install Python dependencies for optimal layer caching
+# Step 1: Copy metadata and source code to satisfy setuptools package discovery
 COPY --chown=cyberpulse:cyberpulse pyproject.toml README.md ./
-RUN pip install --no-cache-dir ".[ui,media]"
-
-# Step 2: Copy application source code and configuration
 COPY --chown=cyberpulse:cyberpulse src/ ./src/
 COPY --chown=cyberpulse:cyberpulse config/ ./config/
 COPY --chown=cyberpulse:cyberpulse scripts/ ./scripts/
 
-# Step 3: Install the package itself
-RUN pip install --no-cache-dir --no-deps -e .
+# Step 2: Install dependencies and cyberpulse package
+RUN pip install --no-cache-dir ".[ui,media]"
 
-# Step 4: Prepare persistent data directories with proper permissions
+# Step 3: Prepare persistent data directories with proper permissions
 RUN mkdir -p /app/data /app/output /app/logs /app/dist && \
     chown -R cyberpulse:cyberpulse /app/data /app/output /app/logs /app/dist
 
