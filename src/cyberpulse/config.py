@@ -333,12 +333,19 @@ class ValidatorConfig(BaseModel):
 
 
 class DispatchConfig(BaseModel):
-    """Multi-channel broadcast configuration (Telegram, Discord)."""
+    """Multi-channel broadcast configuration (Telegram, Discord, Email)."""
 
     enabled: bool = True
     telegram_enabled: bool = True
     discord_enabled: bool = True
+    email_enabled: bool = True
     portal_base_url: str = "https://duwcsanh1710.github.io/cybernews-agentic-ai"
+    smtp_host: str = "smtp.gmail.com"
+    smtp_port: int = 587
+    smtp_use_tls: bool = True
+    email_sender: str = ""
+    email_recipients: list[str] = Field(default_factory=list)
+    email_subject_prefix: str = "[CYBERPULSE INTEL]"
 
 
 class Settings(BaseModel):

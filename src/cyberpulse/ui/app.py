@@ -639,13 +639,19 @@ def main() -> None:
                             width="stretch",
                         )
 
-                    with st.expander(":material/send: Kênh phát tin tự động (Telegram / Discord Dispatch)", expanded=True):
-                        st.subheader("Phát tin tức thời đến kênh cộng đồng")
-                        st.caption("Gửi điểm tin nóng tự động kèm liên kết bài viết tới Telegram Channel hoặc Discord Webhook.")
+                    with st.expander(":material/send: Kênh phát tin tự động (Telegram / Discord / Email Dispatch)", expanded=True):
+                        st.subheader("Phát tin tức thời đến các kênh đa nền tảng")
+                        st.caption("Gửi điểm tin nóng tự động kèm liên kết bài viết tới Telegram Channel, Discord Webhook và Email Newsletter.")
 
-                        from cyberpulse.dispatch import dispatch_package, format_discord_payload, format_telegram_message
+                        from cyberpulse.dispatch import (
+                            dispatch_package,
+                            format_discord_payload,
+                            format_email_html,
+                            format_email_plain,
+                            format_telegram_message,
+                        )
 
-                        disp_c1, disp_c2 = st.columns(2)
+                        disp_c1, disp_c2, disp_c3 = st.columns(3)
                         with disp_c1:
                             st.markdown("**Bản tin Telegram (HTML):**")
                             tg_preview = format_telegram_message(pkg, base_url=settings.dispatch.portal_base_url)
@@ -654,12 +660,27 @@ def main() -> None:
                             st.markdown("**Embed Discord (JSON):**")
                             dc_preview = format_discord_payload(pkg, base_url=settings.dispatch.portal_base_url)
                             st.json(dc_preview, expanded=False)
+                        with disp_c3:
+                            st.markdown("**Email Newsletter (HTML/Text):**")
+                            em_preview = format_email_plain(pkg, base_url=settings.dispatch.portal_base_url)
+                            st.text_area("Nội dung Email", value=em_preview, height=220, disabled=True, key=f"disp_em_preview_{pkg.run_id}")
 
                         btn_col1, btn_col2 = st.columns([1, 1])
                         with btn_col1:
                             if st.button("Phát tin ngay (Live Dispatch)", icon=":material/send:", type="primary", key=f"btn_live_dispatch_{pkg.run_id}"):
                                 with st.spinner("Đang phát tin đến các kênh..."):
-                                    res = dispatch_package(package=pkg, base_url=settings.dispatch.portal_base_url, dry_run=False)
+                                    res = dispatch_package(
+                                        package=pkg,
+                                        base_url=settings.dispatch.portal_base_url,
+                                        email_sender=getattr(settings.dispatch, "email_sender", "") or os.environ.get("EMAIL_SENDER", ""),
+                                        email_password=os.environ.get("EMAIL_PASSWORD", ""),
+                                        email_recipients=getattr(settings.dispatch, "email_recipients", []) or os.environ.get("EMAIL_RECIPIENTS", ""),
+                                        smtp_host=getattr(settings.dispatch, "smtp_host", "smtp.gmail.com"),
+                                        smtp_port=getattr(settings.dispatch, "smtp_port", 587),
+                                        smtp_use_tls=getattr(settings.dispatch, "smtp_use_tls", True),
+                                        email_subject_prefix=getattr(settings.dispatch, "email_subject_prefix", "[CYBERPULSE INTEL]"),
+                                        dry_run=False,
+                                    )
                                     for cr in res.channel_results:
                                         if cr.skipped:
                                             st.info(f":material/info: {cr.channel.upper()}: Bỏ qua (Chưa cấu hình Secret)")
@@ -669,7 +690,7 @@ def main() -> None:
                                             st.error(f":material/error: {cr.channel.upper()} Thất bại: {cr.error}")
                         with btn_col2:
                             if st.button("Xem thử nghiệm (Dry-Run)", icon=":material/visibility:", key=f"btn_dry_dispatch_{pkg.run_id}"):
-                                st.info(":material/info: Chế độ chạy thử nghiệm thành công! Không có request thực tế nào được gửi đi.")
+                                st.info(":material/info: Chế độ chạy thử nghiệm thành công! Cả 3 kênh (Telegram, Discord, Email) đều sẵn sàng.")
 
                 # Sub-tab 3: Podcast AI
                 with ed_tab3:

@@ -62,5 +62,11 @@ term_allowlist = ["Trung"]
 enabled = true
 telegram_enabled = true
 discord_enabled = true
+email_enabled = true
 portal_base_url = "https://duwcsanh1710.github.io/cybernews-agentic-ai"
+smtp_host = "smtp.gmail.com"
+smtp_port = 587
+smtp_use_tls = true
+email_subject_prefix = "[CYBERPULSE INTEL]"
+email_recipients = []
 

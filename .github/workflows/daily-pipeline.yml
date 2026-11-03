@@ -123,10 +123,13 @@ jobs:
           COMMIT=$(git commit-tree $TREE -m "Automated Daily Deploy $(date -u +'%Y-%m-%d %H:%M:%SZ')")
           git push origin "${COMMIT}:refs/heads/gh-pages" --force
 
-      - name: Dispatch Multi-channel Notifications (Telegram & Discord)
+      - name: Dispatch Multi-channel Notifications (Telegram, Discord & Email)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
         run: |
           python -m cyberpulse.cli dispatch || echo "Dispatch notifications skipped or unconfigured"

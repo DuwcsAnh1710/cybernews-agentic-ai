@@ -410,6 +410,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="Dispatch to Discord only",
     )
     dispatch_parser.add_argument(
+        "--email-only",
+        action="store_true",
+        default=False,
+        help="Dispatch to Email recipients only",
+    )
+    dispatch_parser.add_argument(
         "--dry-run",
         action="store_true",
         default=False,
@@ -1148,10 +1154,11 @@ def run_dispatch(
     run_id: str | None = None,
     telegram_only: bool = False,
     discord_only: bool = False,
+    email_only: bool = False,
     dry_run: bool = False,
     settings_path: Path = Path("config/settings.toml"),
 ) -> int:
-    """Broadcast editorial package alerts to Telegram and Discord."""
+    """Broadcast editorial package alerts to Telegram, Discord, and Email."""
     load_dotenv(override=False)
 
     try:
@@ -1188,9 +1195,29 @@ def run_dispatch(
     print(f"[*] Dispatching edition: {pkg.run_id} ('{pkg.digest.title}')")
     base_url = settings.dispatch.portal_base_url
 
-    telegram_token = None if not discord_only else ""
-    telegram_chat_id = None if not discord_only else ""
-    discord_webhook = None if not telegram_only else ""
+    telegram_token = None if not discord_only and not email_only else ""
+    telegram_chat_id = None if not discord_only and not email_only else ""
+    discord_webhook = None if not telegram_only and not email_only else ""
+
+    email_cfg = getattr(settings, "dispatch", None)
+    smtp_host = getattr(email_cfg, "smtp_host", "smtp.gmail.com") if email_cfg else "smtp.gmail.com"
+    smtp_port = getattr(email_cfg, "smtp_port", 587) if email_cfg else 587
+    smtp_use_tls = getattr(email_cfg, "smtp_use_tls", True) if email_cfg else True
+    email_subject_prefix = getattr(email_cfg, "email_subject_prefix", "[CYBERPULSE INTEL]") if email_cfg else "[CYBERPULSE INTEL]"
+    email_sender = getattr(email_cfg, "email_sender", "") if email_cfg else ""
+    email_recipients = getattr(email_cfg, "email_recipients", []) if email_cfg else []
+
+    if telegram_only or discord_only:
+        email_sender = ""
+        email_password = ""
+    else:
+        email_password = os.environ.get("EMAIL_PASSWORD", "")
+        if not email_sender:
+            email_sender = os.environ.get("EMAIL_SENDER", "")
+        if not email_recipients:
+            env_recips = os.environ.get("EMAIL_RECIPIENTS", "")
+            if env_recips:
+                email_recipients = [r.strip() for r in env_recips.split(",") if r.strip()]
 
     from cyberpulse.dispatch import dispatch_package
 
@@ -1199,8 +1226,18 @@ def run_dispatch(
         telegram_token=telegram_token,
         telegram_chat_id=telegram_chat_id,
         discord_webhook_url=discord_webhook,
+        email_sender=email_sender,
+        email_password=email_password,
+        email_recipients=email_recipients,
+        smtp_host=smtp_host,
+        smtp_port=smtp_port,
+        smtp_use_tls=smtp_use_tls,
+        email_subject_prefix=email_subject_prefix,
         base_url=base_url,
         dry_run=dry_run,
+        telegram_only=telegram_only,
+        discord_only=discord_only,
+        email_only=email_only,
     )
 
     for cr in res.channel_results:
@@ -1479,6 +1516,7 @@ def main(argv: list[str] | None = None) -> int:
             run_id=args.run_id,
             telegram_only=args.telegram_only,
             discord_only=args.discord_only,
+            email_only=args.email_only,
             dry_run=args.dry_run,
             settings_path=args.settings,
         )

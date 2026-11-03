@@ -151,7 +151,9 @@ def test_dispatch_package_dry_run() -> None:
     )
 
     assert result.dry_run is True
-    assert len(result.channel_results) == 2
+    assert len(result.channel_results) == 3
+    channels = {cr.channel for cr in result.channel_results}
+    assert channels == {"telegram", "discord", "email"}
     for cr in result.channel_results:
         assert cr.success is True
         assert cr.rendered_payload is not None
@@ -164,10 +166,13 @@ def test_dispatch_package_skips_unconfigured_channels() -> None:
         telegram_token="",
         telegram_chat_id="",
         discord_webhook_url="",
+        email_sender="",
+        email_password="",
+        email_recipients=[],
         dry_run=False,
     )
 
-    assert len(result.channel_results) == 2
+    assert len(result.channel_results) == 3
     for cr in result.channel_results:
         assert cr.skipped is True
         assert cr.success is True

@@ -17,6 +17,7 @@ def test_cli_dispatch_help_exits_0(capsys: pytest.CaptureFixture[str]) -> None:
     assert "--dry-run" in captured.out
     assert "--telegram-only" in captured.out
     assert "--discord-only" in captured.out
+    assert "--email-only" in captured.out
 
 
 def test_cli_dispatch_dry_run_exits_0(
@@ -59,7 +60,52 @@ def test_cli_dispatch_dry_run_exits_0(
     captured = capsys.readouterr()
     assert "TELEGRAM (DRY-RUN)" in captured.out
     assert "DISCORD (DRY-RUN)" in captured.out
+    assert "EMAIL (DRY-RUN)" in captured.out
     assert pkg.digest.title in captured.out
+
+
+def test_cli_dispatch_email_only_dry_run(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    """cyberpulse dispatch --email-only --dry-run filters to only Email."""
+    out_dir = tmp_path / "output"
+    editorial_dir = out_dir / "editorial"
+    editorial_dir.mkdir(parents=True, exist_ok=True)
+
+    rid = "run-20261103T110000Z-dispemail"
+    pkg = make_sample_editorial(rid)
+    pkg_file = editorial_dir / f"{rid}.json"
+    pkg_file.write_text(pkg.model_dump_json(), encoding="utf-8")
+
+    settings_file = tmp_path / "settings.toml"
+    settings_file.write_text(
+        f"""
+        project_name = "CyberPulse"
+        topics = ["cyber"]
+        [paths]
+        output_dir = "{out_dir.as_posix()}"
+        [dispatch]
+        enabled = true
+        portal_base_url = "https://example.com"
+        """,
+        encoding="utf-8",
+    )
+
+    code = main([
+        "dispatch",
+        rid,
+        "--email-only",
+        "--dry-run",
+        "--settings",
+        str(settings_file),
+    ])
+
+    assert code == 0
+    captured = capsys.readouterr()
+    assert "EMAIL (DRY-RUN)" in captured.out
+    assert "TELEGRAM" not in captured.out
+    assert "DISCORD" not in captured.out
 
 
 def test_cli_dispatch_missing_run_id_exits_2(
@@ -102,6 +148,9 @@ def test_cli_dispatch_skips_when_no_credentials(
     monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
     monkeypatch.delenv("TELEGRAM_CHAT_ID", raising=False)
     monkeypatch.delenv("DISCORD_WEBHOOK_URL", raising=False)
+    monkeypatch.delenv("EMAIL_SENDER", raising=False)
+    monkeypatch.delenv("EMAIL_PASSWORD", raising=False)
+    monkeypatch.delenv("EMAIL_RECIPIENTS", raising=False)
 
     out_dir = tmp_path / "output"
     editorial_dir = out_dir / "editorial"
@@ -134,3 +183,4 @@ def test_cli_dispatch_skips_when_no_credentials(
     captured = capsys.readouterr()
     assert "TELEGRAM: Bo qua" in captured.out
     assert "DISCORD: Bo qua" in captured.out
+    assert "EMAIL: Bo qua" in captured.out
