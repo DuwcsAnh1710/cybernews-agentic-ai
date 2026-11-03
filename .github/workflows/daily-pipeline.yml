@@ -35,17 +35,26 @@ jobs:
           python -m pip install --upgrade pip
           pip install .[media]
 
+      - name: Ingest Fresh Articles from Cybersecurity RSS Feeds (Collect)
+        run: |
+          python -m cyberpulse.cli collect --settings config/settings.toml --sources config/sources.toml
+
       - name: Execute CyberPulse AI Daily Run
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          python -m cyberpulse.cli run --settings config/settings.toml --sources config/sources.toml
+          python -m cyberpulse.cli run --settings config/settings.toml --sources config/sources.toml --allow-insufficient
 
       - name: Synthesize Podcast Audio (Edge-TTS)
         run: |
-          LATEST_RUN=$(ls -t output/editorial/*.json | head -n 1 | sed 's/output\/editorial\///' | sed 's/\.json//')
-          echo "Synthesizing podcast for run: $LATEST_RUN"
-          python -m cyberpulse.cli media podcast "$LATEST_RUN" || echo "Podcast synthesis skipped or failed"
+          LATEST_FILE=$(ls -t output/editorial/*.json 2>/dev/null | head -n 1 || true)
+          if [ -n "$LATEST_FILE" ]; then
+            LATEST_RUN=$(basename "$LATEST_FILE" .json)
+            echo "Synthesizing podcast for run: $LATEST_RUN"
+            python -m cyberpulse.cli media podcast "$LATEST_RUN" || echo "Podcast synthesis skipped or failed"
+          else
+            echo "No editorial packages found to synthesize audio."
+          fi
 
       - name: Build The Hacker News Style Static Portal
         run: |
