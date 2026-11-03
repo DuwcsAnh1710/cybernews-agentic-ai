@@ -33,6 +33,7 @@ class ExportResult:
     article_count: int
     has_podcast_audio: bool
     has_podcast_srt: bool
+    has_video: bool = False
 
 
 ExportBundle = ExportResult
@@ -474,7 +475,7 @@ def _format_publishing_guide(run_id: str, exported_at: str) -> str:
 | **08:00** | **Email Newsletter** | `digest.html`, `digest.md` | Tiếp cận hộp thư độc giả đầu giờ làm việc; tỷ lệ mở email cao nhất trong ngày. |
 | **09:30** | **Mạng xã hội (Facebook, LinkedIn)** | `social_facebook.txt` | Khung giờ tương tác cao buổi sáng; đính kèm ảnh minh họa hoặc link bản tin. |
 | **11:30** | **Podcast & YouTube** | `podcast.mp3`, `podcast.srt`, `social_youtube.txt` | Phục vụ độc giả nghe âm thanh và xem video giờ nghỉ trưa. |
-| **14:00** | **Short-form Video (TikTok/Reels)** | `social_tiktok.txt` | Giữ nhịp tương tác buổi chiều với video ngắn 30-60 giây. |
+| **14:00** | **Short-form Video (TikTok/Reels)** | `social_tiktok.txt`, `{run_id}.mp4` | Giữ nhịp tương tác buổi chiều với video ngắn 30-60 giây. |
 
 ---
 
@@ -514,6 +515,7 @@ def _format_publishing_guide(run_id: str, exported_at: str) -> str:
 - [ ] Đã xác nhận mọi đường dẫn trích dẫn bài viết gốc đều khả dụng.
 - [ ] Đã nghe thử tệp âm thanh `podcast.mp3` (kiểm tra phát âm hai MC Minh & Lan).
 - [ ] Đã kiểm tra tính đồng bộ của tệp phụ đề `podcast.srt`.
+- [ ] Đã kiểm tra video ngắn `{run_id}.mp4` (khung hình 9:16 dọc, âm thanh và phụ đề).
 - [ ] Đã gắn nhãn phê duyệt chính thức trên hệ thống trước khi phân phối.
 """
 
@@ -609,6 +611,14 @@ def export_editorial_bundle(
         shutil.copy2(src_srt, target_dir / "podcast.srt")
         has_podcast_srt = True
 
+    # 7b. Copy Video Media (if available)
+    has_video = False
+    video_dir = output_dir / "media" / "video"
+    src_mp4 = video_dir / f"{run_id}.mp4"
+    if src_mp4.exists() and src_mp4.is_file():
+        shutil.copy2(src_mp4, target_dir / f"{run_id}.mp4")
+        has_video = True
+
     # 8. Generate huong_dan_dang_bai.md
     guide_content = _format_publishing_guide(run_id=run_id, exported_at=exported_at_vn)
     (target_dir / "huong_dan_dang_bai.md").write_text(guide_content, encoding="utf-8")
@@ -645,6 +655,7 @@ def export_editorial_bundle(
         article_count=article_count,
         has_podcast_audio=has_podcast_audio,
         has_podcast_srt=has_podcast_srt,
+        has_video=has_video,
     )
 
 

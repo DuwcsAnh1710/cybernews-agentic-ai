@@ -28,6 +28,8 @@ ui = [
 ]
 media = [
     "edge-tts>=6.1.19",
+    "pillow>=10.0.0",
+    "moviepy>=1.0.3",
 ]
 
 [project.scripts]

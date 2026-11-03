@@ -41,6 +41,11 @@ from cyberpulse.media.podcast import (
     PodcastMediaOptions,
     synthesize_podcast,
 )
+from cyberpulse.media_video import (
+    MediaValidationError,
+    VideoMediaOptions,
+    synthesize_video,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -320,6 +325,60 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         default=False,
         help="Synthesize podcast audio even if validation report is missing or failed",
+    )
+
+    # media video subcommand
+    video_parser = media_subparsers.add_parser(
+        "video",
+        help="Synthesize 9:16 short-form video and synchronized subtitles",
+    )
+    video_parser.add_argument(
+        "run_id",
+        type=str,
+        help="Run identifier of the editorial package to synthesize",
+    )
+    video_parser.add_argument(
+        "--settings",
+        type=Path,
+        default=Path("config/settings.toml"),
+        help="Path to settings.toml (default: config/settings.toml)",
+    )
+    video_parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=None,
+        help="Output directory (default: <output_dir>/media/video)",
+    )
+    video_parser.add_argument(
+        "--force",
+        action="store_true",
+        default=False,
+        help="Overwrite existing output files",
+    )
+    video_parser.add_argument(
+        "--resolution",
+        type=str,
+        default="1080x1920",
+        choices=["1080x1920", "720x1280"],
+        help="Video resolution: 1080x1920 (default) or 720x1280 (fast render)",
+    )
+    video_parser.add_argument(
+        "--preview-only",
+        action="store_true",
+        default=False,
+        help="Only generate slide previews and cover image without full mp4 encoding",
+    )
+    video_parser.add_argument(
+        "--voice",
+        type=str,
+        default="vi-VN-NamMinhNeural",
+        help="Voice name for narration (default: vi-VN-NamMinhNeural)",
+    )
+    video_parser.add_argument(
+        "--allow-unvalidated",
+        action="store_true",
+        default=False,
+        help="Synthesize video even if validation report is missing or failed",
     )
 
     # export subcommand (export bundle ...)
@@ -1069,6 +1128,124 @@ def run_media_podcast(
     return 0
 
 
+def run_media_video(
+    run_id: str,
+    settings_path: Path,
+    output_dir: Path | None = None,
+    resolution: str = "1080x1920",
+    voice: str = "vi-VN-NamMinhNeural",
+    force: bool = False,
+    preview_only: bool = False,
+    allow_unvalidated: bool = False,
+) -> int:
+    """Run short-form video synthesis and subtitle generation."""
+    if not re.match(r"^[A-Za-z0-9._-]+$", run_id):
+        print(f"Error: invalid run_id '{run_id}'. Allowed characters: [A-Za-z0-9._-]", file=sys.stderr)
+        return 7
+
+    try:
+        settings = load_settings(settings_path)
+    except ConfigError as err:
+        print(f"ConfigError: {err}", file=sys.stderr)
+        return 1
+
+    editorial_dir = (settings.paths.output_dir / "editorial").resolve()
+    editorial_path = (settings.paths.output_dir / "editorial" / f"{run_id}.json").resolve()
+
+    try:
+        editorial_path.relative_to(editorial_dir)
+    except ValueError:
+        print(f"Error: path traversal attempt with run_id '{run_id}'", file=sys.stderr)
+        return 7
+
+    if not editorial_path.exists() or not editorial_path.is_file():
+        print(f"Error: editorial file not found: '{editorial_path}'", file=sys.stderr)
+        return 7
+
+    try:
+        raw_editorial = editorial_path.read_text(encoding="utf-8")
+        editorial_pkg = EditorialPackage.model_validate_json(raw_editorial)
+    except Exception as err:
+        print(f"Error: invalid editorial file '{editorial_path}': {err}", file=sys.stderr)
+        return 7
+
+    # Validation Gate
+    val_path = (settings.paths.output_dir / "validation" / f"{run_id}.json").resolve()
+    is_validated = False
+    if val_path.exists() and val_path.is_file():
+        try:
+            val_data = json.loads(val_path.read_text(encoding="utf-8"))
+            if val_data.get("passed") is True:
+                is_validated = True
+        except Exception:
+            pass
+
+    if not is_validated and not allow_unvalidated:
+        print(
+            f"Error: Run '{run_id}' has not passed validation (passed=False or report missing). "
+            f"Use --allow-unvalidated to override.",
+            file=sys.stderr,
+        )
+        return 8
+
+    if not is_validated and allow_unvalidated:
+        print("[WARNING] Synthesizing video from UNVALIDATED editorial package!", file=sys.stderr)
+
+    options = VideoMediaOptions(
+        voice=voice,
+        resolution=resolution,
+        force=force,
+        preview_only=preview_only,
+        allow_unvalidated=allow_unvalidated,
+    )
+    target_output_dir = output_dir or (settings.paths.output_dir / "media" / "video")
+
+    mode_label = "slides xem trước (preview-only)" if preview_only else "video ngắn 9:16"
+    print(
+        f"Đang tạo {mode_label} cho phiên chạy '{run_id}' ({len(editorial_pkg.video.scenes)} phân cảnh)...",
+        flush=True,
+    )
+
+    try:
+        result = synthesize_video(
+            run_id=run_id,
+            editorial_pkg=editorial_pkg,
+            settings=settings,
+            options=options,
+            output_media_dir=target_output_dir,
+        )
+    except MediaDependencyError as err:
+        print(f"Error: {err}", file=sys.stderr)
+        return 12
+    except MediaInputError as err:
+        print(f"Error: {err}", file=sys.stderr)
+        return 7
+    except MediaValidationError as err:
+        print(f"Error: {err}", file=sys.stderr)
+        return 8
+    except MediaSynthesisError as err:
+        print(f"Error: {err}", file=sys.stderr)
+        return 13
+    except Exception as err:
+        print(f"Error: synthesis failed: {err}", file=sys.stderr)
+        return 13
+
+    minutes, seconds = divmod(int(result.total_duration_sec), 60)
+    dur_str = f"{result.total_duration_sec:.2f}s ({minutes:02d}:{seconds:02d})"
+
+    print("=== Video Media Synthesized ===")
+    print(f"Run ID:         {result.run_id}")
+    print(f"Resolution:     {result.resolution} (9:16 Vertical)")
+    print(f"Scenes:         {result.scene_count}")
+    print(f"Total Duration: {dur_str}")
+    print(f"Voice:          {result.voice}")
+    print(f"Video File:     {result.video_path if result.video_path else 'None (Preview Only)'}")
+    print(f"Subtitle File:  {result.srt_path}")
+    print(f"Metadata File:  {result.meta_path}")
+    print(f"Cover Slide:    {result.cover_image}")
+    return 0
+
+
 def run_export_bundle(
     run_id: str,
     output_dir: Path = Path("output"),
@@ -1494,6 +1671,17 @@ def main(argv: list[str] | None = None) -> int:
                 voice_args=args.voice,
                 pause_ms=args.pause_ms,
                 force=args.force,
+                allow_unvalidated=args.allow_unvalidated,
+            )
+        elif args.subcommand == "video":
+            return run_media_video(
+                run_id=args.run_id,
+                settings_path=args.settings,
+                output_dir=args.output_dir,
+                resolution=args.resolution,
+                voice=args.voice,
+                force=args.force,
+                preview_only=args.preview_only,
                 allow_unvalidated=args.allow_unvalidated,
             )
     elif args.command == "export":

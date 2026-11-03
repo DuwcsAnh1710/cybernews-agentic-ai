@@ -572,10 +572,11 @@ def main() -> None:
                 # ==============================================================
                 # Sub-tabs in Tab 3
                 # ==============================================================
-                ed_tab1, ed_tab2, ed_tab3, ed_tab4 = st.tabs([
+                ed_tab1, ed_tab2, ed_tab3, ed_tab4, ed_tab5 = st.tabs([
                     ":material/newspaper: Bản tin Email (Digest)",
                     ":material/share: Mạng xã hội",
                     ":material/podcasts: Podcast AI",
+                    ":material/movie: Video ngắn (9:16)",
                     ":material/folder_open: Gói Xuất bản (Files)",
                 ])
 
@@ -764,8 +765,115 @@ def main() -> None:
                         with st.chat_message(seg.speaker, avatar=avatar):
                             st.markdown(f"**{seg.speaker}**: {seg.line.text}")
 
-                # Sub-tab 4: Gói Xuất bản (Files)
+                # Sub-tab 4: Video ngắn (9:16)
                 with ed_tab4:
+                    st.subheader(pkg.video.title)
+                    v_col1, v_col2, v_col3 = st.columns(3)
+                    v_planned_dur = sum(s.duration_sec for s in pkg.video.scenes)
+                    v_col1.metric("Số phân cảnh", f"{len(pkg.video.scenes)} cảnh")
+                    v_col2.metric("Thời lượng dự kiến", f"{v_planned_dur:.1f}s")
+                    v_col3.metric("Khung hình chuẩn", "9:16 Dọc (TikTok / Reels)")
+
+                    st.markdown("---")
+                    video_media_dir = output_dir / "media" / "video"
+                    mp4_path = video_media_dir / f"{selected_run.run_id}.mp4"
+                    v_srt_path = video_media_dir / f"{selected_run.run_id}.srt"
+                    v_meta_path = video_media_dir / f"{selected_run.run_id}.json"
+                    v_cover_path = video_media_dir / f"{selected_run.run_id}_cover.png"
+                    v_scenes_dir = video_media_dir / f"{selected_run.run_id}_scenes"
+
+                    if mp4_path.exists() and mp4_path.is_file():
+                        st.success(":material/videocam: File Video 9:16 hoàn chỉnh (TikTok / YouTube Shorts / Reels)")
+                        st.video(str(mp4_path))
+
+                        if v_meta_path.exists() and v_meta_path.is_file():
+                            try:
+                                v_meta_data = json.loads(v_meta_path.read_text(encoding="utf-8"))
+                                v_actual_sec = v_meta_data.get("total_duration_sec")
+                                if v_actual_sec is not None:
+                                    vm_sec, vs_sec = divmod(int(v_actual_sec), 60)
+                                    st.caption(f"Thời lượng render: {v_actual_sec:.1f}s ({vm_sec:02d}:{vs_sec:02d}) • Giọng đọc: {v_meta_data.get('voice', 'AI')}")
+                            except Exception:
+                                pass
+
+                        dcol1, dcol2 = st.columns(2)
+                        with dcol1:
+                            st.download_button(
+                                label="Tải tệp video (.mp4)",
+                                data=mp4_path.read_bytes(),
+                                file_name=f"{selected_run.run_id}.mp4",
+                                mime="video/mp4",
+                                icon=":material/download:",
+                                key=f"dl_video_{selected_run.run_id}",
+                            )
+                        with dcol2:
+                            if v_srt_path.exists():
+                                st.download_button(
+                                    label="Tải tệp phụ đề (.srt)",
+                                    data=v_srt_path.read_text(encoding="utf-8"),
+                                    file_name=f"{selected_run.run_id}.srt",
+                                    mime="text/plain",
+                                    icon=":material/subtitles:",
+                                    key=f"dl_vsrt_{selected_run.run_id}",
+                                )
+                    else:
+                        st.info("Chưa có file video cho phiên chạy này.")
+                        btn_c1, btn_c2 = st.columns(2)
+                        with btn_c1:
+                            if st.button("Tạo Video ngắn 9:16 (Giọng đọc AI & Đồ họa)", type="primary", icon=":material/movie:", key=f"btn_make_video_{selected_run.run_id}"):
+                                with st.spinner("Đang tổng hợp giọng đọc và dựng video 9:16..."):
+                                    try:
+                                        from cyberpulse.media_video import VideoMediaOptions, synthesize_video
+                                        v_opts = VideoMediaOptions(allow_unvalidated=True)
+                                        synthesize_video(
+                                            run_id=selected_run.run_id,
+                                            editorial_pkg=pkg,
+                                            settings=settings,
+                                            options=v_opts,
+                                            output_media_dir=video_media_dir,
+                                        )
+                                        st.success("Đã tạo xong Video ngắn 9:16!")
+                                        st.rerun()
+                                    except Exception as v_err:
+                                        st.error(f"Lỗi khi tạo video: {v_err}")
+                        with btn_c2:
+                            if st.button("Tạo Ảnh xem trước (Preview Only)", icon=":material/visibility:", key=f"btn_prev_video_{selected_run.run_id}"):
+                                with st.spinner("Đang kết xuất các slide đồ họa xem trước..."):
+                                    try:
+                                        from cyberpulse.media_video import VideoMediaOptions, synthesize_video
+                                        v_prev_opts = VideoMediaOptions(preview_only=True, allow_unvalidated=True)
+                                        synthesize_video(
+                                            run_id=selected_run.run_id,
+                                            editorial_pkg=pkg,
+                                            settings=settings,
+                                            options=v_prev_opts,
+                                            output_media_dir=video_media_dir,
+                                        )
+                                        st.success("Đã tạo xong Slide xem trước!")
+                                        st.rerun()
+                                    except Exception as v_prev_err:
+                                        st.error(f"Lỗi khi tạo preview: {v_prev_err}")
+
+                    st.markdown("---")
+                    st.subheader("Phân cảnh Kịch bản & Khung hình")
+                    for scn in pkg.video.scenes:
+                        with st.expander(f"Cảnh {scn.scene_no}: {scn.on_screen_text} ({scn.duration_sec:.0f}s)", expanded=False):
+                            sc_col1, sc_col2 = st.columns([1, 2])
+                            with sc_col1:
+                                scene_img_file = v_scenes_dir / f"scene_{scn.scene_no:02d}.png"
+                                if scene_img_file.exists():
+                                    st.image(str(scene_img_file), caption=f"Cảnh {scn.scene_no}")
+                                elif v_cover_path.exists() and scn.scene_no == 1:
+                                    st.image(str(v_cover_path), caption="Ảnh bìa bản tin")
+                                else:
+                                    st.caption("[Chưa kết xuất ảnh phân cảnh]")
+                            with sc_col2:
+                                st.markdown(f"**Chữ hiển thị màn hình:** `{scn.on_screen_text}`")
+                                st.markdown(f"**Lời thuyết minh:** {scn.narration.text}")
+                                st.caption(f"Thời lượng dự kiến: {scn.duration_sec}s")
+
+                # Sub-tab 5: Gói Xuất bản (Files)
+                with ed_tab5:
                     st.subheader("Gói Xuất bản Đa Kênh (Exported Files)")
                     if not export_bundle_dir.exists() or not any(export_bundle_dir.iterdir()):
                         st.info(
