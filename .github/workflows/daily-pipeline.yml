@@ -77,9 +77,20 @@ jobs:
           if [ -n "$LATEST_FILE" ]; then
             LATEST_RUN=$(basename "$LATEST_FILE" .json)
             echo "Synthesizing podcast for run: $LATEST_RUN"
-            python -m cyberpulse.cli media podcast "$LATEST_RUN" || echo "Podcast synthesis skipped or failed"
+            python -m cyberpulse.cli media podcast "$LATEST_RUN" --allow-unvalidated --force || echo "Podcast synthesis skipped or failed"
           else
             echo "No editorial packages found to synthesize audio."
+          fi
+
+      - name: Synthesize Short-Form Video (FFmpeg & Edge-TTS)
+        run: |
+          LATEST_FILE=$(ls -t output/editorial/*.json 2>/dev/null | head -n 1 || true)
+          if [ -n "$LATEST_FILE" ]; then
+            LATEST_RUN=$(basename "$LATEST_FILE" .json)
+            echo "Synthesizing video for run: $LATEST_RUN"
+            python -m cyberpulse.cli media video "$LATEST_RUN" --allow-unvalidated --force || echo "Video synthesis skipped or failed"
+          else
+            echo "No editorial packages found to synthesize video."
           fi
 
       - name: Build The Hacker News Style Static Portal
@@ -90,7 +101,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add output/editorial/ output/research/ output/validation/ output/media/podcast/ || true
+          git add output/editorial/ output/research/ output/validation/ output/media/podcast/ output/media/video/ || true
           git commit -m "chore(data): auto-archive daily edition $(date -u +'%Y-%m-%d')" || echo "No new edition artifacts to commit"
           git push origin main || echo "Could not push archive to main"
 
