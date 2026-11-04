@@ -1,0 +1,80 @@
+{
+  "run_id": "run-20261104T020642Z-9594c0e0",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "62e23c789fbfd2f8",
+        "source_name": "The Hacker News",
+        "title": "Binance Reveals How Fake Job Interviews and AI Tool Abuse Led to $6.43 Billion Theft",
+        "url": "https://thehackernews.com/2026/11/binance-reveals-how-fake-job-interviews.html",
+        "published_at": "2026-11-03T16:55:58Z",
+        "summary": "Binance on Tuesday said the record-setting theft of $6.43 billion in assets from the world's largest cryptocurrency exchange was the culmination of a \"sophisticated, multi-stage campaign\" that involved the use of a tampered Homebrew installation and recruitment-themed social engineering attack targeting two of its engineers. \"It was not a single isolated breach or a simple phishing incident,\"",
+        "fetched_at": "2026-11-04T02:06:18.843422Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Binance tiết lộ chiến dịch tấn công mạo danh phỏng vấn xin việc và lạm dụng công cụ AI dẫn đến vụ trộm kỷ lục 6,43 tỷ USD tài sản mã hóa."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "b84cad2a2e67203e",
+        "source_name": "The Hacker News",
+        "title": "Red Hat Patches 9.8-Rated Linux TCP RCE Flaw While Ubuntu Releases Fixes for Testing",
+        "url": "https://thehackernews.com/2026/11/red-hat-patches-98-rated-linux-tcp-rce.html",
+        "published_at": "2026-11-03T11:23:53Z",
+        "summary": "Fixed kernels for a use-after-free vulnerability in the Linux kernel's IPv4 TCP code are now available for Red Hat Enterprise Linux 8, 9, and 10, while Ubuntu's fixes for its three newest long-term-support releases remain in its opt-in testing channel with no date for a regular update. The flaw, tracked as CVE-2026-98432, can be reached by a remote, unauthenticated attacker and can",
+        "fetched_at": "2026-11-04T02:06:18.843422Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Red Hat và Ubuntu khẩn cấp phát hành bản vá cho lỗ hổng thực thi mã từ xa mức độ 9.8 nghiêm trọng trong mã nguồn TCP IPv4 của Linux kernel."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "60ed1c1b56633442",
+        "source_name": "SecurityWeek",
+        "title": "Android’s November 2026 Updates Patch Over 200 Vulnerabilities",
+        "url": "https://securityweek.com/androids-november-2026-updates-patch-over-200-vulnerabilities",
+        "published_at": "2026-11-03T12:21:49Z",
+        "summary": "The most severe is a critical flaw in Framework leading to remote code execution without user interaction. The post Android’s November 2026 Updates Patch Over 200 Vulnerabilities appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-04T02:06:20.243630Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Bản cập nhật Android tháng 11/2026 khắc phục hơn 200 lỗ hổng bảo mật, bao gồm lỗi cực kỳ nghiêm trọng trong Framework cho phép thực thi mã từ xa."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "6e14985a4fcd1191",
+        "source_name": "Help Net Security",
+        "title": "Attackers exploit critical Node-RED flaw to deploy Linux bot and backdoors (CVE-2026-58115)",
+        "url": "https://helpnetsecurity.com/2026/11/03/node-red-cve-2026-58115-exploitation",
+        "published_at": "2026-11-03T12:59:51Z",
+        "summary": "Attackers are exploiting an authentication flaw (CVE-2026-58115) in Node-RED, a programming tool built into some industrial control products, to install a Linux bot and backdoors on unprotected servers, VulnCheck has found. Node-RED is a flow-based programming tool built on Node.js that lets users wire together event-driven applications in a browser-based editor. It can run on small devices such as the Raspberry Pi or in the cloud, and it is used in manufacturing, healthcare, and home … More → The post Attackers exploit critical Node-RED flaw to deploy Linux bot and backdoors (CVE-2026-58115) appeared first on Help Net Security .",
+        "fetched_at": "2026-11-04T02:06:21.861059Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Hacker đang khai thác lỗ hổng xác thực nghiêm trọng (CVE-2026-58115) trong Node-RED để cài đặt bot Linux và cửa sau trên các máy chủ chưa được bảo vệ."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "0a545d76244e09bb",
+        "source_name": "The Record",
+        "title": "Google dismantles massive botnet hidden in Android TV boxes",
+        "url": "https://therecord.media/google-dismantles-botnet-hidden-android-tv-boxes",
+        "published_at": "2026-11-03T19:48:00Z",
+        "summary": "The overwhelming majority of the infected devices in the X.CPE botnet are Android TV set-top boxes, Google said, adding that they observed a number of other infected Android-based IoT devices, including telehealth devices, karaoke machines and digital signage devices.",
+        "fetched_at": "2026-11-04T02:06:19.663124Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Google triệt phá mạng lưới botnet X.CPE khổng lồ ẩn nấp trong các thiết bị Android TV box và nhiều thiết bị IoT khác."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=0"
+}

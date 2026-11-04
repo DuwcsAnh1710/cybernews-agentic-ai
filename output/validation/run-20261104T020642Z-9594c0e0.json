@@ -1,0 +1,35 @@
+{
+  "run_id": "run-20261104T020642Z-9594c0e0",
+  "passed": true,
+  "errors": [],
+  "warnings": [
+    {
+      "code": "W_PODCAST_LENGTH",
+      "severity": "warning",
+      "path": "podcast.segments",
+      "message": "Total podcast words (471) outside target range [480, 720] (target 600 ± 20%)",
+      "evidence": "471 words (expected 480-720)"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "podcast.segments[6].line.text",
+      "message": "Term 'LTS' not found in cited source text and not allowlisted",
+      "evidence": "LTS"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "video.scenes[3].narration.text",
+      "message": "Term 'RCE' not found in cited source text and not allowlisted",
+      "evidence": "RCE"
+    }
+  ],
+  "checks_run": [
+    "layer1_structural",
+    "layer2_source_consistency",
+    "layer3_llm_claim_review (skipped)"
+  ],
+  "llm_review": "skipped",
+  "scope_note": "Structural and source-consistency checks against RSS title/summary only. Facts are NOT independently verified."
+}

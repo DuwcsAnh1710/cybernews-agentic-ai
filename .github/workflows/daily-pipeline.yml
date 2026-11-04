@@ -2,8 +2,8 @@ name: Daily Cybersecurity Magazine Pipeline & Deploy
 
 on:
   schedule:
-    # Runs at 00:00 UTC every day (07:00 AM Vietnam Time UTC+7)
-    - cron: '0 0 * * *'
+    # Runs at 00:15 UTC every day (07:15 AM Vietnam Time UTC+7) - offset by 15 mins to avoid peak top-of-the-hour queue delay
+    - cron: '15 0 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub Actions tab
 
 permissions:

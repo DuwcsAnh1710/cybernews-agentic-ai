@@ -1,0 +1,337 @@
+{
+  "run_id": "run-20261104T020642Z-9594c0e0",
+  "language": "vi",
+  "digest": {
+    "title": "Bản tin An ninh mạng: Lỗ hổng nghiêm trọng trên Linux, Android và các vụ tấn công mạng quy mô lớn",
+    "intro": "Điểm tin an toàn thông tin mới nhất ghi nhận vụ trộm tiền điện tử kỷ lục do tấn công kỹ thuật xã hội, cùng nhiều bản vá lỗ hổng nghiêm trọng trên Linux và Android. Bên cạnh đó, các cuộc tấn công khai thác lỗ hổng Node-RED và chiến dịch triệt phá mạng máy tính ma (botnet) trên thiết bị Android TV cũng là những thông tin đáng chú ý.",
+    "sections": [
+      {
+        "heading": "Binance tiết lộ vụ trộm 6,43 tỷ USD từ vụ tấn công kỹ thuật xã hội phức tạp",
+        "body": {
+          "text": "Sàn giao dịch tiền điện tử Binance cho biết vụ trộm tài sản trị giá 6,43 tỷ USD là kết quả của một chiến dịch phức tạp, nhiều giai đoạn. Kẻ tấn công đã sử dụng phương pháp kỹ thuật xã hội (social engineering - hình thức thao túng tâm lý để lấy thông tin bí mật) thông qua các buổi phỏng vấn tuyển dụng giả mạo và lạm dụng công cụ AI, nhắm vào hai kỹ sư của họ. Sự cố này cũng liên quan đến việc cài đặt bộ quản lý gói Homebrew bị can thiệp, không phải là một vụ tấn công lừa đảo đơn lẻ.",
+          "cited_article_ids": [
+            "62e23c789fbfd2f8"
+          ]
+        }
+      },
+      {
+        "heading": "Red Hat và Ubuntu xử lý lỗ hổng RCE điểm 9,8 trong Linux TCP",
+        "body": {
+          "text": "Lỗ hổng CVE-2026-98432 thuộc dạng use-after-free (lỗi giải phóng bộ nhớ nhưng vẫn truy cập) trong mã IPv4 TCP của nhân Linux cho phép kẻ tấn công từ xa không cần xác thực khai thác. Red Hat đã phát hành nhân hệ điều hành đã sửa lỗi cho Red Hat Enterprise Linux 8, 9 và 10. Trong khi đó, các bản vá của Ubuntu cho ba phiên bản hỗ trợ lâu dài (LTS) mới nhất hiện vẫn đang ở kênh thử nghiệm tùy chọn và chưa có ngày phát hành chính thức.",
+          "cited_article_ids": [
+            "b84cad2a2e67203e"
+          ]
+        }
+      },
+      {
+        "heading": "Cập nhật Android tháng Mười Một năm 2026 vá hơn 200 lỗ hổng an ninh",
+        "body": {
+          "text": "Bản cập nhật an ninh tháng Mười Một năm 2026 cho hệ điều hành Android đã xử lý hơn 200 lỗ hổng mật khẩu và an toàn thông tin. Trong đó, nguy hiểm nhất là một lỗ hổng nghiêm trọng trong thành phần Framework. Lỗi này có thể dẫn đến việc thực thi mã từ xa (RCE - cho phép kẻ tấn công chạy mã trái phép trên thiết bị) mà không cần sự tương tác từ phía người dùng.",
+          "cited_article_ids": [
+            "60ed1c1b56633442"
+          ]
+        }
+      },
+      {
+        "heading": "Lỗ hổng nghiêm trọng trên Node-RED bị khai thác để cài đặt bot và cửa sau",
+        "body": {
+          "text": "Theo VulnCheck, kẻ tấn công đang tích cực khai thác lỗ hổng xác thực CVE-2026-58115 trong Node-RED—một công cụ lập trình dựa trên luồng chạy trên Node.js được tích hợp trong một số sản phẩm điều khiển công nghiệp. Việc khai thác cho phép cài đặt các bot Linux và cửa sau (backdoor) trên các máy chủ không được bảo vệ. Công cụ này phổ biến trong ngành sản xuất, y tế và nhà thông minh.",
+          "cited_article_ids": [
+            "6e14985a4fcd1191"
+          ]
+        }
+      },
+      {
+        "heading": "Google triệt phá mạng máy tính ma X.CPE ẩn trong thiết bị Android TV",
+        "body": {
+          "text": "Google đã triệt phá thành công mạng máy tính ma (botnet - mạng lưới các thiết bị bị chiếm quyền kiểm soát) quy mô lớn có tên X.CPE. Phần lớn các thiết bị bị nhiễm mã độc trong mạng botnet này là các đầu thu Android TV box. Ngoài ra, Google cũng ghi nhận nhiều thiết bị IoT chạy Android khác bị lây nhiễm bao gồm thiết bị chăm sóc sức khỏe từ xa, máy karaoke và màn hình quảng cáo kỹ thuật số.",
+          "cited_article_ids": [
+            "0a545d76244e09bb"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: Từ Vụ Trộm Binance Đến Lỗ Hổng Kernel Linux",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin an ninh mạng tuần này! Tôi là Minh, và hôm nay chúng ta sẽ cùng điểm qua 5 tin tức bảo mật nóng hổi nhất vừa qua.",
+          "cited_article_ids": [
+            "62e23c789fbfd2f8",
+            "b84cad2a2e67203e",
+            "60ed1c1b56633442",
+            "6e14985a4fcd1191",
+            "0a545d76244e09bb"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào Minh và chào tất cả mọi người. Tin tức đầu tiên hôm nay thực sự gây chấn động ngành tiền điện tử, liên quan đến sàn giao dịch Binance.",
+          "cited_article_ids": [
+            "62e23c789fbfd2f8"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đúng vậy Lan. Binance vừa tiết lộ chi tiết vụ trộm kỷ lục 6.43 tỷ đô la tài sản. Họ cho biết đây là một chiến dịch tinh vi, nhiều giai đoạn kết hợp giữa chiêu trò tuyển dụng giả mạo và lạm dụng công cụ AI hướng vào 2 kỹ sư của họ.",
+          "cited_article_ids": [
+            "62e23c789fbfd2f8"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Đặc biệt là đợt tấn công này sử dụng bản cài đặt Homebrew bị chỉnh sửa độc hại. Binance khẳng định đây không phải vụ vi phạm đơn lẻ hay một vụ lừa đảo phishing đơn giản.",
+          "cited_article_ids": [
+            "62e23c789fbfd2f8"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chuyển sang tin tức về Linux, Red Hat vừa vá lỗ hổng nghiêm trọng được đánh giá điểm 9.8 trên hệ điều hành của họ.",
+          "cited_article_ids": [
+            "b84cad2a2e67203e"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Đó là lỗ hổng use-after-free trong mã IPv4 TCP của Linux kernel, mã danh định CVE-2026-98432. Lỗ hổng này cho phép kẻ tấn công từ xa không cần xác thực thực thi mã từ xa.",
+          "cited_article_ids": [
+            "b84cad2a2e67203e"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Red Hat Enterprise Linux 8, 9 và 10 đã có bản vá. Trong khi đó, các bản vá của Ubuntu cho 3 phiên bản LTS mới nhất vẫn đang nằm trong kênh thử nghiệm opt-in và chưa có ngày phát hành chính thức.",
+          "cited_article_ids": [
+            "b84cad2a2e67203e"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Các thiết bị di động cũng cần chú ý. Bản cập nhật tháng Mười Một năm 2026 của Android đã khắc phục hơn 200 lỗ hổng bảo mật.",
+          "cited_article_ids": [
+            "60ed1c1b56633442"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Nghiêm trọng nhất là lỗ hổng trong thành phần Framework cho phép thực thi mã từ xa mà không cần người dùng tương tác.",
+          "cited_article_ids": [
+            "60ed1c1b56633442"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Tiếp theo là thông tin về công cụ lập trình Node-RED. Kẻ tấn công đang khai thác lỗ hổng xác thực CVE-2026-58115 để cài đặt bot Linux và cửa hậu backdoor trên các máy chủ không được bảo vệ.",
+          "cited_article_ids": [
+            "6e14985a4fcd1191"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Node-RED là công cụ lập trình dạng dòng chảy dựa trên Node.js được tích hợp trong nhiều sản phẩm điều khiển công nghiệp, chạy trên Raspberry Pi hoặc điện toán đám mây trong y tế và sản xuất.",
+          "cited_article_ids": [
+            "6e14985a4fcd1191"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cuối cùng, Google vừa triệt phá thành công một mạng botnet khổng lồ mang tên X.CPE ẩn náu trong các thiết bị Android TV boxes.",
+          "cited_article_ids": [
+            "0a545d76244e09bb"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Phần lớn thiết bị nhiễm botnet này là đầu Android TV, cùng một số thiết bị IoT khác như máy karaoke, thiết bị y tế từ xa và biển hiệu kỹ thuật số.",
+          "cited_article_ids": [
+            "0a545d76244e09bb"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cảm ơn mọi người đã lắng nghe. Hãy luôn cập nhật bản vá bảo mật mới nhất để bảo vệ hệ thống của mình nhé!",
+          "cited_article_ids": [
+            "62e23c789fbfd2f8",
+            "b84cad2a2e67203e",
+            "60ed1c1b56633442",
+            "6e14985a4fcd1191",
+            "0a545d76244e09bb"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Điểm Tin Bảo Mật: Vụ Trộm Binance 6.43 Tỷ USD Và Botnet Android TV",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "Cập Nhật Bảo Mật Nóng Hổi",
+        "narration": {
+          "text": "Tổng hợp các sự cố an ninh mạng và bản vá bảo mật quan trọng nhất vừa qua.",
+          "cited_article_ids": [
+            "62e23c789fbfd2f8",
+            "b84cad2a2e67203e",
+            "60ed1c1b56633442",
+            "6e14985a4fcd1191",
+            "0a545d76244e09bb"
+          ]
+        },
+        "duration_sec": 8.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "Binance Mất 6.43 Tỷ USD",
+        "narration": {
+          "text": "Binance tiết lộ vụ trộm 6.43 tỷ đô la do tấn công phỏng vấn xin việc giả mạo và bản cài Homebrew bị can thiệp.",
+          "cited_article_ids": [
+            "62e23c789fbfd2f8"
+          ]
+        },
+        "duration_sec": 15.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "Lỗ Hổng Linux Kernel 9.8 Score",
+        "narration": {
+          "text": "Red Hat vá lỗ hổng CVE-2026-98432 trong mã IPv4 TCP cho phép thực thi mã từ xa, Ubuntu vẫn đang thử nghiệm.",
+          "cited_article_ids": [
+            "b84cad2a2e67203e"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Android Vá 200+ Lỗ Hổng",
+        "narration": {
+          "text": "Bản cập nhật Android tháng Mười Một vá hơn 200 lỗ hổng, có lỗi nghiêm trọng cho phép RCE không cần tương tác.",
+          "cited_article_ids": [
+            "60ed1c1b56633442"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "Khai Thác Lỗi Node-RED",
+        "narration": {
+          "text": "Kẻ tấn công khai thác lỗ hổng CVE-2026-58115 trên Node-RED để cài đặt bot Linux và backdoor.",
+          "cited_article_ids": [
+            "6e14985a4fcd1191"
+          ]
+        },
+        "duration_sec": 13.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "Triệt Phá Botnet Android TV",
+        "narration": {
+          "text": "Google triệt phá mạng botnet X.CPE khổng lồ ẩn nấp trong các Android TV box và thiết bị IoT.",
+          "cited_article_ids": [
+            "0a545d76244e09bb"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "Cập Nhật Bản Vá Ngay!",
+        "narration": {
+          "text": "Hãy luôn kiểm tra và cập nhật thiết bị của bạn để đảm bảo an toàn thông tin!",
+          "cited_article_ids": [
+            "62e23c789fbfd2f8",
+            "b84cad2a2e67203e",
+            "60ed1c1b56633442",
+            "6e14985a4fcd1191",
+            "0a545d76244e09bb"
+          ]
+        },
+        "duration_sec": 10.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "Điểm tin An ninh mạng mới nhất:\n- Binance công bố chi tiết vụ trộm 6,43 tỷ USD xuất phát từ phỏng vấn tuyển dụng giả mạo và lạm dụng AI.\n- Lỗ hổng nghiêm trọng điểm 9.8 trên Linux TCP (CVE-2026-98432) đã có bản vá cho Red Hat.\n- Android cập nhật vá hơn 200 lỗ hổng trong tháng Mười Một năm 2026.\n- Kẻ tấn công đang khai thác lỗ hổng CVE-2026-58115 trên Node-RED để cài đặt bot và backdoor.\n- Google triệt phá thành công mạng botnet X.CPE ẩn trên Android TV box và thiết bị IoT.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#CyberSecurity",
+        "#Binance",
+        "#Linux",
+        "#Android"
+      ],
+      "cited_article_ids": [
+        "62e23c789fbfd2f8",
+        "b84cad2a2e67203e",
+        "60ed1c1b56633442",
+        "6e14985a4fcd1191",
+        "0a545d76244e09bb"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Chào mừng bạn đến với bản tin An ninh mạng. Hôm nay chúng ta có các thông tin quan trọng:\n1. Binance tiết lộ vụ tấn công 6,43 tỷ USD do kỹ thuật xã hội thông qua phỏng vấn tuyển dụng giả mạo.\n2. Lỗi use-after-free nguy hiểm trong Linux IPv4 TCP (CVE-2026-98432) cho phép thực thi mã từ xa.\n3. Android phát hành bản vá tháng Mười Một năm 2026 giải quyết hơn 200 lỗ hổng.\n4. Lỗ hổng CVE-2026-58115 trong công cụ Node-RED bị khai thác để phát tán mã độc Linux.\n5. Google triệt phá mạng botnet X.CPE nhắm vào các thiết bị Android TV và IoT.",
+      "hashtags": [
+        "#TinTucAnNinhMang",
+        "#BaoMat",
+        "#BoTnet",
+        "#CongNgheThôngTin"
+      ],
+      "cited_article_ids": [
+        "62e23c789fbfd2f8",
+        "b84cad2a2e67203e",
+        "60ed1c1b56633442",
+        "6e14985a4fcd1191",
+        "0a545d76244e09bb"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Cập nhật an ninh mạng: Vụ trộm 6,43 tỷ USD tại Binance, Red Hat vá lỗi Linux nghiêm trọng điểm 9.8, Android sửa hơn 200 lỗ hổng và Google triệt phá botnet X.CPE trên Android TV!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#TinCongNghe",
+        "#Hacker",
+        "#BaoMat"
+      ],
+      "cited_article_ids": [
+        "62e23c789fbfd2f8",
+        "b84cad2a2e67203e",
+        "60ed1c1b56633442",
+        "0a545d76244e09bb"
+      ]
+    }
+  ]
+}
