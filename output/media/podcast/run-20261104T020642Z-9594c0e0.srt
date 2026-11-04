@@ -1,0 +1,155 @@
+1
+00:00:00,000 --> 00:00:04,492
+[Minh] Chào mừng các bạn đến với bản tin an ninh mạng tuần này! Tôi là Minh,
+
+2
+00:00:04,492 --> 00:00:09,504
+và hôm nay chúng ta sẽ cùng điểm qua 5 tin tức bảo mật nóng hổi nhất vừa qua.
+
+3
+00:00:09,854 --> 00:00:12,141
+[Lan] Chào Minh và chào tất cả mọi người.
+
+4
+00:00:12,141 --> 00:00:16,454
+Tin tức đầu tiên hôm nay thực sự gây chấn động ngành tiền điện tử,
+
+5
+00:00:16,454 --> 00:00:18,806
+liên quan đến sàn giao dịch Binance.
+
+6
+00:00:19,156 --> 00:00:24,637
+[Minh] Đúng vậy Lan. Binance vừa tiết lộ chi tiết vụ trộm kỷ lục 6.43 tỷ đô la tài sản.
+
+7
+00:00:24,637 --> 00:00:27,514
+Họ cho biết đây là một chiến dịch tinh vi,
+
+8
+00:00:27,514 --> 00:00:32,995
+nhiều giai đoạn kết hợp giữa chiêu trò tuyển dụng giả mạo và lạm dụng công cụ AI
+
+9
+00:00:32,995 --> 00:00:34,708
+hướng vào 2 kỹ sư của họ.
+
+10
+00:00:35,058 --> 00:00:39,940
+[Lan] Đặc biệt là đợt tấn công này sử dụng bản cài đặt Homebrew bị chỉnh sửa độc hại.
+
+11
+00:00:39,940 --> 00:00:45,069
+Binance khẳng định đây không phải vụ vi phạm đơn lẻ hay một vụ lừa đảo phishing đơn
+
+12
+00:00:45,069 --> 00:00:45,378
+giản.
+
+13
+00:00:45,728 --> 00:00:47,551
+[Minh] Chuyển sang tin tức về Linux,
+
+14
+00:00:47,551 --> 00:00:52,832
+Red Hat vừa vá lỗ hổng nghiêm trọng được đánh giá điểm 9.8 trên hệ điều hành của họ.
+
+15
+00:00:53,182 --> 00:00:58,558
+[Lan] Đó là lỗ hổng use-after-free trong mã IPv4 TCP của Linux kernel,
+
+16
+00:00:58,558 --> 00:01:00,910
+mã danh định CVE-2026-98432.
+
+17
+00:01:00,910 --> 00:01:07,294
+Lỗ hổng này cho phép kẻ tấn công từ xa không cần xác thực thực thi mã từ xa.
+
+18
+00:01:07,644 --> 00:01:12,054
+[Minh] Red Hat Enterprise Linux 8, 9 và 10 đã có bản vá. Trong khi đó,
+
+19
+00:01:12,054 --> 00:01:17,514
+các bản vá của Ubuntu cho 3 phiên bản LTS mới nhất vẫn đang nằm trong kênh thử
+
+20
+00:01:17,514 --> 00:01:21,084
+nghiệm opt-in và chưa có ngày phát hành chính thức.
+
+21
+00:01:21,434 --> 00:01:23,890
+[Lan] Các thiết bị di động cũng cần chú ý.
+
+22
+00:01:23,890 --> 00:01:29,417
+Bản cập nhật tháng Mười Một năm 2026 của Android đã khắc phục hơn 200 lỗ hổng bảo
+
+23
+00:01:29,417 --> 00:01:29,690
+mật.
+
+24
+00:01:30,040 --> 00:01:34,655
+[Minh] Nghiêm trọng nhất là lỗ hổng trong thành phần Framework cho phép thực thi mã từ xa
+
+25
+00:01:34,655 --> 00:01:36,568
+mà không cần người dùng tương tác.
+
+26
+00:01:36,918 --> 00:01:40,714
+[Lan] Tiếp theo là thông tin về công cụ lập trình Node-RED.
+
+27
+00:01:40,714 --> 00:01:46,586
+Kẻ tấn công đang khai thác lỗ hổng xác thực CVE-2026-58115 để cài đặt bot Linux và
+
+28
+00:01:46,586 --> 00:01:50,310
+cửa hậu backdoor trên các máy chủ không được bảo vệ.
+
+29
+00:01:50,660 --> 00:01:55,355
+[Minh] Node-RED là công cụ lập trình dạng dòng chảy dựa trên Node.js được tích hợp trong
+
+30
+00:01:55,355 --> 00:01:57,557
+nhiều sản phẩm điều khiển công nghiệp,
+
+31
+00:01:57,557 --> 00:02:01,556
+chạy trên Raspberry Pi hoặc điện toán đám mây trong y tế và sản xuất.
+
+32
+00:02:01,906 --> 00:02:02,564
+[Lan] Cuối cùng,
+
+33
+00:02:02,564 --> 00:02:08,092
+Google vừa triệt phá thành công một mạng botnet khổng lồ mang tên X.CPE ẩn náu trong
+
+34
+00:02:08,092 --> 00:02:10,066
+các thiết bị Android TV boxes.
+
+35
+00:02:10,416 --> 00:02:13,958
+[Minh] Phần lớn thiết bị nhiễm botnet này là đầu Android TV,
+
+36
+00:02:13,958 --> 00:02:17,032
+cùng một số thiết bị IoT khác như máy karaoke,
+
+37
+00:02:17,032 --> 00:02:20,040
+thiết bị y tế từ xa và biển hiệu kỹ thuật số.
+
+38
+00:02:20,390 --> 00:02:22,550
+[Lan] Cảm ơn mọi người đã lắng nghe.
+
+39
+00:02:22,550 --> 00:02:27,878
+Hãy luôn cập nhật bản vá bảo mật mới nhất để bảo vệ hệ thống của mình nhé!
