@@ -3103,6 +3103,20 @@ def build_public_portal(
                     has_audio = True
                     files_created.append(f"media/{pkg.run_id}.mp3")
 
+                # Check for video media in media/video
+                src_mp4 = out_path / "media" / "video" / f"{pkg.run_id}.mp4"
+                has_video = False
+                if src_mp4.exists() and src_mp4.is_file():
+                    media_dist_dir.mkdir(parents=True, exist_ok=True)
+                    dest_mp4 = media_dist_dir / f"{pkg.run_id}.mp4"
+                    shutil.copy2(src_mp4, dest_mp4)
+                    has_video = True
+                    files_created.append(f"media/{pkg.run_id}.mp4")
+                    src_cover = out_path / "media" / "video" / f"{pkg.run_id}_cover.png"
+                    if src_cover.exists() and src_cover.is_file():
+                        shutil.copy2(src_cover, media_dist_dir / f"{pkg.run_id}_cover.png")
+                        files_created.append(f"media/{pkg.run_id}_cover.png")
+
                 editions_data.append({
                     "package": pkg,
                     "dt": dt,

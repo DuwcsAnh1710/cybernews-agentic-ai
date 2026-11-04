@@ -173,8 +173,21 @@ class EdgeTTSBackend:
         import edge_tts
 
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        communicate = edge_tts.Communicate(text=text, voice=voice)
-        await asyncio.wait_for(communicate.save(str(output_path)), timeout=timeout)
+        last_exc: Exception | None = None
+        for attempt in range(4):
+            try:
+                communicate = edge_tts.Communicate(text=text, voice=voice)
+                await asyncio.wait_for(communicate.save(str(output_path)), timeout=timeout)
+                last_exc = None
+                break
+            except (asyncio.TimeoutError, TimeoutError):
+                raise
+            except Exception as exc:
+                last_exc = exc
+                await asyncio.sleep(1.5 * (attempt + 1))
+
+        if last_exc is not None:
+            raise last_exc
 
         from cyberpulse.media.podcast import PurePythonMP3Assembler
 
