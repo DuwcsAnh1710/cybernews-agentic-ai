@@ -38,6 +38,7 @@ def test_cli_export_portal_help(capsys: pytest.CaptureFixture[str]) -> None:
     assert "--run-id" in captured.out
     assert "--serve" in captured.out
     assert "--port" in captured.out
+    assert "--deploy" in captured.out
 
 
 def test_cli_export_portal_success_default_args(
@@ -205,3 +206,34 @@ def test_cli_export_portal_generates_ux_overhaul_elements(
         assert "tldr-box" in content
         assert "article-pagination" in content
         assert "article-views-count" in content
+
+
+def test_cli_export_portal_deploy_invokes_upload(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Test CLI export portal --deploy invokes upload_portal."""
+    from unittest.mock import MagicMock
+    import scripts.deploy_wuaze
+
+    output_dir = tmp_path / "output"
+    dist_dir = tmp_path / "dist"
+    run_id = "run-20261102T020834Z-cli-deploy"
+
+    _setup_cli_run(output_dir, run_id, with_audio=True)
+
+    monkeypatch.setenv("FTP_PASSWORD", "mock_pass")
+    mock_upload = MagicMock(return_value=0)
+    monkeypatch.setattr(scripts.deploy_wuaze, "upload_portal", mock_upload)
+
+    code = main([
+        "export",
+        "portal",
+        "--output-dir",
+        str(output_dir),
+        "--dist-dir",
+        str(dist_dir),
+        "--deploy",
+    ])
+
+    assert code == 0
+    assert mock_upload.called

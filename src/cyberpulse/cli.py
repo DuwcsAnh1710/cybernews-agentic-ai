@@ -444,6 +444,12 @@ def build_parser() -> argparse.ArgumentParser:
         default=8000,
         help="Port for local HTTP server (default: 8000)",
     )
+    portal_parser.add_argument(
+        "--deploy",
+        action="store_true",
+        default=False,
+        help="Deploy static portal to InfinityFree (.wuaze.com) via FTP after generation",
+    )
 
     # dispatch subcommand (T8.2)
     dispatch_parser = subparsers.add_parser(
@@ -1455,6 +1461,7 @@ def run_export_portal(
     run_id: str | None = None,
     serve: bool = False,
     port: int = 8000,
+    deploy: bool = False,
 ) -> int:
     """Generate public reader static portal website and optionally serve it."""
     if not output_dir.exists() or not output_dir.is_dir():
@@ -1489,6 +1496,34 @@ def run_export_portal(
             except KeyboardInterrupt:
                 print("\nĐã dừng máy chủ web.")
                 return 0
+
+        if deploy:
+            import os
+            import getpass
+            try:
+                from scripts.deploy_wuaze import upload_portal
+                pwd = os.environ.get("FTP_PASSWORD", "")
+                if not pwd:
+                    if sys.stdin.isatty():
+                        try:
+                            pwd = getpass.getpass("Nhập mật khẩu FTP (InfinityFree vPanel Password): ")
+                        except (KeyboardInterrupt, EOFError):
+                            print("\nĐã hủy.")
+                            return 1
+                    else:
+                        print("[-] [CYBERPULSE INTEL] Lỗi: Mật khẩu FTP chưa được cung cấp.", file=sys.stderr)
+                        print("    Hãy thiết lập biến môi trường FTP_PASSWORD hoặc truyền qua lệnh: python scripts/deploy_wuaze.py", file=sys.stderr)
+                        return 2
+                deploy_code = upload_portal(
+                    dist_dir=result.dist_dir,
+                    password=pwd,
+                    rebuild=False,
+                )
+                return deploy_code
+            except Exception as deploy_err:
+                print(f"[-] [CYBERPULSE INTEL] Lỗi triển khai lên Wuaze: {deploy_err}", file=sys.stderr)
+                return 1
+
         return 0
     except Exception as err:
         print(f"Error generating public portal: {err}", file=sys.stderr)
@@ -1915,6 +1950,7 @@ def main(argv: list[str] | None = None) -> int:
                 run_id=args.run_id,
                 serve=args.serve,
                 port=args.port,
+                deploy=args.deploy,
             )
     elif args.command == "dispatch":
         return run_dispatch(
