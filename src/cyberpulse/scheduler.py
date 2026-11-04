@@ -64,17 +64,22 @@ def write_scheduler_status(output_dir: Path | str, status_data: dict[str, Any]) 
 
 def find_latest_editorial_run_id(output_dir: Path | str) -> str | None:
     """Discover newest published editorial package run_id."""
+    import re
+
     editorial_dir = Path(output_dir) / "editorial"
     if not editorial_dir.exists():
         return None
-    candidates = sorted(
-        [p for p in editorial_dir.glob("*.json") if not p.name.endswith(".original.json")],
-        key=lambda p: p.stat().st_mtime,
-        reverse=True,
-    )
-    if candidates:
-        return candidates[0].stem
-    return None
+    candidates = [p for p in editorial_dir.glob("*.json") if not p.name.endswith(".original.json")]
+    if not candidates:
+        return None
+
+    def _sort_key(p: Path) -> tuple[str, float]:
+        m = re.search(r"^(?:run|standalone)-(\d{8}T\d{6}Z)", p.stem)
+        ts = m.group(1) if m else ""
+        return (ts, p.stat().st_mtime)
+
+    sorted_candidates = sorted(candidates, key=_sort_key, reverse=True)
+    return sorted_candidates[0].stem
 
 
 class PipelineScheduler:

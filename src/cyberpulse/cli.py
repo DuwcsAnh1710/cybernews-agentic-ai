@@ -565,6 +565,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="Skip multi-channel notification dispatch stage",
     )
     scheduler_parser.add_argument(
+        "--no-pipeline",
+        action="store_true",
+        default=False,
+        help="Skip core LLM pipeline collection and use latest existing editorial package",
+    )
+    scheduler_parser.add_argument(
         "--settings",
         type=Path,
         default=Path("config/settings.toml"),
@@ -1609,6 +1615,7 @@ def run_scheduler(
     no_video: bool = False,
     no_podcast: bool = False,
     no_dispatch: bool = False,
+    no_pipeline: bool = False,
 ) -> int:
     """Run autonomous background scheduler daemon or single-shot execution."""
     try:
@@ -1628,6 +1635,7 @@ def run_scheduler(
     generate_podcast = False if no_podcast else None
     generate_video = False if no_video else None
     dispatch_notifications = False if no_dispatch else None
+    run_pipeline = False if no_pipeline else None
 
     scheduler = PipelineScheduler(
         settings=settings,
@@ -1635,6 +1643,7 @@ def run_scheduler(
         sources_path=sources_path,
         dist_dir=dist_dir,
         interval_hours=interval_hours,
+        run_pipeline=run_pipeline,
         generate_podcast=generate_podcast,
         generate_video=generate_video,
         dispatch_notifications=dispatch_notifications,
@@ -1935,6 +1944,7 @@ def main(argv: list[str] | None = None) -> int:
             no_video=args.no_video,
             no_podcast=args.no_podcast,
             no_dispatch=args.no_dispatch,
+            no_pipeline=args.no_pipeline,
         )
     return 0
 
