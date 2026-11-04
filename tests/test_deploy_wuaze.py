@@ -288,3 +288,87 @@ def test_main_cli_missing_password_non_interactive(monkeypatch: pytest.MonkeyPat
 
         deploy_wuaze.main()
         mock_exit.assert_called_once_with(deploy_wuaze.EXIT_AUTH_FAILED)
+
+
+def test_is_forbidden_media_file() -> None:
+    """Verify that video and audio formats are flagged as forbidden for InfinityFree."""
+    assert deploy_wuaze.is_forbidden_media_file(Path("podcast.mp3")) is True
+    assert deploy_wuaze.is_forbidden_media_file(Path("video.mp4")) is True
+    assert deploy_wuaze.is_forbidden_media_file(Path("audio.wav")) is True
+    assert deploy_wuaze.is_forbidden_media_file(Path("track.ogg")) is True
+    assert deploy_wuaze.is_forbidden_media_file(Path("movie.mkv")) is True
+
+    # Allowed web files
+    assert deploy_wuaze.is_forbidden_media_file(Path("index.html")) is False
+    assert deploy_wuaze.is_forbidden_media_file(Path("style.css")) is False
+    assert deploy_wuaze.is_forbidden_media_file(Path("app.js")) is False
+    assert deploy_wuaze.is_forbidden_media_file(Path("cover.png")) is False
+    assert deploy_wuaze.is_forbidden_media_file(Path("logo.svg")) is False
+
+
+def test_upload_file_with_retry_rejects_forbidden_media(tmp_path: Path) -> None:
+    """Verify that upload_file_with_retry rejects mp3/mp4 files."""
+    mp3_file = tmp_path / "test.mp3"
+    mp3_file.write_bytes(b"FAKE_AUDIO")
+    mock_ftp = MagicMock()
+
+    result = deploy_wuaze.upload_file_with_retry(mock_ftp, mp3_file, "test.mp3")
+    assert result is False
+    mock_ftp.storbinary.assert_not_called()
+
+
+def test_cleanup_remote_prohibited_media() -> None:
+    """Verify that cleanup_remote_prohibited_media deletes .mp3 and .mp4 files on FTP server."""
+    mock_ftp = MagicMock()
+    mock_ftp.nlst.side_effect = [
+        ["index.html", "run-1.mp4"],  # root dir items
+        ["run-1.mp3", "cover.png"],   # media/ dir items
+    ]
+
+    deleted = deploy_wuaze.cleanup_remote_prohibited_media(mock_ftp, "/htdocs")
+    assert deleted == 2
+    mock_ftp.delete.assert_any_call("run-1.mp4")
+    mock_ftp.delete.assert_any_call("run-1.mp3")
+
+
+def test_upload_portal_skips_media_files_zero_storage(tmp_path: Path) -> None:
+    """Verify upload_portal completely ignores .mp3 and .mp4 files in dist_dir (Zero Media Storage)."""
+    dist_dir = tmp_path / "dist"
+    dist_dir.mkdir()
+    (dist_dir / "index.html").write_text("<h1>CyberPulse</h1>", encoding="utf-8")
+    (dist_dir / "assets").mkdir()
+    (dist_dir / "assets" / "style.css").write_text("body {}", encoding="utf-8")
+
+    # Add forbidden media files that must NOT be uploaded
+    media_dir = dist_dir / "media"
+    media_dir.mkdir()
+    (media_dir / "run-test.mp3").write_bytes(b"LARGE_AUDIO_DATA")
+    (media_dir / "run-test.mp4").write_bytes(b"LARGE_VIDEO_DATA")
+    (media_dir / "run-test_cover.png").write_bytes(b"IMAGE_PNG_DATA")
+
+    mock_ftp = MagicMock()
+    mock_ftp.nlst.return_value = []
+
+    uploaded_files: list[str] = []
+
+    def mock_upload(ftp: MagicMock, local_path: Path, filename: str, **kwargs: object) -> bool:
+        uploaded_files.append(filename)
+        return True
+
+    with patch("deploy_wuaze.ensure_dist_ready", return_value=True), \
+         patch("deploy_wuaze.connect_ftp", return_value=(mock_ftp, deploy_wuaze.EXIT_SUCCESS, "")), \
+         patch("deploy_wuaze.discover_target_roots", return_value=["/htdocs"]), \
+         patch("deploy_wuaze.upload_file_with_retry", side_effect=mock_upload):
+
+        code = deploy_wuaze.upload_portal(dist_dir=dist_dir)
+        assert code == deploy_wuaze.EXIT_SUCCESS
+
+        # Allowed files should be uploaded
+        assert "index.html" in uploaded_files
+        assert "style.css" in uploaded_files
+        assert "run-test_cover.png" in uploaded_files
+
+        # Absolutely NO mp3 or mp4 uploaded
+        assert "run-test.mp3" not in uploaded_files
+        assert "run-test.mp4" not in uploaded_files
+

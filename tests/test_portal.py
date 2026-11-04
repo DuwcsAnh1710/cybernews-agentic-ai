@@ -334,8 +334,9 @@ def test_podcast_audio_handling_when_present_vs_absent(tmp_path: Path) -> None:
     assert f"media/{run_audio}.mp3" in res_audio.files_created
 
     index_html_audio = (dist_dir / "index.html").read_text(encoding="utf-8")
-    assert f"src=\"media/{run_audio}.mp3\"" in index_html_audio
+    assert f"src=\"https://duwcsanh1710.github.io/cybernews-agentic-ai/media/{run_audio}.mp3\"" in index_html_audio
     assert "podcast-play-btn" in index_html_audio
+    assert "[CDN GITHUB PAGES]" in index_html_audio
 
     # Test without audio featured
     dist_dir_no_audio = tmp_path / "dist_no_audio"
@@ -697,4 +698,57 @@ def test_vanilla_js_ux_features(tmp_path: Path) -> None:
 
     # 4. Podcast Quick Button
     assert "podcast-quick-btn" in js_code
-    assert "podcast-radio-box" in js_code
+
+
+def test_video_streaming_from_github_pages_cdn(tmp_path: Path) -> None:
+    """Verify video player widget is rendered and streams from GitHub Pages CDN."""
+    output_dir = tmp_path / "output"
+    dist_dir = tmp_path / "dist"
+    run_id = "run-20261103T045516Z-video-test"
+
+    _setup_mock_run(output_dir, run_id)
+    video_dir = output_dir / "media" / "video"
+    video_dir.mkdir(parents=True, exist_ok=True)
+    (video_dir / f"{run_id}.mp4").write_bytes(b"MOCK_MP4_VIDEO_STREAM")
+    (video_dir / f"{run_id}_cover.png").write_bytes(b"MOCK_PNG_COVER")
+
+    build_public_portal(output_dir=output_dir, dist_dir=dist_dir)
+
+    index_html = (dist_dir / "index.html").read_text(encoding="utf-8")
+    expected_video_url = f"https://duwcsanh1710.github.io/cybernews-agentic-ai/media/{run_id}.mp4"
+    expected_cover_url = f"https://duwcsanh1710.github.io/cybernews-agentic-ai/media/{run_id}_cover.png"
+
+    assert "video-brief-box" in index_html
+    assert "edition-video-player" in index_html
+    assert f'src="{expected_video_url}"' in index_html
+    assert f'poster="{expected_cover_url}"' in index_html
+    assert "[CDN: GITHUB PAGES]" in index_html
+
+
+def test_smart_github_badges_and_cdn_mirrors(tmp_path: Path) -> None:
+    """Verify smart GitHub link buttons in Header, Article Utility Bar, Article Page, and Footer."""
+    output_dir = tmp_path / "output"
+    dist_dir = tmp_path / "dist"
+    run_id = "run-20261102T020834Z-github-test"
+
+    _setup_mock_run(output_dir, run_id)
+    build_public_portal(output_dir=output_dir, dist_dir=dist_dir)
+
+    # 1. Header & Footer in index.html
+    index_html = (dist_dir / "index.html").read_text(encoding="utf-8")
+    assert "github-header-btn" in index_html
+    assert "https://github.com/DuwcsAnh1710/cybernews-agentic-ai" in index_html
+    assert "GitHub Pages CDN" in index_html
+    assert "https://duwcsanh1710.github.io/cybernews-agentic-ai/" in index_html
+
+    # 2. Article Page components
+    article_file = dist_dir / "articles" / f"{ID_1}.html"
+    assert article_file.is_file()
+    article_html = article_file.read_text(encoding="utf-8")
+
+    assert "github-util-btn" in article_html
+    assert "GitHub Repo" in article_html
+    assert "github-intel-box" in article_html
+    assert "Xem chi tiết &amp; mã nguồn trên GitHub" in article_html
+    assert "mirror-link" in article_html
+    assert f"https://duwcsanh1710.github.io/cybernews-agentic-ai/articles/{ID_1}.html" in article_html

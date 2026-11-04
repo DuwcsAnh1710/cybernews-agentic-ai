@@ -27,6 +27,28 @@ EXIT_AUTH_FAILED = 2
 EXIT_CONNECTION_ERROR = 3
 EXIT_UPLOAD_ERROR = 4
 
+# Prohibited file types per InfinityFree terms of service (strict ban on hosting video & audio files)
+FORBIDDEN_MEDIA_EXTENSIONS: set[str] = {
+    ".mp4",
+    ".mp3",
+    ".wav",
+    ".ogg",
+    ".m4a",
+    ".flac",
+    ".aac",
+    ".avi",
+    ".mov",
+    ".mkv",
+    ".webm",
+    ".wmv",
+    ".m4v",
+}
+
+
+def is_forbidden_media_file(file_path: Path) -> bool:
+    """Check if file is a video or audio binary prohibited on InfinityFree hosting."""
+    return file_path.suffix.lower() in FORBIDDEN_MEDIA_EXTENSIONS
+
 
 def sanitize_log(msg: str, secret: str = "") -> str:
     """Mask sensitive secrets from log strings."""
@@ -211,7 +233,11 @@ def upload_file_with_retry(
     max_retries: int = DEFAULT_MAX_RETRIES,
     initial_delay: float = 1.0,
 ) -> bool:
-    """Upload a single file via FTP with retry mechanism."""
+    """Upload a single file via FTP with retry mechanism and Zero Media safety check."""
+    if is_forbidden_media_file(local_path):
+        print(f"LOI: Tu choi tai len {filename} (Vi pham chinh sach Zero Media Storage cua InfinityFree)")
+        return False
+
     delay = initial_delay
     for attempt in range(1, max_retries + 1):
         try:
@@ -229,6 +255,32 @@ def upload_file_with_retry(
             print(f"LOI: {err}")
             return False
     return False
+
+
+def cleanup_remote_prohibited_media(ftp: FTP, target_root: str) -> int:
+    """Scan and purge prohibited video/audio files from remote host to satisfy InfinityFree Zero Media Policy.
+
+    Deletes any leftover .mp3, .mp4 or other media binaries that caused or could cause domain suspension.
+    """
+    cleaned_count = 0
+    dirs_to_check = [target_root, f"{target_root.rstrip('/')}/media"]
+    for d in dirs_to_check:
+        try:
+            ftp.cwd(d)
+            items = ftp.nlst()
+            for item in items:
+                clean_name = item.strip("/").split("/")[-1]
+                ext = Path(clean_name).suffix.lower()
+                if ext in FORBIDDEN_MEDIA_EXTENSIONS:
+                    try:
+                        ftp.delete(clean_name)
+                        print(f"  [+] [CYBERPULSE INTEL] Da xoa tep media vi pham tren InfinityFree: {d}/{clean_name}")
+                        cleaned_count += 1
+                    except Exception as del_err:
+                        print(f"  [-] Khong the xoa tep media {clean_name}: {del_err}")
+        except Exception:
+            pass
+    return cleaned_count
 
 
 def upload_portal(
@@ -249,13 +301,26 @@ def upload_portal(
         return EXIT_LOCAL_ERROR
 
     local_files: list[tuple[Path, str]] = []
+    skipped_media_files: list[tuple[Path, str]] = []
     for file_path in sorted(dist_dir.glob("**/*")):
         if file_path.is_file():
             rel = file_path.relative_to(dist_dir).as_posix()
-            local_files.append((file_path, rel))
+            if is_forbidden_media_file(file_path):
+                skipped_media_files.append((file_path, rel))
+            else:
+                local_files.append((file_path, rel))
+
+    if skipped_media_files:
+        total_skipped_mb = sum(p.stat().st_size for p, _ in skipped_media_files) / (1024 * 1024)
+        print(f"[*] [CYBERPULSE INTEL] InfinityFree Zero Media Policy:")
+        print(f"    - Da bo qua {len(skipped_media_files)} tep media ({total_skipped_mb:.2f} MB) khoi danh sach upload len host.")
+        print(f"    - Toan bo video & audio duoc phan phoi tu CDN GitHub Pages de dam bao an toan tai khoan.")
+        for sm_path, sm_rel in skipped_media_files:
+            sm_size_kb = sm_path.stat().st_size / 1024
+            print(f"    * [SKIPPED] {sm_rel} ({sm_size_kb:.1f} KB)")
 
     if not local_files:
-        print(f"[-] Loi: Khong tim thay tep nao trong '{dist_dir}'.")
+        print(f"[-] Loi: Khong tim thay tep nao hop le de tai len trong '{dist_dir}'.")
         return EXIT_LOCAL_ERROR
 
     # Step 2: Connect with retries
@@ -279,6 +344,11 @@ def upload_portal(
     try:
         for target_root in target_roots:
             print(f"\n[*] Dang trien khai toi thu muc: {target_root}")
+            # Purge any leftover prohibited media files from hosting
+            cleaned_media = cleanup_remote_prohibited_media(ftp, target_root)
+            if cleaned_media > 0:
+                print(f"  [+] [CYBERPULSE INTEL] Da don dep {cleaned_media} tep media vi pham tren hosting.")
+
             # Remove default InfinityFree index2.html/index2.htm to prevent holding page
             try:
                 ftp.cwd(target_root)
