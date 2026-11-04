@@ -34,6 +34,24 @@ class PortalBuildResult:
     has_audio: bool
 
 
+# Official GitHub Repository and GitHub Pages CDN endpoints
+GITHUB_REPO_URL: str = "https://github.com/DuwcsAnh1710/cybernews-agentic-ai"
+GITHUB_PAGES_CDN_URL: str = "https://duwcsanh1710.github.io/cybernews-agentic-ai"
+
+# Inline SVG fallback for GitHub Octocat logo (18x18 / 24x24 compatible)
+GITHUB_SVG_ICON: str = (
+    '<svg class="github-svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">'
+    '<path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 '
+    '0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695'
+    '-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99'
+    '.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225'
+    '-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405'
+    'c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605'
+    '-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57'
+    'A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>'
+    '</svg>'
+)
+
 # Google Material Symbols Outlined stylesheet URL
 MATERIAL_SYMBOLS_STYLESHEET: str = (
     "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
@@ -188,6 +206,14 @@ MATERIAL_FALLBACK_SVGS: dict[str, str] = {
         '<circle cx="16" cy="14" r="1" fill="currentColor"></circle>'
         '<circle cx="8" cy="18" r="1" fill="currentColor"></circle>'
         '<circle cx="12" cy="18" r="1" fill="currentColor"></circle></svg>'
+    ),
+    "smart_display": (
+        '<svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">'
+        '<path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-10 12.5v-9l6 4.5-6 4.5z"></path></svg>'
+    ),
+    "code": (
+        '<svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+        '<polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>'
     ),
 }
 
@@ -493,16 +519,23 @@ def _render_article_utility_bar(
     parent_edition_link: str,
     edition_date: str,
     baseline_views: int = 1248,
+    github_url: str = GITHUB_REPO_URL,
 ) -> str:
-    """Render single article reading utility bar with back-to-edition link, font resizer, and view counter."""
+    """Render single article reading utility bar with back-to-edition link, GitHub repo badge, font resizer, and view counter."""
     arrow_back_icon = render_material_symbol("arrow_back")
     visibility_icon = render_material_symbol("visibility")
+    open_icon = render_material_symbol("open_in_new", extra_class="icon-util-ext")
     formatted_views = f"{baseline_views:,}"
     return f"""<div class="article-utility-bar">
   <a href="../{parent_edition_link}" class="back-edition-btn">
     {arrow_back_icon} <span>Về bản tin ngày {edition_date}</span>
   </a>
   <div class="utility-actions">
+    <a href="{github_url}" target="_blank" rel="noopener noreferrer" class="github-util-btn" title="Xem chi tiết &amp; mã nguồn trên GitHub">
+      {GITHUB_SVG_ICON}
+      <span>GitHub Repo</span>
+      {open_icon}
+    </a>
     <div class="font-resizer">
       <button id="font-decrease" title="Giảm cỡ chữ" aria-label="Giảm cỡ chữ">A-</button>
       <button id="font-increase" title="Tăng cỡ chữ" aria-label="Tăng cỡ chữ">A+</button>
@@ -2222,6 +2255,221 @@ body {
   color: var(--accent-cyber);
 }
 
+/* GitHub Header Button */
+.github-header-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.github-header-btn:hover {
+  border-color: var(--accent-cyber);
+  background-color: var(--accent-cyber-glow);
+  color: var(--accent-cyber);
+  transform: translateY(-1px);
+}
+
+.github-header-btn .icon-github-ext {
+  font-size: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+  opacity: 0.7;
+}
+
+/* GitHub Utility Button in Article Utility Bar */
+.github-util-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+
+.github-util-btn:hover {
+  border-color: var(--accent-cyber);
+  color: var(--accent-cyber);
+  background: var(--bg-surface);
+}
+
+.github-util-btn .icon-util-ext {
+  font-size: 14px !important;
+  width: 14px !important;
+  height: 14px !important;
+  opacity: 0.7;
+}
+
+/* GitHub Intel Box in Article Page */
+.github-intel-box {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.05) 0%, rgba(13, 21, 39, 0.5) 100%);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  border-left: 4px solid var(--accent-cyber);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.github-intel-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.github-intel-info .github-svg-icon {
+  width: 28px;
+  height: 28px;
+  color: var(--accent-cyber);
+  flex-shrink: 0;
+}
+
+.github-intel-title {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+
+.github-intel-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.btn-github-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--accent-cyber);
+  color: var(--accent-cyber);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-github-action:hover {
+  background: var(--accent-cyber);
+  color: #070b14;
+  transform: translateY(-1px);
+}
+
+/* Video Brief Widget & Streaming Player */
+.video-brief-box {
+  background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-surface) 100%);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.video-badge-live {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  background: rgba(0, 230, 118, 0.15);
+  color: #00e676;
+  border: 1px solid rgba(0, 230, 118, 0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+  margin-left: auto;
+  letter-spacing: 0.04em;
+}
+
+.video-container {
+  width: 100%;
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.edition-video-player {
+  width: 100%;
+  max-height: 480px;
+  aspect-ratio: 9/16;
+  object-fit: contain;
+  background: #000;
+  border-radius: 8px;
+  outline: none;
+}
+
+.video-caption {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.video-source-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--accent-cyber);
+  font-weight: 700;
+}
+
+/* Podcast CDN Stream Badge */
+.podcast-badge-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.cdn-stream-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--accent-cyber);
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.source-box .mirror-link {
+  border-color: rgba(0, 240, 255, 0.3);
+  color: var(--accent-cyber);
+}
+
+.source-box .mirror-link:hover {
+  background: rgba(0, 240, 255, 0.1);
+  border-color: var(--accent-cyber);
+}
+
 /* Responsive Breakpoints */
 @media (max-width: 960px) {
   .portal-grid {
@@ -2629,6 +2877,11 @@ def _render_header(
           <span class="search-icon-pos">{search_icon}</span>
           <input type="text" id="search-input" class="search-input" placeholder="Tìm kiếm tin bảo mật, CVE..." aria-label="Tìm kiếm">
         </div>
+        <a href="{GITHUB_REPO_URL}" target="_blank" rel="noopener noreferrer" class="github-header-btn" title="Xem chi tiết &amp; mã nguồn trên GitHub">
+          {GITHUB_SVG_ICON}
+          <span class="github-btn-text">GitHub</span>
+          {render_material_symbol("open_in_new", extra_class="icon-github-ext")}
+        </a>
         <button id="theme-toggle" class="theme-toggle-btn" aria-label="Chuyển chế độ sáng/tối" title="Chuyển chế độ giao diện">
           {dark_icon}
           {light_icon}
@@ -2641,7 +2894,7 @@ def _render_header(
 
 
 def _render_footer(base_prefix: str = "") -> str:
-    """Render semantic footer with copyright and navigation links (ABSOLUTELY NO JSON FEED)."""
+    """Render semantic footer with copyright, GitHub and CDN links (ABSOLUTELY NO JSON FEED)."""
     home_link = f"{base_prefix}index.html"
     archive_link = f"{base_prefix}archive.html"
 
@@ -2653,6 +2906,8 @@ def _render_footer(base_prefix: str = "") -> str:
     <div class="footer-links">
       <a href="{home_link}" class="footer-link">Trang chủ</a>
       <a href="{archive_link}" class="footer-link">Kho lưu trữ</a>
+      <a href="{GITHUB_REPO_URL}" target="_blank" rel="noopener noreferrer" class="footer-link">Mã nguồn GitHub</a>
+      <a href="{GITHUB_PAGES_CDN_URL}/" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub Pages CDN</a>
     </div>
   </div>
 </footer>"""
@@ -2667,8 +2922,11 @@ def _render_sidebar(
     active_cves: list[str],
     vulnerable_tech: list[str],
     base_prefix: str = "",
+    has_video: bool = False,
+    video_src: str | None = None,
+    video_cover_src: str | None = None,
 ) -> str:
-    """Render sticky sidebar with 4 widgets (Podcast, Trending Stories, Threat Radar, Recent Editions)."""
+    """Render sticky sidebar with widgets (Podcast, Video Intelligence, Trending Stories, Threat Radar, Recent Editions)."""
     # 1. Widget 1: Podcast Radio Box
     podcasts_icon = render_material_symbol("podcasts")
     play_icon = render_material_symbol("play_circle", extra_class="btn-play")
@@ -2687,7 +2945,10 @@ def _render_sidebar(
       <span class="waveform-bar"></span>
     </div>
   </div>
-  <div class="podcast-badge">Bản tin AI Voiceover</div>
+  <div class="podcast-badge-wrap">
+    <div class="podcast-badge">Bản tin AI Voiceover</div>
+    <span class="cdn-stream-badge">[CDN GITHUB PAGES]</span>
+  </div>
   <audio id="podcast-audio" preload="metadata" src="{audio_src}"></audio>
   <div class="podcast-controls">
     <button id="podcast-play-btn" class="podcast-play-btn" aria-label="Phát bản tin">
@@ -2711,6 +2972,28 @@ def _render_sidebar(
     <span>Podcast Radio Box</span>
   </div>
   <p style="font-size:0.85rem; color:var(--text-muted);">Ấn bản hiện tại ở định dạng văn bản đọc.</p>
+</div>"""
+
+    # Video Widget: CyberPulse Video Intelligence (9:16 Short-form Video Player)
+    video_widget = ""
+    if has_video and video_src:
+        video_icon = render_material_symbol("smart_display")
+        poster_attr = f' poster="{html.escape(video_cover_src)}"' if video_cover_src else ""
+        video_widget = f"""<div id="video-brief-box" class="video-brief-box sidebar-widget">
+  <div class="widget-title">
+    {video_icon}
+    <span>Video Brief 9:16</span>
+    <span class="video-badge-live">HD STREAM</span>
+  </div>
+  <div class="video-container">
+    <video id="edition-video" controls preload="metadata" playsinline src="{html.escape(video_src)}"{poster_attr} class="edition-video-player">
+      Trình duyệt không hỗ trợ thẻ video HTML5.
+    </video>
+  </div>
+  <div class="video-caption">
+    <span class="video-source-badge">[CDN: GITHUB PAGES]</span>
+    <p>Bản tin tóm tắt an ninh mạng định dạng video ngắn 9:16.</p>
+  </div>
 </div>"""
 
     # 2. Widget 2: Trending Stories / Tin đọc nhiều (Top 5 numbered 01-05)
@@ -2785,6 +3068,7 @@ def _render_sidebar(
 
     return f"""<aside class="portal-sidebar">
   {podcast_widget}
+  {video_widget}
   {trending_widget}
   {threat_widget}
   {archive_widget}
@@ -2929,6 +3213,7 @@ def _render_dedicated_article_page(
       <span class="badge {badge.css_class}">{html.escape(badge.label)}</span>
     </div>
     <div class="article-share-group">
+      <a href="{GITHUB_REPO_URL}" target="_blank" rel="noopener noreferrer" class="share-btn" title="Xem chi tiết &amp; mã nguồn trên GitHub">{GITHUB_SVG_ICON}</a>
       <button class="share-btn" onclick="copyCurrentUrl()" title="Sao chép liên kết">{copy_icon}</button>
       <button class="share-btn" onclick="copyCurrentUrl()" title="Chia sẻ">{share_icon}</button>
     </div>
@@ -2981,17 +3266,37 @@ def _render_dedicated_article_page(
     </ul>
   </div>
 
+  <div class="github-intel-box">
+    <div class="github-intel-info">
+      {GITHUB_SVG_ICON}
+      <div>
+        <div class="github-intel-title">CyberPulse Agentic Intelligence Platform</div>
+        <div class="github-intel-desc">Bản tin an ninh mạng được phân tích, thẩm định tự động và lưu trữ minh bạch trên GitHub Repository &amp; CDN.</div>
+      </div>
+    </div>
+    <a href="{GITHUB_REPO_URL}" target="_blank" rel="noopener noreferrer" class="btn-github-action">
+      <span>Xem chi tiết &amp; mã nguồn trên GitHub</span>
+      {open_icon}
+    </a>
+  </div>
+
   {podcast_snippet_html}
 
   <div class="source-box">
     <div>
-      <div class="source-box-title">Nguồn tin phân tích gốc:</div>
+      <div class="source-box-title">Nguồn tin phân tích gốc &amp; Bản sao CDN:</div>
       <div class="source-box-name">{html.escape(article.source_name)} — {html.escape(article.title)}</div>
     </div>
-    <a href="{html.escape(article.url)}" target="_blank" rel="noopener noreferrer" class="source-external-link">
-      <span>Đọc bài gốc trên {html.escape(article.source_name)}</span>
-      {open_icon}
-    </a>
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <a href="{html.escape(article.url)}" target="_blank" rel="noopener noreferrer" class="source-external-link">
+        <span>Đọc bài gốc trên {html.escape(article.source_name)}</span>
+        {open_icon}
+      </a>
+      <a href="{GITHUB_PAGES_CDN_URL}/articles/{article.id}.html" target="_blank" rel="noopener noreferrer" class="source-external-link mirror-link" title="Xem bài viết trên GitHub Pages CDN">
+        <span>GitHub Pages Mirror</span>
+        {open_icon}
+      </a>
+    </div>
   </div>
 
   {pagination_html}
@@ -3021,6 +3326,7 @@ def build_public_portal(
     output_dir: Path,
     dist_dir: Path = Path("dist"),
     featured_run_id: str | None = None,
+    cdn_media_base_url: str = GITHUB_PAGES_CDN_URL,
 ) -> PortalBuildResult:
     """Build static reader portal into dist_dir with The Hacker News 2-column architecture.
 
@@ -3029,11 +3335,18 @@ def build_public_portal(
     3. Generates dedicated standalone single article pages (dist/articles/<article_id>.html).
     4. Generates archive page (dist/archive.html) and edition pages (dist/editions/<run_id>.html).
     5. Writes assets (style.css, app.js) with 24x24 Google Material Symbols.
-    6. Copies podcast media files when available.
-    7. ABSOLUTELY NO JSON FEED generation or references.
+    6. Streams podcast audio and video from GitHub Pages CDN without local host storage.
+    7. Copies media files to dist for GitHub Pages deployment.
+    8. ABSOLUTELY NO JSON FEED generation or references.
     """
     out_path = Path(output_dir)
     dist_path = Path(dist_dir)
+
+    def _resolve_media_url(filename: str, local_prefix: str = "") -> str:
+        """Resolve streaming media URL from GitHub Pages CDN or fallback to local relative path."""
+        if cdn_media_base_url:
+            return f"{cdn_media_base_url.rstrip('/')}/media/{filename}"
+        return f"{local_prefix}media/{filename}"
 
     # Prepare directories
     assets_dir = dist_path / "assets"
@@ -3105,6 +3418,11 @@ def build_public_portal(
 
                 # Check for video media in media/video
                 src_mp4 = out_path / "media" / "video" / f"{pkg.run_id}.mp4"
+                if not src_mp4.exists():
+                    src_mp4 = out_path / "export" / pkg.run_id / f"{pkg.run_id}.mp4"
+                if not src_mp4.exists():
+                    src_mp4 = Path("export") / pkg.run_id / f"{pkg.run_id}.mp4"
+
                 has_video = False
                 if src_mp4.exists() and src_mp4.is_file():
                     media_dist_dir.mkdir(parents=True, exist_ok=True)
@@ -3112,10 +3430,14 @@ def build_public_portal(
                     shutil.copy2(src_mp4, dest_mp4)
                     has_video = True
                     files_created.append(f"media/{pkg.run_id}.mp4")
-                    src_cover = out_path / "media" / "video" / f"{pkg.run_id}_cover.png"
-                    if src_cover.exists() and src_cover.is_file():
-                        shutil.copy2(src_cover, media_dist_dir / f"{pkg.run_id}_cover.png")
-                        files_created.append(f"media/{pkg.run_id}_cover.png")
+
+                src_cover = out_path / "media" / "video" / f"{pkg.run_id}_cover.png"
+                has_cover = False
+                if src_cover.exists() and src_cover.is_file():
+                    media_dist_dir.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(src_cover, media_dist_dir / f"{pkg.run_id}_cover.png")
+                    has_cover = True
+                    files_created.append(f"media/{pkg.run_id}_cover.png")
 
                 editions_data.append({
                     "package": pkg,
@@ -3123,6 +3445,8 @@ def build_public_portal(
                     "dt_vn_str": format_vietnam_time(dt),
                     "article_lookup": article_lookup,
                     "has_audio": has_audio,
+                    "has_video": has_video,
+                    "has_cover": has_cover,
                     "article_count": len(pkg.digest.sections),
                 })
             except Exception as err:
@@ -3153,7 +3477,9 @@ def build_public_portal(
     for ed in editions_data:
         pkg = ed["package"]
         ed_dt_str = ed["dt_vn_str"]
-        audio_src_rel = f"../media/{pkg.run_id}.mp3" if ed["has_audio"] else None
+        audio_src_rel = _resolve_media_url(f"{pkg.run_id}.mp3", "../") if ed["has_audio"] else None
+        video_src_rel = _resolve_media_url(f"{pkg.run_id}.mp4", "../") if ed["has_video"] else None
+        video_cover_rel = _resolve_media_url(f"{pkg.run_id}_cover.png", "../") if ed.get("has_cover") else None
 
         # Gather trending, active CVEs, and tech for this edition
         trending_stories: list[dict[str, Any]] = []
@@ -3185,6 +3511,9 @@ def build_public_portal(
             active_cves=unique_cves,
             vulnerable_tech=unique_tech,
             base_prefix="../",
+            has_video=ed["has_video"],
+            video_src=video_src_rel,
+            video_cover_src=video_cover_rel,
         )
 
         # Gather ordered list of articles for this edition to enable pagination
@@ -3270,7 +3599,9 @@ def build_public_portal(
     if featured_entry:
         featured_pkg = featured_entry["package"]
         featured_dt_str = featured_entry["dt_vn_str"]
-        audio_src_home = f"media/{featured_pkg.run_id}.mp3" if featured_entry["has_audio"] else None
+        audio_src_home = _resolve_media_url(f"{featured_pkg.run_id}.mp3", "") if featured_entry["has_audio"] else None
+        video_src_home = _resolve_media_url(f"{featured_pkg.run_id}.mp4", "") if featured_entry.get("has_video") else None
+        video_cover_home = _resolve_media_url(f"{featured_pkg.run_id}_cover.png", "") if featured_entry.get("has_cover") else None
 
         # Build trending, cves, and tech for featured edition
         trending_home: list[dict[str, Any]] = []
@@ -3299,6 +3630,9 @@ def build_public_portal(
             active_cves=unique_home_cves,
             vulnerable_tech=unique_home_tech,
             base_prefix="",
+            has_video=featured_entry.get("has_video", False),
+            video_src=video_src_home,
+            video_cover_src=video_cover_home,
         )
 
         # Counts for interactive filter pills
@@ -3442,7 +3776,9 @@ def build_public_portal(
     for ed in editions_data:
         pkg = ed["package"]
         ed_dt_str = ed["dt_vn_str"]
-        audio_src_ed = f"../media/{pkg.run_id}.mp3" if ed["has_audio"] else None
+        audio_src_ed = _resolve_media_url(f"{pkg.run_id}.mp3", "../") if ed["has_audio"] else None
+        video_src_ed = _resolve_media_url(f"{pkg.run_id}.mp4", "../") if ed["has_video"] else None
+        video_cover_ed = _resolve_media_url(f"{pkg.run_id}_cover.png", "../") if ed.get("has_cover") else None
 
         # Counts for interactive filter pills
         sec_badges = [detect_threat_badge(f"{sec.heading} {sec.body.text}") for sec in pkg.digest.sections]
@@ -3486,6 +3822,9 @@ def build_public_portal(
             active_cves=unique_ed_cves,
             vulnerable_tech=unique_ed_tech,
             base_prefix="../",
+            has_video=ed["has_video"],
+            video_src=video_src_ed,
+            video_cover_src=video_cover_ed,
         )
 
         ed_stories_html: list[str] = []
