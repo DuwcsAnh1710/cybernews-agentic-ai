@@ -1,0 +1,143 @@
+1
+00:00:00,000 --> 00:00:01,774
+[Minh] Xin chào các bạn nghe đài!
+
+2
+00:00:01,774 --> 00:00:05,800
+Chào mừng quay trở lại với podcast công nghệ của chúng tôi.
+
+3
+00:00:05,800 --> 00:00:08,802
+Hôm nay, tôi là Minh, và đi cùng tôi là Lan.
+
+4
+00:00:08,802 --> 00:00:14,192
+Chúng ta sẽ điểm qua những tin tức bảo mật rất đáng chú ý gần đây liên quan đến
+
+5
+00:00:14,192 --> 00:00:17,808
+Debian, Ruby on Rails, ngành hàng không và ngân hàng.
+
+6
+00:00:18,158 --> 00:00:20,552
+[Lan] Chào Minh và chào tất cả các bạn.
+
+7
+00:00:20,552 --> 00:00:26,429
+Mở đầu tin tức hôm nay là một lỗ hổng nghiêm trọng trên trình quản lý gói APT của
+
+8
+00:00:26,429 --> 00:00:27,662
+Debian và Ubuntu.
+
+9
+00:00:28,012 --> 00:00:32,823
+[Minh] Đúng vậy Lan. Lỗ hổng này cho phép kẻ tấn công thực hiện Man-in-the-Middle,
+
+10
+00:00:32,823 --> 00:00:38,212
+tráo đổi gói phần mềm đã qua kiểm tra bằng mã độc của chúng và chạy dưới quyền root.
+
+11
+00:00:38,212 --> 00:00:42,574
+Đáng nói là cuộc tấn công yêu cầu APT thử lại các lượt tải thất bại,
+
+12
+00:00:42,574 --> 00:00:44,884
+vốn là cơ chế mặc định từ Debian 12.
+
+13
+00:00:45,234 --> 00:00:48,295
+[Lan] Một thông tin đáng lo ngại cho người dùng Linux!
+
+14
+00:00:48,295 --> 00:00:53,588
+Tiếp theo là lỗ hổng nghiêm trọng trong Ruby on Rails liên quan đến Active Storage.
+
+15
+00:00:53,588 --> 00:00:56,713
+Nếu ứng dụng xử lý file tải lên bằng ImageMagick,
+
+16
+00:00:56,713 --> 00:01:00,474
+kẻ tấn công chưa xác thực có thể ghi tệp tùy ý lên máy chủ.
+
+17
+00:01:00,824 --> 00:01:01,456
+[Minh] Đúng thế,
+
+18
+00:01:01,456 --> 00:01:07,359
+Rails đã công bố khuyến nghị bảo mật và phát hành bản vá trong các phiên bản 8.1.4.1
+
+19
+00:01:07,359 --> 00:01:12,560
+và 8.0.5.2. Các nhà phát triển web dùng Rails chắc chắn cần cập nhật ngay.
+
+20
+00:01:12,910 --> 00:01:15,244
+[Lan] Chuyển sang tin tức về chuỗi cung ứng,
+
+21
+00:01:15,244 --> 00:01:20,342
+nhiều hãng hàng không châu Á vừa thông báo về sự cố rò rỉ dữ liệu liên quan đến nhà
+
+22
+00:01:20,342 --> 00:01:21,694
+cung cấp CNTT Amadeus.
+
+23
+00:01:22,044 --> 00:01:27,259
+[Minh] Các hãng bị ảnh hưởng bao gồm Japan Airlines, Cathay Pacific, Korean Air,
+
+24
+00:01:27,259 --> 00:01:31,331
+Asiana Airlines, Singapore Airlines và Malaysia Airlines.
+
+25
+00:01:31,331 --> 00:01:33,903
+Sự cố xuất phát từ Amadeus IT Group,
+
+26
+00:01:33,903 --> 00:01:37,332
+nơi cung cấp nền tảng đặt vé và làm thủ tục bay.
+
+27
+00:01:37,682 --> 00:01:39,527
+[Lan] Không chỉ các hãng hàng không,
+
+28
+00:01:39,527 --> 00:01:43,524
+thiết bị an ninh email của Barracuda cũng gặp sự cố nghiêm trọng.
+
+29
+00:01:43,524 --> 00:01:48,443
+Lỗ hổng bỏ qua xác thực kết hợp với lỗ hổng chèn lệnh cho phép kẻ tấn công chiếm
+
+30
+00:01:48,443 --> 00:01:52,010
+quyền root trên thiết bị Barracuda Email Security Gateway.
+
+31
+00:01:52,360 --> 00:01:57,466
+[Minh] Và cuối cùng, một ngân hàng Pháp là Crédit Mutuel Arkéa xác nhận bị tấn công mạng.
+
+32
+00:01:57,466 --> 00:02:02,634
+Kẻ tấn công đã thực hiện chuyển tiền bằng tài khoản của chính ngân hàng sau khi xâm
+
+33
+00:02:02,634 --> 00:02:05,374
+nhập một nhà cung cấp chưa được tiết lộ tên,
+
+34
+00:02:05,374 --> 00:02:08,176
+với thiệt hại ước tính lên tới 133 triệu USD.
+
+35
+00:02:08,526 --> 00:02:13,892
+[Lan] Những vụ việc này cho thấy rủi ro từ chuỗi cung ứng và lỗ hổng phần mềm lớn tới mức
+
+36
+00:02:13,892 --> 00:02:18,030
+nào. Hãy luôn cập nhật bản vá bảo mật cho hệ thống của mình nhé!

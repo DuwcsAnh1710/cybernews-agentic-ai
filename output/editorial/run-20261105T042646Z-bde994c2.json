@@ -1,0 +1,303 @@
+{
+  "run_id": "run-20261105T042646Z-bde994c2",
+  "language": "vi",
+  "digest": {
+    "title": "Bản tin An ninh mạng: Lỗ hổng nghiêm trọng trên APT, Ruby on Rails và các vụ sự cố chuỗi cung ứng",
+    "intro": "Điểm tin an ninh mạng hôm nay cập nhật các lỗ hổng nguy hiểm trong trình quản lý gói APT của Debian/Ubuntu, Ruby on Rails và thiết bị Barracuda ESG. Bên cạnh đó là các sự cố rò rỉ dữ liệu và trộm tiền quy mô lớn xuất phát từ rủi ro chuỗi cung ứng của các nhà cung cấp bên thứ ba.",
+    "sections": [
+      {
+        "heading": "Lỗ hổng APT trên Debian và Ubuntu cho phép tấn công MitM và thực thi quyền Root",
+        "body": {
+          "text": "Trình quản lý gói APT (Advanced Package Tool) trên Debian và Ubuntu gặp một lỗ hổng nghiêm trọng. Lỗ hổng này cho phép kẻ tấn công thực hiện Man-in-the-Middle (MitM - tấn công trung gian) hoán đổi gói phần mềm đã qua kiểm tra bằng mã độc. Mã độc của kẻ tấn công sau đó sẽ chạy với quyền root (quyền quản trị cao nhất). Cuộc tấn công xảy ra khi APT thực hiện lại các lượt tải xuống bị lỗi, một cơ chế được bật mặc định từ Debian 12.",
+          "cited_article_ids": [
+            "f72f567cab23b3cb"
+          ]
+        }
+      },
+      {
+        "heading": "Lỗ hổng nghiêm trọng trong Ruby on Rails cho phép ghi tệp trái phép lên máy chủ",
+        "body": {
+          "text": "Một lỗ hổng nghiêm trọng liên quan đến Active Storage (thành phần xử lý tải tệp) trong Ruby on Rails cho phép kẻ tấn công chưa xác thực ghi tệp tùy ý lên máy chủ. Sự cố xảy ra khi ứng dụng xử lý các tải lên thông qua ImageMagick bằng một tệp được tạo sẵn. Dự án Rails đã công bố khuyến nghị an ninh và phát hành bản vá trong các phiên bản 8.1.4.1 và 8.0.5.2.",
+          "cited_article_ids": [
+            "eeeb8b0c17d40904"
+          ]
+        }
+      },
+      {
+        "heading": "Nhiều hãng hàng không châu Á lộ rò rỉ dữ liệu từ sự cố của Amadeus IT Group",
+        "body": {
+          "text": "Các hãng hàng không lớn bao gồm Japan Airlines, Cathay Pacific, Korean Air, Asiana Airlines, Singapore Airlines và Malaysia Airlines đã báo cáo các vụ rò rỉ dữ liệu. Các sự cố này được xác định có nguồn gốc từ vụ tấn công nhằm vào Amadeus IT Group, nhà cung cấp phần mềm xây dựng và duy trì hệ thống đặt vé, xuất vé và làm thủ tục chuyến bay.",
+          "cited_article_ids": [
+            "5045883ec41b7061"
+          ]
+        }
+      },
+      {
+        "heading": "Thiết bị Barracuda ESG gặp lỗi vượt qua xác thực cho phép lấy quyền Root",
+        "body": {
+          "text": "Thiết bị Email Security Gateway (ESG - Cổng an ninh email) của Barracuda xuất hiện lỗ hổng cho phép vượt qua xác thực (Authentication Bypass) kết hợp với lỗi tiêm lệnh (Command Injection). Sự kết hợp này cho phép kẻ tấn công chiếm quyền truy cập root trên hệ thống.",
+          "cited_article_ids": [
+            "77b68f7046a54f46"
+          ]
+        }
+      },
+      {
+        "heading": "Ngân hàng Pháp Crédit Mutuel Arkéa bị tấn công mạng mất khoảng 133 triệu USD",
+        "body": {
+          "text": "Ngân hàng Crédit Mutuel Arkéa của Pháp xác nhận một vụ trộm mạng sau khi kẻ tấn công thỏa hiệp một nhà cung cấp chưa được nêu tên. Kẻ tấn công đã lợi dụng quyền truy cập này để thực hiện các giao dịch chuyển tiền trực tiếp bằng tài khoản của chính ngân hàng, ước tính thiệt hại khoảng 133 triệu USD.",
+          "cited_article_ids": [
+            "cd1d23b48c3f127d"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: Từ Lỗ Hổng Hệ Thống Đến Các Vụ Tấn Công Chuỗi Cung Ứng",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Xin chào các bạn nghe đài! Chào mừng quay trở lại với podcast công nghệ của chúng tôi. Hôm nay, tôi là Minh, và đi cùng tôi là Lan. Chúng ta sẽ điểm qua những tin tức bảo mật rất đáng chú ý gần đây liên quan đến Debian, Ruby on Rails, ngành hàng không và ngân hàng.",
+          "cited_article_ids": [
+            "f72f567cab23b3cb",
+            "eeeb8b0c17d40904",
+            "5045883ec41b7061",
+            "77b68f7046a54f46",
+            "cd1d23b48c3f127d"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào Minh và chào tất cả các bạn. Mở đầu tin tức hôm nay là một lỗ hổng nghiêm trọng trên trình quản lý gói APT của Debian và Ubuntu.",
+          "cited_article_ids": [
+            "f72f567cab23b3cb"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đúng vậy Lan. Lỗ hổng này cho phép kẻ tấn công thực hiện Man-in-the-Middle, tráo đổi gói phần mềm đã qua kiểm tra bằng mã độc của chúng và chạy dưới quyền root. Đáng nói là cuộc tấn công yêu cầu APT thử lại các lượt tải thất bại, vốn là cơ chế mặc định từ Debian 12.",
+          "cited_article_ids": [
+            "f72f567cab23b3cb"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Một thông tin đáng lo ngại cho người dùng Linux! Tiếp theo là lỗ hổng nghiêm trọng trong Ruby on Rails liên quan đến Active Storage. Nếu ứng dụng xử lý file tải lên bằng ImageMagick, kẻ tấn công chưa xác thực có thể ghi tệp tùy ý lên máy chủ.",
+          "cited_article_ids": [
+            "eeeb8b0c17d40904"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đúng thế, Rails đã công bố khuyến nghị bảo mật và phát hành bản vá trong các phiên bản 8.1.4.1 và 8.0.5.2. Các nhà phát triển web dùng Rails chắc chắn cần cập nhật ngay.",
+          "cited_article_ids": [
+            "eeeb8b0c17d40904"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chuyển sang tin tức về chuỗi cung ứng, nhiều hãng hàng không châu Á vừa thông báo về sự cố rò rỉ dữ liệu liên quan đến nhà cung cấp CNTT Amadeus.",
+          "cited_article_ids": [
+            "5045883ec41b7061"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Các hãng bị ảnh hưởng bao gồm Japan Airlines, Cathay Pacific, Korean Air, Asiana Airlines, Singapore Airlines và Malaysia Airlines. Sự cố xuất phát từ Amadeus IT Group, nơi cung cấp nền tảng đặt vé và làm thủ tục bay.",
+          "cited_article_ids": [
+            "5045883ec41b7061"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Không chỉ các hãng hàng không, thiết bị an ninh email của Barracuda cũng gặp sự cố nghiêm trọng. Lỗ hổng bỏ qua xác thực kết hợp với lỗ hổng chèn lệnh cho phép kẻ tấn công chiếm quyền root trên thiết bị Barracuda Email Security Gateway.",
+          "cited_article_ids": [
+            "77b68f7046a54f46"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Và cuối cùng, một ngân hàng Pháp là Crédit Mutuel Arkéa xác nhận bị tấn công mạng. Kẻ tấn công đã thực hiện chuyển tiền bằng tài khoản của chính ngân hàng sau khi xâm nhập một nhà cung cấp chưa được tiết lộ tên, với thiệt hại ước tính lên tới 133 triệu USD.",
+          "cited_article_ids": [
+            "cd1d23b48c3f127d"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Những vụ việc này cho thấy rủi ro từ chuỗi cung ứng và lỗ hổng phần mềm lớn tới mức nào. Hãy luôn cập nhật bản vá bảo mật cho hệ thống của mình nhé!",
+          "cited_article_ids": [
+            "f72f567cab23b3cb",
+            "eeeb8b0c17d40904",
+            "5045883ec41b7061",
+            "77b68f7046a54f46",
+            "cd1d23b48c3f127d"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Cảnh Báo An Ninh Mạng: Lỗ HổngAPT, Rails Và Trộm Ngân Hàng",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "Cảnh Báo An Ninh Mạng Nóng Hổi!",
+        "narration": {
+          "text": "Điểm qua những sự cố an ninh mạng nghiêm trọng nhất vừa diễn ra!",
+          "cited_article_ids": [
+            "f72f567cab23b3cb",
+            "eeeb8b0c17d40904",
+            "5045883ec41b7061",
+            "77b68f7046a54f46",
+            "cd1d23b48c3f127d"
+          ]
+        },
+        "duration_sec": 5.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "Debian & Ubuntu APT: Lỗ hổng chiếm root",
+        "narration": {
+          "text": "Lỗ hổng trên trình quản lý gói APT của Debian và Ubuntu cho phép kẻ tấn công Man-in-the-Middle tráo đổi gói cài đặt và chạy mã với quyền root.",
+          "cited_article_ids": [
+            "f72f567cab23b3cb"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "Ruby on Rails: Ghi tệp máy chủ trái phép",
+        "narration": {
+          "text": "Ruby on Rails dính lỗ hổng Active Storage xử lý ảnh qua ImageMagick, cho phép ghi tệp trái phép lên server. Hãy cập nhật lên bản vá mới nhất!",
+          "cited_article_ids": [
+            "eeeb8b0c17d40904"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Hàng loạt hãng hàng không lộ dữ liệu",
+        "narration": {
+          "text": "Nhiều hãng hàng không châu Á như Japan Airlines, Singapore Airlines báo cáo rò rỉ dữ liệu từ sự cố của nhà cung cấp Amadeus.",
+          "cited_article_ids": [
+            "5045883ec41b7061"
+          ]
+        },
+        "duration_sec": 13.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "Barracuda ESG: Chiếm quyền Root",
+        "narration": {
+          "text": "Thiết bị Barracuda Email Security Gateway gặp lỗ hổng kết hợp giữa bỏ qua xác thực và chèn lệnh, dẫn đến chiếm quyền root.",
+          "cited_article_ids": [
+            "77b68f7046a54f46"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "Ngân hàng Pháp mất 133 triệu USD",
+        "narration": {
+          "text": "Ngân hàng Crédit Mutuel Arkéa bị hacker xâm nhập qua bên thứ ba, thực hiện các giao dịch chuyển tiền trái phép ước tính 133 triệu USD.",
+          "cited_article_ids": [
+            "cd1d23b48c3f127d"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "Cập nhật bản vá ngay hôm nay!",
+        "narration": {
+          "text": "Hãy luôn chủ động cập nhật bản vá hệ thống và kiểm tra an toàn chuỗi cung ứng của bạn!",
+          "cited_article_ids": [
+            "f72f567cab23b3cb",
+            "eeeb8b0c17d40904",
+            "5045883ec41b7061",
+            "77b68f7046a54f46",
+            "cd1d23b48c3f127d"
+          ]
+        },
+        "duration_sec": 6.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "🔴 ĐIỂM TIN AN NINH MẠNG HOT\n\n- APT trên Debian/Ubuntu gặp lỗi cho phép tấn công MitM chiếm quyền root [A1].\n- Ruby on Rails vá lỗ hổng nghiêm trọng cho phép ghi tệp trái phép vào máy chủ [A2].\n- Hàng loạt hãng hàng không châu Á rò rỉ dữ liệu qua nhà cung cấp Amadeus [A3].\n- Lỗ hổng trên Barracuda ESG mở đường chiếm quyền root [A4].\n- Ngân hàng Crédit Mutuel Arkéa bị chiếm đoạt 133 triệu USD [A5].\n\nChi tiết xem tại bản tin!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#CyberSecurity",
+        "#Debian",
+        "#Ubuntu",
+        "#RubyOnRails"
+      ],
+      "cited_article_ids": [
+        "f72f567cab23b3cb",
+        "eeeb8b0c17d40904",
+        "5045883ec41b7061",
+        "77b68f7046a54f46",
+        "cd1d23b48c3f127d"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Cập nhật tin tức An ninh mạng mới nhất:\n- Lỗ hổng APT trên Debian và Ubuntu giúp kẻ tấn công MitM thực thi mã độc với quyền root khi APT thử lại các lượt tải thất bại [A1].\n- Ruby on Rails phát hành bản vá cho lỗ hổng Active Storage liên quan đến ImageMagick [A2].\n- Sự cố tấn công Amadeus IT Group khiến hàng loạt hãng hàng không lớn tại châu Á bị rò rỉ dữ liệu [A3].\n- Barracuda ESG bị phát hiện lỗ hổng bypass xác thực và tiêm lệnh [A4].\n- Ngân hàng Crédit Mutuel Arkéa bị mất khoảng 133 triệu USD do nhà cung cấp bên thứ ba bị xâm nhập [A5].",
+      "hashtags": [
+        "#TinTucAnNinhMang",
+        "#APT",
+        "#Rails",
+        "#DataBreach",
+        "#Barracuda"
+      ],
+      "cited_article_ids": [
+        "f72f567cab23b3cb",
+        "eeeb8b0c17d40904",
+        "5045883ec41b7061",
+        "77b68f7046a54f46",
+        "cd1d23b48c3f127d"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Cảnh báo an ninh mạng: Lỗi APT trên Linux [A1], lỗ hổng Ruby on Rails [A2], hàng loạt hãng hàng không rò rỉ dữ liệu [A3], Barracuda ESG dính lỗi root [A4] và vụ trộm 133 triệu USD tại ngân hàng Pháp [A5]!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#Linux",
+        "#Hacker",
+        "#CongNghe"
+      ],
+      "cited_article_ids": [
+        "f72f567cab23b3cb",
+        "eeeb8b0c17d40904",
+        "5045883ec41b7061",
+        "77b68f7046a54f46",
+        "cd1d23b48c3f127d"
+      ]
+    }
+  ]
+}
