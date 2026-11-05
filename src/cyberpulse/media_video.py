@@ -12,6 +12,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 import json
 import logging
+import math
 import os
 from pathlib import Path
 import re
@@ -271,6 +272,213 @@ def wrap_text_to_width(
     return lines or [text]
 
 
+# ==============================================================================
+# Thematic Vector Illustrators & Dynamic Scene Engine (Option 3 Hybrid)
+# ==============================================================================
+
+def detect_scene_theme(on_screen: str, narration: str, is_cover: bool = False) -> dict[str, Any]:
+    """Detect cybersecurity threat theme to dynamically adapt visual color, HUD and graphics."""
+    combined = f"{on_screen} {narration}".lower()
+    if is_cover:
+        return {
+            "name": "OVERVIEW",
+            "badge": "• BÌA BẢN TIN: TÌNH BÁO AN NINH MẠNG •",
+            "primary": (56, 189, 248),    # Cyan
+            "bg_tint": (15, 28, 48),
+            "icon_type": "shield",
+            "threat_code": "SPECIAL BULLETIN • HIGH PRIORITY INTEL",
+        }
+    if any(w in combined for w in ["ransomware", "tống tiền", "mã hóa", "lockbit", "blackcat", "akira", "extortion"]):
+        return {
+            "name": "RANSOMWARE",
+            "badge": "• CẢNH BÁO: MÃ ĐỘC TỐNG TIỀN / RANSOMWARE •",
+            "primary": (239, 68, 68),     # Crimson Red
+            "bg_tint": (32, 16, 22),
+            "icon_type": "padlock",
+            "threat_code": "THREAT LEVEL: CRITICAL [EXTORTION ATTACK]",
+        }
+    if any(w in combined for w in ["lỗ hổng", "cve", "zero-day", "0-day", "flaw", "vulnerability", "exploit", "active storage", "imagemagick", "barracuda"]):
+        return {
+            "name": "VULNERABILITY",
+            "badge": "• NGUY CƠ: LỖ HỔNG BẢO MẬT ZERO-DAY •",
+            "primary": (245, 158, 11),    # Amber
+            "bg_tint": (32, 24, 12),
+            "icon_type": "crosshair",
+            "threat_code": "SECURITY ADVISORY: ZERO-DAY (CVSS 9.8)",
+        }
+    if any(w in combined for w in ["rò rỉ", "lộ lọt", "breach", "leak", "dữ liệu", "chuỗi cung ứng", "amadeus", "chainstack", "msecure"]):
+        return {
+            "name": "DATA_BREACH",
+            "badge": "• SỰ CỐ: RÒ RỈ DỮ LIỆU & CHUỖI CUNG ỨNG •",
+            "primary": (168, 85, 247),    # Purple / Violet
+            "bg_tint": (26, 16, 38),
+            "icon_type": "database",
+            "threat_code": "DATA INCIDENT: EXFILTRATION DETECTED",
+        }
+    if any(w in combined for w in ["linux", "apt", "debian", "ubuntu", "root", "terminal", "botnet", "android", "spyware", "apple"]):
+        return {
+            "name": "SYSTEM_MALWARE",
+            "badge": "• PHÁT HIỆN: XÂM NHẬP HỆ THỐNG & ROOT EXPLOIT •",
+            "primary": (16, 185, 129),    # Emerald Neon
+            "bg_tint": (12, 30, 22),
+            "icon_type": "terminal",
+            "threat_code": "INTRUSION DETECTED: PRIVILEGE ESCALATION",
+        }
+    return {
+        "name": "GENERAL",
+        "badge": "• TIÊU ĐIỂM: AN NINH MẠNG TOÀN CẦU •",
+        "primary": (56, 189, 248),    # Cyan
+        "bg_tint": (15, 28, 48),
+        "icon_type": "shield",
+        "threat_code": "CYBERPULSE INTEL • ACTIVE DEFENSE MONITOR",
+    }
+
+
+def _draw_cyber_terminal(draw: ImageDraw.ImageDraw, cx: int, cy: int, w: int, h: int, primary: tuple[int, int, int], scale: float) -> None:
+    x0, y0 = cx - w // 2, cy - h // 2
+    x1, y1 = cx + w // 2, cy + h // 2
+    draw.rectangle([x0, y0, x1, y1], fill=(4, 12, 18), outline=primary, width=max(2, round(3 * scale)))
+    bar_h = round(36 * scale)
+    draw.rectangle([x0, y0, x1, y0 + bar_h], fill=(15, 23, 42))
+    draw.line([(x0, y0 + bar_h), (x1, y0 + bar_h)], fill=primary, width=max(1, round(2 * scale)))
+    btn_r = round(5 * scale)
+    btn_y = y0 + bar_h // 2
+    draw.ellipse([x0 + round(18 * scale) - btn_r, btn_y - btn_r, x0 + round(18 * scale) + btn_r, btn_y + btn_r], fill=(239, 68, 68))
+    draw.ellipse([x0 + round(34 * scale) - btn_r, btn_y - btn_r, x0 + round(34 * scale) + btn_r, btn_y + btn_r], fill=(245, 158, 11))
+    draw.ellipse([x0 + round(50 * scale) - btn_r, btn_y - btn_r, x0 + round(50 * scale) + btn_r, btn_y + btn_r], fill=(16, 185, 129))
+    font_bar = resolve_font(max(10, round(16 * scale)), bold=True)
+    draw.text((cx, btn_y), "TERMINAL_SESSION://ROOT_INTRUSION", fill=primary, font=font_bar, anchor="mm")
+    
+    font_code = resolve_font(max(11, round(20 * scale)), bold=True)
+    font_dim = resolve_font(max(10, round(16 * scale)), bold=False)
+    pad_x = round(25 * scale)
+    top_t = y0 + bar_h + round(16 * scale)
+    lh = round(30 * scale)
+    
+    draw.text((x0 + pad_x, top_t), "root@kernel-node:~# apt-get --intercept-mitm", fill=(248, 250, 252), font=font_code)
+    draw.text((x0 + pad_x, top_t + lh), "[*] Intercepting rogue mirror response (HTTP 302)...", fill=(148, 163, 184), font=font_dim)
+    draw.text((x0 + pad_x, top_t + 2 * lh), "[!] VULNERABILITY EXPLOITED: GPG Signature Bypassed", fill=(245, 158, 11), font=font_code)
+    draw.text((x0 + pad_x, top_t + 3 * lh), "[+] ELEVATING PRIVILEGES: uid=0(root) gid=0(root)", fill=primary, font=font_code)
+    draw.text((x0 + pad_x, top_t + 4 * lh), ">>> MEMORY DUMP: 0x7FFE9A01B4: [BUFFER_OVERFLOW]", fill=(100, 116, 139), font=font_dim)
+    
+    for sy in range(y0 + bar_h + 4, y1, round(12 * scale)):
+        draw.line([(x0, sy), (x1, sy)], fill=(15, 30, 25), width=1)
+
+
+def _draw_cyber_padlock(draw: ImageDraw.ImageDraw, cx: int, cy: int, w: int, h: int, primary: tuple[int, int, int], scale: float) -> None:
+    x0, y0 = cx - w // 2, cy - h // 2
+    x1, y1 = cx + w // 2, cy + h // 2
+    draw.rectangle([x0, y0, x1, y1], fill=(24, 12, 16), outline=primary, width=max(2, round(3 * scale)))
+    font_tag = resolve_font(max(10, round(16 * scale)), bold=True)
+    draw.rectangle([x0, y0, x1, y0 + round(34 * scale)], fill=(45, 15, 20))
+    draw.text((cx, y0 + round(17 * scale)), "[ ALERT: RANSOMWARE ENCRYPTION / EXTORTION DETECTED ]", fill=primary, font=font_tag, anchor="mm")
+    
+    lock_cy = cy + round(12 * scale)
+    shackle_r = round(60 * scale)
+    shackle_thick = max(5, round(13 * scale))
+    draw.arc([cx - shackle_r, lock_cy - round(130 * scale), cx + shackle_r, lock_cy - round(10 * scale)], start=180, end=0, fill=primary, width=shackle_thick)
+    body_w, body_h = round(200 * scale), round(130 * scale)
+    bx0, by0 = cx - body_w // 2, lock_cy - round(18 * scale)
+    bx1, by1 = cx + body_w // 2, by0 + body_h
+    draw.rectangle([bx0, by0, bx1, by1], fill=(45, 12, 18), outline=primary, width=max(2, round(4 * scale)))
+    draw.ellipse([cx - round(15 * scale), by0 + round(30 * scale), cx + round(15 * scale), by0 + round(60 * scale)], fill=primary)
+    draw.polygon([
+        (cx - round(10 * scale), by0 + round(50 * scale)),
+        (cx + round(10 * scale), by0 + round(50 * scale)),
+        (cx + round(15 * scale), by0 + round(95 * scale)),
+        (cx - round(15 * scale), by0 + round(95 * scale)),
+    ], fill=primary)
+    font_warn = resolve_font(max(10, round(18 * scale)), bold=True)
+    draw.text((cx, y1 - round(22 * scale)), "[!] CRITICAL: RSA-4096 / AES-256 ENCRYPTED FILE SYSTEM", fill=(248, 250, 252), font=font_warn, anchor="mm")
+
+
+def _draw_target_radar(draw: ImageDraw.ImageDraw, cx: int, cy: int, w: int, h: int, primary: tuple[int, int, int], scale: float) -> None:
+    x0, y0 = cx - w // 2, cy - h // 2
+    x1, y1 = cx + w // 2, cy + h // 2
+    draw.rectangle([x0, y0, x1, y1], fill=(22, 16, 8), outline=primary, width=max(2, round(3 * scale)))
+    font_tag = resolve_font(max(10, round(16 * scale)), bold=True)
+    draw.rectangle([x0, y0, x1, y0 + round(34 * scale)], fill=(40, 25, 10))
+    draw.text((cx, y0 + round(17 * scale)), "[ EXPLOIT RADAR: VULNERABILITY TARGETING SCOPE ]", fill=primary, font=font_tag, anchor="mm")
+    
+    radar_cy = cy + round(12 * scale)
+    r_max = round(105 * scale)
+    for r in [r_max, round(r_max * 0.65), round(r_max * 0.35)]:
+        draw.ellipse([cx - r, radar_cy - r, cx + r, radar_cy + r], outline=primary, width=max(1, round(2 * scale)))
+    draw.line([(cx - r_max - round(20 * scale), radar_cy), (cx + r_max + round(20 * scale), radar_cy)], fill=primary, width=max(1, round(2 * scale)))
+    draw.line([(cx, radar_cy - r_max - round(20 * scale)), (cx, radar_cy + r_max + round(20 * scale))], fill=primary, width=max(1, round(2 * scale)))
+    blip_x = cx + round(42 * scale)
+    blip_y = radar_cy - round(38 * scale)
+    draw.ellipse([blip_x - round(8 * scale), blip_y - round(8 * scale), blip_x + round(8 * scale), blip_y + round(8 * scale)], fill=(239, 68, 68))
+    bw = round(16 * scale)
+    draw.rectangle([blip_x - bw, blip_y - bw, blip_x + bw, blip_y + bw], outline=(239, 68, 68), width=max(1, round(2 * scale)))
+    font_target = resolve_font(max(10, round(18 * scale)), bold=True)
+    draw.text((cx, y1 - round(22 * scale)), "TARGET LOCKED: REMOTE CODE EXECUTION (CVSS 9.8)", fill=(248, 250, 252), font=font_target, anchor="mm")
+
+
+def _draw_database_breach(draw: ImageDraw.ImageDraw, cx: int, cy: int, w: int, h: int, primary: tuple[int, int, int], scale: float) -> None:
+    x0, y0 = cx - w // 2, cy - h // 2
+    x1, y1 = cx + w // 2, cy + h // 2
+    draw.rectangle([x0, y0, x1, y1], fill=(18, 10, 26), outline=primary, width=max(2, round(3 * scale)))
+    font_tag = resolve_font(max(10, round(16 * scale)), bold=True)
+    draw.rectangle([x0, y0, x1, y0 + round(34 * scale)], fill=(35, 18, 48))
+    draw.text((cx, y0 + round(17 * scale)), "[ INCIDENT MONITOR: DATA EXFILTRATION & LEAK ]", fill=primary, font=font_tag, anchor="mm")
+    
+    db_cy = cy + round(8 * scale)
+    cyl_w, cyl_h = round(190 * scale), round(42 * scale)
+    for layer in range(3):
+        ly = db_cy - round(52 * scale) + (layer * round(48 * scale))
+        lx0, lx1 = cx - cyl_w // 2, cx + cyl_w // 2
+        draw.rectangle([lx0, ly, lx1, ly + cyl_h], fill=(30, 15, 45), outline=primary, width=max(1, round(2 * scale)))
+        draw.ellipse([lx0, ly - round(11 * scale), lx1, ly + round(11 * scale)], fill=(45, 20, 65), outline=primary, width=max(1, round(2 * scale)))
+        dot_r = round(4 * scale)
+        for d_idx, c_color in enumerate([(239, 68, 68), (245, 158, 11), (16, 185, 129)]):
+            dx = lx0 + round(28 * scale) + (d_idx * round(18 * scale))
+            draw.ellipse([dx - dot_r, ly + round(18 * scale) - dot_r, dx + dot_r, ly + round(18 * scale) + dot_r], fill=c_color)
+    arr_x0 = cx + round(115 * scale)
+    arr_x1 = cx + round(230 * scale)
+    draw.line([(arr_x0, db_cy), (arr_x1, db_cy)], fill=(239, 68, 68), width=max(2, round(4 * scale)))
+    draw.polygon([(arr_x1, db_cy), (arr_x1 - round(18 * scale), db_cy - round(11 * scale)), (arr_x1 - round(18 * scale), db_cy + round(11 * scale))], fill=(239, 68, 68))
+    font_leak = resolve_font(max(10, round(18 * scale)), bold=True)
+    draw.text((cx, y1 - round(22 * scale)), "SUPPLY CHAIN EXPOSURE: SENSITIVE RECORDS BREACHED", fill=(248, 250, 252), font=font_leak, anchor="mm")
+
+
+def _draw_security_shield(draw: ImageDraw.ImageDraw, cx: int, cy: int, w: int, h: int, primary: tuple[int, int, int], scale: float) -> None:
+    x0, y0 = cx - w // 2, cy - h // 2
+    x1, y1 = cx + w // 2, cy + h // 2
+    draw.rectangle([x0, y0, x1, y1], fill=(10, 20, 36), outline=primary, width=max(2, round(3 * scale)))
+    font_tag = resolve_font(max(10, round(16 * scale)), bold=True)
+    draw.rectangle([x0, y0, x1, y0 + round(34 * scale)], fill=(18, 35, 58))
+    draw.text((cx, y0 + round(17 * scale)), "[ GLOBAL THREAT RADAR: CYBERPULSE INTELLIGENCE ]", fill=primary, font=font_tag, anchor="mm")
+    
+    s_cy = cy + round(12 * scale)
+    sw = round(110 * scale)
+    sh_top = s_cy - round(90 * scale)
+    sh_mid = s_cy + round(18 * scale)
+    sh_bot = s_cy + round(105 * scale)
+    draw.polygon([(cx - sw, sh_top), (cx + sw, sh_top), (cx + sw, sh_mid), (cx, sh_bot), (cx - sw, sh_mid)], fill=(15, 30, 52), outline=primary, width=max(2, round(4 * scale)))
+    draw.polygon([(cx - round(sw * 0.7), sh_top + round(14 * scale)), (cx + round(sw * 0.7), sh_top + round(14 * scale)), (cx + round(sw * 0.7), sh_mid - round(10 * scale)), (cx, sh_bot - round(18 * scale)), (cx - round(sw * 0.7), sh_mid - round(10 * scale))], fill=(20, 45, 75), outline=primary, width=max(1, round(2 * scale)))
+    draw.ellipse([cx - round(16 * scale), s_cy - round(16 * scale), cx + round(16 * scale), s_cy + round(16 * scale)], fill=primary)
+    font_shield = resolve_font(max(10, round(18 * scale)), bold=True)
+    draw.text((cx, y1 - round(22 * scale)), "STATUS: ACTIVE DEFENSE • AUTOMATED RECON LOGGED", fill=(248, 250, 252), font=font_shield, anchor="mm")
+
+
+def _draw_audio_spectrum(draw: ImageDraw.ImageDraw, x0: int, y_base: int, total_w: int, primary: tuple[int, int, int], scale: float, scene_no: int) -> None:
+    """Draw a dynamic 32-bar audio equalizer waveform visualizer."""
+    bar_count = 32
+    bar_w = max(4, round(10 * scale))
+    spacing = (total_w - (bar_count * bar_w)) / (bar_count - 1)
+    
+    font_eq = resolve_font(max(9, round(14 * scale)), bold=True)
+    draw.text((x0 + total_w // 2, y_base - round(38 * scale)), "[ DUAL-VOICE NEURAL SYNTHESIS • ACTIVE AUDIO STREAM ]", fill=primary, font=font_eq, anchor="mm")
+    
+    for b in range(bar_count):
+        # Simulated dynamic frequency peak based on sine and scene number
+        h_bar = round((6 + 28 * abs(math.sin(b * 0.38 + scene_no * 1.5))) * scale)
+        bx = x0 + b * (bar_w + spacing)
+        # Gradient mix towards cyan
+        draw.rectangle([round(bx), y_base - h_bar, round(bx + bar_w), y_base], fill=primary)
+
+
 def render_cyber_frame(
     scene_no: int,
     total_scenes: int,
@@ -282,138 +490,141 @@ def render_cyber_frame(
     height: int = 1920,
     is_cover: bool = False,
 ) -> Image.Image:
-    """Render a single 9:16 vertical video frame in Dark Cybersecurity Theme."""
+    """Render a cinema-grade 9:16 vertical video frame in Dark Cybersecurity Theme (Option 3 Hybrid)."""
     scale = width / 1080.0
+    theme = detect_scene_theme(on_screen_text, narration_text, is_cover=is_cover)
+    primary = theme["primary"]
+    
+    # 1. Base dark background with thematic tint
     img = Image.new("RGB", (width, height), color=(15, 23, 42))  # #0F172A
     draw = ImageDraw.Draw(img)
 
-    # 1. Tech Background Grid
+    # Background Tech Grid
     grid_spacing = max(20, round(60 * scale))
-    grid_color = (30, 41, 59)  # #1E293B
+    grid_color = (25, 35, 50)
     for x in range(0, width, grid_spacing):
         draw.line([(x, 0), (x, height)], fill=grid_color, width=1)
     for y in range(0, height, grid_spacing):
         draw.line([(0, y), (width, y)], fill=grid_color, width=1)
 
-    # Subtle cyan accent borders / corner HUD
-    bracket_len = round(32 * scale)
+    # 4 Corner HUD Brackets
+    bracket_len = round(36 * scale)
     bracket_w = max(2, round(3 * scale))
-    cyan_accent = (56, 189, 248)  # #38BDF8
-    slate_dark = (15, 23, 42)
-    slate_card = (30, 41, 59)
-    slate_muted = (148, 163, 184)  # #94A3B8
-    white_bright = (248, 250, 252)  # #F8FAFC
-    yellow_sub = (254, 240, 138)  # #FEF08A
-
     margin_corner = round(24 * scale)
-    # Top-Left Corner
-    draw.line([(margin_corner, margin_corner), (margin_corner + bracket_len, margin_corner)], fill=cyan_accent, width=bracket_w)
-    draw.line([(margin_corner, margin_corner), (margin_corner, margin_corner + bracket_len)], fill=cyan_accent, width=bracket_w)
-    # Top-Right Corner
-    draw.line([(width - margin_corner, margin_corner), (width - margin_corner - bracket_len, margin_corner)], fill=cyan_accent, width=bracket_w)
-    draw.line([(width - margin_corner, margin_corner), (width - margin_corner, margin_corner + bracket_len)], fill=cyan_accent, width=bracket_w)
-    # Bottom-Left Corner
-    draw.line([(margin_corner, height - margin_corner), (margin_corner + bracket_len, height - margin_corner)], fill=cyan_accent, width=bracket_w)
-    draw.line([(margin_corner, height - margin_corner), (margin_corner, height - margin_corner - bracket_len)], fill=cyan_accent, width=bracket_w)
-    # Bottom-Right Corner
-    draw.line([(width - margin_corner, height - margin_corner), (width - margin_corner - bracket_len, height - margin_corner)], fill=cyan_accent, width=bracket_w)
-    draw.line([(width - margin_corner, height - margin_corner), (width - margin_corner, height - margin_corner - bracket_len)], fill=cyan_accent, width=bracket_w)
+    draw.line([(margin_corner, margin_corner), (margin_corner + bracket_len, margin_corner)], fill=primary, width=bracket_w)
+    draw.line([(margin_corner, margin_corner), (margin_corner, margin_corner + bracket_len)], fill=primary, width=bracket_w)
+    draw.line([(width - margin_corner, margin_corner), (width - margin_corner - bracket_len, margin_corner)], fill=primary, width=bracket_w)
+    draw.line([(width - margin_corner, margin_corner), (width - margin_corner, margin_corner + bracket_len)], fill=primary, width=bracket_w)
+    draw.line([(margin_corner, height - margin_corner), (margin_corner + bracket_len, height - margin_corner)], fill=primary, width=bracket_w)
+    draw.line([(margin_corner, height - margin_corner), (margin_corner, height - margin_corner - bracket_len)], fill=primary, width=bracket_w)
+    draw.line([(width - margin_corner, height - margin_corner), (width - margin_corner - bracket_len, height - margin_corner)], fill=primary, width=bracket_w)
+    draw.line([(width - margin_corner, height - margin_corner), (width - margin_corner, height - margin_corner - bracket_len)], fill=primary, width=bracket_w)
 
     # 2. Header: Brand Banner & Bulletin ID
     font_brand = resolve_font(max(14, round(36 * scale)), bold=True)
-    font_meta = resolve_font(max(10, round(22 * scale)), bold=False)
-
-    brand_y = round(120 * scale)
-    draw.text((width // 2, brand_y), "[CYBERPULSE INTEL]", fill=cyan_accent, font=font_brand, anchor="mm")
+    font_meta = resolve_font(max(10, round(20 * scale)), bold=False)
+    brand_y = round(100 * scale)
+    draw.text((width // 2, brand_y), "[CYBERPULSE INTEL]", fill=primary, font=font_brand, anchor="mm")
 
     run_tag = run_id[-12:] if len(run_id) > 12 else run_id
     sub_header = f"• BULLETIN: {run_tag} • 9:16 VERTICAL INTEL •"
-    draw.text((width // 2, brand_y + round(50 * scale)), sub_header, fill=slate_muted, font=font_meta, anchor="mm")
+    draw.text((width // 2, brand_y + round(45 * scale)), sub_header, fill=(148, 163, 184), font=font_meta, anchor="mm")
 
-    # Header divider line
-    div_y = brand_y + round(85 * scale)
+    div_y = brand_y + round(75 * scale)
     draw.line([(round(80 * scale), div_y), (width - round(80 * scale), div_y)], fill=(51, 65, 85), width=max(1, round(2 * scale)))
     draw.ellipse([
         (width // 2 - round(4 * scale), div_y - round(4 * scale)),
         (width // 2 + round(4 * scale), div_y + round(4 * scale)),
-    ], fill=cyan_accent)
+    ], fill=primary)
 
-    # 3. Center Card: on_screen_text (Main Focus)
+    # Scene Tag Badge
+    font_badge = resolve_font(max(11, round(22 * scale)), bold=True)
+    draw.text((width // 2, div_y + round(35 * scale)), theme["badge"], fill=primary, font=font_badge, anchor="mm")
+
+    # 3. HERO CENTERPIECE: Thematic Graphic Illustration (Dynamic per Topic)
+    center_cx = width // 2
+    hero_w = round(940 * scale)
+    hero_h = round(370 * scale)
+    hero_cy = round(445 * scale)
+    
+    icon_type = theme["icon_type"]
+    if icon_type == "terminal":
+        _draw_cyber_terminal(draw, center_cx, hero_cy, hero_w, hero_h, primary, scale)
+    elif icon_type == "padlock":
+        _draw_cyber_padlock(draw, center_cx, hero_cy, hero_w, hero_h, primary, scale)
+    elif icon_type == "crosshair":
+        _draw_target_radar(draw, center_cx, hero_cy, hero_w, hero_h, primary, scale)
+    elif icon_type == "database":
+        _draw_database_breach(draw, center_cx, hero_cy, hero_w, hero_h, primary, scale)
+    else:
+        _draw_security_shield(draw, center_cx, hero_cy, hero_w, hero_h, primary, scale)
+
+    # 4. HEADLINE NEWS CARD (Below Hero Centerpiece)
     card_margin_x = round(70 * scale)
-    card_y0 = round(400 * scale)
+    card_y0 = round(660 * scale)
     card_y1 = round(1180 * scale)
     card_w = width - 2 * card_margin_x
     card_h = card_y1 - card_y0
 
-    # Draw Center Card Box
-    draw.rectangle([card_margin_x, card_y0, width - card_margin_x, card_y1], fill=slate_card, outline=cyan_accent, width=max(2, round(3 * scale)))
+    draw.rectangle([card_margin_x, card_y0, width - card_margin_x, card_y1], fill=(15, 23, 42), outline=primary, width=max(2, round(3 * scale)))
 
     # Tech brackets on card corners
-    c_pad = round(12 * scale)
+    c_pad = round(10 * scale)
     c_len = round(20 * scale)
-    draw.line([(card_margin_x - c_pad, card_y0), (card_margin_x - c_pad, card_y0 + c_len)], fill=cyan_accent, width=bracket_w)
-    draw.line([(width - card_margin_x + c_pad, card_y0), (width - card_margin_x + c_pad, card_y0 + c_len)], fill=cyan_accent, width=bracket_w)
-    draw.line([(card_margin_x - c_pad, card_y1), (card_margin_x - c_pad, card_y1 - c_len)], fill=cyan_accent, width=bracket_w)
-    draw.line([(width - card_margin_x + c_pad, card_y1), (width - card_margin_x + c_pad, card_y1 - c_len)], fill=cyan_accent, width=bracket_w)
+    draw.line([(card_margin_x - c_pad, card_y0), (card_margin_x - c_pad, card_y0 + c_len)], fill=primary, width=bracket_w)
+    draw.line([(width - card_margin_x + c_pad, card_y0), (width - card_margin_x + c_pad, card_y0 + c_len)], fill=primary, width=bracket_w)
+    draw.line([(card_margin_x - c_pad, card_y1), (card_margin_x - c_pad, card_y1 - c_len)], fill=primary, width=bracket_w)
+    draw.line([(width - card_margin_x + c_pad, card_y1), (width - card_margin_x + c_pad, card_y1 - c_len)], fill=primary, width=bracket_w)
 
-    # Scene Tag Badge on top of card
-    font_badge = resolve_font(max(12, round(26 * scale)), bold=True)
-    if is_cover:
-        scene_badge_text = "• BÌA BẢN TIN VIDEO •"
-    else:
-        scene_badge_text = f"• PHÂN CẢNH {scene_no:02d} / {total_scenes:02d} •"
-    draw.text((width // 2, card_y0 + round(60 * scale)), scene_badge_text, fill=cyan_accent, font=font_badge, anchor="mm")
-
-    # Center text: dynamically size font based on length
-    base_text_size = 48 if len(on_screen_text) < 40 else (40 if len(on_screen_text) < 70 else 34)
+    # Headline text wrapped
+    base_text_size = 46 if len(on_screen_text) < 40 else (38 if len(on_screen_text) < 70 else 32)
     font_center = resolve_font(max(14, round(base_text_size * scale)), bold=True)
-
-    center_lines = wrap_text_to_width(on_screen_text, font_center, card_w - round(100 * scale), draw)
+    center_lines = wrap_text_to_width(on_screen_text, font_center, card_w - round(80 * scale), draw)
     line_height = round((base_text_size + 14) * scale)
     total_text_h = len(center_lines) * line_height
-    start_text_y = card_y0 + (card_h // 2) - (total_text_h // 2) + round(15 * scale)
+    start_text_y = card_y0 + (card_h // 2) - (total_text_h // 2) - round(10 * scale)
 
     for i, line in enumerate(center_lines):
         y_pos = start_text_y + (i * line_height)
-        draw.text((width // 2, y_pos), line, fill=white_bright, font=font_center, anchor="mm")
+        draw.text((width // 2, y_pos), line, fill=(248, 250, 252), font=font_center, anchor="mm")
 
     # Bottom badge inside Center Card
-    font_tag = resolve_font(max(10, round(20 * scale)), bold=False)
-    tag_str = f"[DUR: {duration_sec:.0f}s] • [STATUS: ACTIVE INTEL]" if not is_cover else "[COVER SLIDE]"
-    draw.text((width // 2, card_y1 - round(45 * scale)), tag_str, fill=slate_muted, font=font_tag, anchor="mm")
+    font_tag = resolve_font(max(10, round(18 * scale)), bold=True)
+    draw.text((width // 2, card_y1 - round(38 * scale)), f"[ {theme['threat_code']} ]", fill=primary, font=font_tag, anchor="mm")
 
-    # 4. Subtitles / Narration Preview Container (Bottom Half)
-    sub_y0 = round(1240 * scale)
-    sub_y1 = round(1640 * scale)
+    # 5. DYNAMIC AUDIO SPECTRUM WAVEFORM (Above Subtitles)
+    _draw_audio_spectrum(draw, card_margin_x, round(1240 * scale), card_w, primary, scale, scene_no)
+
+    # 6. SUBTITLES / NARRATION CONTAINER
+    sub_y0 = round(1260 * scale)
+    sub_y1 = round(1650 * scale)
     sub_w = width - 2 * card_margin_x
-    draw.rectangle([card_margin_x, sub_y0, width - card_margin_x, sub_y1], fill=(11, 19, 43), outline=(51, 65, 85), width=max(1, round(2 * scale)))
+    draw.rectangle([card_margin_x, sub_y0, width - card_margin_x, sub_y1], fill=(10, 18, 36), outline=(51, 65, 85), width=max(1, round(2 * scale)))
 
-    font_sub_label = resolve_font(max(10, round(20 * scale)), bold=True)
-    draw.text((width // 2, sub_y0 + round(35 * scale)), "[ LỜI DẪN / PHỤ ĐỀ ĐỒNG BỘ ]", fill=cyan_accent, font=font_sub_label, anchor="mm")
+    font_sub_label = resolve_font(max(10, round(18 * scale)), bold=True)
+    draw.text((width // 2, sub_y0 + round(30 * scale)), "[ LỜI DẪN / PHỤ ĐỀ ĐỒNG BỘ ]", fill=primary, font=font_sub_label, anchor="mm")
 
-    font_sub = resolve_font(max(12, round(28 * scale)), bold=False)
+    font_sub = resolve_font(max(12, round(26 * scale)), bold=False)
     sub_lines = wrap_text_to_width(narration_text, font_sub, sub_w - round(60 * scale), draw)
-    sub_line_h = round(38 * scale)
-    max_sub_lines = 6
-    sub_lines = sub_lines[:max_sub_lines]
+    sub_line_h = round(36 * scale)
+    sub_lines = sub_lines[:6]
 
     total_sub_h = len(sub_lines) * sub_line_h
-    start_sub_y = sub_y0 + round(75 * scale) + max(0, ((sub_y1 - (sub_y0 + round(75 * scale))) - total_sub_h) // 2)
+    start_sub_y = sub_y0 + round(65 * scale) + max(0, ((sub_y1 - (sub_y0 + round(65 * scale))) - total_sub_h) // 2)
 
     for j, sline in enumerate(sub_lines):
-        draw.text((width // 2, start_sub_y + (j * sub_line_h)), sline, fill=yellow_sub, font=font_sub, anchor="mm")
+        draw.text((width // 2, start_sub_y + (j * sub_line_h)), sline, fill=(254, 240, 138), font=font_sub, anchor="mm")
 
-    # 5. Footer: Watermark & Timeline Progress Bar
-    font_footer = resolve_font(max(10, round(20 * scale)), bold=False)
+    # 7. FOOTER: Watermark & Segmented Timeline Progress Bar
+    font_footer = resolve_font(max(10, round(18 * scale)), bold=False)
     draw.text(
-        (width // 2, height - round(95 * scale)),
+        (width // 2, height - round(85 * scale)),
         "CyberPulse AI Reader • Automated Threat Intelligence",
         fill=(100, 116, 139),
         font=font_footer,
         anchor="mm",
     )
 
-    # Segmented Scene Progress Bar
     bar_y = height - round(45 * scale)
     bar_x0 = round(80 * scale)
     bar_x1 = width - round(80 * scale)
@@ -425,17 +636,11 @@ def render_cyber_frame(
         for s_idx in range(total_scenes):
             sx0 = bar_x0 + s_idx * (seg_w + gap)
             sx1 = sx0 + seg_w
-            # Highlights active or completed scenes
             is_active = (s_idx + 1) <= scene_no
-            fill_bar = (2, 132, 199) if is_active else (51, 65, 85)
+            fill_bar = primary if is_active else (51, 65, 85)
             draw.rectangle([round(sx0), bar_y, round(sx1), bar_y + round(8 * scale)], fill=fill_bar)
 
     return img
-
-
-# ==============================================================================
-# Pure-Python MP4 Container Assembler
-# ==============================================================================
 
 
 def _make_box(box_type: bytes, payload: bytes) -> bytes:
