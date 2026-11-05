@@ -109,7 +109,8 @@ def discover_target_roots(ftp: FTP, preferred_root: str = DEFAULT_REMOTE_ROOT) -
 
         for item in items:
             clean = item.strip("/")
-            if "wuaze.com" in clean.lower() or "cyberpulse" in clean.lower():
+            # Strictly target ONLY cyberpulse domain; NEVER touch other domains on the account
+            if "cyberpulse" in clean.lower():
                 candidate = f"/{clean}/htdocs"
                 try:
                     ftp.cwd(candidate)

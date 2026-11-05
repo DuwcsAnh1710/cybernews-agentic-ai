@@ -105,25 +105,6 @@ jobs:
           git commit -m "chore(data): auto-archive daily edition $(date -u +'%Y-%m-%d')" || echo "No new edition artifacts to commit"
           git push origin main || echo "Could not push archive to main"
 
-      - name: Deploy to InfinityFree (cyberpulseDA.wuaze.com)
-        env:
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-        run: |
-          if [ -n "$FTP_PASSWORD" ]; then
-            echo "[CYBERPULSE INTEL] Initiating automated FTP sync to InfinityFree (cyberpulseda.wuaze.com)..."
-            set +e
-            python scripts/deploy_wuaze.py
-            DEPLOY_STATUS=$?
-            set -e
-            if [ $DEPLOY_STATUS -eq 0 ]; then
-              echo "[CYBERPULSE INTEL] InfinityFree FTP Sync completed successfully. Web portal is live at https://cyberpulseda.wuaze.com."
-            else
-              echo "::warning::[CYBERPULSE INTEL] InfinityFree FTP Sync finished with exit code $DEPLOY_STATUS. Please verify credentials or host status."
-            fi
-          else
-            echo "::warning::[CYBERPULSE INTEL] FTP_PASSWORD secret is not configured in GitHub Repository Secrets. Skipping InfinityFree deployment. Web portal remains accessible on GitHub Pages."
-          fi
-
       - name: Deploy to GitHub Pages (gh-pages branch)
         run: |
           git config user.name "github-actions[bot]"
