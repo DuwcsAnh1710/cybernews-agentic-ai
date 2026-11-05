@@ -429,7 +429,7 @@ def send_telegram_video(
                     data = {"chat_id": chat_id, "parse_mode": "HTML"}
                     if caption:
                         data["caption"] = caption[:1024]
-                    resp = c.post(api_url, data=data, files=files, timeout=60.0)
+                    resp = c.post(api_url, data=data, files=files, timeout=120.0)
             elif isinstance(v_path, str) and (v_path.startswith("http://") or v_path.startswith("https://")):
                 payload = {
                     "chat_id": chat_id,
