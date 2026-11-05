@@ -1559,12 +1559,13 @@ def run_dispatch(
             print(f"Error: Editorial package not found: '{target_file}'", file=sys.stderr)
             return 2
     else:
-        candidates = sorted(editorial_dir.glob("*.json"), key=lambda p: p.stat().st_mtime, reverse=True)
-        valid_candidates = [c for c in candidates if not c.name.endswith(".original.json")]
-        if not valid_candidates:
+        from cyberpulse.scheduler import find_latest_editorial_run_id
+
+        latest_id = find_latest_editorial_run_id(settings.paths.output_dir)
+        if not latest_id:
             print("Error: No editorial packages found to dispatch.", file=sys.stderr)
             return 2
-        target_file = valid_candidates[0]
+        target_file = editorial_dir / f"{latest_id}.json"
 
     try:
         pkg = EditorialPackage.model_validate_json(target_file.read_text(encoding="utf-8"))
