@@ -463,6 +463,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Run ID to dispatch (default: newest package in output/editorial/)",
     )
     dispatch_parser.add_argument(
+        "--video",
+        default=None,
+        help="Optional path or URL to video brief to dispatch via Telegram",
+    )
+    dispatch_parser.add_argument(
         "--telegram-only",
         action="store_true",
         default=False,
@@ -1532,6 +1537,7 @@ def run_export_portal(
 
 def run_dispatch(
     run_id: str | None = None,
+    video_path: str | Path | None = None,
     telegram_only: bool = False,
     discord_only: bool = False,
     email_only: bool = False,
@@ -1604,6 +1610,7 @@ def run_dispatch(
 
     res = dispatch_package(
         package=pkg,
+        video_path=video_path,
         telegram_token=telegram_token,
         telegram_chat_id=telegram_chat_id,
         discord_webhook_url=discord_webhook,
@@ -1956,6 +1963,7 @@ def main(argv: list[str] | None = None) -> int:
     elif args.command == "dispatch":
         return run_dispatch(
             run_id=args.run_id,
+            video_path=args.video,
             telegram_only=args.telegram_only,
             discord_only=args.discord_only,
             email_only=args.email_only,

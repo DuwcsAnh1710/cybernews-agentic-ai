@@ -176,3 +176,78 @@ def test_dispatch_package_skips_unconfigured_channels() -> None:
     for cr in result.channel_results:
         assert cr.skipped is True
         assert cr.success is True
+
+
+def test_send_telegram_video_success(tmp_path: Path) -> None:
+    from cyberpulse.dispatch import send_telegram_video
+
+    dummy_video = tmp_path / "test_video.mp4"
+    dummy_video.write_bytes(b"fake-mp4-content")
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        assert request.url.path == "/botdummy-token/sendVideo"
+        return httpx.Response(200, json={"ok": True, "result": {"message_id": 999}})
+
+    transport = httpx.MockTransport(handler)
+    with httpx.Client(transport=transport) as client:
+        result = send_telegram_video(
+            bot_token="dummy-token",
+            chat_id="@test_channel",
+            video_path=dummy_video,
+            caption="Test video caption",
+            client=client,
+        )
+
+    assert result.channel == "telegram_video"
+    assert result.success is True
+    assert result.message_id == "999"
+
+
+def test_send_telegram_video_missing_file() -> None:
+    from cyberpulse.dispatch import send_telegram_video
+
+    result = send_telegram_video(
+        bot_token="dummy-token",
+        chat_id="@test_channel",
+        video_path="non_existent_video_path.mp4",
+    )
+    assert result.channel == "telegram_video"
+    assert result.success is False
+    assert "does not exist" in result.error
+
+
+def test_dispatch_package_with_video(tmp_path: Path) -> None:
+    from cyberpulse.dispatch import dispatch_package
+
+    pkg = make_sample_editorial("run-vid-001")
+    dummy_video = tmp_path / "run-vid-001.mp4"
+    dummy_video.write_bytes(b"fake-mp4-bytes")
+
+    called_endpoints = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        called_endpoints.append(request.url.path)
+        if "sendMessage" in request.url.path:
+            return httpx.Response(200, json={"ok": True, "result": {"message_id": 101}})
+        elif "sendVideo" in request.url.path:
+            return httpx.Response(200, json={"ok": True, "result": {"message_id": 102}})
+        return httpx.Response(200, json={"ok": True})
+
+    transport = httpx.MockTransport(handler)
+    with httpx.Client(transport=transport) as client:
+        res = dispatch_package(
+            package=pkg,
+            video_path=dummy_video,
+            telegram_token="dummy-token",
+            telegram_chat_id="@test_channel",
+            telegram_only=True,
+            client=client,
+        )
+
+    assert len(res.channel_results) == 2
+    assert res.channel_results[0].channel == "telegram"
+    assert res.channel_results[0].message_id == "101"
+    assert res.channel_results[1].channel == "telegram_video"
+    assert res.channel_results[1].message_id == "102"
+    assert "/botdummy-token/sendMessage" in called_endpoints
+    assert "/botdummy-token/sendVideo" in called_endpoints

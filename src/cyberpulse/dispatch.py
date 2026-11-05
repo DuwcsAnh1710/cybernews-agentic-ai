@@ -14,6 +14,7 @@ from email.mime.text import MIMEText
 import html
 import logging
 import os
+from pathlib import Path
 import re
 import smtplib
 from typing import Any
@@ -397,6 +398,87 @@ def send_telegram(
         return _execute(c)
 
 
+def send_telegram_video(
+    bot_token: str,
+    chat_id: str,
+    video_path: Path | str,
+    caption: str = "",
+    client: httpx.Client | None = None,
+) -> ChannelResult:
+    """Send an MP4 video file or video URL to a Telegram chat or channel."""
+    if not bot_token or not chat_id:
+        return ChannelResult(
+            channel="telegram_video",
+            success=True,
+            skipped=True,
+            error="TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID is missing",
+        )
+
+    v_path = (
+        Path(video_path)
+        if isinstance(video_path, str) and not (video_path.startswith("http://") or video_path.startswith("https://"))
+        else video_path
+    )
+    api_url = f"https://api.telegram.org/bot{bot_token}/sendVideo"
+
+    def _execute(c: httpx.Client) -> ChannelResult:
+        try:
+            if isinstance(v_path, Path) and v_path.is_file():
+                with open(v_path, "rb") as f:
+                    files = {"video": (v_path.name, f, "video/mp4")}
+                    data = {"chat_id": chat_id, "parse_mode": "HTML"}
+                    if caption:
+                        data["caption"] = caption[:1024]
+                    resp = c.post(api_url, data=data, files=files, timeout=60.0)
+            elif isinstance(v_path, str) and (v_path.startswith("http://") or v_path.startswith("https://")):
+                payload = {
+                    "chat_id": chat_id,
+                    "video": v_path,
+                    "parse_mode": "HTML",
+                }
+                if caption:
+                    payload["caption"] = caption[:1024]
+                resp = c.post(api_url, json=payload, timeout=30.0)
+            else:
+                return ChannelResult(
+                    channel="telegram_video",
+                    success=False,
+                    error=f"Video file does not exist: {video_path}",
+                )
+
+            data = resp.json()
+            if resp.is_success and data.get("ok"):
+                msg_id = str(data.get("result", {}).get("message_id", ""))
+                logger.info("Dispatched Telegram video %s to chat %s", msg_id, chat_id)
+                return ChannelResult(
+                    channel="telegram_video",
+                    success=True,
+                    message_id=msg_id,
+                    rendered_payload=caption,
+                )
+            desc = data.get("description", resp.text)
+            logger.error("Telegram API video error: %s", desc)
+            return ChannelResult(
+                channel="telegram_video",
+                success=False,
+                error=desc,
+                rendered_payload=caption,
+            )
+        except Exception as exc:
+            logger.error("Failed to dispatch video to Telegram: %s", exc)
+            return ChannelResult(
+                channel="telegram_video",
+                success=False,
+                error=str(exc),
+                rendered_payload=caption,
+            )
+
+    if client is not None:
+        return _execute(client)
+    with httpx.Client() as c:
+        return _execute(c)
+
+
 def send_discord(
     webhook_url: str,
     payload: dict[str, Any],
@@ -446,6 +528,7 @@ def send_discord(
 
 def dispatch_package(
     package: EditorialPackage,
+    video_path: Path | str | None = None,
     telegram_token: str | None = None,
     telegram_chat_id: str | None = None,
     discord_webhook_url: str | None = None,
@@ -490,12 +573,24 @@ def dispatch_package(
 
     # 1. Telegram
     if not discord_only and not email_only:
+        target_vid = video_path
+        if target_vid is None:
+            candidate_vid = Path("output") / "media" / "video" / f"{package.run_id}.mp4"
+            if candidate_vid.is_file():
+                target_vid = candidate_vid
+
         if dry_run:
             results.append(ChannelResult(
                 channel="telegram",
                 success=True,
                 rendered_payload=tg_text,
             ))
+            if target_vid:
+                results.append(ChannelResult(
+                    channel="telegram_video",
+                    success=True,
+                    rendered_payload=f"Video brief for {package.run_id}",
+                ))
         elif not token or not chat_id:
             results.append(ChannelResult(
                 channel="telegram",
@@ -504,7 +599,22 @@ def dispatch_package(
                 error="TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID missing",
             ))
         else:
-            results.append(send_telegram(bot_token=token, chat_id=chat_id, text=tg_text, client=client))
+            tg_res = send_telegram(bot_token=token, chat_id=chat_id, text=tg_text, client=client)
+            results.append(tg_res)
+            if target_vid and tg_res.success:
+                vid_caption = (
+                    f"<b>[CYBERPULSE VIDEO BRIEF 9:16]</b>\n"
+                    f"{package.digest.title}\n\n"
+                    f"Bản tin an ninh mạng định dạng video ngắn 9:16."
+                )
+                tg_vid_res = send_telegram_video(
+                    bot_token=token,
+                    chat_id=chat_id,
+                    video_path=target_vid,
+                    caption=vid_caption,
+                    client=client,
+                )
+                results.append(tg_vid_res)
 
     # 2. Discord
     if not telegram_only and not email_only:
