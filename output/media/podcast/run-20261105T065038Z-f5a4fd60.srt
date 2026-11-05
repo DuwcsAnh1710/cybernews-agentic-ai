@@ -1,0 +1,111 @@
+1
+00:00:00,000 --> 00:00:05,430
+[Minh] Xin chào các bạn nghe đài! Chào mừng quay trở lại với điểm tin an ninh mạng hôm nay.
+
+2
+00:00:05,430 --> 00:00:06,206
+Tôi là Minh,
+
+3
+00:00:06,206 --> 00:00:11,636
+và hôm nay chúng ta sẽ cùng cô bạn đồng hành Lan điểm qua những sự cố bảo mật cực kỳ
+
+4
+00:00:11,636 --> 00:00:12,864
+đáng chú ý gần đây.
+
+5
+00:00:13,214 --> 00:00:15,186
+[Lan] Chào Minh và chào mọi người!
+
+6
+00:00:15,186 --> 00:00:21,101
+Đầu tiên là thông tin từ CISA khi họ vừa đưa lỗ hổng CVE-2024-27834 trên các hệ điều
+
+7
+00:00:21,101 --> 00:00:25,959
+hành Apple vào danh mục KEV. Đây là lỗ hổng xác thực không đúng cách,
+
+8
+00:00:25,959 --> 00:00:31,310
+đang bị kẻ tấn công khai thác thực tế để phát tán mã độc đánh cắp thông tin.
+
+9
+00:00:31,660 --> 00:00:34,436
+[Minh] Đáng lo ngại thật. Nhưng không chỉ có Apple,
+
+10
+00:00:34,436 --> 00:00:39,736
+các hệ thống Linux như Debian và Ubuntu cũng vừa ghi nhận lỗ hổng nghiêm trọng trong
+
+11
+00:00:39,736 --> 00:00:41,124
+trình quản lý gói APT.
+
+12
+00:00:41,124 --> 00:00:46,298
+Lỗi này cho phép kẻ tấn công Man-in-the-Middle đánh tráo gói phần mềm khi hệ thống
+
+13
+00:00:46,298 --> 00:00:50,020
+tự động tải lại file lỗi, từ đó chạy mã độc với quyền root.
+
+14
+00:00:50,370 --> 00:00:53,365
+[Lan] Tiếp theo là thông tin về ngành hàng không.
+
+15
+00:00:53,365 --> 00:00:58,588
+Hàng loạt hãng lớn ở châu Á như Japan Airlines, Cathay Pacific, Korean Air,
+
+16
+00:00:58,588 --> 00:00:59,702
+Asiana Airlines,
+
+17
+00:00:59,702 --> 00:01:04,507
+Singapore Airlines và Malaysia Airlines vừa báo cáo bị rò rỉ dữ liệu.
+
+18
+00:01:04,507 --> 00:01:09,522
+Sự cố này xuất phát từ đợt tấn công vào nhà cung cấp dịch vụ IT Amadeus.
+
+19
+00:01:09,872 --> 00:01:14,643
+[Minh] Tấn công qua chuỗi cung ứng đang trở thành mối đe dọa cực lớn. Nhắc đến điều này,
+
+20
+00:01:14,643 --> 00:01:19,532
+ngân hàng Pháp Crédit Mutuel Arkéa vừa xác nhận bị dính một vụ cướp mạng khi hacker
+
+21
+00:01:19,532 --> 00:01:22,595
+xâm nhập vào một nhà cung cấp chưa được tiết lộ tên,
+
+22
+00:01:22,595 --> 00:01:27,307
+qua đó thực hiện các giao dịch chuyển tiền trái phép trị giá ước tính khoảng 133
+
+23
+00:01:27,307 --> 00:01:27,896
+triệu USD.
+
+24
+00:01:28,246 --> 00:01:32,877
+[Lan] Cuối cùng là cảnh báo cho các thiết bị Email Security Gateway của Barracuda.
+
+25
+00:01:32,877 --> 00:01:37,326
+Người ta vừa phát hiện lỗ hổng bỏ qua xác thực kết hợp với lỗi chèn lệnh,
+
+26
+00:01:37,326 --> 00:01:42,262
+tạo điều kiện cho kẻ tấn công chiếm hoàn toàn quyền kiểm soát root trên thiết bị.
+
+27
+00:01:42,612 --> 00:01:47,852
+[Minh] Những sự cố này là lời nhắc nhở lớn về việc quản lý rủi ro từ chuỗi cung ứng và cập
+
+28
+00:01:47,852 --> 00:01:53,028
+nhật bản vá kịp thời. Cảm ơn các bạn đã lắng nghe, hẹn gặp lại trong số tiếp theo!

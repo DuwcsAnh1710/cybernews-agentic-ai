@@ -1,0 +1,63 @@
+{
+  "run_id": "run-20261105T065038Z-f5a4fd60",
+  "passed": true,
+  "errors": [],
+  "warnings": [
+    {
+      "code": "W_PODCAST_LENGTH",
+      "severity": "warning",
+      "path": "podcast.segments",
+      "message": "Total podcast words (375) outside target range [480, 720] (target 600 ± 20%)",
+      "evidence": "375 words (expected 480-720)"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "digest.intro",
+      "message": "Term 'Debian/Ubuntu' not found in cited source text and not allowlisted",
+      "evidence": "Debian/Ubuntu"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "podcast.segments[2].line.text",
+      "message": "Term 'Apple' not found in cited source text and not allowlisted",
+      "evidence": "Apple"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "podcast.segments[2].line.text",
+      "message": "Term 'Linux' not found in cited source text and not allowlisted",
+      "evidence": "Linux"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "podcast.segments[2].line.text",
+      "message": "Term 'Man-in-the-Middle' not found in cited source text and not allowlisted",
+      "evidence": "Man-in-the-Middle"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "captions[0].text",
+      "message": "Term 'Debian/Ubuntu' not found in cited source text and not allowlisted",
+      "evidence": "Debian/Ubuntu"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "captions[2].text",
+      "message": "Term 'Debian/Ubuntu' not found in cited source text and not allowlisted",
+      "evidence": "Debian/Ubuntu"
+    }
+  ],
+  "checks_run": [
+    "layer1_structural",
+    "layer2_source_consistency",
+    "layer3_llm_claim_review (findings=0, dropped=0)"
+  ],
+  "llm_review": "done",
+  "scope_note": "Structural and source-consistency checks against RSS title/summary only. Facts are NOT independently verified."
+}

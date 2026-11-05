@@ -1,0 +1,101 @@
+{
+  "run_id": "run-20261105T065038Z-f5a4fd60",
+  "backend": {
+    "name": "edge-tts",
+    "version": "active"
+  },
+  "assembler": {
+    "name": "pure-python-mp3",
+    "version": "active"
+  },
+  "options": {
+    "pause_diff_speaker_ms": 350,
+    "pause_same_speaker_ms": 200,
+    "allow_unvalidated": true,
+    "force": true
+  },
+  "voices": {
+    "Minh": "vi-VN-NamMinhNeural",
+    "Lan": "vi-VN-HoaiMyNeural"
+  },
+  "segments": [
+    {
+      "index": 0,
+      "speaker": "Minh",
+      "voice": "vi-VN-NamMinhNeural",
+      "char_count": 202,
+      "word_count": 48,
+      "start_sec": 0.0,
+      "end_sec": 12.864,
+      "duration_sec": 12.864
+    },
+    {
+      "index": 1,
+      "speaker": "Lan",
+      "voice": "vi-VN-HoaiMyNeural",
+      "char_count": 260,
+      "word_count": 57,
+      "start_sec": 13.214,
+      "end_sec": 31.31,
+      "duration_sec": 18.096
+    },
+    {
+      "index": 2,
+      "speaker": "Minh",
+      "voice": "vi-VN-NamMinhNeural",
+      "char_count": 295,
+      "word_count": 61,
+      "start_sec": 31.66,
+      "end_sec": 50.02,
+      "duration_sec": 18.36
+    },
+    {
+      "index": 3,
+      "speaker": "Lan",
+      "voice": "vi-VN-HoaiMyNeural",
+      "char_count": 279,
+      "word_count": 55,
+      "start_sec": 50.37,
+      "end_sec": 69.522,
+      "duration_sec": 19.152
+    },
+    {
+      "index": 4,
+      "speaker": "Minh",
+      "voice": "vi-VN-NamMinhNeural",
+      "char_count": 310,
+      "word_count": 66,
+      "start_sec": 69.872,
+      "end_sec": 87.896,
+      "duration_sec": 18.024
+    },
+    {
+      "index": 5,
+      "speaker": "Lan",
+      "voice": "vi-VN-HoaiMyNeural",
+      "char_count": 232,
+      "word_count": 48,
+      "start_sec": 88.246,
+      "end_sec": 102.262,
+      "duration_sec": 14.016
+    },
+    {
+      "index": 6,
+      "speaker": "Minh",
+      "voice": "vi-VN-NamMinhNeural",
+      "char_count": 166,
+      "word_count": 40,
+      "start_sec": 102.612,
+      "end_sec": 113.028,
+      "duration_sec": 10.416
+    }
+  ],
+  "total_duration_sec": 113.088,
+  "files": {
+    "audio": "run-20261105T065038Z-f5a4fd60.mp3",
+    "subtitles": "run-20261105T065038Z-f5a4fd60.srt",
+    "metadata": "run-20261105T065038Z-f5a4fd60.json"
+  },
+  "created_at": "2026-11-05T06:52:25.430542+00:00",
+  "note": "WARNING: Synthesized from unvalidated editorial package."
+}

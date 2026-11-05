@@ -1,0 +1,275 @@
+{
+  "run_id": "run-20261105T065038Z-f5a4fd60",
+  "language": "vi",
+  "digest": {
+    "title": "Điểm tin an ninh mạng: Lỗ hổng mã nguồn mở, tấn công chuỗi cung ứng và gian lận tài chính",
+    "intro": "Bản tin an ninh mạng tuần này cập nhật thông tin về các lỗ hổng nghiêm trọng trên nhiều hệ điều hành và công cụ phổ biến như Apple, APT của Debian/Ubuntu, và Barracuda ESG. Bên cạnh đó là các sự cố rò rỉ dữ liệu hành không châu Á và vụ tấn công tài chính quy mô lớn nhắm vào ngân hàng Pháp.",
+    "sections": [
+      {
+        "heading": "CISA cảnh báo lỗ hổng trên hệ điều hành Apple bị khai thác để phát tán phần mềm độc hại",
+        "body": {
+          "text": "Cơ quan An ninh mạng và Hạ tầng Mỹ (CISA) đã thêm lỗ hổng CVE-2024-27834 (điểm CVSS: 5.5) trên nhiều hệ điều hành của Apple vào danh mục KEV sau khi ghi nhận các cuộc tấn công thực tế. Lỗi xác thực không đúng cách (improper authentication - lỗ hổng trong việc xác minh danh tính người dùng) này cho phép kẻ tấn công phát tán phần mềm độc hại nhằm đánh cắp thông tin.",
+          "cited_article_ids": [
+            "16bf85bfb533fefe"
+          ]
+        }
+      },
+      {
+        "heading": "Lỗ hổng trong công cụ APT của Debian và Ubuntu cho phép chiếm quyền Root",
+        "body": {
+          "text": "Một lỗ hổng vừa được phát hiện trong APT, trình quản lý gói (package manager) của Debian và Ubuntu, cho phép kẻ tấn công thực hiện tấn công can thiệp (MitM - Man-in-the-Middle) để tráo đổi gói phần mềm đã qua kiểm tra bằng mã độc. Mã độc của kẻ tấn công sau đó sẽ chạy với quyền root. Cuộc tấn công tận dụng cơ chế tự động thử lại các lượt tải xuống thất bại vốn được bật mặc định từ Debian 12.",
+          "cited_article_ids": [
+            "f72f567cab23b3cb"
+          ]
+        }
+      },
+      {
+        "heading": "Nhiều hãng hàng không châu Á lộ rò rỉ dữ liệu từ nhà cung cấp IT Amadeus",
+        "body": {
+          "text": "Hàng loạt hãng hàng không lớn tại châu Á bao gồm Japan Airlines, Cathay Pacific, Korean Air, Asiana Airlines, Singapore Airlines và Malaysia Airlines vừa báo cáo sự cố rò rỉ dữ liệu. Sự cố bắt nguồn từ đợt tấn công vào Amadeus IT Group, đơn vị phát triển và duy trì các hệ thống đặt vé, xuất vé và làm thủ tục chuyến bay.",
+          "cited_article_ids": [
+            "5045883ec41b7061"
+          ]
+        }
+      },
+      {
+        "heading": "Ngân hàng Pháp Crédit Mutuel Arkéa bị chiếm đoạt khoảng 133 triệu USD",
+        "body": {
+          "text": "Ngân hàng Crédit Mutuel Arkéa của Pháp xác nhận một vụ tấn công mạng khiến họ bị tổn thất ước tính 133 triệu USD. Theo thông cáo báo chí, các tin tặc đã thỏa hiệp một nhà cung cấp chưa được nêu tên, từ đó thực hiện các giao dịch chuyển tiền trực tiếp bằng tài khoản của chính ngân hàng.",
+          "cited_article_ids": [
+            "cd1d23b48c3f127d"
+          ]
+        }
+      },
+      {
+        "heading": "Chuỗi lỗ hổng nghiêm trọng trên thiết bị Barracuda ESG cho phép lấy quyền Root",
+        "body": {
+          "text": "Hai lỗ hổng gồm bỏ qua xác thực (authentication bypass - cơ chế cho phép truy cập không cần xác thực hợp lệ) và chèn lệnh (command injection - lỗi cho phép thực thi lệnh trái phép) trên các thiết bị Email Security Gateway (ESG) của Barracuda có thể bị chuỗi hóa (chained). Việc kết hợp này mở đường cho kẻ tấn công chiếm toàn quyền truy cập mức root trên thiết bị.",
+          "cited_article_ids": [
+            "77b68f7046a54f46"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: Từ Lỗ Hổng Hệ Thống Đến Các Tấn Công Hàng Không Và Ngân Hàng",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Xin chào các bạn nghe đài! Chào mừng quay trở lại với điểm tin an ninh mạng hôm nay. Tôi là Minh, và hôm nay chúng ta sẽ cùng cô bạn đồng hành Lan điểm qua những sự cố bảo mật cực kỳ đáng chú ý gần đây.",
+          "cited_article_ids": [
+            "16bf85bfb533fefe",
+            "f72f567cab23b3cb",
+            "5045883ec41b7061",
+            "cd1d23b48c3f127d",
+            "77b68f7046a54f46"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào Minh và chào mọi người! Đầu tiên là thông tin từ CISA khi họ vừa đưa lỗ hổng CVE-2024-27834 trên các hệ điều hành Apple vào danh mục KEV. Đây là lỗ hổng xác thực không đúng cách, đang bị kẻ tấn công khai thác thực tế để phát tán mã độc đánh cắp thông tin.",
+          "cited_article_ids": [
+            "16bf85bfb533fefe"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đáng lo ngại thật. Nhưng không chỉ có Apple, các hệ thống Linux như Debian và Ubuntu cũng vừa ghi nhận lỗ hổng nghiêm trọng trong trình quản lý gói APT. Lỗi này cho phép kẻ tấn công Man-in-the-Middle đánh tráo gói phần mềm khi hệ thống tự động tải lại file lỗi, từ đó chạy mã độc với quyền root.",
+          "cited_article_ids": [
+            "f72f567cab23b3cb"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Tiếp theo là thông tin về ngành hàng không. Hàng loạt hãng lớn ở châu Á như Japan Airlines, Cathay Pacific, Korean Air, Asiana Airlines, Singapore Airlines và Malaysia Airlines vừa báo cáo bị rò rỉ dữ liệu. Sự cố này xuất phát từ đợt tấn công vào nhà cung cấp dịch vụ IT Amadeus.",
+          "cited_article_ids": [
+            "5045883ec41b7061"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Tấn công qua chuỗi cung ứng đang trở thành mối đe dọa cực lớn. Nhắc đến điều này, ngân hàng Pháp Crédit Mutuel Arkéa vừa xác nhận bị dính một vụ cướp mạng khi hacker xâm nhập vào một nhà cung cấp chưa được tiết lộ tên, qua đó thực hiện các giao dịch chuyển tiền trái phép trị giá ước tính khoảng 133 triệu USD.",
+          "cited_article_ids": [
+            "cd1d23b48c3f127d"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cuối cùng là cảnh báo cho các thiết bị Email Security Gateway của Barracuda. Người ta vừa phát hiện lỗ hổng bỏ qua xác thực kết hợp với lỗi chèn lệnh, tạo điều kiện cho kẻ tấn công chiếm hoàn toàn quyền kiểm soát root trên thiết bị.",
+          "cited_article_ids": [
+            "77b68f7046a54f46"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Những sự cố này là lời nhắc nhở lớn về việc quản lý rủi ro từ chuỗi cung ứng và cập nhật bản vá kịp thời. Cảm ơn các bạn đã lắng nghe, hẹn gặp lại trong số tiếp theo!",
+          "cited_article_ids": [
+            "16bf85bfb533fefe",
+            "f72f567cab23b3cb",
+            "5045883ec41b7061",
+            "cd1d23b48c3f127d",
+            "77b68f7046a54f46"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Tin Nóng An Ninh Mạng Trong Tuần",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "CẢNH BÁO AN NINH MẠNG TUẦN NÀY!",
+        "narration": {
+          "text": "Cùng điểm qua những sự cố an ninh mạng chấn động nhất vừa diễn ra!",
+          "cited_article_ids": [
+            "16bf85bfb533fefe",
+            "f72f567cab23b3cb",
+            "5045883ec41b7061",
+            "cd1d23b48c3f127d",
+            "77b68f7046a54f46"
+          ]
+        },
+        "duration_sec": 6.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "Apple CVE-2024-27834 Bị Khai Thác Thực Tế",
+        "narration": {
+          "text": "CISA đưa lỗ hổng CVE-2024-27834 của Apple vào danh sách bị khai thác để cài mã độc lấy trộm thông tin.",
+          "cited_article_ids": [
+            "16bf85bfb533fefe"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "Lỗ Hổng APT Trên Debian & Ubuntu",
+        "narration": {
+          "text": "Lỗi APT trên Debian và Ubuntu cho phép tấn công tráo đổi gói phần mềm để chiếm quyền root.",
+          "cited_article_ids": [
+            "f72f567cab23b3cb"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Hàng Loạt Hãng Hàng Không Bị Lộ Dữ Liệu",
+        "narration": {
+          "text": "Nhiều hãng hàng không lớn ở châu Á bị lộ dữ liệu do sự cố tấn công vào đối tác Amadeus.",
+          "cited_article_ids": [
+            "5045883ec41b7061"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "Ngân Hàng Pháp Mất 133 Triệu USD",
+        "narration": {
+          "text": "Ngân hàng Pháp Crédit Mutuel Arkéa bị chiếm đoạt 133 triệu USD thông qua nhà cung cấp bị xâm nhập.",
+          "cited_article_ids": [
+            "cd1d23b48c3f127d"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "Lỗ Hổng Chiếm Quyền Root Trên Barracuda ESG",
+        "narration": {
+          "text": "Thiết bị Barracuda Email Security Gateway dính lỗi bỏ qua xác thực nguy hiểm mở đường chiếm root.",
+          "cited_article_ids": [
+            "77b68f7046a54f46"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "Cập Nhật Bản VáNgay Hôm Nay!",
+        "narration": {
+          "text": "Hãy luôn cập nhật bản vá an toàn hệ thống và theo dõi kênh để nhận tin mới nhất nhé!",
+          "cited_article_ids": [
+            "16bf85bfb533fefe",
+            "f72f567cab23b3cb",
+            "5045883ec41b7061",
+            "cd1d23b48c3f127d",
+            "77b68f7046a54f46"
+          ]
+        },
+        "duration_sec": 8.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "Điểm tin an ninh mạng mới nhất! CISA cảnh báo lỗ hổng Apple CVE-2024-27834 đang bị khai thác. APT trên Debian/Ubuntu dính lỗi cho phép tráo gói tin chạy quyền root. Nhiều hãng hàng không châu Á lộ dữ liệu qua Amadeus, ngân hàng Pháp mất 133 triệu USD, và thiết bị Barracuda ESG đối mặt với lỗ hổng chiếm quyền root.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#CyberSecurity",
+        "#Apple",
+        "#Debian",
+        "#Ubuntu",
+        "#TinTucIT"
+      ],
+      "cited_article_ids": [
+        "16bf85bfb533fefe",
+        "f72f567cab23b3cb",
+        "5045883ec41b7061",
+        "cd1d23b48c3f127d",
+        "77b68f7046a54f46"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Cập nhật các sự kiện an ninh mạng đáng chú ý:\n- CISA cảnh báo lỗ hổng Apple CVE-2024-27834 bị khai thác để phát tán phần mềm đánh cắp thông tin.\n- Trình quản lý gói APT trên Debian và Ubuntu bị phát hiện lỗi nghiêm trọng, cho phép kẻ tấn công MitM chiếm quyền root.\n- Chuỗi cung ứng Amadeus bị tấn công làm rò rỉ dữ liệu của nhiều hãng hàng không châu Á.\n- Ngân hàng Crédit Mutuel Arkéa bị chiếm đoạt 133 triệu USD qua nhà cung cấp bên thứ ba.\n- Thiết bị Barracuda ESG dính chuỗi lỗ hổng xác thực và chèn lệnh dẫn đến chiếm quyền root.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#BaoMat",
+        "#CongNgheThôngTin",
+        "#CVE202427834",
+        "#Amadeus"
+      ],
+      "cited_article_ids": [
+        "16bf85bfb533fefe",
+        "f72f567cab23b3cb",
+        "5045883ec41b7061",
+        "cd1d23b48c3f127d",
+        "77b68f7046a54f46"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Cảnh báo an ninh mạng: Lỗ hổng Apple bị khai thác, APT trên Debian/Ubuntu cho phép lấy quyền root, ngân hàng Pháp mất 133 triệu USD và hàng loạt hãng hàng không châu Á rò rỉ dữ liệu!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#BaoMat",
+        "#TinTucCongNghe"
+      ],
+      "cited_article_ids": [
+        "16bf85bfb533fefe",
+        "f72f567cab23b3cb",
+        "5045883ec41b7061",
+        "cd1d23b48c3f127d"
+      ]
+    }
+  ]
+}

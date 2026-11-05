@@ -1,0 +1,81 @@
+{
+  "run_id": "run-20261105T065038Z-f5a4fd60",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "16bf85bfb533fefe",
+        "source_name": "The Hacker News",
+        "title": "Hackers Exploit Patched Apple Flaw to Deliver Info-Stealing Malware, CISA Says",
+        "url": "https://thehackernews.com/2026/11/hackers-exploit-patched-apple-flaw-to.html",
+        "published_at": "2026-11-05T05:17:04Z",
+        "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) on Wednesday added a medium-severity security flaw impacting multiple Apple operating systems to its Known Exploited Vulnerabilities (KEV) catalog, following reports of active exploitation. The vulnerability in question is CVE-2024-27834 (CVSS score: 5.5), a case of improper authentication that could allow an attacker with",
+        "fetched_at": "2026-11-05T06:50:35.024370Z",
+        "topics_matched": [
+          "cybersecurity",
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "CISA bổ sung lỗ hổng bảo mật trong các hệ điều hành của Apple vào danh mục các lỗ hổng đang bị khai thác thực tế."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "f72f567cab23b3cb",
+        "source_name": "The Hacker News",
+        "title": "Debian and Ubuntu APT Flaw Lets MitM Attackers Swap Verified Packages and Run Code as Root",
+        "url": "https://thehackernews.com/2026/11/debian-and-ubuntu-apt-flaw-lets-mitm.html",
+        "published_at": "2026-11-04T17:00:46Z",
+        "summary": "A flaw in APT, the package manager for Debian and Ubuntu, allows an attacker who can modify package downloads to swap a checked package for their own. The attacker's code then runs as root, according to advisories that Debian, Ubuntu, and APT's developers published on November 4. The attack needs APT to retry failed downloads, which it does by default from Debian 12 and",
+        "fetched_at": "2026-11-05T06:50:35.024370Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Lỗ hổng nghiêm trọng trong trình quản lý gói APT của Debian và Ubuntu cho phép kẻ tấn công thực thi mã với quyền root."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "5045883ec41b7061",
+        "source_name": "The Record",
+        "title": "More Asian airlines announce data breaches after attack on Spanish IT provider Amadeus",
+        "url": "https://therecord.media/asian-airlines-announce-data-breach-it-provider-incident",
+        "published_at": "2026-11-04T21:30:00Z",
+        "summary": "Japan Airlines, Cathay Pacific, Korean Air, Asiana Airlines, Singapore Airlines and Malaysia Airlines have all come forward over the last week to report data breaches traced back to Amadeus IT Group — a company that builds and maintains platforms for flight reservation, ticketing and check-in platforms.",
+        "fetched_at": "2026-11-05T06:50:35.228718Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Nhiều hãng hàng không lớn tại châu Á xác nhận bị rò rỉ dữ liệu sau đợt tấn công vào nhà cung cấp hệ thống CNTT Amadeus."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "cd1d23b48c3f127d",
+        "source_name": "The Record",
+        "title": "French bank confirms cyber heist, hackers suspected to have stolen an estimated $133 million",
+        "url": "https://therecord.media/french-bank-confirms-cyber-heist",
+        "published_at": "2026-11-04T18:58:00Z",
+        "summary": "Crédit Mutuel Arkéa said in a press notice that the attackers were able to make transfers using the bank’s own account after compromising an unnamed supplier.",
+        "fetched_at": "2026-11-05T06:50:35.228718Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Ngân hàng Crédit Mutuel Arkéa của Pháp xác nhận bị tấn công mạng và nghi ngờ bị trộm khoảng 133 triệu USD thông qua nhà cung cấp dịch vụ."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "77b68f7046a54f46",
+        "source_name": "SecurityWeek",
+        "title": "Barracuda ESG Authentication Bypass Flaw Opens Path to Root",
+        "url": "https://securityweek.com/barracuda-email-security-gateway-authentication-bypass-opens-path-to-root",
+        "published_at": "2026-11-04T14:24:54Z",
+        "summary": "An authentication bypass and a command injection flaw can be chained for root access on Barracuda’s Email Security Gateway appliances. The post Barracuda ESG Authentication Bypass Flaw Opens Path to Root appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-05T06:50:35.476851Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Chuỗi lỗ hổng xác thực và tiêm lệnh trên thiết bị Barracuda Email Security Gateway cho phép kẻ tấn công chiếm quyền truy cập root."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=0"
+}
