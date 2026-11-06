@@ -2,9 +2,19 @@ name: Daily Cybersecurity Magazine Pipeline & Deploy
 
 on:
   schedule:
-    # Runs at 00:15 UTC every day (07:15 AM Vietnam Time UTC+7) - offset by 15 mins to avoid peak top-of-the-hour queue delay
+    # Primary window: 23:45 UTC (06:45 AM Vietnam Time UTC+7) - runs 15 mins BEFORE the 00:00 UTC global GitHub queue spike
+    - cron: '45 23 * * *'
+    # Backup window 1: 00:15 UTC (07:15 AM Vietnam Time UTC+7) - skipped automatically if 06:45 AM run already succeeded
     - cron: '15 0 * * *'
-  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+    # Backup window 2: 00:45 UTC (07:45 AM Vietnam Time UTC+7) - failsafe if earlier GitHub crons were delayed/dropped
+    - cron: '45 0 * * *'
+  workflow_dispatch: # Allows manual or API trigger
+    inputs:
+      force_run:
+        description: "Force run even if today's edition already exists (true/false)"
+        required: false
+        default: "true"
+        type: string
 
 permissions:
   contents: write
@@ -31,16 +41,71 @@ jobs:
           python-version: "3.12"
           cache: "pip"
 
+      - name: Check Daily Edition Status (Idempotency Guard)
+        id: edition_check
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          FORCE_RUN: ${{ inputs.force_run }}
+        run: |
+          python - << 'EOF'
+          import os, re
+          from datetime import datetime, timedelta, timezone
+          from pathlib import Path
+
+          event_name = os.environ.get("EVENT_NAME", "")
+          force_run = os.environ.get("FORCE_RUN", "true").strip().lower()
+          github_output = os.environ.get("GITHUB_OUTPUT", "")
+
+          # Manual workflow_dispatch runs unconditionally unless force_run is explicitly "false"
+          if event_name == "workflow_dispatch" and force_run != "false":
+              print("[CYBERPULSE INTEL] Manual workflow_dispatch (force_run=true). Proceeding with pipeline.")
+              if github_output:
+                  with open(github_output, "a", encoding="utf-8") as f:
+                      f.write("skip=false\n")
+              raise SystemExit(0)
+
+          vn_tz = timezone(timedelta(hours=7))
+          today_vn = datetime.now(vn_tz).strftime("%Y-%m-%d")
+          editorial_dir = Path("output/editorial")
+          existing_pkg = None
+
+          if editorial_dir.exists():
+              for p in sorted(editorial_dir.glob("*.json"), reverse=True):
+                  if p.name.endswith(".original.json"):
+                      continue
+                  m = re.search(r"^(?:run|standalone)-(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z", p.stem)
+                  if m:
+                      y, mo, d, hh, mm, ss = map(int, m.groups())
+                      pkg_dt_vn = datetime(y, mo, d, hh, mm, ss, tzinfo=timezone.utc).astimezone(vn_tz)
+                      if pkg_dt_vn.strftime("%Y-%m-%d") == today_vn:
+                          existing_pkg = p.stem
+                          break
+
+          if existing_pkg:
+              print(f"[CYBERPULSE INTEL] Edition for {today_vn} (UTC+7) already published ({existing_pkg}). Skipping duplicate scheduled run.")
+              if github_output:
+                  with open(github_output, "a", encoding="utf-8") as f:
+                      f.write("skip=true\n")
+          else:
+              print(f"[CYBERPULSE INTEL] No edition published yet for {today_vn} (UTC+7). Proceeding with daily pipeline.")
+              if github_output:
+                  with open(github_output, "a", encoding="utf-8") as f:
+                      f.write("skip=false\n")
+          EOF
+
       - name: Install Dependencies
+        if: steps.edition_check.outputs.skip != 'true'
         run: |
           python -m pip install --upgrade pip
           pip install .[media]
 
       - name: Ingest Fresh Articles from Cybersecurity RSS Feeds (Collect)
+        if: steps.edition_check.outputs.skip != 'true'
         run: |
           python -m cyberpulse.cli collect --settings config/settings.toml --sources config/sources.toml
 
       - name: Execute CyberPulse AI Daily Run
+        if: steps.edition_check.outputs.skip != 'true'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_API_KEYS: ${{ secrets.GEMINI_API_KEYS }}
@@ -72,6 +137,7 @@ jobs:
           fi
 
       - name: Synthesize Podcast Audio (Edge-TTS)
+        if: steps.edition_check.outputs.skip != 'true'
         run: |
           LATEST_FILE=$(ls -t output/editorial/*.json 2>/dev/null | head -n 1 || true)
           if [ -n "$LATEST_FILE" ]; then
@@ -83,6 +149,7 @@ jobs:
           fi
 
       - name: Synthesize Short-Form Video (FFmpeg & Edge-TTS)
+        if: steps.edition_check.outputs.skip != 'true'
         run: |
           LATEST_FILE=$(ls -t output/editorial/*.json 2>/dev/null | head -n 1 || true)
           if [ -n "$LATEST_FILE" ]; then
@@ -94,18 +161,21 @@ jobs:
           fi
 
       - name: Build The Hacker News Style Static Portal
+        if: steps.edition_check.outputs.skip != 'true'
         run: |
           python -m cyberpulse.cli export portal --output-dir output --dist-dir dist
 
       - name: Commit New Edition Artifacts to Main Archive
+        if: steps.edition_check.outputs.skip != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add output/editorial/ output/research/ output/validation/ output/media/podcast/ output/media/video/ || true
-          git commit -m "chore(data): auto-archive daily edition $(date -u +'%Y-%m-%d')" || echo "No new edition artifacts to commit"
+          git commit -m "chore(data): auto-archive daily edition $(TZ=Asia/Ho_Chi_Minh date +'%Y-%m-%d')" || echo "No new edition artifacts to commit"
           git push origin main || echo "Could not push archive to main"
 
       - name: Deploy to GitHub Pages (gh-pages branch)
+        if: steps.edition_check.outputs.skip != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -116,6 +186,7 @@ jobs:
           git push origin "${COMMIT}:refs/heads/gh-pages" --force
 
       - name: Dispatch Multi-channel Notifications (Telegram, Discord & Email)
+        if: steps.edition_check.outputs.skip != 'true'
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}

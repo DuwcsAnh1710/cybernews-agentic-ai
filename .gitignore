@@ -34,3 +34,4 @@ output/*
 !output/media/
 output/media/*
 !output/media/podcast/
+!output/media/video/
