@@ -1,0 +1,330 @@
+{
+  "run_id": "run-20261106T022500Z-3f403298",
+  "language": "vi",
+  "digest": {
+    "title": "Điểm tin an ninh mạng: Lỗi nghiêm trọng trên OpenSSH, mô hình AI khai thác Linux và tấn công zero-click",
+    "intro": "Bản tin an ninh mạng hôm nay cập nhật các sự cố bảo mật quan trọng, bao gồm lỗ hổng khẩn cấp trên OpenSSH cho Alpine Linux và nghiên cứu AI phát hiện hàng trăm lỗ hổng nhân Linux. Ngoài ra, bản tin cũng ghi nhận các chiến dịch tấn công thiết bị di động, lỗ hổng ChatGPT và vấn đề vá lỗi trên thiết bị Zyxel.",
+    "sections": [
+      {
+        "heading": "OpenSSH phát hành bản vá khẩn cấp cho lỗ hổng mật khẩu dài trên Alpine Linux",
+        "body": {
+          "text": "OpenSSH đã phát hành phiên bản 10.6p2 để khắc phục một lỗ hổng nghiêm trọng cho phép kẻ tấn công vượt qua quá trình xác thực SSH trên một số máy chủ Alpine Linux đang chạy gói openssh-server tiêu chuẩn. Kẻ tấn công có thể truy cập vào các tài khoản không sử dụng mật khẩu (như tài khoản chỉ dùng khóa SSH) nếu có truy cập mạng, tên tài khoản và mật khẩu có độ dài từ 257 đến 1.024 byte. Alpine đã cung cấp các gói bản vá để giải quyết sự cố này.",
+          "cited_article_ids": [
+            "90a9e74aa19bf7e0"
+          ]
+        }
+      },
+      {
+        "heading": "Mô hình AI của OpenAI phát hiện và khai thác 948 lỗ hổng nhân Linux",
+        "body": {
+          "text": "Theo nghiên cứu từ OpenAI, một mô hình an ninh mạng chưa được phát hành của họ đã tìm thấy và khai thác thành công 948 lỗ hổng nâng cao quyền hạn (privilege escalation - kỹ thuật leo thang chi phối hệ thống) riêng biệt trong nhân Linux. Chi phí thực hiện quá trình nghiên cứu này ước tính khoảng 1,2 triệu USD.",
+          "cited_article_ids": [
+            "c7684ffd2ef0fea4"
+          ]
+        }
+      },
+      {
+        "heading": "Chiến dịch gián điệp zero-click nhắm vào thiết bị iPhone và Android",
+        "body": {
+          "text": "Các nhà nghiên cứu phát hiện một chiến dịch gián điệp sử dụng đòn tấn công zero-click (chiến thuật xâm nhập không cần người dùng tương tác) do các tin tặc có liên hệ với chính phủ Nga thực hiện. Tác nhân đe dọa nhắm vào người dùng tại Ukraine, Mỹ và châu Âu nhằm đánh cắp thông tin nhạy cảm từ các thiết bị di động chạy hệ điều hành iPhone và Android.",
+          "cited_article_ids": [
+            "cfa87031f7bd2f84"
+          ]
+        }
+      },
+      {
+        "heading": "Lỗ hổng cho phép vượt qua chế độ Lockdown Mode trên ChatGPT",
+        "body": {
+          "text": "Các nhà nghiên cứu an ninh mạng vừa tiết lộ chi tiết về một lỗ hổng đã được vá trong OpenAI ChatGPT. Lỗi này cho phép vượt qua tính năng bảo vệ Lockdown Mode (Chế độ phong tỏa) được giới thiệu bởi công ty trí tuệ nhân tạo vào tháng June 2026 nhằm giảm rủi ro trích xuất dữ liệu từ Prompt Injection (kỹ thuật chèn câu lệnh độc hại). Khai thác này có thể dẫn đến việc âm thầm lấy trộm dữ liệu trò chuyện hoặc tấn công giả mạo mà không cần người dùng tương tác.",
+          "cited_article_ids": [
+            "dd9d10ec61939a97"
+          ]
+        }
+      },
+      {
+        "heading": "Thiết bị chuyển mạch Zyxel GS1900 vẫn gặp nguy hiểm dù đã được cung cấp bản vá",
+        "body": {
+          "text": "Công ty Binarly phát hiện các thiết bị chuyển mạch Zyxel dòng GS1900 đã áp dụng bản vá vẫn có rủi ro bị khai thác thực tế. Nguyên nhân do bản vá trước đó chỉ xử lý mã lỗi CVE-2026-7273 (lỗ hổng tràn bộ đệm), trong khi mã khai thác thực tế lại dựa trên lỗ hổng CVE-2026-107441 chưa được xử lý.",
+          "cited_article_ids": [
+            "1923bcf17ce08700"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: Lỗ Hổng OpenSSH, AI Khai Thác Kernel Linux Và Các Nguy Cơ Mới",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Xin chào các bạn nghe đài, chào mừng quay trở lại với bản tin an ninh mạng. Mình là Minh, và đồng hành cùng mình hôm nay là chị Lan. Chúng ta sẽ điểm qua những tin tức bảo mật đáng chú ý nhất gần đây.",
+          "cited_article_ids": [
+            "90a9e74aa19bf7e0",
+            "c7684ffd2ef0fea4",
+            "cfa87031f7bd2f84",
+            "dd9d10ec61939a97",
+            "1923bcf17ce08700"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào Minh và chào các bạn. Tin tức đầu tiên cực kỳ nóng liên quan đến OpenSSH. OpenSSH vừa phát hành bản sửa lỗi khẩn cấp phiên bản 10.6p2 để vá một lỗ hổng nghiêm trọng trên một số máy chủ Alpine Linux chạy gói openssh-server tiêu chuẩn.",
+          "cited_article_ids": [
+            "90a9e74aa19bf7e0"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Lỗ hổng này nghiêm trọng ra sao vậy chị Lan? Làm sao kẻ tấn công có thể vượt qua bước xác thực?",
+          "cited_article_ids": [
+            "90a9e74aa19bf7e0"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Kẻ tấn công chỉ cần có kết nối mạng, biết tên tài khoản không đặt mật khẩu (như tài khoản chỉ dùng SSH key) và nhập một mật khẩu dài từ 257 đến 1,024 byte là có thể vượt qua bước xác thực SSH. Alpine cũng đã phát hành gói cập nhật để khắc phục rồi.",
+          "cited_article_ids": [
+            "90a9e74aa19bf7e0"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Thật đáng ngạc nhiên. Tiếp theo là một nghiên cứu đầy ấn tượng từ OpenAI. Một mô hình AI chưa phát hành của họ đã tìm thấy và khai thác thành công 948 lỗi leo thang quyền hạn trong Linux kernel để chiếm quyền root, với chi phí khoảng 1,2 triệu USD.",
+          "cited_article_ids": [
+            "c7684ffd2ef0fea4"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chuyển sang tin tức về an ninh thiết bị di động, các nhà nghiên cứu phát hiện các tin tặc có liên kết với chính phủ Nga đang nhắm mục tiêu vào người dùng iPhone và Android tại Ukraine, Mỹ và Châu Âu trong một chiến dịch gián điệp zero-click để đánh cắp thông tin nhạy cảm.",
+          "cited_article_ids": [
+            "cfa87031f7bd2f84"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Tấn công zero-click thực sự rất nguy hiểm vì người dùng không cần thao tác gì cũng có thể bị mất dữ liệu. Liên quan đến OpenAI, các nhà nghiên cứu bảo mật vừa tiết lộ một lỗ hổng trong ChatGPT đã được vá, cho phép vượt qua chế độ Lockdown Mode.",
+          "cited_article_ids": [
+            "dd9d10ec61939a97"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Lockdown Mode được OpenAI giới thiệu vào tháng June năm 2026 để giảm rủi ro rò rỉ dữ liệu từ prompt injection đúng không Minh? Lỗi này ảnh hưởng như thế nào?",
+          "cited_article_ids": [
+            "dd9d10ec61939a97"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đúng vậy, lỗ hổng này có thể cho phép kẻ tấn công âm thầm đánh cắp dữ liệu trò chuyện hoặc thực hiện tấn công giả mạo mà không cần người dùng tương tác.",
+          "cited_article_ids": [
+            "dd9d10ec61939a97"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cuối cùng là thông tin về thiết bị mạng Zyxel. Công ty Binarly phát hiện các thiết bị chuyển mạch Zyxel GS1900 series dù đã được cài bản vá nhưng vẫn bị khai thác thực tế qua mã CVE-2026-107441.",
+          "cited_article_ids": [
+            "1923bcf17ce08700"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Tại sao lại có chuyện đã vá rồi nhưng vẫn bị khai thác vậy chị?",
+          "cited_article_ids": [
+            "1923bcf17ce08700"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Lý do là bản vá công bố vào tháng June năm 2026 thực chất đã sửa một lỗi tràn bộ đệm stack-based khác là CVE-2026-7273 trong chương trình CGI, chứ không phải lỗ hổng CVE-2026-107441 mà mã khai thác thực tế đang sử dụng.",
+          "cited_article_ids": [
+            "1923bcf17ce08700"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Cảm ơn chị Lan. Những tin tức hôm nay cho thấy chúng ta cần luôn chủ động cập nhật bản vá và kiểm tra kỹ lưỡng hệ thống của mình. Cảm ơn các bạn đã theo dõi podcast!",
+          "cited_article_ids": [
+            "90a9e74aa19bf7e0",
+            "c7684ffd2ef0fea4",
+            "cfa87031f7bd2f84",
+            "dd9d10ec61939a97",
+            "1923bcf17ce08700"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Tổng Hợp Lỗ Hổng Bảo Mật Nóng Nhất",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "CẢNH BÁO BẢO MẬT NÓNG",
+        "narration": {
+          "text": "Điểm qua các sự cố bảo mật cực kỳ đáng chú ý gần đây!",
+          "cited_article_ids": [
+            "90a9e74aa19bf7e0",
+            "c7684ffd2ef0fea4",
+            "cfa87031f7bd2f84",
+            "dd9d10ec61939a97",
+            "1923bcf17ce08700"
+          ]
+        },
+        "duration_sec": 8.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "OpenSSH Lỗ Hổng Alpine Linux",
+        "narration": {
+          "text": "OpenSSH ra bản vá khẩn 10.6p2 chặn lỗi dùng mật khẩu dài bypass SSH trên Alpine Linux.",
+          "cited_article_ids": [
+            "90a9e74aa19bf7e0"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "AI OpenAI Tìm 948 Lỗi Kernel",
+        "narration": {
+          "text": "Mô hình AI của OpenAI chi 1,2 triệu USD tìm và chiếm root qua 948 lỗi Linux kernel.",
+          "cited_article_ids": [
+            "c7684ffd2ef0fea4"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Tin Tặc Nga Tấn Công Zero-Click",
+        "narration": {
+          "text": "Hacker Nga nhắm vào iPhone và Android tại Mỹ, Châu Âu, Ukraine qua chiến dịch zero-click.",
+          "cited_article_ids": [
+            "cfa87031f7bd2f84"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "Bypass Lockdown Mode ChatGPT",
+        "narration": {
+          "text": "Phát hiện lỗ hổng cho phép bypass Lockdown Mode của ChatGPT để lấy trộm dữ liệu chat.",
+          "cited_article_ids": [
+            "dd9d10ec61939a97"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "Switch Zyxel GS1900 Chưa Vá Lỗi",
+        "narration": {
+          "text": "Switch Zyxel GS1900 vẫn bị khai thác CVE-2026-107441 do bản vá trước sửa lầm mã lỗi.",
+          "cited_article_ids": [
+            "1923bcf17ce08700"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "CẬP NHẬT BẢN VÁ NGAY!",
+        "narration": {
+          "text": "Hãy luôn cập nhật bản vá bảo mật mới nhất để bảo vệ hệ thống của bạn!",
+          "cited_article_ids": [
+            "90a9e74aa19bf7e0",
+            "c7684ffd2ef0fea4",
+            "cfa87031f7bd2f84",
+            "dd9d10ec61939a97",
+            "1923bcf17ce08700"
+          ]
+        },
+        "duration_sec": 10.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "CẬP NHẬT AN NINH MẠNG MỚI NHẤT\n\n1. OpenSSH phát hành bản vá khẩn cấp v10.6p2 sửa lỗi xác thực trên Alpine Linux (A1).\n2. Mô hình AI của OpenAI phát hiện và khai thác 948 lỗ hổng nhân Linux (A2).\n3. Hacker liên quan đến Nga thực hiện chiến dịch gián điệp zero-click nhắm vào iPhone và Android (A3).\n4. Lỗ hổng ChatGPT cho phép vượt qua Lockdown Mode để đánh cắp dữ liệu trò chuyện (A4).\n5. Thiết bị Zyxel GS1900 vẫn bị khai thác do vá sai mã lỗ hổng CVE (A5).\n\nXem chi tiết thông tin trong bài viết!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#OpenSSH",
+        "#OpenAI",
+        "#Zyxel",
+        "#BaoMat"
+      ],
+      "cited_article_ids": [
+        "90a9e74aa19bf7e0",
+        "c7684ffd2ef0fea4",
+        "cfa87031f7bd2f84",
+        "dd9d10ec61939a97",
+        "1923bcf17ce08700"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "TỔNG HỢP TIN TỨC AN NINH MẠNG\n\nNội dung chính trong video hôm nay:\n- OpenSSH ra mắt phiên bản 10.6p2 sửa lỗi bypass mật khẩu trên Alpine Linux.\n- AI của OpenAI tự tìm thấy và khai thác 948 lỗi leo thang quyền hạn trên Linux kernel.\n- Phát hiện chiến dịch gián điệp zero-click nhắm vào người dùng iPhone và Android tại Mỹ, Ukraine và Châu Âu.\n- Khắc phục lỗ hổng bypass Lockdown Mode trên ChatGPT ngăn ngừa mất dữ liệu trò chuyện.\n- Nghiên cứu từ Binarly cho thấy switch Zyxel GS1900 vẫn dính lỗ hổng CVE-2026-107441 dù đã cài bản vá.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#TinBaoMat",
+        "#OpenSSH",
+        "#ChatGPT",
+        "#Linux",
+        "#Zyxel"
+      ],
+      "cited_article_ids": [
+        "90a9e74aa19bf7e0",
+        "c7684ffd2ef0fea4",
+        "cfa87031f7bd2f84",
+        "dd9d10ec61939a97",
+        "1923bcf17ce08700"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Điểm tin bảo mật: OpenSSH vá lỗi nghiêm trọng trên Alpine Linux; Mô hình AI của OpenAI tìm thấy 948 lỗi Linux Kernel; Cảnh báo tấn công zero-click trên iPhone và Android; Lỗ hổng ChatGPT bị phát hiện.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#TinCongNghe",
+        "#BaoMat",
+        "#AI"
+      ],
+      "cited_article_ids": [
+        "90a9e74aa19bf7e0",
+        "c7684ffd2ef0fea4",
+        "cfa87031f7bd2f84",
+        "dd9d10ec61939a97"
+      ]
+    }
+  ]
+}

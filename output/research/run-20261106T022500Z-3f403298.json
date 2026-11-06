@@ -1,0 +1,83 @@
+{
+  "run_id": "run-20261106T022500Z-3f403298",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "90a9e74aa19bf7e0",
+        "source_name": "The Hacker News",
+        "title": "OpenSSH Issues Emergency Fix for Flaw Letting Long Passwords Bypass SSH Auth on Alpine Linux",
+        "url": "https://thehackernews.com/2026/11/openssh-issues-emergency-fix-for-flaw.html",
+        "published_at": "2026-11-05T16:42:46Z",
+        "summary": "Attackers can log in to accounts that have no password, such as SSH key-only accounts, on some Alpine Linux servers running the standard openssh-server package. They need network access to the server, an account name, and a password between 257 and 1,024 bytes long. OpenSSH, which rates the flaw critical, released version 10.6p2 today to block it. Alpine has published fixed packages for every",
+        "fetched_at": "2026-11-06T02:24:56.540300Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "OpenSSH đã phát hành bản vá khẩn cấp cho lỗ hổng nghiêm trọng cho phép bỏ qua xác thực SSH trên các máy chủ Alpine Linux."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "c7684ffd2ef0fea4",
+        "source_name": "SecurityWeek",
+        "title": "AI Agents Got Root on Linux via 948 Kernel Flaws in OpenAI Research",
+        "url": "https://securityweek.com/ai-agents-got-root-on-linux-via-948-kernel-flaws-in-openai-research",
+        "published_at": "2026-11-05T17:32:37Z",
+        "summary": "An unreleased OpenAI cyber model found and exploited 948 distinct Linux kernel privilege escalation bugs for about $1.2 million. The post AI Agents Got Root on Linux via 948 Kernel Flaws in OpenAI Research appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-06T02:24:57.270799Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Mô hình AI của OpenAI đã phát hiện và khai thác thành công 948 lỗ hổng leo thang quyền hạn trong nhân Linux."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "cfa87031f7bd2f84",
+        "source_name": "The Record",
+        "title": "Russian state-linked hackers target iPhone, Android devices in zero-click espionage campaign",
+        "url": "https://therecord.media/russia-hackers-smartphone-cyberattacks",
+        "published_at": "2026-11-05T17:00:00Z",
+        "summary": "Russian state-linked hackers targeted users in Ukraine, the United States and Europe in a campaign to steal sensitive information from iPhone and Android devices, researchers found.",
+        "fetched_at": "2026-11-06T02:24:56.947167Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Hacker thân chính phủ Nga đang tiến hành chiến dịch gián điệp zero-click nhắm vào thiết bị iOS và Android."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "dd9d10ec61939a97",
+        "source_name": "The Hacker News",
+        "title": "Researchers Bypass ChatGPT Lockdown Mode to Exfiltrate Chats Without User Interaction",
+        "url": "https://thehackernews.com/2026/11/researchers-bypass-chatgpt-lockdown.html",
+        "published_at": "2026-11-05T16:42:32Z",
+        "summary": "Cybersecurity researchers have disclosed details of a now-patched vulnerability that could be exploited to bypass Lockdown Mode protections in OpenAI ChatGPT. Lockdown Mode was introduced by the artificial intelligence (AI) company in June 2026 as an optional setting to minimize data exfiltration risks arising from prompt injections. \"The flaw could enable silent chat data theft, phishing,",
+        "fetched_at": "2026-11-06T02:24:56.540300Z",
+        "topics_matched": [
+          "cybersecurity",
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Các nhà nghiên cứu phát hiện cách vượt qua chế độ Lockdown Mode của ChatGPT để trích xuất dữ liệu trò chuyện mà không cần người dùng tương tác."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "1923bcf17ce08700",
+        "source_name": "Help Net Security",
+        "title": "Patched Zyxel GS1900 switches remained open to in-the-wild exploit (CVE-2026-107441)",
+        "url": "https://helpnetsecurity.com/2026/11/05/zyxel-cve-2026-107441-exploit",
+        "published_at": "2026-11-05T12:06:32Z",
+        "summary": "Zyxel GS1900 series network switches that received a fix for a flaw that was later reported to have been exploited in the wild are still open to an exploit attackers used, Binarly found. That’s because the patch fixed a different bug (CVE-2026-7273) from the one (CVE-2026-107441) the exploit actually relies on. The exploit for an unpatched bug In June 2026, Zyxel published an advisory on CVE-2026-7273, a stack-based buffer overflow vulnerability in the CGI program … More → The post Patched Zyxel GS1900 switches remained open to in-the-wild exploit (CVE-2026-107441) appeared first on Help Net Security .",
+        "fetched_at": "2026-11-06T02:24:57.708349Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Các thiết bị chuyển mạch Zyxel GS1900 đã cập nhật bản vá vẫn nguy cơ bị tấn công do bản sửa lỗi trước đó không xử lý đúng lỗ hổng thực tế."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=0"
+}

@@ -1,0 +1,159 @@
+1
+00:00:00,000 --> 00:00:04,991
+[Minh] Xin chào các bạn nghe đài, chào mừng quay trở lại với bản tin an ninh mạng.
+
+2
+00:00:04,991 --> 00:00:08,718
+Mình là Minh, và đồng hành cùng mình hôm nay là chị Lan.
+
+3
+00:00:08,718 --> 00:00:13,176
+Chúng ta sẽ điểm qua những tin tức bảo mật đáng chú ý nhất gần đây.
+
+4
+00:00:13,526 --> 00:00:18,642
+[Lan] Chào Minh và chào các bạn. Tin tức đầu tiên cực kỳ nóng liên quan đến OpenSSH.
+
+5
+00:00:18,642 --> 00:00:24,152
+OpenSSH vừa phát hành bản sửa lỗi khẩn cấp phiên bản 10.6p2 để vá một lỗ hổng nghiêm
+
+6
+00:00:24,152 --> 00:00:29,006
+trọng trên một số máy chủ Alpine Linux chạy gói openssh-server tiêu chuẩn.
+
+7
+00:00:29,356 --> 00:00:32,535
+[Minh] Lỗ hổng này nghiêm trọng ra sao vậy chị Lan?
+
+8
+00:00:32,535 --> 00:00:36,148
+Làm sao kẻ tấn công có thể vượt qua bước xác thực?
+
+9
+00:00:36,498 --> 00:00:38,945
+[Lan] Kẻ tấn công chỉ cần có kết nối mạng,
+
+10
+00:00:38,945 --> 00:00:44,520
+biết tên tài khoản không đặt mật khẩu (như tài khoản chỉ dùng SSH key) và nhập một
+
+11
+00:00:44,520 --> 00:00:49,415
+mật khẩu dài từ 257 đến 1,024 byte là có thể vượt qua bước xác thực SSH.
+
+12
+00:00:49,415 --> 00:00:53,154
+Alpine cũng đã phát hành gói cập nhật để khắc phục rồi.
+
+13
+00:00:53,504 --> 00:00:58,474
+[Minh] Thật đáng ngạc nhiên. Tiếp theo là một nghiên cứu đầy ấn tượng từ OpenAI.
+
+14
+00:00:58,474 --> 00:01:04,193
+Một mô hình AI chưa phát hành của họ đã tìm thấy và khai thác thành công 948 lỗi leo
+
+15
+00:01:04,193 --> 00:01:07,937
+thang quyền hạn trong Linux kernel để chiếm quyền root,
+
+16
+00:01:07,937 --> 00:01:10,184
+với chi phí khoảng 1,2 triệu USD.
+
+17
+00:01:10,534 --> 00:01:13,031
+[Lan] Chuyển sang tin tức về an ninh thiết bị di động,
+
+18
+00:01:13,031 --> 00:01:17,402
+các nhà nghiên cứu phát hiện các tin tặc có liên kết với chính phủ Nga đang nhắm mục
+
+19
+00:01:17,402 --> 00:01:20,003
+tiêu vào người dùng iPhone và Android tại Ukraine,
+
+20
+00:01:20,003 --> 00:01:24,269
+Mỹ và Châu Âu trong một chiến dịch gián điệp zero-click để đánh cắp thông tin nhạy
+
+21
+00:01:24,269 --> 00:01:24,478
+cảm.
+
+22
+00:01:24,828 --> 00:01:29,695
+[Minh] Tấn công zero-click thực sự rất nguy hiểm vì người dùng không cần thao tác gì cũng
+
+23
+00:01:29,695 --> 00:01:32,307
+có thể bị mất dữ liệu. Liên quan đến OpenAI,
+
+24
+00:01:32,307 --> 00:01:36,818
+các nhà nghiên cứu bảo mật vừa tiết lộ một lỗ hổng trong ChatGPT đã được vá,
+
+25
+00:01:36,818 --> 00:01:39,132
+cho phép vượt qua chế độ Lockdown Mode.
+
+26
+00:01:39,482 --> 00:01:45,427
+[Lan] Lockdown Mode được OpenAI giới thiệu vào tháng June năm 2026 để giảm rủi ro rò rỉ dữ
+
+27
+00:01:45,427 --> 00:01:50,522
+liệu từ prompt injection đúng không Minh? Lỗi này ảnh hưởng như thế nào?
+
+28
+00:01:50,872 --> 00:01:51,366
+[Minh] Đúng vậy,
+
+29
+00:01:51,366 --> 00:01:55,756
+lỗ hổng này có thể cho phép kẻ tấn công âm thầm đánh cắp dữ liệu trò chuyện hoặc
+
+30
+00:01:55,756 --> 00:01:59,104
+thực hiện tấn công giả mạo mà không cần người dùng tương tác.
+
+31
+00:01:59,454 --> 00:02:02,916
+[Lan] Cuối cùng là thông tin về thiết bị mạng Zyxel.
+
+32
+00:02:02,916 --> 00:02:09,011
+Công ty Binarly phát hiện các thiết bị chuyển mạch Zyxel GS1900 series dù đã được
+
+33
+00:02:09,011 --> 00:02:13,902
+cài bản vá nhưng vẫn bị khai thác thực tế qua mã CVE-2026-107441.
+
+34
+00:02:14,252 --> 00:02:18,428
+[Minh] Tại sao lại có chuyện đã vá rồi nhưng vẫn bị khai thác vậy chị?
+
+35
+00:02:18,778 --> 00:02:25,207
+[Lan] Lý do là bản vá công bố vào tháng June năm 2026 thực chất đã sửa một lỗi tràn bộ đệm
+
+36
+00:02:25,207 --> 00:02:29,569
+stack-based khác là CVE-2026-7273 trong chương trình CGI,
+
+37
+00:02:29,569 --> 00:02:35,386
+chứ không phải lỗ hổng CVE-2026-107441 mà mã khai thác thực tế đang sử dụng.
+
+38
+00:02:35,736 --> 00:02:36,728
+[Minh] Cảm ơn chị Lan.
+
+39
+00:02:36,728 --> 00:02:42,083
+Những tin tức hôm nay cho thấy chúng ta cần luôn chủ động cập nhật bản vá và kiểm
+
+40
+00:02:42,083 --> 00:02:46,512
+tra kỹ lưỡng hệ thống của mình. Cảm ơn các bạn đã theo dõi podcast!
