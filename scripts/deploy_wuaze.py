@@ -97,8 +97,9 @@ def discover_target_roots(ftp: FTP, preferred_root: str = DEFAULT_REMOTE_ROOT) -
     """Discover actual web root directories on InfinityFree.
 
     InfinityFree accounts may store files in:
+    - /duwcsanhnews.wuaze.com/htdocs (domain-specific root)
     - /htdocs (default root for main domain)
-    - /cyberpulseDA.wuaze.com/htdocs (domain-specific root)
+    - /cyberpulseDA.wuaze.com/htdocs
     We detect all valid roots to ensure the website is published correctly.
     """
     roots: list[str] = []
@@ -109,7 +110,7 @@ def discover_target_roots(ftp: FTP, preferred_root: str = DEFAULT_REMOTE_ROOT) -
 
         for item in items:
             clean = item.strip("/")
-            # Strictly target ONLY cyberpulse domain; NEVER touch other domains on the account
+            # Target specifically cyberpulseDA.wuaze.com domain on account
             if "cyberpulse" in clean.lower():
                 candidate = f"/{clean}/htdocs"
                 try:
@@ -354,11 +355,11 @@ def upload_portal(
             try:
                 ftp.cwd(target_root)
                 remote_items = ftp.nlst()
-                for holding_page in ["index2.html", "index2.htm", "DEFAULT.html"]:
+                for holding_page in ["index2.html", "index2.htm", "DEFAULT.html", "index.php"]:
                     if holding_page in remote_items:
                         try:
                             ftp.delete(holding_page)
-                            print(f"  [+] Da xoa tep mac dinh {holding_page} tren hosting.")
+                            print(f"  [+] Da xoa tep mac dinh/cu {holding_page} tren hosting.")
                         except Exception:
                             pass
             except Exception:

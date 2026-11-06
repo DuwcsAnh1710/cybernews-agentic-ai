@@ -445,6 +445,18 @@ def build_parser() -> argparse.ArgumentParser:
         help="Port for local HTTP server (default: 8000)",
     )
     portal_parser.add_argument(
+        "--no-audio",
+        action="store_true",
+        default=False,
+        help="Do not copy audio/podcast files to dist (recommended for free hosts like wuaze.com)",
+    )
+    portal_parser.add_argument(
+        "--no-media",
+        action="store_true",
+        default=False,
+        help="Do not copy any audio or video files to dist",
+    )
+    portal_parser.add_argument(
         "--deploy",
         action="store_true",
         default=False,
@@ -1467,6 +1479,8 @@ def run_export_portal(
     serve: bool = False,
     port: int = 8000,
     deploy: bool = False,
+    no_audio: bool = False,
+    no_media: bool = False,
 ) -> int:
     """Generate public reader static portal website and optionally serve it."""
     if not output_dir.exists() or not output_dir.is_dir():
@@ -1480,6 +1494,8 @@ def run_export_portal(
             output_dir=output_dir,
             dist_dir=dist_dir,
             featured_run_id=run_id,
+            copy_audio=not (no_audio or no_media or deploy),
+            copy_video=not (no_media or deploy),
         )
         index_path = result.dist_dir.resolve() / "index.html"
         print(f"Successfully generated CyberPulse Reader portal at: {index_path}")
@@ -1959,6 +1975,8 @@ def main(argv: list[str] | None = None) -> int:
                 serve=args.serve,
                 port=args.port,
                 deploy=args.deploy,
+                no_audio=getattr(args, "no_audio", False),
+                no_media=getattr(args, "no_media", False),
             )
     elif args.command == "dispatch":
         return run_dispatch(

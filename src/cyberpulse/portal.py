@@ -3044,6 +3044,7 @@ def _render_footer(base_prefix: str = "") -> str:
     <div class="footer-links">
       <a href="{home_link}" class="footer-link">Trang chủ</a>
       <a href="{archive_link}" class="footer-link">Kho lưu trữ</a>
+      <a href="http://duwcsanhnews.wuaze.com/" target="_blank" rel="noopener noreferrer" class="footer-link">Trực tuyến (duwcsanhnews.wuaze.com)</a>
       <a href="{GITHUB_REPO_URL}" target="_blank" rel="noopener noreferrer" class="footer-link">Mã nguồn GitHub</a>
       <a href="{GITHUB_PAGES_CDN_URL}/" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub Pages CDN</a>
     </div>
@@ -3466,6 +3467,8 @@ def build_public_portal(
     dist_dir: Path = Path("dist"),
     featured_run_id: str | None = None,
     cdn_media_base_url: str = GITHUB_PAGES_CDN_URL,
+    copy_audio: bool = True,
+    copy_video: bool = True,
 ) -> PortalBuildResult:
     """Build static reader portal into dist_dir with Hallmark Editorial 2-column architecture.
 
@@ -3475,9 +3478,16 @@ def build_public_portal(
     4. Generates archive page (dist/archive.html) and edition pages (dist/editions/<run_id>.html).
     5. Writes assets (style.css, app.js) with 24x24 Google Material Symbols.
     6. Streams podcast audio and video from GitHub Pages CDN without local host storage.
-    7. Copies media files to dist for GitHub Pages deployment.
+    7. Copies media files to dist for GitHub Pages deployment (can be disabled for free hosts).
     8. ABSOLUTELY NO JSON FEED generation or references.
     """
+    import os
+
+    if os.environ.get("PORTAL_NO_AUDIO", "").lower() in ("1", "true", "yes"):
+        copy_audio = False
+    if os.environ.get("PORTAL_NO_VIDEO", "").lower() in ("1", "true", "yes"):
+        copy_video = False
+
     out_path = Path(output_dir)
     dist_path = Path(dist_dir)
 
@@ -3497,6 +3507,20 @@ def build_public_portal(
     articles_dir.mkdir(parents=True, exist_ok=True)
     editions_dir.mkdir(parents=True, exist_ok=True)
 
+    # Clean up forbidden media if running with audio/video disabled
+    if not copy_audio and media_dist_dir.exists():
+        for f in media_dist_dir.glob("*.mp3"):
+            try:
+                f.unlink()
+            except OSError:
+                pass
+    if not copy_video and media_dist_dir.exists():
+        for f in media_dist_dir.glob("*.mp4"):
+            try:
+                f.unlink()
+            except OSError:
+                pass
+
     files_created: list[str] = []
 
     # 1. Write CSS and JS assets
@@ -3507,6 +3531,11 @@ def build_public_portal(
     js_path = assets_dir / "app.js"
     js_path.write_text(_get_app_js(), encoding="utf-8")
     files_created.append("assets/app.js")
+
+    # Write .htaccess to ensure Apache prioritizes index.html over any WordPress index.php
+    htaccess_path = dist_path / ".htaccess"
+    htaccess_path.write_text("DirectoryIndex index.html index.php\n", encoding="utf-8")
+    files_created.append(".htaccess")
 
     # 2. Discover editorial packages
     editorial_dir = out_path / "editorial"
@@ -3548,7 +3577,7 @@ def build_public_portal(
                     src_mp3 = Path("export") / pkg.run_id / "podcast.mp3"
 
                 has_audio = False
-                if src_mp3.exists() and src_mp3.is_file():
+                if copy_audio and src_mp3.exists() and src_mp3.is_file():
                     media_dist_dir.mkdir(parents=True, exist_ok=True)
                     dest_mp3 = media_dist_dir / f"{pkg.run_id}.mp3"
                     shutil.copy2(src_mp3, dest_mp3)
@@ -3563,7 +3592,7 @@ def build_public_portal(
                     src_mp4 = Path("export") / pkg.run_id / f"{pkg.run_id}.mp4"
 
                 has_video = False
-                if src_mp4.exists() and src_mp4.is_file():
+                if copy_video and src_mp4.exists() and src_mp4.is_file():
                     media_dist_dir.mkdir(parents=True, exist_ok=True)
                     dest_mp4 = media_dist_dir / f"{pkg.run_id}.mp4"
                     shutil.copy2(src_mp4, dest_mp4)
@@ -3758,9 +3787,9 @@ def build_public_portal(
             sec_rt = calculate_reading_time(sec_corpus)
             primary_aid = sec.body.cited_article_ids[0] if sec.body.cited_article_ids else ""
             trending_home.append({
-                "title": _excerpt_text(sec.heading, 42),
+                "title": sec.heading,
                 "link": f"articles/{primary_aid}.html" if primary_aid else "#",
-                "time_str": f"#{t_idx} · {sec_badge.text}",
+                "time_str": f"Chuyên mục #{t_idx} · {sec_badge.text}",
             })
 
         unique_home_cves = list(dict.fromkeys(home_cves))
@@ -3823,7 +3852,7 @@ def build_public_portal(
     <span class="meta-item">{person_icon} Ban Biên tập CyberPulse</span>
   </div>
   <h2 class="hero-title"><a href="{hero_link}">{html.escape(first_sec.heading)}</a></h2>
-  <p class="hero-lead">{html.escape(_excerpt_text(first_sec.body.text, 75))}</p>
+  <p class="hero-lead">{html.escape(first_sec.body.text[:220].rstrip())}…</p>
   <a href="{hero_link}" class="btn-read-more">
     <span>Đọc tiếp</span>
     {forward_icon}
@@ -3851,11 +3880,12 @@ def build_public_portal(
     <div class="vendor-tags">{vendor_tags_html}</div>
   </div>
   <h3 class="story-title"><a href="{story_link}">{html.escape(sec.heading)}</a></h3>
-  <p class="story-body">{html.escape(_excerpt_text(sec.body.text, 65))}</p>
+  <p class="story-body">{html.escape(sec.body.text)}</p>
   <div class="story-footer">
     <div class="story-footer-meta">
       <span class="meta-item">{schedule_icon} Mục #{s_idx}</span>
       <span class="meta-item">{timer_icon} {reading_time} phút đọc</span>
+      <span class="meta-item">{person_icon} Ban Biên tập CyberPulse</span>
     </div>
     <a href="{story_link}" class="story-read-link">
       <span>Đọc tiếp</span>
