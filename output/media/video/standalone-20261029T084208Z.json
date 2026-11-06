@@ -1,0 +1,84 @@
+{
+  "run_id": "standalone-20261029T084208Z",
+  "video_title": "Cảnh Báo Nóng: 5 Lỗ Hổng Bảo Mật Nguy Hiểm Đang Bị Khai Thác",
+  "aspect_ratio": "9:16",
+  "resolution": "1080x1920",
+  "width": 1080,
+  "height": 1920,
+  "voice": "vi-VN-NamMinhNeural",
+  "total_duration_sec": 80.0,
+  "scene_count": 7,
+  "preview_only": false,
+  "scenes": [
+    {
+      "scene_no": 1,
+      "on_screen_text": "CẢNH BÁO BẢO MẬT NÓNG!",
+      "narration": "Cùng điểm qua 5 cảnh báo an ninh mạng quan trọng nhất mà bạn cần biết ngay hôm nay!",
+      "duration_sec": 8.0,
+      "start_sec": 0.0,
+      "end_sec": 8.0,
+      "slide_image": "standalone-20261029T084208Z_scenes/scene_01.png"
+    },
+    {
+      "scene_no": 2,
+      "on_screen_text": "Palo Alto Networks bị khai thác PHP2Shell",
+      "narration": "Hacker đang tích cực khai thác lỗ hổng PHP2Shell trên giao diện quản lý Palo Alto Networks kết nối internet.",
+      "duration_sec": 12.0,
+      "start_sec": 8.0,
+      "end_sec": 20.0,
+      "slide_image": "standalone-20261029T084208Z_scenes/scene_02.png"
+    },
+    {
+      "scene_no": 3,
+      "on_screen_text": "Zero-Day VMware ESX: CVE-2026-41709",
+      "narration": "CISA thêm lỗ hổng VMware ESX CVE-2026-41709 vào KEV do bị nhóm Warp Panda khai thác xóa vết nhật ký.",
+      "duration_sec": 14.0,
+      "start_sec": 20.0,
+      "end_sec": 34.0,
+      "slide_image": "standalone-20261029T084208Z_scenes/scene_03.png"
+    },
+    {
+      "scene_no": 4,
+      "on_screen_text": "Lỗ hổng Brotli: Node2Shell bị khai thác",
+      "narration": "CISA xác nhận lỗ hổng Brotli có tên Node2Shell hoặc HTTP2Shell đang bị kẻ tấn công lợi dụng.",
+      "duration_sec": 12.0,
+      "start_sec": 34.0,
+      "end_sec": 46.0,
+      "slide_image": "standalone-20261029T084208Z_scenes/scene_04.png"
+    },
+    {
+      "scene_no": 5,
+      "on_screen_text": "Chrome & Firefox vá hơn 200 lỗ hổng",
+      "narration": "Chrome 156 vá 52 lỗi và Firefox 159 vá 167 lỗi an ninh. Hãy cập nhật trình duyệt ngay!",
+      "duration_sec": 12.0,
+      "start_sec": 46.0,
+      "end_sec": 58.0,
+      "slide_image": "standalone-20261029T084208Z_scenes/scene_05.png"
+    },
+    {
+      "scene_no": 6,
+      "on_screen_text": "Lỗi TLS GoAhead ảnh hưởng hàng trăm triệu thiết bị",
+      "narration": "FoxIO phát hiện 3 lỗi TLS trên GoAhead Web Server có thể khiến các phiên mã hóa bị nghe lén.",
+      "duration_sec": 14.0,
+      "start_sec": 58.0,
+      "end_sec": 72.0,
+      "slide_image": "standalone-20261029T084208Z_scenes/scene_06.png"
+    },
+    {
+      "scene_no": 7,
+      "on_screen_text": "CẬP NHẬT BẢN VÁ NGAY!",
+      "narration": "Kiểm tra hệ thống và cập nhật bản vá an ninh ngay hôm nay để tự bảo vệ!",
+      "duration_sec": 8.0,
+      "start_sec": 72.0,
+      "end_sec": 80.0,
+      "slide_image": "standalone-20261029T084208Z_scenes/scene_07.png"
+    }
+  ],
+  "files": {
+    "video": "standalone-20261029T084208Z.mp4",
+    "subtitles": "standalone-20261029T084208Z.srt",
+    "metadata": "standalone-20261029T084208Z.json",
+    "cover": "standalone-20261029T084208Z_cover.png"
+  },
+  "created_at": "2026-11-04T03:03:50.984824+00:00"
+}

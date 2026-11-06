@@ -1,0 +1,84 @@
+{
+  "run_id": "run-20261104T020642Z-9594c0e0",
+  "video_title": "Điểm Tin Bảo Mật: Vụ Trộm Binance 6.43 Tỷ USD Và Botnet Android TV",
+  "aspect_ratio": "9:16",
+  "resolution": "1080x1920",
+  "width": 1080,
+  "height": 1920,
+  "voice": "vi-VN-NamMinhNeural",
+  "total_duration_sec": 86.0,
+  "scene_count": 7,
+  "preview_only": false,
+  "scenes": [
+    {
+      "scene_no": 1,
+      "on_screen_text": "Cập Nhật Bảo Mật Nóng Hổi",
+      "narration": "Tổng hợp các sự cố an ninh mạng và bản vá bảo mật quan trọng nhất vừa qua.",
+      "duration_sec": 8.0,
+      "start_sec": 0.0,
+      "end_sec": 8.0,
+      "slide_image": "run-20261104T020642Z-9594c0e0_scenes/scene_01.png"
+    },
+    {
+      "scene_no": 2,
+      "on_screen_text": "Binance Mất 6.43 Tỷ USD",
+      "narration": "Binance tiết lộ vụ trộm 6.43 tỷ đô la do tấn công phỏng vấn xin việc giả mạo và bản cài Homebrew bị can thiệp.",
+      "duration_sec": 15.0,
+      "start_sec": 8.0,
+      "end_sec": 23.0,
+      "slide_image": "run-20261104T020642Z-9594c0e0_scenes/scene_02.png"
+    },
+    {
+      "scene_no": 3,
+      "on_screen_text": "Lỗ Hổng Linux Kernel 9.8 Score",
+      "narration": "Red Hat vá lỗ hổng CVE-2026-98432 trong mã IPv4 TCP cho phép thực thi mã từ xa, Ubuntu vẫn đang thử nghiệm.",
+      "duration_sec": 14.0,
+      "start_sec": 23.0,
+      "end_sec": 37.0,
+      "slide_image": "run-20261104T020642Z-9594c0e0_scenes/scene_03.png"
+    },
+    {
+      "scene_no": 4,
+      "on_screen_text": "Android Vá 200+ Lỗ Hổng",
+      "narration": "Bản cập nhật Android tháng Mười Một vá hơn 200 lỗ hổng, có lỗi nghiêm trọng cho phép RCE không cần tương tác.",
+      "duration_sec": 12.0,
+      "start_sec": 37.0,
+      "end_sec": 49.0,
+      "slide_image": "run-20261104T020642Z-9594c0e0_scenes/scene_04.png"
+    },
+    {
+      "scene_no": 5,
+      "on_screen_text": "Khai Thác Lỗi Node-RED",
+      "narration": "Kẻ tấn công khai thác lỗ hổng CVE-2026-58115 trên Node-RED để cài đặt bot Linux và backdoor.",
+      "duration_sec": 13.0,
+      "start_sec": 49.0,
+      "end_sec": 62.0,
+      "slide_image": "run-20261104T020642Z-9594c0e0_scenes/scene_05.png"
+    },
+    {
+      "scene_no": 6,
+      "on_screen_text": "Triệt Phá Botnet Android TV",
+      "narration": "Google triệt phá mạng botnet X.CPE khổng lồ ẩn nấp trong các Android TV box và thiết bị IoT.",
+      "duration_sec": 14.0,
+      "start_sec": 62.0,
+      "end_sec": 76.0,
+      "slide_image": "run-20261104T020642Z-9594c0e0_scenes/scene_06.png"
+    },
+    {
+      "scene_no": 7,
+      "on_screen_text": "Cập Nhật Bản Vá Ngay!",
+      "narration": "Hãy luôn kiểm tra và cập nhật thiết bị của bạn để đảm bảo an toàn thông tin!",
+      "duration_sec": 10.0,
+      "start_sec": 76.0,
+      "end_sec": 86.0,
+      "slide_image": "run-20261104T020642Z-9594c0e0_scenes/scene_07.png"
+    }
+  ],
+  "files": {
+    "video": "run-20261104T020642Z-9594c0e0.mp4",
+    "subtitles": "run-20261104T020642Z-9594c0e0.srt",
+    "metadata": "run-20261104T020642Z-9594c0e0.json",
+    "cover": "run-20261104T020642Z-9594c0e0_cover.png"
+  },
+  "created_at": "2026-11-04T03:15:29.648576+00:00"
+}

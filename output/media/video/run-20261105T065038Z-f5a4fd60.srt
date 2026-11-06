@@ -1,0 +1,35 @@
+1
+00:00:00,000 --> 00:00:01,972
+[Lan] Chào Minh và chào mọi người!
+
+2
+00:00:01,972 --> 00:00:07,887
+Đầu tiên là thông tin từ CISA khi họ vừa đưa lỗ hổng CVE-2024-27834 trên các hệ điều
+
+3
+00:00:07,887 --> 00:00:12,745
+hành Apple vào danh mục KEV. Đây là lỗ hổng xác thực không đúng cách,
+
+4
+00:00:12,745 --> 00:00:18,096
+đang bị kẻ tấn công khai thác thực tế để phát tán mã độc đánh cắp thông tin.
+
+5
+00:00:18,446 --> 00:00:21,222
+[Minh] Đáng lo ngại thật. Nhưng không chỉ có Apple,
+
+6
+00:00:21,222 --> 00:00:26,522
+các hệ thống Linux như Debian và Ubuntu cũng vừa ghi nhận lỗ hổng nghiêm trọng trong
+
+7
+00:00:26,522 --> 00:00:27,910
+trình quản lý gói APT.
+
+8
+00:00:27,910 --> 00:00:33,084
+Lỗi này cho phép kẻ tấn công Man-in-the-Middle đánh tráo gói phần mềm khi hệ thống
+
+9
+00:00:33,084 --> 00:00:36,806
+tự động tải lại file lỗi, từ đó chạy mã độc với quyền root.

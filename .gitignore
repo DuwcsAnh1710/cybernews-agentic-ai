@@ -21,6 +21,9 @@ dist/
 .coverage
 htmlcov/
 
+# Local AI agent skills & workspace metadata
+.agents/
+
 # Application runtime directories
 data/
 logs/
@@ -35,3 +38,4 @@ output/*
 output/media/*
 !output/media/podcast/
 !output/media/video/
+output/media/video/*_scenes/
