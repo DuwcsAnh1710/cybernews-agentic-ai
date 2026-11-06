@@ -505,9 +505,9 @@ def _render_filter_bar(
     return f"""<div class="filter-taskbar">
   <div class="filter-pills">
     <button class="filter-pill active" data-filter="all">Tất cả ({total_count})</button>
-    <button class="filter-pill" data-filter="critical"><span class="status-dot dot-critical"></span> Khẩn cấp ({critical_count})</button>
-    <button class="filter-pill" data-filter="warning"><span class="status-dot dot-warning"></span> Cảnh báo cao ({warning_count})</button>
-    <button class="filter-pill" data-filter="patch"><span class="status-dot dot-patch"></span> Bản vá ({patch_count})</button>
+    <button class="filter-pill" data-filter="critical"><span class="status-dot dot-critical" role="status"></span> Khẩn cấp ({critical_count})</button>
+    <button class="filter-pill" data-filter="warning"><span class="status-dot dot-warning" role="status"></span> Cảnh báo cao ({warning_count})</button>
+    <button class="filter-pill" data-filter="patch"><span class="status-dot dot-patch" role="status"></span> Bản vá ({patch_count})</button>
   </div>
   <a href="#podcast-radio-box" class="podcast-quick-btn">
     {podcasts_icon} <span>Nghe Podcast số này</span>
@@ -577,82 +577,133 @@ def _render_edition_strip(
     <span class="strip-label">{calendar_month_icon} Chọn ngày xem tin:</span>
     <div class="strip-dates">
       {pills_html}
-      <a href="{archive_link}" class="strip-date-all">Tất cả các ngày &rarr;</a>
+      <a href="{archive_link}" class="strip-date-all"><div class="strip-date-all-inner">Tất cả các ngày &rarr;</div></a>
     </div>
   </div>
 </div>"""
 
 
-def _get_style_css() -> str:
-    """Return standalone CSS styled after The Hacker News with 2-column layout and 24x24 icons."""
-    return """/* CyberPulse Reader Static Portal Stylesheet - Premier Cyber Intelligence Edition */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+def _excerpt_text(text: str, max_chars: int = 120) -> str:
+    """Return a clean magazine excerpt at a word boundary when text exceeds max_chars."""
+    clean = text.strip()
+    if len(clean) <= max_chars:
+        return clean
+    first_sentence = re.split(r"(?<=[.!?])\s+", clean)[0]
+    if len(first_sentence) <= max_chars:
+        return first_sentence
+    cut = clean[:max_chars].rsplit(" ", 1)[0].rstrip(".,;:")
+    return f"{cut}…"
 
-:root, [data-theme="dark"] {
-  --bg-primary: #070b14;
-  --bg-surface: #0d1527;
-  --bg-card: #121c32;
-  --bg-card-hover: #182542;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --accent-cyber: #00f0ff;
-  --accent-cyber-glow: rgba(0, 240, 255, 0.16);
-  --accent-cyber-subtle: rgba(0, 240, 255, 0.08);
-  --border-color: #1e293b;
-  --border-color-glow: rgba(0, 240, 255, 0.3);
-  --badge-critical-bg: rgba(244, 63, 94, 0.16);
-  --badge-critical-text: #fb7185;
-  --badge-critical-border: rgba(244, 63, 94, 0.45);
-  --badge-warning-bg: rgba(245, 158, 11, 0.16);
-  --badge-warning-text: #fcd34d;
-  --badge-warning-border: rgba(245, 158, 11, 0.45);
-  --badge-patch-bg: rgba(16, 185, 129, 0.16);
-  --badge-patch-text: #34d399;
-  --badge-patch-border: rgba(16, 185, 129, 0.45);
-  --badge-info-bg: rgba(59, 130, 246, 0.16);
-  --badge-info-text: #60a5fa;
-  --badge-info-border: rgba(59, 130, 246, 0.45);
-  --tag-bg: #1a253c;
-  --tag-text: #cbd5e1;
-  --tag-border: #243452;
-  --shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04);
-  --shadow-lg: 0 12px 32px -4px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(0, 240, 255, 0.2);
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-serif: 'Newsreader', Georgia, Cambria, 'Times New Roman', serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+
+def _get_style_css() -> str:
+    """Return standalone CSS styled in the Hallmark Editorial theme with 2-column layout and 24x24 icons."""
+    return """/* Hallmark · editorial · dealt 1/3 · daily-vietnamese-cybersecurity-intelligence-97f9·5dfcf566·2026-11-06·r0 · draw 0980c5 */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap');
+
+[data-theme="dark"] {
+  --color-paper: oklch(15% 0.010 265);
+  --color-paper-2: oklch(19% 0.012 265);
+  --color-paper-3: oklch(23% 0.014 265);
+  --color-ink: oklch(95% 0.007 86);
+  --color-ink-2: oklch(84% 0.009 86);
+  --color-muted: oklch(68% 0.010 80);
+  --color-rule: oklch(28% 0.012 265);
+  --color-rule-2: oklch(42% 0.014 265);
+  --color-accent: oklch(74% 0.140 152);
+  --color-accent-ink: oklch(15% 0.010 265);
+  --color-accent-tint: oklch(24% 0.045 152);
+  --color-danger: oklch(76% 0.155 24);
+  --color-danger-bg: oklch(23% 0.050 24);
+  --color-danger-border: oklch(42% 0.105 24);
+  --color-warn: oklch(80% 0.135 76);
+  --color-warn-bg: oklch(24% 0.045 76);
+  --color-warn-border: oklch(44% 0.095 76);
+  --color-ok: oklch(75% 0.140 152);
+  --color-ok-bg: oklch(23% 0.045 152);
+  --color-ok-border: oklch(42% 0.095 152);
+  --color-info: oklch(76% 0.115 245);
+  --color-info-bg: oklch(23% 0.040 245);
+  --color-info-border: oklch(42% 0.085 245);
+  --color-banner-bg: oklch(20% 0.016 265);
+  --color-banner-ink: oklch(96% 0.007 86);
+  --color-banner-muted: oklch(82% 0.010 86);
+  --color-banner-accent: oklch(76% 0.140 152);
+  --color-video-bg: oklch(11% 0.010 265);
 }
 
-[data-theme="light"] {
-  --bg-primary: #f8fafc;
-  --bg-surface: #ffffff;
-  --bg-card: #ffffff;
-  --bg-card-hover: #f1f5f9;
-  --text-primary: #090d16;
-  --text-secondary: #334155;
-  --text-muted: #64748b;
-  --accent-cyber: #0284c7;
-  --accent-cyber-glow: rgba(2, 132, 199, 0.12);
-  --accent-cyber-subtle: rgba(2, 132, 199, 0.05);
-  --border-color: #e2e8f0;
-  --border-color-glow: rgba(2, 132, 199, 0.25);
-  --badge-critical-bg: #fee2e2;
-  --badge-critical-text: #b91c1c;
-  --badge-critical-border: #fca5a5;
-  --badge-warning-bg: #fef3c7;
-  --badge-warning-text: #b45309;
-  --badge-warning-border: #fde68a;
-  --badge-patch-bg: #d1fae5;
-  --badge-patch-text: #047857;
-  --badge-patch-border: #a7f3d0;
-  --badge-info-bg: #dbeafe;
-  --badge-info-text: #1d4ed8;
-  --badge-info-border: #bfdbfe;
-  --tag-bg: #f1f5f9;
-  --tag-text: #334155;
-  --tag-border: #e2e8f0;
-  --shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(15, 23, 42, 0.05);
-  --shadow-lg: 0 12px 28px -4px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(2, 132, 199, 0.2);
+:root, [data-theme="light"] {
+  --color-paper: oklch(97% 0.007 86);
+  --color-paper-2: oklch(94% 0.010 86);
+  --color-paper-3: oklch(91% 0.012 84);
+  --color-ink: oklch(16% 0.012 280);
+  --color-ink-2: oklch(29% 0.011 280);
+  --color-muted: oklch(44% 0.010 75);
+  --color-rule: oklch(84% 0.009 85);
+  --color-rule-2: oklch(62% 0.010 80);
+  --color-accent: oklch(43% 0.130 152);
+  --color-accent-ink: oklch(98% 0.005 88);
+  --color-accent-tint: oklch(93% 0.032 152);
+  --color-danger: oklch(46% 0.180 26);
+  --color-danger-bg: oklch(95% 0.030 26);
+  --color-danger-border: oklch(80% 0.085 26);
+  --color-warn: oklch(45% 0.130 70);
+  --color-warn-bg: oklch(95% 0.035 78);
+  --color-warn-border: oklch(82% 0.080 75);
+  --color-ok: oklch(43% 0.130 152);
+  --color-ok-bg: oklch(94% 0.032 152);
+  --color-ok-border: oklch(80% 0.075 152);
+  --color-info: oklch(43% 0.115 245);
+  --color-info-bg: oklch(94% 0.025 245);
+  --color-info-border: oklch(81% 0.065 245);
+  --color-banner-bg: oklch(18% 0.016 265);
+  --color-banner-ink: oklch(97% 0.007 86);
+  --color-banner-muted: oklch(82% 0.012 86);
+  --color-banner-accent: oklch(76% 0.140 152);
+  --color-video-bg: oklch(12% 0.010 265);
+
+  --bg-primary: var(--color-paper);
+  --bg-surface: var(--color-paper-2);
+  --bg-card: var(--color-paper);
+  --bg-card-hover: var(--color-paper-2);
+  --text-primary: var(--color-ink);
+  --text-secondary: var(--color-ink-2);
+  --text-muted: var(--color-muted);
+  --accent-cyber: var(--color-accent);
+  --accent-cyber-glow: var(--color-accent-tint);
+  --accent-cyber-subtle: var(--color-paper-2);
+  --border-color: var(--color-rule);
+  --border-color-glow: var(--color-rule-2);
+  --badge-critical-bg: var(--color-danger-bg);
+  --badge-critical-text: var(--color-danger);
+  --badge-critical-border: var(--color-danger-border);
+  --badge-warning-bg: var(--color-warn-bg);
+  --badge-warning-text: var(--color-warn);
+  --badge-warning-border: var(--color-warn-border);
+  --badge-patch-bg: var(--color-ok-bg);
+  --badge-patch-text: var(--color-ok);
+  --badge-patch-border: var(--color-ok-border);
+  --badge-info-bg: var(--color-info-bg);
+  --badge-info-text: var(--color-info);
+  --badge-info-border: var(--color-info-border);
+  --tag-bg: var(--color-paper-2);
+  --tag-text: var(--color-ink-2);
+  --tag-border: var(--color-rule);
+  --shadow: none;
+  --shadow-lg: none;
+
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Source Serif 4", ui-serif, Georgia, serif;
+  --font-icon: "Material Symbols Outlined";
+  --font-sans: var(--font-display);
+  --font-serif: var(--font-body);
+  --font-mono: var(--font-display);
+
+  --rule-thin: 1px;
+  --rule-heavy: 4px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 120ms;
+  --dur-short: 160ms;
+  --dur-med: 240ms;
 }
 
 *, *::before, *::after {
@@ -662,55 +713,83 @@ def _get_style_css() -> str:
 }
 
 html {
+  color-scheme: light dark;
+  caret-color: var(--accent-cyber);
+  accent-color: var(--accent-cyber);
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  line-height: 1.6;
+  line-height: 1.65;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  transition: background-color 0.25s ease, color 0.25s ease;
+  overflow-x: clip;
+  font-kerning: normal;
+  font-feature-settings: "kern" 1, "liga" 1, "onum" 1;
+  transition: background-color var(--dur-med) var(--ease-out), color var(--dur-med) var(--ease-out);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
-/* Custom Scrollbars */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg-primary);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-cyber);
+img, svg, video {
+  display: block;
+  max-width: 100%;
 }
 
 ::selection {
-  background: var(--accent-cyber-glow);
-  color: var(--accent-cyber);
+  background: var(--color-accent-tint);
+  color: var(--color-ink);
+}
+
+/* Interactive Control States (Focus, Hover, Active, Disabled) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+video:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+button:active,
+.btn-read-more:active,
+.filter-pill:active,
+.podcast-quick-btn:active,
+.strip-date-pill:active,
+.github-header-btn:active,
+.github-util-btn:active,
+.btn-github-action:active,
+.theme-toggle-btn:active,
+.share-btn:active {
+  transform: translateY(1px);
+}
+
+button:disabled,
+input:disabled,
+[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .container {
   width: 100%;
-  max-width: 1220px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
 /* Google Material Symbols (Strictly 24x24 px) */
 .material-symbols-outlined {
-  font-family: 'Material Symbols Outlined';
+  font-family: var(--font-icon);
   font-weight: normal;
   font-style: normal;
   font-size: 24px;
@@ -747,90 +826,84 @@ body {
   height: 24px;
 }
 
-/* Site Header */
+/* Editorial Masthead Header */
 .site-header {
-  background-color: var(--bg-surface);
-  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  border-top: var(--rule-heavy) solid var(--color-ink);
+  border-bottom: var(--rule-thin) solid var(--border-color);
   position: sticky;
   top: 0;
   z-index: 1000;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .header-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 0;
+  padding: 16px 0;
   gap: 20px;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   text-decoration: none;
   color: var(--text-primary);
-  transition: opacity 0.2s ease;
+  transition: opacity var(--dur-short) var(--ease-out);
 }
 
 .brand:hover {
-  opacity: 0.92;
+  opacity: 0.86;
 }
 
 .brand-icon {
   width: 40px;
   height: 40px;
-  color: var(--accent-cyber);
-  background: var(--accent-cyber-glow);
-  border: 1px solid var(--border-color-glow);
-  border-radius: 10px;
+  color: var(--color-accent-ink);
+  background: var(--color-ink);
+  border: var(--rule-thin) solid var(--color-ink);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 16px var(--accent-cyber-glow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
 }
 
 .brand:hover .brand-icon {
-  transform: rotate(-4deg) scale(1.05);
-  box-shadow: 0 0 22px var(--accent-cyber);
+  background: var(--accent-cyber);
+  border-color: var(--accent-cyber);
 }
 
 .brand-text h1 {
-  font-size: 1.35rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
   font-weight: 800;
-  letter-spacing: -0.03em;
+  font-stretch: 85%;
+  letter-spacing: -0.025em;
   color: var(--text-primary);
-  line-height: 1.15;
+  line-height: 1.05;
+  text-wrap: balance;
 }
 
 .brand-text p {
-  font-size: 0.74rem;
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
   font-weight: 500;
   color: var(--text-muted);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 2px;
+  gap: 8px;
+  margin-top: 4px;
 }
 
 .brand-live-dot {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background-color: #10b981;
-  box-shadow: 0 0 8px #10b981;
+  background-color: var(--color-ok);
   display: inline-block;
-  animation: pulseBeacon 2s ease-in-out infinite;
-}
-
-@keyframes pulseBeacon {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
+  flex-shrink: 0;
 }
 
 .header-actions {
@@ -846,26 +919,27 @@ body {
 
 .search-input {
   width: 100%;
-  padding: 9px 14px 9px 40px;
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 20px;
+  padding: 8px 12px 8px 40px;
+  background-color: var(--bg-surface);
+  border: var(--rule-thin) solid var(--border-color);
   color: var(--text-primary);
-  font-size: 0.86rem;
-  outline: none;
-  transition: all 0.2s ease;
-  font-family: inherit;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  transition: border-color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
 }
 
 .search-input::placeholder {
   color: var(--text-muted);
-  font-size: 0.82rem;
+  font-size: 0.875rem;
+}
+
+.search-input:hover {
+  border-color: var(--color-rule-2);
 }
 
 .search-input:focus {
-  border-color: var(--accent-cyber);
-  background-color: var(--bg-surface);
-  box-shadow: 0 0 0 3px var(--accent-cyber-glow);
+  border-color: var(--color-ink);
+  background-color: var(--bg-primary);
 }
 
 .search-icon-pos {
@@ -881,25 +955,23 @@ body {
 }
 
 .theme-toggle-btn {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  border: var(--rule-thin) solid var(--border-color);
   color: var(--text-primary);
   width: 40px;
   height: 40px;
-  border-radius: 10px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
   flex-shrink: 0;
 }
 
 .theme-toggle-btn:hover {
-  border-color: var(--accent-cyber);
-  background-color: var(--accent-cyber-glow);
-  color: var(--accent-cyber);
-  transform: translateY(-1px);
+  border-color: var(--color-ink);
+  background-color: var(--color-ink);
+  color: var(--color-paper);
 }
 
 [data-theme="dark"] .icon-dark-mode { display: none; }
@@ -911,40 +983,41 @@ body {
 .nav-bar {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 0;
+  gap: 8px;
+  padding: 8px 0;
   overflow-x: auto;
   white-space: nowrap;
-  border-top: 1px solid var(--border-color);
+  border-top: var(--rule-thin) solid var(--border-color);
 }
 
 .nav-link {
+  font-family: var(--font-display);
   color: var(--text-secondary);
   text-decoration: none;
-  font-size: 0.88rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  padding: 6px 14px;
-  border-radius: 6px;
-  transition: all 0.2s ease;
+  padding: 8px 12px;
+  border-bottom: 2px solid transparent;
+  transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
 }
 
 .nav-link:hover, .nav-link.active {
   color: var(--accent-cyber);
-  background-color: var(--accent-cyber-glow);
+  border-bottom-color: var(--accent-cyber);
 }
 
 /* Horizontal Daily Edition Strip */
 .edition-strip-wrap {
   background-color: var(--bg-surface);
-  border-bottom: 1px solid var(--border-color);
-  padding: 10px 0;
+  border-bottom: var(--rule-thin) solid var(--border-color);
+  padding: 8px 0;
 }
 
 .edition-strip-inner {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -955,12 +1028,13 @@ body {
 }
 
 .strip-label {
+  font-family: var(--font-display);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.84rem;
+  gap: 8px;
+  font-size: 0.875rem;
   font-weight: 700;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -975,55 +1049,56 @@ body {
   gap: 8px;
   overflow-x: auto;
   white-space: nowrap;
-  padding: 2px 0;
+  padding: 4px 0;
 }
 
 .strip-date-pill {
   display: inline-flex;
   align-items: center;
-  font-size: 0.8rem;
+  font-size: 0.8125rem;
   font-weight: 600;
-  font-family: var(--font-mono);
-  padding: 5px 14px;
-  border-radius: 8px;
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums tabular-nums;
+  padding: 4px 12px;
+  background-color: var(--bg-primary);
+  border: var(--rule-thin) solid var(--border-color);
   color: var(--text-secondary);
   text-decoration: none;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
   flex-shrink: 0;
 }
 
 .strip-date-pill:hover {
-  border-color: var(--accent-cyber);
+  border-color: var(--color-ink);
   color: var(--text-primary);
-  transform: translateY(-1px);
 }
 
 .strip-date-pill.active {
-  background-color: var(--accent-cyber-glow);
-  border-color: var(--accent-cyber);
-  color: var(--accent-cyber);
+  background-color: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-paper);
   font-weight: 700;
-  box-shadow: 0 0 12px var(--accent-cyber-glow);
 }
 
 .strip-date-all {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--accent-cyber);
   text-decoration: none;
-  padding: 5px 12px;
-  border-radius: 6px;
-  transition: all 0.2s ease;
+  padding: 4px 12px;
+  transition: color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
   white-space: nowrap;
   flex-shrink: 0;
 }
 
+.strip-date-all-inner {
+  display: inline;
+}
+
 .strip-date-all:hover {
-  color: var(--accent-cyber);
-  background-color: var(--accent-cyber-subtle);
-  transform: translateX(2px);
+  color: var(--text-primary);
+  background-color: var(--color-paper-3);
 }
 
 /* Interactive Filter Taskbar */
@@ -1034,7 +1109,7 @@ body {
   justify-content: space-between;
   gap: 12px;
   padding: 12px 0;
-  border-top: 1px solid var(--border-color);
+  border-top: var(--rule-thin) solid var(--border-color);
 }
 
 .filter-pills {
@@ -1047,32 +1122,30 @@ body {
 .filter-pill {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
+  gap: 8px;
+  background-color: var(--bg-primary);
+  border: var(--rule-thin) solid var(--border-color);
   color: var(--text-secondary);
-  font-size: 0.82rem;
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-size: 0.8125rem;
   font-weight: 600;
-  padding: 6px 14px;
-  border-radius: 20px;
+  padding: 8px 16px;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  font-family: inherit;
+  transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
 }
 
 .filter-pill:hover {
-  border-color: var(--accent-cyber);
+  border-color: var(--color-ink);
   color: var(--text-primary);
-  background-color: var(--bg-card-hover);
-  transform: translateY(-1px);
+  background-color: var(--bg-surface);
 }
 
 .filter-pill.active {
-  background-color: var(--accent-cyber);
-  color: #070b14;
-  border-color: var(--accent-cyber);
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  border-color: var(--color-ink);
   font-weight: 700;
-  box-shadow: 0 2px 10px var(--accent-cyber-glow);
 }
 
 .status-dot {
@@ -1084,49 +1157,46 @@ body {
 }
 
 .dot-critical {
-  background-color: #fb7185;
-  box-shadow: 0 0 8px #fb7185;
+  background-color: var(--color-danger);
 }
 
 .dot-warning {
-  background-color: #fcd34d;
-  box-shadow: 0 0 8px #fcd34d;
+  background-color: var(--color-warn);
 }
 
 .dot-patch {
-  background-color: #34d399;
-  box-shadow: 0 0 8px #34d399;
+  background-color: var(--color-ok);
 }
 
 .podcast-quick-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--accent-cyber-subtle);
-  border: 1px solid var(--accent-cyber);
-  color: var(--accent-cyber);
-  font-size: 0.82rem;
-  font-weight: 600;
-  padding: 6px 16px;
-  border-radius: 20px;
+  background: transparent;
+  border: var(--rule-thin) solid var(--color-ink);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: 8px 16px;
   text-decoration: none;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
 }
 
 .podcast-quick-btn:hover {
-  background: var(--accent-cyber);
-  color: #070b14;
-  box-shadow: 0 2px 12px var(--accent-cyber-glow);
-  transform: translateY(-1px);
+  background: var(--bg-surface);
+  border-color: var(--accent-cyber);
+  color: var(--accent-cyber);
 }
 
-/* The Hacker News 2-Column Grid Architecture */
+/* Editorial 2-Column Publication Grid */
 .portal-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 350px;
-  gap: 32px;
-  margin-top: 28px;
-  margin-bottom: 60px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 352px);
+  gap: 48px;
+  margin-top: 32px;
+  margin-bottom: 64px;
 }
 
 .portal-main {
@@ -1136,46 +1206,33 @@ body {
 .portal-sidebar {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 32px;
   position: sticky;
-  top: 86px;
+  top: 96px;
   align-self: start;
+  border-left: var(--rule-thin) solid var(--border-color);
+  padding-left: 32px;
 }
 
-/* Breaking News Hero Card */
+/* Lead Feature Story (Hero Card) */
 .hero-card {
   background-color: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  border-radius: 14px;
-  padding: 30px;
-  margin-bottom: 32px;
-  box-shadow: var(--shadow);
+  color: var(--text-primary);
+  border-top: var(--rule-heavy) solid var(--color-ink);
+  border-bottom: var(--rule-thin) solid var(--border-color);
+  padding: 32px;
+  margin-bottom: 40px;
   position: relative;
-  overflow: hidden;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.hero-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--accent-cyber), #3b82f6, #a855f7);
-}
-
-.hero-card:hover {
-  border-color: var(--border-color-glow);
-  box-shadow: var(--shadow-lg);
 }
 
 .hero-meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 14px;
-  font-size: 0.84rem;
+  gap: 16px;
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-size: 0.8125rem;
   color: var(--text-muted);
   margin-bottom: 16px;
 }
@@ -1183,7 +1240,9 @@ body {
 .meta-item {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums tabular-nums;
 }
 
 .meta-item .material-symbols-outlined {
@@ -1191,18 +1250,21 @@ body {
 }
 
 .hero-title {
-  font-size: 1.95rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 1.35rem + 1.8vw, 2.75rem);
   font-weight: 800;
-  line-height: 1.28;
+  font-stretch: 85%;
+  line-height: 1.08;
   letter-spacing: -0.025em;
   margin-bottom: 16px;
   color: var(--text-primary);
+  text-wrap: balance;
 }
 
 .hero-title a {
   color: inherit;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color var(--dur-short) var(--ease-out);
 }
 
 .hero-title a:hover {
@@ -1210,9 +1272,11 @@ body {
 }
 
 .hero-lead {
-  font-size: 1.05rem;
+  font-family: var(--font-body);
+  font-size: 1.125rem;
   color: var(--text-secondary);
-  line-height: 1.68;
+  line-height: 1.65;
+  max-width: 65ch;
   margin-bottom: 24px;
 }
 
@@ -1220,41 +1284,43 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background-color: var(--accent-cyber);
-  color: #070b14;
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: 0.9rem;
-  padding: 10px 22px;
-  border-radius: 8px;
+  font-size: 0.875rem;
+  padding: 12px 24px;
   text-decoration: none;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 2px 10px var(--accent-cyber-glow);
+  transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
 }
 
 .btn-read-more:hover {
-  filter: brightness(1.1);
-  transform: translateX(3px);
-  box-shadow: 0 4px 16px var(--accent-cyber-glow);
+  background-color: var(--accent-cyber);
+  color: var(--color-accent-ink);
 }
 
-/* Curated Stories Feed */
+/* Curated Threats Editorial Stream */
 .feed-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  padding-top: 12px;
   padding-bottom: 12px;
-  border-bottom: 2px solid var(--border-color);
+  border-top: var(--rule-heavy) solid var(--color-ink);
+  border-bottom: var(--rule-thin) solid var(--border-color);
 }
 
 .feed-title {
-  font-size: 1.3rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
   font-weight: 800;
-  letter-spacing: -0.02em;
+  font-stretch: 88%;
+  letter-spacing: -0.015em;
   color: var(--text-primary);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .feed-title .material-symbols-outlined {
@@ -1264,26 +1330,20 @@ body {
 .stories-stream {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 0;
 }
 
 .story-card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 22px;
+  background-color: transparent;
+  border-bottom: var(--rule-thin) solid var(--border-color);
+  padding: 28px 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  box-shadow: var(--shadow);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.story-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--border-color-glow);
-  background-color: var(--bg-card-hover);
-  box-shadow: var(--shadow-lg);
+.story-card:first-child {
+  padding-top: 8px;
 }
 
 .story-header {
@@ -1291,18 +1351,16 @@ body {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 12px;
 }
 
 .badge {
-  font-size: 0.74rem;
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
   font-weight: 700;
-  padding: 3px 9px;
-  border-radius: 6px;
-  border: 1px solid transparent;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  font-family: var(--font-mono);
+  padding: 4px 8px;
+  border: var(--rule-thin) solid transparent;
+  letter-spacing: 0.01em;
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -1335,32 +1393,33 @@ body {
 .vendor-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
 }
 
 .vendor-tag {
   background-color: var(--tag-bg);
   color: var(--tag-text);
-  border: 1px solid var(--tag-border);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
+  border: var(--rule-thin) solid var(--tag-border);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
   font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 4px;
+  padding: 4px 8px;
 }
 
 .story-title {
-  font-size: 1.22rem;
+  font-family: var(--font-display);
+  font-size: 1.375rem;
   font-weight: 700;
-  line-height: 1.35;
+  line-height: 1.22;
   letter-spacing: -0.015em;
   color: var(--text-primary);
+  text-wrap: balance;
 }
 
 .story-title a {
   color: inherit;
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: color var(--dur-short) var(--ease-out);
 }
 
 .story-title a:hover {
@@ -1368,114 +1427,145 @@ body {
 }
 
 .story-body {
-  font-size: 0.94rem;
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
   color: var(--text-secondary);
-  line-height: 1.62;
+  line-height: 1.65;
+  max-width: 65ch;
 }
 
 .story-footer {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   margin-top: 4px;
-  padding-top: 12px;
-  border-top: 1px solid var(--border-color);
-  font-size: 0.82rem;
+  padding-top: 8px;
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-size: 0.8125rem;
   color: var(--text-muted);
 }
 
+.story-footer-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
 .story-read-link {
+  font-family: var(--font-display);
   color: var(--accent-cyber);
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  transition: transform 0.2s ease;
+  transition: color var(--dur-short) var(--ease-out);
 }
 
 .story-read-link:hover {
-  transform: translateX(3px);
-  text-decoration: none;
+  color: var(--text-primary);
 }
 
-/* Sidebar Widgets */
+/* Sidebar Editorial Modules */
 .sidebar-widget {
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 22px;
-  box-shadow: var(--shadow);
+  background-color: transparent;
+  border-top: var(--rule-heavy) solid var(--color-ink);
+  border-bottom: var(--rule-thin) solid var(--border-color);
+  padding: 20px 0;
 }
 
 .widget-title {
-  font-size: 1.05rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
   color: var(--text-primary);
   margin-bottom: 16px;
   display: flex;
   align-items: center;
   gap: 8px;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 10px;
+  border-bottom: var(--rule-thin) solid var(--border-color);
+  padding-bottom: 12px;
 }
 
 .widget-title .material-symbols-outlined {
   color: var(--accent-cyber);
 }
 
+.widget-empty-note {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
 /* Widget 1: Podcast Radio Box */
 .podcast-radio-box {
-  background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-surface) 100%);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 22px;
+  background-color: var(--bg-surface);
+  border-top: var(--rule-heavy) solid var(--color-ink);
+  border-bottom: var(--rule-thin) solid var(--border-color);
+  padding: 20px;
   position: relative;
-  overflow: hidden;
+}
+
+.podcast-badge-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 .podcast-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.72rem;
+  gap: 8px;
+  font-size: 0.8125rem;
   font-weight: 700;
-  font-family: var(--font-mono);
-  background-color: var(--accent-cyber-glow);
+  font-family: var(--font-display);
+  background-color: var(--color-accent-tint);
   color: var(--accent-cyber);
-  border: 1px solid var(--accent-cyber);
-  padding: 3px 10px;
-  border-radius: 20px;
-  margin-bottom: 14px;
-  letter-spacing: 0.02em;
+  border: var(--rule-thin) solid var(--accent-cyber);
+  padding: 4px 12px;
+}
+
+.cdn-stream-badge {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0;
+  color: var(--text-muted);
+  font-weight: 600;
 }
 
 .podcast-controls {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: 14px;
+  margin-top: 12px;
 }
 
 .podcast-play-btn {
-  background: var(--accent-cyber);
-  color: #070b14;
-  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  border: var(--rule-thin) solid var(--color-ink);
   width: 44px;
   height: 44px;
-  border-radius: 50%;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
   flex-shrink: 0;
-  box-shadow: 0 2px 10px var(--accent-cyber-glow);
 }
 
 .podcast-play-btn:hover {
-  filter: brightness(1.15);
-  transform: scale(1.06);
+  background: var(--bg-primary);
+  border-color: var(--accent-cyber);
+  color: var(--accent-cyber);
 }
 
 .podcast-play-btn .btn-pause { display: none; }
@@ -1486,58 +1576,59 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .podcast-scrubber {
   width: 100%;
   accent-color: var(--accent-cyber);
-  height: 5px;
+  height: 4px;
   cursor: pointer;
 }
 
 .podcast-time {
-  font-size: 0.74rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums tabular-nums;
   display: flex;
   justify-content: space-between;
 }
 
 .speed-toggle-btn {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  border: var(--rule-thin) solid var(--border-color);
   color: var(--text-secondary);
   font-size: 0.75rem;
   font-weight: 700;
-  font-family: var(--font-mono);
-  padding: 5px 9px;
-  border-radius: 6px;
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums tabular-nums;
+  padding: 8px 12px;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
 }
 
 .speed-toggle-btn:hover {
-  border-color: var(--accent-cyber);
-  color: var(--accent-cyber);
+  border-color: var(--color-ink);
+  color: var(--text-primary);
 }
 
-/* Waveform Animation */
+/* Waveform Animation (compositor-friendly transform) */
 .waveform-bars {
   display: inline-flex;
   align-items: flex-end;
-  gap: 3px;
+  gap: 4px;
   height: 20px;
   margin-left: auto;
 }
 
 .waveform-bar {
-  width: 3px;
-  height: 4px;
+  width: 4px;
+  height: 16px;
   background-color: var(--accent-cyber);
-  border-radius: 2px;
-  transition: height 0.2s ease;
+  transform: scaleY(0.25);
+  transform-origin: bottom;
+  transition: transform var(--dur-short) var(--ease-out);
 }
 
 .is-playing .waveform-bar:nth-child(1) { animation: waveAnim 0.7s ease-in-out infinite 0.1s; }
@@ -1547,8 +1638,8 @@ body {
 .is-playing .waveform-bar:nth-child(5) { animation: waveAnim 0.7s ease-in-out infinite 0.15s; }
 
 @keyframes waveAnim {
-  0%, 100% { height: 4px; }
-  50% { height: 18px; }
+  0%, 100% { transform: scaleY(0.25); }
+  50% { transform: scaleY(1); }
 }
 
 /* Widget 2: Trending Stories */
@@ -1563,10 +1654,10 @@ body {
   align-items: flex-start;
   gap: 12px;
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: var(--rule-thin) solid var(--border-color);
   text-decoration: none;
   color: var(--text-primary);
-  transition: transform 0.2s ease;
+  transition: color var(--dur-short) var(--ease-out);
 }
 
 .trending-item:last-child {
@@ -1574,26 +1665,24 @@ body {
   padding-bottom: 0;
 }
 
-.trending-item:hover {
-  transform: translateX(4px);
-}
-
 .trending-num {
   font-size: 1.25rem;
   font-weight: 800;
   color: var(--accent-cyber);
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums tabular-nums;
   line-height: 1;
   min-width: 28px;
 }
 
 .trending-content h4 {
-  font-size: 0.88rem;
-  font-weight: 600;
-  line-height: 1.35;
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.3;
   margin-bottom: 4px;
   color: var(--text-primary);
-  transition: color 0.15s ease;
+  transition: color var(--dur-short) var(--ease-out);
 }
 
 .trending-item:hover .trending-content h4 {
@@ -1601,41 +1690,49 @@ body {
 }
 
 .trending-content p {
-  font-size: 0.74rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums tabular-nums;
 }
 
 /* Widget 3: Threat Radar / CVE Tracker */
 .threat-radar-box {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
+}
+
+.radar-sublabel {
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 8px;
 }
 
 .cve-pill-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
 }
 
 .cve-pill {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums tabular-nums;
   font-size: 0.75rem;
   font-weight: 700;
   background-color: var(--badge-critical-bg);
   color: var(--badge-critical-text);
-  border: 1px solid var(--badge-critical-border);
-  padding: 3px 8px;
-  border-radius: 4px;
-  letter-spacing: 0.02em;
+  border: var(--rule-thin) solid var(--badge-critical-border);
+  padding: 4px 8px;
 }
 
 .tech-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 6px;
+  gap: 8px;
+  margin-top: 8px;
 }
 
 /* Widget 4: Recent Editions */
@@ -1646,16 +1743,17 @@ body {
 }
 
 .archive-mini-item {
-  font-size: 0.84rem;
+  font-size: 0.875rem;
   color: var(--text-secondary);
   text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 8px 0;
-  border-bottom: 1px solid var(--border-color);
-  transition: color 0.15s ease;
-  font-family: var(--font-mono);
+  border-bottom: var(--rule-thin) solid var(--border-color);
+  transition: color var(--dur-short) var(--ease-out);
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums tabular-nums;
 }
 
 .archive-mini-item:last-child {
@@ -1667,12 +1765,13 @@ body {
 }
 
 .archive-mini-item code {
-  font-size: 0.78rem;
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-size: 0.75rem;
   color: var(--text-muted);
-  background: var(--bg-card);
-  padding: 2px 6px;
-  border-radius: 4px;
-  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  padding: 4px 8px;
+  border: var(--rule-thin) solid var(--border-color);
 }
 
 /* Dedicated Single Article Page Styles */
@@ -1680,27 +1779,27 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  height: 3px;
+  height: 4px;
   background: var(--accent-cyber);
   z-index: 9999;
   width: 0%;
-  transition: width 0.1s linear;
-  box-shadow: 0 0 8px var(--accent-cyber);
 }
 
 .breadcrumb {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-  font-size: 0.85rem;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
   color: var(--text-muted);
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .breadcrumb a {
   color: var(--text-secondary);
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: color var(--dur-short) var(--ease-out);
 }
 
 .breadcrumb a:hover {
@@ -1708,12 +1807,15 @@ body {
 }
 
 .article-h1-title {
-  font-size: 2.3rem;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.45rem + 2vw, 3rem);
   font-weight: 800;
-  line-height: 1.25;
-  letter-spacing: -0.03em;
+  font-stretch: 85%;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
   color: var(--text-primary);
-  margin-bottom: 18px;
+  margin-bottom: 20px;
+  text-wrap: balance;
 }
 
 .article-meta-bar {
@@ -1722,11 +1824,13 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 14px 0;
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
-  margin-bottom: 26px;
-  font-size: 0.86rem;
+  padding: 16px 0;
+  border-top: var(--rule-heavy) solid var(--color-ink);
+  border-bottom: var(--rule-thin) solid var(--border-color);
+  margin-bottom: 28px;
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-size: 0.875rem;
   color: var(--text-muted);
 }
 
@@ -1744,111 +1848,99 @@ body {
 }
 
 .share-btn {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  border: var(--rule-thin) solid var(--border-color);
   color: var(--text-secondary);
   width: 36px;
   height: 36px;
-  border-radius: 8px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
 }
 
 .share-btn:hover {
-  border-color: var(--accent-cyber);
-  color: var(--accent-cyber);
-  background-color: var(--accent-cyber-glow);
+  border-color: var(--color-ink);
+  color: var(--color-paper);
+  background-color: var(--color-ink);
 }
 
-/* Cyber Security Graphic Banner */
+/* Cyber Security Editorial Dispatch Plate */
 .cyber-banner {
-  background: linear-gradient(135deg, #070e1d 0%, #0d1b33 50%, #0369a1 100%);
-  border: 1px solid var(--border-color-glow);
-  border-radius: 12px;
-  padding: 34px 28px;
+  background-color: var(--color-banner-bg);
+  color: var(--color-banner-ink);
+  border-top: var(--rule-heavy) solid var(--accent-cyber);
+  border-bottom: var(--rule-thin) solid var(--border-color);
+  padding: 28px;
   margin-bottom: 28px;
   display: flex;
   flex-direction: column;
   gap: 12px;
   position: relative;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-}
-
-.cyber-banner::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 50%;
-  background: radial-gradient(circle at center, rgba(0, 240, 255, 0.2) 0%, transparent 70%);
-  pointer-events: none;
 }
 
 .cyber-banner-badge {
   align-self: flex-start;
-  font-size: 0.74rem;
+  font-size: 1rem;
   font-weight: 700;
-  font-family: var(--font-mono);
-  background-color: rgba(0, 240, 255, 0.2);
-  color: var(--accent-cyber);
-  border: 1px solid var(--accent-cyber);
-  padding: 4px 12px;
-  border-radius: 4px;
-  letter-spacing: 0.05em;
+  font-family: var(--font-display);
+  color: var(--color-banner-accent);
+  border-bottom: var(--rule-thin) solid var(--color-banner-accent);
+  padding-bottom: 4px;
+  letter-spacing: 0;
 }
 
 .cyber-banner-title {
-  font-size: 1.35rem;
+  font-family: var(--font-display);
+  font-size: 1.375rem;
   font-weight: 700;
-  line-height: 1.35;
-  color: #ffffff;
-  max-width: 85%;
-  z-index: 1;
+  line-height: 1.25;
+  color: var(--color-banner-ink);
+  max-width: 65ch;
 }
 
 /* Article Content Body */
 .article-lead {
-  font-size: 1.15rem;
+  font-family: var(--font-body);
+  font-size: 1.25rem;
   font-weight: 500;
-  line-height: 1.72;
+  line-height: 1.6;
   color: var(--text-primary);
   margin-bottom: 24px;
-  border-left: 4px solid var(--accent-cyber);
-  padding-left: 18px;
+  border-left: var(--rule-heavy) solid var(--color-ink);
+  padding-left: 20px;
+  max-width: 65ch;
 }
 
 .article-body-text {
-  font-size: 1.02rem;
-  line-height: 1.82;
-  color: var(--text-secondary);
-  margin-bottom: 30px;
-  max-width: 74ch;
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  line-height: 1.72;
+  color: var(--text-primary);
+  margin-bottom: 32px;
+  max-width: 65ch;
 }
 
 .article-body-text p {
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 /* Threat Box & Defense Mitigation Box */
 .threat-summary-box {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-left: 4px solid var(--badge-critical-text);
-  border-radius: 10px;
-  padding: 22px;
+  background-color: var(--bg-surface);
+  border: var(--rule-thin) solid var(--border-color);
+  border-top: var(--rule-heavy) solid var(--badge-critical-text);
+  padding: 24px;
   margin-bottom: 28px;
 }
 
 .threat-summary-box h3 {
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 800;
   color: var(--text-primary);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1856,39 +1948,40 @@ body {
 
 .threat-specs-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
   gap: 16px;
-  font-size: 0.88rem;
+  font-size: 0.875rem;
 }
 
 .spec-item strong {
   display: block;
-  font-size: 0.74rem;
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
   color: var(--text-muted);
-  text-transform: uppercase;
-  margin-bottom: 3px;
-  letter-spacing: 0.03em;
+  margin-bottom: 4px;
 }
 
 .spec-item span {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-weight: 600;
   color: var(--text-primary);
 }
 
 .mitigation-box {
-  background-color: var(--bg-card);
-  border: 1px solid var(--badge-patch-border);
-  border-left: 4px solid var(--badge-patch-text);
-  border-radius: 10px;
-  padding: 22px;
+  background-color: var(--bg-surface);
+  border: var(--rule-thin) solid var(--badge-patch-border);
+  border-top: var(--rule-heavy) solid var(--badge-patch-text);
+  padding: 24px;
   margin-bottom: 28px;
 }
 
 .mitigation-box h3 {
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 800;
   color: var(--badge-patch-text);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1898,23 +1991,27 @@ body {
   padding-left: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  font-size: 0.94rem;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 1rem;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.65;
+  max-width: 65ch;
 }
 
 /* Podcast Snippet Box */
 .podcast-snippet-box {
   background-color: var(--bg-surface);
-  border: 1px dashed var(--border-color);
-  border-radius: 10px;
+  border-top: var(--rule-thin) solid var(--border-color);
+  border-bottom: var(--rule-thin) solid var(--border-color);
+  border-left: var(--rule-heavy) solid var(--accent-cyber);
   padding: 20px;
   margin-bottom: 28px;
 }
 
 .podcast-snippet-header {
-  font-size: 0.95rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 12px;
@@ -1928,19 +2025,21 @@ body {
 }
 
 .podcast-line {
-  font-size: 0.92rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
   color: var(--text-secondary);
   font-style: italic;
-  line-height: 1.6;
-  padding: 6px 0;
+  line-height: 1.65;
+  padding: 8px 0;
+  max-width: 65ch;
 }
 
 /* Source Attribution Box */
 .source-box {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 18px 22px;
+  background-color: var(--bg-surface);
+  border-top: var(--rule-thin) solid var(--border-color);
+  border-bottom: var(--rule-thin) solid var(--border-color);
+  padding: 20px 24px;
   margin-bottom: 28px;
   display: flex;
   align-items: center;
@@ -1950,31 +2049,53 @@ body {
 }
 
 .source-box-title {
-  font-size: 0.84rem;
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
   color: var(--text-muted);
 }
 
 .source-box-name {
-  font-size: 0.98rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin-top: 2px;
+  margin-top: 4px;
+}
+
+.source-box-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .source-external-link {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   color: var(--accent-cyber);
-  font-weight: 600;
-  font-size: 0.88rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.875rem;
   text-decoration: none;
-  transition: transform 0.2s ease;
+  padding: 8px 12px;
+  border: var(--rule-thin) solid var(--border-color);
+  background-color: var(--bg-primary);
+  transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
 }
 
 .source-external-link:hover {
-  transform: translateX(3px);
-  text-decoration: none;
+  border-color: var(--color-ink);
+  color: var(--text-primary);
+}
+
+.source-box .mirror-link {
+  border-color: var(--accent-cyber);
+  color: var(--accent-cyber);
+}
+
+.source-box .mirror-link:hover {
+  background-color: var(--color-accent-tint);
+  border-color: var(--accent-cyber);
 }
 
 /* Toast Notification */
@@ -1982,18 +2103,17 @@ body {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  background-color: var(--bg-surface);
-  color: var(--text-primary);
-  border: 1px solid var(--accent-cyber);
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  border: var(--rule-thin) solid var(--color-ink);
   padding: 12px 20px;
-  border-radius: 10px;
-  box-shadow: var(--shadow-lg);
   opacity: 0;
   transform: translateY(12px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out);
   pointer-events: none;
   z-index: 10000;
-  font-size: 0.88rem;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
   font-weight: 600;
 }
 
@@ -2005,11 +2125,12 @@ body {
 /* Site Footer */
 .site-footer {
   background-color: var(--bg-surface);
-  border-top: 1px solid var(--border-color);
+  border-top: var(--rule-heavy) solid var(--color-ink);
   padding: 36px 0;
   margin-top: auto;
   color: var(--text-muted);
-  font-size: 0.88rem;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
 }
 
 .footer-inner {
@@ -2022,13 +2143,15 @@ body {
 
 .footer-links {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
 .footer-link {
   color: var(--text-secondary);
   text-decoration: none;
-  transition: color 0.15s ease;
+  font-weight: 600;
+  transition: color var(--dur-short) var(--ease-out);
 }
 
 .footer-link:hover {
@@ -2036,55 +2159,60 @@ body {
 }
 
 /* Archive List Layout */
+.archive-section {
+  margin-top: 24px;
+  margin-bottom: 64px;
+}
+
 .archive-grid {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 0;
 }
 
 .archive-card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 22px 26px;
+  background-color: transparent;
+  border-bottom: var(--rule-thin) solid var(--border-color);
+  padding: 24px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
   text-decoration: none;
   color: var(--text-primary);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: color var(--dur-short) var(--ease-out);
 }
 
-.archive-card:hover {
-  transform: translateX(4px);
-  border-color: var(--border-color-glow);
-  background-color: var(--bg-card-hover);
-  box-shadow: var(--shadow);
+.archive-card:hover .archive-info h3 {
+  color: var(--accent-cyber);
 }
 
 .archive-info h3 {
-  font-size: 1.18rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: 8px;
   color: var(--text-primary);
   letter-spacing: -0.015em;
+  transition: color var(--dur-short) var(--ease-out);
 }
 
 .archive-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  font-size: 0.84rem;
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-size: 0.8125rem;
   color: var(--text-muted);
 }
 
 .archive-meta code {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums tabular-nums;
   background: var(--bg-surface);
-  padding: 2px 6px;
-  border-radius: 4px;
-  border: 1px solid var(--border-color);
+  padding: 4px 8px;
+  border: var(--rule-thin) solid var(--border-color);
 }
 
 /* Article Reading Utility Bar */
@@ -2093,9 +2221,9 @@ body {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
+  gap: 16px;
   padding: 12px 0;
-  border-top: 1px solid var(--border-color);
+  border-top: var(--rule-thin) solid var(--border-color);
 }
 
 .back-edition-btn {
@@ -2103,89 +2231,87 @@ body {
   align-items: center;
   gap: 8px;
   color: var(--text-secondary);
-  font-size: 0.88rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 700;
   text-decoration: none;
-  transition: color 0.15s ease, transform 0.15s ease;
+  transition: color var(--dur-short) var(--ease-out);
 }
 
 .back-edition-btn:hover {
   color: var(--accent-cyber);
-  transform: translateX(-2px);
 }
 
 .utility-actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
 }
 
 .font-resizer {
   display: inline-flex;
   align-items: center;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  overflow: hidden;
-  background-color: var(--bg-card);
+  border: var(--rule-thin) solid var(--border-color);
+  background-color: var(--bg-surface);
 }
 
 .font-resizer button {
   background: none;
   border: none;
   color: var(--text-primary);
-  font-size: 0.85rem;
+  font-size: 0.8125rem;
   font-weight: 700;
-  font-family: var(--font-mono);
-  padding: 6px 12px;
+  font-family: var(--font-display);
+  padding: 8px 12px;
   cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
 }
 
 .font-resizer button:first-child {
-  border-right: 1px solid var(--border-color);
+  border-right: var(--rule-thin) solid var(--border-color);
 }
 
 .font-resizer button:hover {
-  background-color: var(--accent-cyber);
-  color: #070b14;
+  background-color: var(--color-ink);
+  color: var(--color-paper);
 }
 
 .views-counter {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.84rem;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-size: 0.8125rem;
   color: var(--text-muted);
 }
 
 /* Article Pagination (Previous / Next) */
 .article-pagination {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
   gap: 16px;
   margin: 36px 0 20px 0;
   padding-top: 24px;
-  border-top: 1px solid var(--border-color);
+  border-top: var(--rule-heavy) solid var(--color-ink);
 }
 
 .pagination-card {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 18px 22px;
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
+  padding: 20px;
+  background-color: var(--bg-surface);
+  border: var(--rule-thin) solid var(--border-color);
   text-decoration: none;
   color: var(--text-primary);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
 }
 
 .pagination-card:hover {
-  border-color: var(--accent-cyber);
-  background-color: var(--bg-card-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
+  border-color: var(--color-ink);
+  background-color: var(--color-paper-3);
 }
 
 .pagination-card-next {
@@ -2197,13 +2323,11 @@ body {
 .pagination-sublabel {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.78rem;
+  gap: 8px;
+  font-size: 0.8125rem;
   font-weight: 700;
   color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
 }
 
 .pagination-card-next .pagination-sublabel {
@@ -2211,33 +2335,38 @@ body {
 }
 
 .pagination-title {
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1.4;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
   color: var(--text-primary);
 }
 
 .pagination-placeholder {
-  min-height: 1px;
+  min-height: 4px;
 }
 
 /* Executive TL;DR Box */
 .tldr-box {
-  background: linear-gradient(135deg, rgba(0, 240, 255, 0.08) 0%, rgba(13, 21, 39, 0.7) 100%);
-  border: 1px solid rgba(0, 240, 255, 0.3);
-  border-left: 4px solid var(--accent-cyber);
-  border-radius: 10px;
+  background-color: var(--bg-surface);
+  border: var(--rule-thin) solid var(--border-color);
+  border-top: var(--rule-heavy) solid var(--color-ink);
   padding: 20px 24px;
   margin: 24px 0 28px 0;
 }
 
 .tldr-header {
+  font-family: var(--font-display);
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 1.05rem;
-  color: var(--accent-cyber);
+  font-size: 1.0625rem;
+  color: var(--text-primary);
   margin-bottom: 12px;
+}
+
+.tldr-header .material-symbols-outlined {
+  color: var(--accent-cyber);
 }
 
 .tldr-list {
@@ -2246,9 +2375,11 @@ body {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-size: 0.94rem;
-  line-height: 1.62;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
   color: var(--text-primary);
+  max-width: 65ch;
 }
 
 .tldr-list li::marker {
@@ -2259,72 +2390,68 @@ body {
 .github-header-btn {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  gap: 8px;
+  background: var(--bg-surface);
+  border: var(--rule-thin) solid var(--border-color);
   color: var(--text-primary);
   height: 40px;
-  padding: 0 14px;
-  border-radius: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  font-weight: 600;
+  padding: 0 16px;
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 700;
   text-decoration: none;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: border-color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
   white-space: nowrap;
 }
 
 .github-header-btn:hover {
-  border-color: var(--accent-cyber);
-  background-color: var(--accent-cyber-glow);
-  color: var(--accent-cyber);
-  transform: translateY(-1px);
+  border-color: var(--color-ink);
+  background-color: var(--color-ink);
+  color: var(--color-paper);
 }
 
 .github-header-btn .icon-github-ext {
   font-size: 16px !important;
   width: 16px !important;
   height: 16px !important;
-  opacity: 0.7;
+  opacity: 0.75;
 }
 
 /* GitHub Utility Button in Article Utility Bar */
 .github-util-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  color: var(--text-muted);
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  font-weight: 600;
+  gap: 8px;
+  background: var(--bg-surface);
+  border: var(--rule-thin) solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 4px 12px;
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 700;
   text-decoration: none;
-  transition: all 0.18s ease;
+  transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
 }
 
 .github-util-btn:hover {
-  border-color: var(--accent-cyber);
-  color: var(--accent-cyber);
-  background: var(--bg-surface);
+  border-color: var(--color-ink);
+  color: var(--text-primary);
+  background: var(--bg-primary);
 }
 
 .github-util-btn .icon-util-ext {
   font-size: 14px !important;
   width: 14px !important;
   height: 14px !important;
-  opacity: 0.7;
+  opacity: 0.75;
 }
 
 /* GitHub Intel Box in Article Page */
 .github-intel-box {
-  background: linear-gradient(135deg, rgba(0, 240, 255, 0.05) 0%, rgba(13, 21, 39, 0.5) 100%);
-  border: 1px solid rgba(0, 240, 255, 0.25);
-  border-left: 4px solid var(--accent-cyber);
-  border-radius: 10px;
-  padding: 16px 20px;
+  background-color: var(--bg-surface);
+  border: var(--rule-thin) solid var(--border-color);
+  border-left: var(--rule-heavy) solid var(--color-ink);
+  padding: 20px;
   margin: 24px 0;
   display: flex;
   align-items: center;
@@ -2335,87 +2462,81 @@ body {
 .github-intel-info {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
 }
 
 .github-intel-info .github-svg-icon {
   width: 28px;
   height: 28px;
-  color: var(--accent-cyber);
+  color: var(--text-primary);
   flex-shrink: 0;
 }
 
 .github-intel-title {
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 3px;
+  margin-bottom: 4px;
 }
 
 .github-intel-desc {
-  font-size: 0.82rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
   color: var(--text-muted);
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
 .btn-github-action {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--bg-card);
-  border: 1px solid var(--accent-cyber);
-  color: var(--accent-cyber);
+  background: transparent;
+  border: var(--rule-thin) solid var(--color-ink);
+  color: var(--text-primary);
   padding: 8px 16px;
-  border-radius: 6px;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
-  transition: all 0.2s ease;
+  transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
   flex-shrink: 0;
 }
 
 .btn-github-action:hover {
-  background: var(--accent-cyber);
-  color: #070b14;
-  transform: translateY(-1px);
+  background: var(--bg-primary);
+  border-color: var(--accent-cyber);
+  color: var(--accent-cyber);
 }
 
 /* Video Brief Widget & Streaming Player */
 .video-brief-box {
-  background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-surface) 100%);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 16px;
+  background-color: var(--bg-surface);
+  border-top: var(--rule-heavy) solid var(--color-ink);
+  border-bottom: var(--rule-thin) solid var(--border-color);
+  padding: 20px;
   position: relative;
-  overflow: hidden;
 }
 
 .video-badge-live {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  background: rgba(0, 230, 118, 0.15);
-  color: #00e676;
-  border: 1px solid rgba(0, 230, 118, 0.3);
-  padding: 2px 6px;
-  border-radius: 4px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0;
+  color: var(--accent-cyber);
   font-weight: 700;
   margin-left: auto;
-  letter-spacing: 0.04em;
 }
 
 .video-container {
   width: 100%;
-  background: #000;
-  border-radius: 8px;
+  background: var(--color-video-bg);
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  margin-top: 12px;
+  border: var(--rule-thin) solid var(--border-color);
 }
 
 .edition-video-player {
@@ -2423,60 +2544,61 @@ body {
   max-height: 480px;
   aspect-ratio: 9/16;
   object-fit: contain;
-  background: #000;
-  border-radius: 8px;
+  background: var(--color-video-bg);
   outline: none;
 }
 
 .video-caption {
-  margin-top: 10px;
+  margin-top: 12px;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font-size: 0.78rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
   color: var(--text-muted);
 }
 
 .video-source-badge {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0;
   color: var(--accent-cyber);
   font-weight: 700;
 }
 
-/* Podcast CDN Stream Badge */
-.podcast-badge-wrap {
+.edition-top-bar {
+  margin-bottom: 20px;
   display: flex;
+  gap: 12px;
+}
+
+.edition-top-link {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
+  gap: 8px;
 }
 
-.cdn-stream-badge {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: var(--accent-cyber);
-  font-weight: 600;
-  opacity: 0.85;
+.empty-state-box {
+  margin-top: 40px;
+  text-align: center;
+  padding: 40px;
 }
 
-.source-box .mirror-link {
-  border-color: rgba(0, 240, 255, 0.3);
-  color: var(--accent-cyber);
-}
-
-.source-box .mirror-link:hover {
-  background: rgba(0, 240, 255, 0.1);
-  border-color: var(--accent-cyber);
+.empty-state-desc {
+  color: var(--text-muted);
+  margin-top: 12px;
 }
 
 /* Responsive Breakpoints */
 @media (max-width: 960px) {
   .portal-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
   }
   .portal-sidebar {
     position: static;
+    border-left: none;
+    padding-left: 0;
   }
 }
 
@@ -2484,7 +2606,7 @@ body {
   .header-top {
     flex-direction: column;
     align-items: stretch;
-    gap: 14px;
+    gap: 16px;
   }
   .header-actions {
     width: 100%;
@@ -2494,10 +2616,10 @@ body {
     width: 100%;
   }
   .hero-title {
-    font-size: 1.55rem;
+    font-size: 1.625rem;
   }
   .article-h1-title {
-    font-size: 1.7rem;
+    font-size: 1.75rem;
   }
   .footer-inner {
     flex-direction: column;
@@ -2512,7 +2634,7 @@ body {
     align-items: flex-start;
   }
   .article-pagination {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .pagination-card-next {
     text-align: left;
@@ -2520,16 +2642,32 @@ body {
   .pagination-card-next .pagination-sublabel {
     justify-content: flex-start;
   }
+  .github-intel-box {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 """
 
 
 def _get_app_js() -> str:
     """Return vanilla JS with theme toggle, sticky podcast player, reading progress, and search filter."""
-    return r"""/* CyberPulse Reader Static Portal Script - The Hacker News Style */
+    return r"""/* CyberPulse Reader Static Portal Script - Hallmark Editorial Edition */
 (function() {
-  // Theme initialization before DOM paint
-  var saved = localStorage.getItem('cyberpulse-theme') || 'dark';
+  // Theme initialization before DOM paint (defaults to Editorial light paper)
+  var saved = localStorage.getItem('cyberpulse-theme') || 'light';
   document.documentElement.setAttribute('data-theme', saved);
 
   // Check Google Material Symbols font loading
@@ -2545,7 +2683,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var themeBtn = document.getElementById('theme-toggle');
   if (themeBtn) {
     themeBtn.addEventListener('click', function() {
-      var current = document.documentElement.getAttribute('data-theme') || 'dark';
+      var current = document.documentElement.getAttribute('data-theme') || 'light';
       var next = current === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('cyberpulse-theme', next);
@@ -2760,7 +2898,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var bodyText = document.querySelector('.article-body-text');
   if (bodyText && (fontDec || fontInc)) {
     var savedSize = parseInt(localStorage.getItem('cp_font_size'), 10);
-    var curSize = (!isNaN(savedSize) && savedSize >= 15 && savedSize <= 22) ? savedSize : 16;
+    var curSize = (!isNaN(savedSize) && savedSize >= 15 && savedSize <= 22) ? savedSize : 18;
     bodyText.style.fontSize = curSize + 'px';
 
     if (fontDec) {
@@ -2869,13 +3007,13 @@ def _render_header(
         <div class="brand-icon">{shield_icon}</div>
         <div class="brand-text">
           <h1>CyberPulse AI</h1>
-          <p><span class="brand-live-dot"></span> [CYBERPULSE INTEL] Tạp chí An ninh Mạng Chuyên sâu</p>
+          <p><span class="brand-live-dot" role="status"></span> Chuyên san Phân tích &amp; Tình báo An ninh Mạng</p>
         </div>
       </a>
       <div class="header-actions">
         <div class="search-box">
           <span class="search-icon-pos">{search_icon}</span>
-          <input type="text" id="search-input" class="search-input" placeholder="Tìm kiếm tin bảo mật, CVE..." aria-label="Tìm kiếm">
+          <input type="text" id="search-input" class="search-input" placeholder="Tìm kiếm tin bảo mật, CVE…" aria-label="Tìm kiếm">
         </div>
         <a href="{GITHUB_REPO_URL}" target="_blank" rel="noopener noreferrer" class="github-header-btn" title="Xem chi tiết &amp; mã nguồn trên GitHub">
           {GITHUB_SVG_ICON}
@@ -2971,7 +3109,7 @@ def _render_sidebar(
     {podcasts_icon}
     <span>Podcast Radio Box</span>
   </div>
-  <p style="font-size:0.85rem; color:var(--text-muted);">Ấn bản hiện tại ở định dạng văn bản đọc.</p>
+  <p class="widget-empty-note">Ấn bản hiện tại ở định dạng văn bản đọc.</p>
 </div>"""
 
     # Video Widget: CyberPulse Video Intelligence (9:16 Short-form Video Player)
@@ -3025,7 +3163,7 @@ def _render_sidebar(
     radar_icon = render_material_symbol("bug_report")
     cve_pills = "".join(f'<span class="cve-pill">{html.escape(c)}</span>' for c in active_cves[:8])
     if not cve_pills:
-        cve_pills = '<span style="font-size:0.8rem; color:var(--text-muted);">Đang theo dõi chuỗi khai thác 0-Day</span>'
+        cve_pills = '<span class="widget-empty-note">Đang theo dõi chuỗi khai thác 0-Day</span>'
 
     tech_pills = "".join(f'<span class="vendor-tag">{html.escape(t)}</span>' for t in vulnerable_tech[:8])
 
@@ -3035,11 +3173,11 @@ def _render_sidebar(
     <span>Threat Radar / CVE Tracker</span>
   </div>
   <div>
-    <div style="font-size:0.78rem; font-weight:700; color:var(--text-muted); margin-bottom:6px;">LỖ HỔNG ĐANG THEO DÕI:</div>
+    <div class="radar-sublabel">Lỗ hổng đang theo dõi:</div>
     <div class="cve-pill-list">{cve_pills}</div>
   </div>
   <div>
-    <div style="font-size:0.78rem; font-weight:700; color:var(--text-muted); margin-bottom:6px;">CÔNG NGHỆ BỊ ẢNH HƯỞNG:</div>
+    <div class="radar-sublabel">Công nghệ bị ảnh hưởng:</div>
     <div class="tech-list">{tech_pills}</div>
   </div>
 </div>"""
@@ -3052,7 +3190,7 @@ def _render_sidebar(
         ed_link = f"{base_prefix}editions/{pkg.run_id}.html"
         archive_items_html.append(
             f'<a href="{ed_link}" class="archive-mini-item">'
-            f'<span>{html.escape(ed["dt_vn_str"])}</span>'
+            f'<span>{html.escape(format_vietnam_date(ed["dt"]))}</span>'
             f'<code>{html.escape(pkg.run_id[-8:])}</code>'
             f'</a>'
         )
@@ -3092,14 +3230,15 @@ def _render_page(
     strip_section = f"\n  {edition_strip_html}" if edition_strip_html else ""
 
     return f"""<!DOCTYPE html>
-<html lang="vi" data-theme="dark">
+<html lang="vi" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{html.escape(title)} — CyberPulse AI Reader</title>
+  <meta name="description" content="{html.escape(title)} · Chuyên san Phân tích và Tình báo An ninh Mạng CyberPulse AI.">
+  <title>{html.escape(title)} · CyberPulse AI Reader</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap">
   <link rel="stylesheet" href="{MATERIAL_SYMBOLS_STYLESHEET}">
   <link rel="stylesheet" href="{css_href}">
 </head>
@@ -3285,9 +3424,9 @@ def _render_dedicated_article_page(
   <div class="source-box">
     <div>
       <div class="source-box-title">Nguồn tin phân tích gốc &amp; Bản sao CDN:</div>
-      <div class="source-box-name">{html.escape(article.source_name)} — {html.escape(article.title)}</div>
+      <div class="source-box-name">{html.escape(article.source_name)} : {html.escape(article.title)}</div>
     </div>
-    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+    <div class="source-box-actions">
       <a href="{html.escape(article.url)}" target="_blank" rel="noopener noreferrer" class="source-external-link">
         <span>Đọc bài gốc trên {html.escape(article.source_name)}</span>
         {open_icon}
@@ -3328,7 +3467,7 @@ def build_public_portal(
     featured_run_id: str | None = None,
     cdn_media_base_url: str = GITHUB_PAGES_CDN_URL,
 ) -> PortalBuildResult:
-    """Build static reader portal into dist_dir with The Hacker News 2-column architecture.
+    """Build static reader portal into dist_dir with Hallmark Editorial 2-column architecture.
 
     1. Scans editorial packages from output_dir / "editorial"/*.json.
     2. Builds homepage (dist/index.html) with Hero Breaking News & Curated Stream.
@@ -3486,16 +3625,19 @@ def build_public_portal(
         all_cves: list[str] = []
         all_tech: list[str] = []
 
-        for sec in pkg.digest.sections:
-            sec_cves = extract_cves(f"{sec.heading} {sec.body.text}")
+        for t_idx, sec in enumerate(pkg.digest.sections, start=1):
+            sec_corpus = f"{sec.heading} {sec.body.text}"
+            sec_cves = extract_cves(sec_corpus)
             all_cves.extend(sec_cves)
-            sec_tags = extract_vendor_tags(f"{sec.heading} {sec.body.text}")
+            sec_tags = extract_vendor_tags(sec_corpus)
             all_tech.extend(sec_tags)
+            sec_badge = detect_threat_badge(sec_corpus)
+            sec_rt = calculate_reading_time(sec_corpus)
             primary_aid = sec.body.cited_article_ids[0] if sec.body.cited_article_ids else ""
             trending_stories.append({
                 "title": sec.heading,
                 "link": f"{primary_aid}.html" if primary_aid else "#",
-                "time_str": ed_dt_str,
+                "time_str": f"Chuyên mục #{t_idx} · {sec_badge.text}",
             })
 
         # Remove duplicates while preserving order
@@ -3526,7 +3668,7 @@ def build_public_portal(
                         art = Article(
                             id=aid,
                             source_name="The Hacker News",
-                            title=f"Phân tích chuyên sâu An ninh mạng — Mã sự cố #{aid[:8]}",
+                            title=f"Phân tích chuyên sâu An ninh mạng : Mã sự cố #{aid[:8]}",
                             url="https://thehackernews.com/",
                             published_at=ed["dt"],
                             fetched_at=ed["dt"],
@@ -3542,7 +3684,7 @@ def build_public_portal(
                     art = Article(
                         id=aid,
                         source_name="The Hacker News",
-                        title=f"Phân tích chuyên sâu An ninh mạng — Mã sự cố #{aid[:8]}",
+                        title=f"Phân tích chuyên sâu An ninh mạng : Mã sự cố #{aid[:8]}",
                         url="https://thehackernews.com/",
                         published_at=ed["dt"],
                         fetched_at=ed["dt"],
@@ -3595,7 +3737,7 @@ def build_public_portal(
             files_created.append(f"articles/{aid}.html")
             articles_generated.add(aid)
 
-    # 5. Generate index.html (The Hacker News 2-Column Homepage)
+    # 5. Generate index.html (Hallmark Editorial 2-Column Homepage)
     if featured_entry:
         featured_pkg = featured_entry["package"]
         featured_dt_str = featured_entry["dt_vn_str"]
@@ -3608,14 +3750,17 @@ def build_public_portal(
         home_cves: list[str] = []
         home_tech: list[str] = []
 
-        for sec in featured_pkg.digest.sections:
-            home_cves.extend(extract_cves(f"{sec.heading} {sec.body.text}"))
-            home_tech.extend(extract_vendor_tags(f"{sec.heading} {sec.body.text}"))
+        for t_idx, sec in enumerate(featured_pkg.digest.sections, start=1):
+            sec_corpus = f"{sec.heading} {sec.body.text}"
+            home_cves.extend(extract_cves(sec_corpus))
+            home_tech.extend(extract_vendor_tags(sec_corpus))
+            sec_badge = detect_threat_badge(sec_corpus)
+            sec_rt = calculate_reading_time(sec_corpus)
             primary_aid = sec.body.cited_article_ids[0] if sec.body.cited_article_ids else ""
             trending_home.append({
-                "title": sec.heading,
+                "title": _excerpt_text(sec.heading, 42),
                 "link": f"articles/{primary_aid}.html" if primary_aid else "#",
-                "time_str": featured_dt_str,
+                "time_str": f"#{t_idx} · {sec_badge.text}",
             })
 
         unique_home_cves = list(dict.fromkeys(home_cves))
@@ -3678,7 +3823,7 @@ def build_public_portal(
     <span class="meta-item">{person_icon} Ban Biên tập CyberPulse</span>
   </div>
   <h2 class="hero-title"><a href="{hero_link}">{html.escape(first_sec.heading)}</a></h2>
-  <p class="hero-lead">{html.escape(first_sec.body.text[:220].rstrip())}...</p>
+  <p class="hero-lead">{html.escape(_excerpt_text(first_sec.body.text, 75))}</p>
   <a href="{hero_link}" class="btn-read-more">
     <span>Đọc tiếp</span>
     {forward_icon}
@@ -3687,7 +3832,7 @@ def build_public_portal(
 
         # Curated Stories Feed (Remaining stories)
         stories_html: list[str] = []
-        for sec in featured_pkg.digest.sections[1:]:
+        for s_idx, sec in enumerate(featured_pkg.digest.sections[1:], start=2):
             badge = detect_threat_badge(f"{sec.heading} {sec.body.text}")
             sev_key = "critical" if "critical" in badge.css_class else (
                 "warning" if "warning" in badge.css_class else (
@@ -3706,12 +3851,11 @@ def build_public_portal(
     <div class="vendor-tags">{vendor_tags_html}</div>
   </div>
   <h3 class="story-title"><a href="{story_link}">{html.escape(sec.heading)}</a></h3>
-  <p class="story-body">{html.escape(sec.body.text)}</p>
+  <p class="story-body">{html.escape(_excerpt_text(sec.body.text, 65))}</p>
   <div class="story-footer">
-    <div style="display:flex; align-items:center; gap:12px;">
-      <span class="meta-item">{schedule_icon} {html.escape(featured_dt_str)}</span>
-      <span class="meta-item">{timer_icon} {reading_time} phút</span>
-      <span class="meta-item">{person_icon} CyberPulse</span>
+    <div class="story-footer-meta">
+      <span class="meta-item">{schedule_icon} Mục #{s_idx}</span>
+      <span class="meta-item">{timer_icon} {reading_time} phút đọc</span>
     </div>
     <a href="{story_link}" class="story-read-link">
       <span>Đọc tiếp</span>
@@ -3756,9 +3900,9 @@ def build_public_portal(
         )
     else:
         empty_html = (
-            '<div class="sidebar-widget" style="margin-top: 40px; text-align: center; padding: 40px;">'
+            '<div class="sidebar-widget empty-state-box">'
             '<h2>Chưa có ấn bản nào</h2>'
-            '<p style="color:var(--text-muted); margin-top: 10px;">Chưa có gói biên tập nào được tìm thấy trong thư mục editorial. '
+            '<p class="empty-state-desc">Chưa có gói biên tập nào được tìm thấy trong thư mục editorial. '
             'Vui lòng chạy pipeline hoặc lệnh <code>cyberpulse editorial</code> để tạo bản tin.</p>'
             '</div>'
         )
@@ -3800,14 +3944,17 @@ def build_public_portal(
         ed_cves: list[str] = []
         ed_tech: list[str] = []
 
-        for sec in pkg.digest.sections:
-            ed_cves.extend(extract_cves(f"{sec.heading} {sec.body.text}"))
-            ed_tech.extend(extract_vendor_tags(f"{sec.heading} {sec.body.text}"))
+        for t_idx, sec in enumerate(pkg.digest.sections, start=1):
+            sec_corpus = f"{sec.heading} {sec.body.text}"
+            ed_cves.extend(extract_cves(sec_corpus))
+            ed_tech.extend(extract_vendor_tags(sec_corpus))
+            sec_badge = detect_threat_badge(sec_corpus)
+            sec_rt = calculate_reading_time(sec_corpus)
             primary_aid = sec.body.cited_article_ids[0] if sec.body.cited_article_ids else ""
             trending_ed.append({
                 "title": sec.heading,
                 "link": f"../articles/{primary_aid}.html" if primary_aid else "#",
-                "time_str": ed_dt_str,
+                "time_str": f"Chuyên mục #{t_idx} · {sec_badge.text}",
             })
 
         unique_ed_cves = list(dict.fromkeys(ed_cves))
@@ -3834,7 +3981,7 @@ def build_public_portal(
         person_icon = render_material_symbol("person")
         visibility_icon = render_material_symbol("visibility")
 
-        for sec in pkg.digest.sections:
+        for s_idx, sec in enumerate(pkg.digest.sections, start=1):
             badge = detect_threat_badge(f"{sec.heading} {sec.body.text}")
             sev_key = "critical" if "critical" in badge.css_class else (
                 "warning" if "warning" in badge.css_class else (
@@ -3855,10 +4002,10 @@ def build_public_portal(
   <h3 class="story-title"><a href="{story_link}">{html.escape(sec.heading)}</a></h3>
   <p class="story-body">{html.escape(sec.body.text)}</p>
   <div class="story-footer">
-    <div style="display:flex; align-items:center; gap:12px;">
-      <span class="meta-item">{schedule_icon} {html.escape(ed_dt_str)}</span>
-      <span class="meta-item">{timer_icon} {reading_time} phút</span>
-      <span class="meta-item">{person_icon} CyberPulse</span>
+    <div class="story-footer-meta">
+      <span class="meta-item">{schedule_icon} Mục #{s_idx} · {html.escape(ed_dt_str)}</span>
+      <span class="meta-item">{timer_icon} {reading_time} phút đọc</span>
+      <span class="meta-item">{person_icon} Ban Biên tập CyberPulse</span>
     </div>
     <a href="{story_link}" class="story-read-link">
       <span>Đọc tiếp</span>
@@ -3869,11 +4016,11 @@ def build_public_portal(
 
         back_icon = render_material_symbol("arrow_back")
         archive_icon = render_material_symbol("calendar_today")
-        top_bar = f"""<div style="margin-bottom: 20px; display:flex; gap:12px;">
-  <a href="../index.html" class="nav-link" style="display:inline-flex; align-items:center; gap:6px;">
+        top_bar = f"""<div class="edition-top-bar">
+  <a href="../index.html" class="nav-link edition-top-link">
     {back_icon} Về trang chủ
   </a>
-  <a href="../archive.html" class="nav-link" style="display:inline-flex; align-items:center; gap:6px;">
+  <a href="../archive.html" class="nav-link edition-top-link">
     {archive_icon} Bản tin theo ngày
   </a>
 </div>"""
@@ -3919,7 +4066,7 @@ def build_public_portal(
     for ed in editions_data:
         pkg = ed["package"]
         audio_label = (
-            f'<span class="badge badge-patch" style="display:inline-flex;align-items:center;gap:4px;">{podcasts_icon} Podcast Audio</span>'
+            f'<span class="badge badge-patch">{podcasts_icon} Podcast Audio</span>'
             if ed["has_audio"]
             else '<span class="badge badge-info">Bản tin đọc</span>'
         )
@@ -3938,7 +4085,7 @@ def build_public_portal(
 </a>""")
 
     archive_list_html = "\n".join(archive_cards) if archive_cards else "<p>Chưa có ấn bản lưu trữ nào.</p>"
-    archive_content = f"""<section style="margin-top: 24px; margin-bottom: 60px;">
+    archive_content = f"""<section class="archive-section">
   <div class="feed-header">
     <h2 class="feed-title">
       {calendar_icon}

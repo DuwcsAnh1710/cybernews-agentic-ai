@@ -23,6 +23,7 @@ htmlcov/
 
 # Local AI agent skills & workspace metadata
 .agents/
+.hallmark/
 
 # Application runtime directories
 data/
