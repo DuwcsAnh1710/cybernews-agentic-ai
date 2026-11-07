@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Certificate authority DigiCert reports data breach involving business customer info · Chuyên san Phân tích và Tình báo An ninh Mạng CyberPulse AI.">
+  <title>Certificate authority DigiCert reports data breach involving business customer info · CyberPulse AI Reader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div id="reading-progress" class="reading-progress-bar"></div>
+  <div id="toast-notify" class="toast-notification">Đã sao chép liên kết vào bộ nhớ tạm!</div>
+  <header class="site-header">
+  <div class="container">
+    <div class="header-top">
+      <a href="../index.html" class="brand">
+        <div class="brand-icon"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>shield</span></div>
+        <div class="brand-text">
+          <h1>CyberPulse AI</h1>
+          <p><span class="brand-live-dot" role="status"></span> Chuyên san Phân tích &amp; Tình báo An ninh Mạng</p>
+        </div>
+      </a>
+      <div class="header-actions">
+        <div class="search-box">
+          <span class="search-icon-pos"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>search</span></span>
+          <input type="text" id="search-input" class="search-input" placeholder="Tìm kiếm tin bảo mật, CVE…" aria-label="Tìm kiếm">
+        </div>
+        <a href="https://github.com/DuwcsAnh1710/cybernews-agentic-ai" target="_blank" rel="noopener noreferrer" class="github-header-btn" title="Xem chi tiết &amp; mã nguồn trên GitHub">
+          <svg class="github-svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          <span class="github-btn-text">GitHub</span>
+          <span class="material-symbols-outlined icon-github-ext" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>open_in_new</span>
+        </a>
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Chuyển chế độ sáng/tối" title="Chuyển chế độ giao diện">
+          <span class="material-symbols-outlined icon-dark-mode" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"></path></svg>dark_mode</span>
+          <span class="material-symbols-outlined icon-light-mode" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>light_mode</span>
+        </button>
+      </div>
+    </div>
+    <div class="article-utility-bar">
+  <a href="../editions/run-20261107T013016Z-80b29415.html" class="back-edition-btn">
+    <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>arrow_back</span> <span>Về bản tin ngày 07/11/2026</span>
+  </a>
+  <div class="utility-actions">
+    <a href="https://github.com/DuwcsAnh1710/cybernews-agentic-ai" target="_blank" rel="noopener noreferrer" class="github-util-btn" title="Xem chi tiết &amp; mã nguồn trên GitHub">
+      <svg class="github-svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      <span>GitHub Repo</span>
+      <span class="material-symbols-outlined icon-util-ext" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>open_in_new</span>
+    </a>
+    <div class="font-resizer">
+      <button id="font-decrease" title="Giảm cỡ chữ" aria-label="Giảm cỡ chữ">A-</button>
+      <button id="font-increase" title="Tăng cỡ chữ" aria-label="Tăng cỡ chữ">A+</button>
+    </div>
+    <span class="meta-item views-counter">
+      <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>visibility</span> <span id="article-views-count">2,101</span> lượt xem
+    </span>
+  </div>
+</div>
+  </div>
+</header>
+  <main class="main-content">
+    <div class="container">
+      <div class="portal-grid">
+  <div class="portal-main"><article class="single-article-main" data-article-id="849b59f87213c1c7">
+  <nav class="breadcrumb">
+    <a href="../index.html">Trang chủ</a>
+    <span>&gt;</span>
+    <a href="../index.html">Lỗ hổng &amp; Sự cố</a>
+    <span>&gt;</span>
+    <span>849b59f8</span>
+  </nav>
+
+  <h1 class="article-h1-title">Certificate authority DigiCert reports data breach involving business customer info</h1>
+
+  <div class="article-meta-bar">
+    <div class="article-meta-left">
+      <span class="meta-item"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>person</span> Ban Biên tập CyberPulse</span>
+      <span class="meta-item"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15 15"></polyline></svg>schedule</span> 07/11/2026 08:30 (UTC+7)</span>
+      <span class="meta-item"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"></circle><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="13" x2="15" y2="15"></line><line x1="9" y1="2" x2="15" y2="2"></line></svg>timer</span> 2 phút đọc</span>
+      <span class="meta-item views-counter"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>visibility</span> <span id="article-views">2,101</span> lượt xem</span>
+      <span class="badge badge-info">[Thông tin]</span>
+    </div>
+    <div class="article-share-group">
+      <a href="https://github.com/DuwcsAnh1710/cybernews-agentic-ai" target="_blank" rel="noopener noreferrer" class="share-btn" title="Xem chi tiết &amp; mã nguồn trên GitHub"><svg class="github-svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+      <button class="share-btn" onclick="copyCurrentUrl()" title="Sao chép liên kết"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>content_copy</span></button>
+      <button class="share-btn" onclick="copyCurrentUrl()" title="Chia sẻ"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>share</span></button>
+    </div>
+  </div>
+
+  <div class="cyber-banner">
+    <div class="cyber-banner-badge">CYBER SECURITY INTELLIGENCE REPORT</div>
+    <div class="cyber-banner-title">Certificate authority DigiCert reports data breach involving business customer info</div>
+  </div>
+
+  <div class="article-lead">
+    DigiCert explained that over the summer, an internal business system was &quot;externally accessible when that was not intended,&quot; and someone had created an unauthorized account.
+  </div>
+
+  <div class="tldr-box">
+  <div class="tldr-header"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M11 21h-1l1-7H7.5c-.88 0-.33-.75-.31-.78C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .77.34.64.67l-6.14 10.33z"></path></svg>bolt</span> <strong>Tóm tắt nhanh (TL;DR)</strong></div>
+  <ul class="tldr-list">
+    <li>DigiCert explained that over the summer, an internal business system was &quot;externally accessible when that was not intended,&quot; and someone had created an unauthorized account.</li><li>Đánh giá phân tích: Nhà cung cấp chứng thư số DigiCert bị xâm nhập hệ thống nội bộ dẫn đến rò rỉ dữ liệu thông tin khách hàng doanh nghiệp.</li><li>Cần kích hoạt giám sát hành vi trên giải pháp EDR/SIEM và rà soát đặc quyền truy cập tài khoản người dùng.</li>
+  </ul>
+</div>
+
+  <div class="article-body-text">
+    <p>DigiCert báo cáo sự cố rò rỉ dữ liệu thông tin khách hàng doanh nghiệp: Tổ chức cấp chứng thư số DigiCert vừa báo cáo một sự cố lộ dữ liệu liên quan đến thông tin khách hàng doanh nghiệp. Theo giải thích từ DigiCert, một hệ thống kinh doanh nội bộ đã vô tình mở quyền truy cập ra bên ngoài, tạo điều kiện cho kẻ gian tạo tài khoản trái phép.</p><p><strong>Đánh giá của Ban Biên tập CyberPulse:</strong> Nhà cung cấp chứng thư số DigiCert bị xâm nhập hệ thống nội bộ dẫn đến rò rỉ dữ liệu thông tin khách hàng doanh nghiệp.</p>
+  </div>
+
+  <div class="threat-summary-box">
+    <h3><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5c-.49 0-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z"></path></svg>bug_report</span> Thông tin kỹ thuật &amp; Chỉ số đe dọa</h3>
+    <div class="threat-specs-grid">
+      <div class="spec-item">
+        <strong>Mã CVE / Khai thác:</strong>
+        <span>Theo dõi sự cố / Chưa gán CVE</span>
+      </div>
+      <div class="spec-item">
+        <strong>Hệ thống bị ảnh hưởng:</strong>
+        <span>Data Breach</span>
+      </div>
+      <div class="spec-item">
+        <strong>Mức độ nghiêm trọng:</strong>
+        <span>Thông tin an ninh mạng</span>
+      </div>
+      <div class="spec-item">
+        <strong>Nguồn công bố:</strong>
+        <span>The Record</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="mitigation-box">
+    <h3><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"></path></svg>verified</span> Khuyến nghị an ninh mạng (Mitigation)</h3>
+    <ul class="mitigation-list">
+      <li>Áp dụng ngay bản cập nhật hoặc giải pháp khắc phục tạm thời từ nhà cung cấp hệ thống.</li>
+      <li>Kiểm tra và cô lập các điểm cuối có dấu hiệu kết nối bất thường tới địa chỉ IP độc hại.</li>
+      <li>Kích hoạt giám sát hành vi trên hệ thống SIEM/EDR đối với các tiến trình thực thi lệnh lạ.</li>
+      <li>Thực thi chính sách đặc quyền tối thiểu (Least Privilege) và xác thực đa yếu tố (MFA).</li>
+    </ul>
+  </div>
+
+  <div class="github-intel-box">
+    <div class="github-intel-info">
+      <svg class="github-svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      <div>
+        <div class="github-intel-title">CyberPulse Agentic Intelligence Platform</div>
+        <div class="github-intel-desc">Bản tin an ninh mạng được phân tích, thẩm định tự động và lưu trữ minh bạch trên GitHub Repository &amp; CDN.</div>
+      </div>
+    </div>
+    <a href="https://github.com/DuwcsAnh1710/cybernews-agentic-ai" target="_blank" rel="noopener noreferrer" class="btn-github-action">
+      <span>Xem chi tiết &amp; mã nguồn trên GitHub</span>
+      <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>open_in_new</span>
+    </a>
+  </div>
+
+  <div class="podcast-snippet-box">
+  <div class="podcast-snippet-header">
+    <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"></path></svg>podcasts</span>
+    <span>Trích đoạn thảo luận trong Podcast CyberPulse:</span>
+  </div>
+  <p class='podcast-line'>&ldquo;Minh: Chào mừng các bạn đến với bản tin an ninh mạng hôm nay. Tôi là Minh, đồng hành cùng cô bạn Lan để điểm qua những tin tức bảo mật nóng hổi nhất vừa được ghi nhận.&rdquo;</p><p class='podcast-line'>&ldquo;Lan: Tiếp theo, nhà cung cấp chứng thư DigiCert vừa báo cáo một sự cố lộ dữ liệu liên quan đến thông tin khách hàng doanh nghiệp.&rdquo;</p>
+</div>
+
+  <div class="source-box">
+    <div>
+      <div class="source-box-title">Nguồn tin phân tích gốc &amp; Bản sao CDN:</div>
+      <div class="source-box-name">The Record : Certificate authority DigiCert reports data breach involving business customer info</div>
+    </div>
+    <div class="source-box-actions">
+      <a href="https://therecord.media/digicert-certificate-authority-reports-data-breach" target="_blank" rel="noopener noreferrer" class="source-external-link">
+        <span>Đọc bài gốc trên The Record</span>
+        <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>open_in_new</span>
+      </a>
+      <a href="https://duwcsanh1710.github.io/cybernews-agentic-ai/articles/849b59f87213c1c7.html" target="_blank" rel="noopener noreferrer" class="source-external-link mirror-link" title="Xem bài viết trên GitHub Pages CDN">
+        <span>GitHub Pages Mirror</span>
+        <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>open_in_new</span>
+      </a>
+    </div>
+  </div>
+
+  <nav class="article-pagination" aria-label="Điều hướng bài viết">
+  <a href="0b7161df55d908be.html" class="pagination-card pagination-card-prev" rel="prev">
+  <div class="pagination-sublabel"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>arrow_back</span> <span>Bài trước</span></div>
+  <div class="pagination-title">Microsoft Paint RCE Fix Now Available, but Windows Update Won&#x27;t Deliver It</div>
+</a>
+  <a href="0640f1caefba0b3c.html" class="pagination-card pagination-card-next" rel="next">
+  <div class="pagination-sublabel"><span>Bài kế tiếp</span> <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>arrow_forward</span></div>
+  <div class="pagination-title">CISA, FBI Urge Action to Protect Industrial Refrigeration Networks</div>
+</a>
+</nav>
+</article></div>
+  <aside class="portal-sidebar">
+  <div id="podcast-radio-box" class="podcast-radio-box sidebar-widget">
+  <div class="widget-title">
+    <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"></path></svg>podcasts</span>
+    <span>Podcast Radio Box</span>
+    <div class="waveform-bars">
+      <span class="waveform-bar"></span>
+      <span class="waveform-bar"></span>
+      <span class="waveform-bar"></span>
+      <span class="waveform-bar"></span>
+      <span class="waveform-bar"></span>
+    </div>
+  </div>
+  <div class="podcast-badge-wrap">
+    <div class="podcast-badge">Bản tin AI Voiceover</div>
+    <span class="cdn-stream-badge">[CDN GITHUB PAGES]</span>
+  </div>
+  <audio id="podcast-audio" preload="metadata" src="https://duwcsanh1710.github.io/cybernews-agentic-ai/media/run-20261107T013016Z-80b29415.mp3"></audio>
+  <div class="podcast-controls">
+    <button id="podcast-play-btn" class="podcast-play-btn" aria-label="Phát bản tin">
+      <span class="material-symbols-outlined btn-play" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"></path></svg>play_circle</span>
+      <span class="material-symbols-outlined btn-pause" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"></path></svg>pause_circle</span>
+    </button>
+    <div class="podcast-scrubber-wrap">
+      <input type="range" id="podcast-scrubber" class="podcast-scrubber" min="0" value="0" step="1">
+      <div class="podcast-time">
+        <span id="podcast-time-cur">00:00</span>
+        <span id="podcast-time-dur">--:--</span>
+      </div>
+    </div>
+    <button id="podcast-speed-btn" class="speed-toggle-btn" title="Tốc độ phát">1.0x</button>
+  </div>
+</div>
+  <div id="video-brief-box" class="video-brief-box sidebar-widget">
+  <div class="widget-title">
+    <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-10 12.5v-9l6 4.5-6 4.5z"></path></svg>smart_display</span>
+    <span>Video Brief 9:16</span>
+    <span class="video-badge-live">HD STREAM</span>
+  </div>
+  <div class="video-container">
+    <video id="edition-video" controls preload="metadata" playsinline src="https://duwcsanh1710.github.io/cybernews-agentic-ai/media/run-20261107T013016Z-80b29415.mp4" poster="https://duwcsanh1710.github.io/cybernews-agentic-ai/media/run-20261107T013016Z-80b29415_cover.png" class="edition-video-player">
+      Trình duyệt không hỗ trợ thẻ video HTML5.
+    </video>
+  </div>
+  <div class="video-caption">
+    <span class="video-source-badge">[CDN: GITHUB PAGES]</span>
+    <p>Bản tin tóm tắt an ninh mạng định dạng video ngắn 9:16.</p>
+  </div>
+</div>
+  <div class="sidebar-widget">
+  <div class="widget-title">
+    <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>trending_up</span>
+    <span>Tin đọc nhiều / Trending</span>
+  </div>
+  <div class="trending-list">
+    <a href="12404fdb4aa23698.html" class="trending-item">
+  <div class="trending-num">01</div>
+  <div class="trending-content">
+    <h4>Hacker khai thác lỗ hổng SSHole trên OpenSSH ngay sau khi công bố</h4>
+    <p>Chuyên mục #1 · Cảnh báo cao</p>
+  </div>
+</a><a href="0b7161df55d908be.html" class="trending-item">
+  <div class="trending-num">02</div>
+  <div class="trending-content">
+    <h4>Bản vá lỗ hổng RCE trong Microsoft Paint không được phân phối qua Windows Update</h4>
+    <p>Chuyên mục #2 · Bản vá</p>
+  </div>
+</a><a href="849b59f87213c1c7.html" class="trending-item">
+  <div class="trending-num">03</div>
+  <div class="trending-content">
+    <h4>DigiCert báo cáo sự cố rò rỉ dữ liệu thông tin khách hàng doanh nghiệp</h4>
+    <p>Chuyên mục #3 · Thông tin</p>
+  </div>
+</a><a href="0640f1caefba0b3c.html" class="trending-item">
+  <div class="trending-num">04</div>
+  <div class="trending-content">
+    <h4>CISA và FBI cảnh báo về đe dọa đối với hệ thống làm lạnh công nghiệp</h4>
+    <p>Chuyên mục #4 · Cảnh báo cao</p>
+  </div>
+</a><a href="0065644152dc79f8.html" class="trending-item">
+  <div class="trending-num">05</div>
+  <div class="trending-content">
+    <h4>Nhật Bản công bố gói an ninh mạng khẩn cấp sau làn sóng tấn công</h4>
+    <p>Chuyên mục #5 · Khẩn cấp</p>
+  </div>
+</a>
+  </div>
+</div>
+  <div class="sidebar-widget threat-radar-box">
+  <div class="widget-title">
+    <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5c-.49 0-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z"></path></svg>bug_report</span>
+    <span>Threat Radar / CVE Tracker</span>
+  </div>
+  <div>
+    <div class="radar-sublabel">Lỗ hổng đang theo dõi:</div>
+    <div class="cve-pill-list"><span class="cve-pill">CVE-2026-123158</span><span class="cve-pill">CVE-2026-83844</span></div>
+  </div>
+  <div>
+    <div class="radar-sublabel">Công nghệ bị ảnh hưởng:</div>
+    <div class="tech-list"><span class="vendor-tag">Linux</span><span class="vendor-tag">Microsoft</span><span class="vendor-tag">Windows</span></div>
+  </div>
+</div>
+  <div class="sidebar-widget">
+  <div class="widget-title">
+    <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>calendar_today</span>
+    <span>Ấn bản gần đây (Archive)</span>
+  </div>
+  <div class="archive-mini-list">
+    <a href="../editions/run-20261107T013016Z-80b29415.html" class="archive-mini-item"><span>07/11/2026</span><code>80b29415</code></a><a href="../editions/run-20261106T022500Z-3f403298.html" class="archive-mini-item"><span>06/11/2026</span><code>3f403298</code></a><a href="../editions/run-20261105T065038Z-f5a4fd60.html" class="archive-mini-item"><span>05/11/2026</span><code>f5a4fd60</code></a><a href="../editions/run-20261104T020642Z-9594c0e0.html" class="archive-mini-item"><span>04/11/2026</span><code>9594c0e0</code></a><a href="../editions/run-20261103T045516Z-19a3e8e9.html" class="archive-mini-item"><span>03/11/2026</span><code>19a3e8e9</code></a>
+  </div>
+</div>
+</aside>
+</div>
+    </div>
+  </main>
+  <footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <p>&copy; 2026 CyberPulse AI. Tạp chí An ninh Mạng Tổng hợp Tự động bởi CyberPulse Agentic AI.</p>
+    </div>
+    <div class="footer-links">
+      <a href="../index.html" class="footer-link">Trang chủ</a>
+      <a href="../archive.html" class="footer-link">Kho lưu trữ</a>
+      <a href="http://duwcsanhnews.wuaze.com/" target="_blank" rel="noopener noreferrer" class="footer-link">Trực tuyến (duwcsanhnews.wuaze.com)</a>
+      <a href="https://github.com/DuwcsAnh1710/cybernews-agentic-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Mã nguồn GitHub</a>
+      <a href="https://duwcsanh1710.github.io/cybernews-agentic-ai/" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub Pages CDN</a>
+    </div>
+  </div>
+</footer>
+  <script src="../assets/app.js"></script>
+</body>
+</html>
