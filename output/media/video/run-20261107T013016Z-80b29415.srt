@@ -1,0 +1,34 @@
+1
+00:00:00,000 --> 00:00:06,000
+[SCENE 1] CẢNH BÁO BẢO MẬT NÓNG HỔI!
+Điểm qua 5 sự cố an ninh mạng quan trọng vừa diễn ra hôm nay!
+
+2
+00:00:06,000 --> 00:00:18,000
+[SCENE 2] OpenSSH: Lỗ Hổng SSHole
+OpenSSH bị khai thác lỗ hổng SSHole trên hệ thống Linux musl C không dùng PAM, cho phép chiếm quyền root.
+
+3
+00:00:18,000 --> 00:00:30,000
+[SCENE 3] MS Paint: Cập Nhật Qua Store
+Microsoft Paint có lỗi RCE CVE-2026-83844, bản vá chỉ có trên Microsoft Store chứ không qua Windows Update.
+
+4
+00:00:30,000 --> 00:00:42,000
+[SCENE 4] DigiCert: Lộ Dữ Liệu Khách Hàng
+DigiCert bị sự cố rò rỉ thông tin khách hàng doanh nghiệp do hệ thống nội bộ vô tình mở ra ngoài.
+
+5
+00:00:42,000 --> 00:00:54,000
+[SCENE 5] CISA & FBI: Bảo Vệ Hệ Thống Làm Lạnh
+CISA và FBI cảnh báo bảo vệ hệ thống làm lạnh siêu thị sau hàng loạt vụ can thiệp nhiệt độ.
+
+6
+00:00:54,000 --> 00:01:06,000
+[SCENE 6] Nhật Bản: Gói Bảo Mật Khẩn Cấp
+Nhật Bản ra gói an ninh mạng khẩn cấp sau khi hàng loạt công ty và chính phủ bị rò rỉ dữ liệu.
+
+7
+00:01:06,000 --> 00:01:12,000
+[SCENE 7] Hãy Cập Nhật Bản Vá Ngay!
+Hãy kiểm tra và cập nhật các hệ thống của bạn ngay hôm nay để giữ an toàn!

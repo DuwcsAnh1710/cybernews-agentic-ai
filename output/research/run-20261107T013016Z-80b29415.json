@@ -1,0 +1,84 @@
+{
+  "run_id": "run-20261107T013016Z-80b29415",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "12404fdb4aa23698",
+        "source_name": "The Hacker News",
+        "title": "Hackers Target OpenSSH SSHole Flaw Within Hours of Disclosure, Gain Root on Honeypot",
+        "url": "https://thehackernews.com/2026/11/hackers-exploited-openssh-sshole-flaw.html",
+        "published_at": "2026-11-06T15:21:49Z",
+        "summary": "Threat actors are attempting to exploit a recently disclosed security flaw impacting OpenSSH that can enable sign-ins to accounts that have no password set, according to Previdian. The vulnerability, tracked as CVE-2026-123158 (CVSS score: 8.1) and codenamed SSHole (or *sshole), impacts Linux systems that run OpenSSH on the musl C library with Pluggable Authentication Modules (PAM) disabled,",
+        "fetched_at": "2026-11-07T01:30:13.742269Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Lỗ hổng mã nguồn mở OpenSSH nguy hiểm (CVE-2026-123158) cho phép truy cập quyền root đang bị kẻ tấn công khai thác tích cực chỉ sau vài giờ công bố."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "0b7161df55d908be",
+        "source_name": "The Hacker News",
+        "title": "Microsoft Paint RCE Fix Now Available, but Windows Update Won't Deliver It",
+        "url": "https://thehackernews.com/2026/11/microsoft-paint-rce-fix-now-available.html",
+        "published_at": "2026-11-06T12:06:43Z",
+        "summary": "A fix for CVE-2026-83844, a remote code execution flaw in Windows Paint, is now in the Microsoft Store. Paint gets this fix only through a Store update, not through Windows updates. The fixed build, 11.2609.401.0, was the newest Paint build in all ten countries The Hacker News checked today. The flaw is an out-of-bounds read that could let an attacker run code over a network. Microsoft rates",
+        "fetched_at": "2026-11-07T01:30:13.742269Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Ứng dụng Microsoft Paint trên Windows gặp lỗ hổng thực thi mã từ xa nguy hiểm và bản vá không được phân phối qua Windows Update mà phải cập nhật thủ công từ Microsoft Store."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "849b59f87213c1c7",
+        "source_name": "The Record",
+        "title": "Certificate authority DigiCert reports data breach involving business customer info",
+        "url": "https://therecord.media/digicert-certificate-authority-reports-data-breach",
+        "published_at": "2026-11-06T18:56:00Z",
+        "summary": "DigiCert explained that over the summer, an internal business system was \"externally accessible when that was not intended,\" and someone had created an unauthorized account.",
+        "fetched_at": "2026-11-07T01:30:13.988078Z",
+        "topics_matched": [
+          "data breach"
+        ]
+      },
+      "relevance_reason": "Nhà cung cấp chứng thư số DigiCert bị xâm nhập hệ thống nội bộ dẫn đến rò rỉ dữ liệu thông tin khách hàng doanh nghiệp."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "0640f1caefba0b3c",
+        "source_name": "Infosecurity Magazine",
+        "title": "CISA, FBI Urge Action to Protect Industrial Refrigeration Networks",
+        "url": "https://infosecurity-magazine.com/news/cisa-protect-refrigeration-networks",
+        "published_at": "2026-11-06T11:50:00Z",
+        "summary": "The CISA advisory follows a swathe of attacks in which hackers have tampered with the temperatures of internet-exposed supermarket refrigeration systems",
+        "fetched_at": "2026-11-07T01:30:14.665503Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "CISA và FBI phát cảnh báo khẩn yêu cầu bảo vệ các hệ thống điều khiển làm lạnh công nghiệp trước làn sóng tấn công nhắm vào hạ tầng quan trọng."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "0065644152dc79f8",
+        "source_name": "SecurityWeek",
+        "title": "Japan Announces Emergency Cybersecurity Package Following a Wave of Attacks",
+        "url": "https://securityweek.com/japan-announces-emergency-cybersecurity-package-following-a-wave-of-attacks",
+        "published_at": "2026-11-06T18:28:41Z",
+        "summary": "The emergency package comes after dozens of companies and government agencies were hit by unauthorized access to their systems and leaks of client data, prompting uneasiness across Japan. The post Japan Announces Emergency Cybersecurity Package Following a Wave of Attacks appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-07T01:30:14.450149Z",
+        "topics_matched": [
+          "cybersecurity"
+        ]
+      },
+      "relevance_reason": "Nhật Bản công bố gói an ninh mạng khẩn cấp sau hàng loạt đợt tấn công xâm nhập và rò rỉ dữ liệu nhắm vào cơ quan chính phủ và doanh nghiệp."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=3; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=3"
+}

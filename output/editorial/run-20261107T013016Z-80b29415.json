@@ -1,0 +1,308 @@
+{
+  "run_id": "run-20261107T013016Z-80b29415",
+  "language": "vi",
+  "digest": {
+    "title": "Bản tin An toàn thông tin: Lỗ hổng OpenSSH, Microsoft Paint và sự cố tại DigiCert",
+    "intro": "Tổng hợp các thông tin an ninh mạng mới nhất: lỗ hổng OpenSSH bị khai thác nhanh chóng, bản vá RCE cho Microsoft Paint được phân phối qua Store, sự cố rò rỉ dữ liệu tại DigiCert, cùng các cảnh báo từ CISA, FBI và Nhật Bản.",
+    "sections": [
+      {
+        "heading": "Hacker khai thác lỗ hổng SSHole trên OpenSSH ngay sau khi công bố",
+        "body": {
+          "text": "Các tác nhân đe dọa đang cố gắng khai thác lỗ hổng bảo mật mới trên OpenSSH mang tên SSHole (CVE-2026-123158, điểm CVSS: 8.1). Lỗ hổng này ảnh hưởng đến các hệ thống Linux chạy OpenSSH trên thư viện musl C mà không bật PAM (Pluggable Authentication Modules - Mô-đun xác thực có thể cắm), cho phép đăng nhập vào các tài khoản không thiết lập mật khẩu.",
+          "cited_article_ids": [
+            "12404fdb4aa23698"
+          ]
+        }
+      },
+      {
+        "heading": "Bản vá lỗ hổng RCE trong Microsoft Paint không được phân phối qua Windows Update",
+        "body": {
+          "text": "Microsoft đã phát hành bản vá cho lỗ hổng RCE (Remote Code Execution - Thực thi mã từ xa) CVE-2026-83844 trên ứng dụng Paint. Tuy nhiên, bản vá này chỉ được phân phối qua Microsoft Store thay vì Windows Update. Lỗ hổng đọc ngoài phạm vi bộ nhớ (out-of-bounds read) này có thể cho phép kẻ tấn công thực thi mã qua mạng.",
+          "cited_article_ids": [
+            "0b7161df55d908be"
+          ]
+        }
+      },
+      {
+        "heading": "DigiCert báo cáo sự cố rò rỉ dữ liệu thông tin khách hàng doanh nghiệp",
+        "body": {
+          "text": "Tổ chức cấp chứng thư số DigiCert vừa báo cáo một sự cố lộ dữ liệu liên quan đến thông tin khách hàng doanh nghiệp. Theo giải thích từ DigiCert, một hệ thống kinh doanh nội bộ đã vô tình mở quyền truy cập ra bên ngoài, tạo điều kiện cho kẻ gian tạo tài khoản trái phép.",
+          "cited_article_ids": [
+            "849b59f87213c1c7"
+          ]
+        }
+      },
+      {
+        "heading": "CISA và FBI cảnh báo về đe dọa đối với hệ thống làm lạnh công nghiệp",
+        "body": {
+          "text": "CISA và FBI vừa đưa ra cảnh báo khẩn yêu cầu bảo vệ các mạng lưới làm lạnh công nghiệp. Khuyến cáo này được đưa ra sau hàng loạt cuộc tấn công trong đó kẻ can thiệp đã can thiệp vào nhiệt độ của các hệ thống làm lạnh siêu thị kết nối Internet.",
+          "cited_article_ids": [
+            "0640f1caefba0b3c"
+          ]
+        }
+      },
+      {
+        "heading": "Nhật Bản công bố gói an ninh mạng khẩn cấp sau làn sóng tấn công",
+        "body": {
+          "text": "Chính phủ Nhật Bản đã công bố gói biện pháp an ninh mạng khẩn cấp sau khi hàng loạt công ty và cơ quan chính phủ bị truy cập trái phép và rò rỉ dữ liệu khách hàng, gây ra sự lo ngại trên diện rộng.",
+          "cited_article_ids": [
+            "0065644152dc79f8"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: Lỗ Hổng OpenSSH, Microsoft Paint Và Các Sự Cố Mới",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin an ninh mạng hôm nay. Tôi là Minh, đồng hành cùng cô bạn Lan để điểm qua những tin tức bảo mật nóng hổi nhất vừa được ghi nhận.",
+          "cited_article_ids": [
+            "12404fdb4aa23698",
+            "0b7161df55d908be",
+            "849b59f87213c1c7",
+            "0640f1caefba0b3c",
+            "0065644152dc79f8"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào anh Minh và các bạn. Mở đầu hôm nay là cảnh báo về lỗ hổng SSHole trong OpenSSH, mã hiệu CVE-2026-123158 với điểm CVSS 8.1.",
+          "cited_article_ids": [
+            "12404fdb4aa23698"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Lỗ hổng này ảnh hưởng đến hệ thống Linux chạy OpenSSH trên thư viện musl C mà tắt PAM. Kẻ tấn công có thể đăng nhập vào tài khoản không đặt mật khẩu và đã chiếm quyền root trên honeypot chỉ sau vài giờ công bố.",
+          "cited_article_ids": [
+            "12404fdb4aa23698"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chuyển sang tin tức từ Microsoft, một lỗ hổng thực thi mã từ xa RCE trong ứng dụng Paint có mã CVE-2026-83844 vừa được phát hành bản vá.",
+          "cited_article_ids": [
+            "0b7161df55d908be"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Lỗi này là do đọc ngoài phạm vi bộ nhớ. Điều đáng chú ý là Windows Update sẽ không tự cập nhật bản vá này, người dùng phải cập nhật bản Paint 11.2609.401.0 qua Microsoft Store.",
+          "cited_article_ids": [
+            "0b7161df55d908be"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Tiếp theo, nhà cung cấp chứng thư DigiCert vừa báo cáo một sự cố lộ dữ liệu liên quan đến thông tin khách hàng doanh nghiệp.",
+          "cited_article_ids": [
+            "849b59f87213c1c7"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "DigiCert giải thích rằng một hệ thống nội bộ đã vô tình mở ra bên ngoài trong mùa hè, cho phép ai đó tạo một tài khoản trái phép.",
+          "cited_article_ids": [
+            "849b59f87213c1c7"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Ở một diễn biến khác, CISA và FBI đã đưa ra cảnh báo yêu cầu bảo vệ mạng lưới làm lạnh công nghiệp.",
+          "cited_article_ids": [
+            "0640f1caefba0b3c"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Động thái này diễn ra sau một chuỗi cuộc tấn công can thiệp vào nhiệt độ hệ thống làm lạnh siêu thị kết nối internet.",
+          "cited_article_ids": [
+            "0640f1caefba0b3c"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cuối cùng, Nhật Bản đã công bố gói an ninh mạng khẩn cấp sau hàng loạt cuộc tấn công vào hàng chục công ty và cơ quan chính phủ.",
+          "cited_article_ids": [
+            "0065644152dc79f8"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Các sự cố truy cập trái phép và rò rỉ dữ liệu khách hàng này đã gây ra lo ngại trên khắp Nhật Bản. Cảm ơn các bạn đã lắng nghe, hãy luôn cập nhật bản vá bảo mật kịp thời nhé!",
+          "cited_article_ids": [
+            "0065644152dc79f8",
+            "12404fdb4aa23698",
+            "0b7161df55d908be",
+            "849b59f87213c1c7",
+            "0640f1caefba0b3c"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Cảnh Báo An Ninh Mạng Nóng Hổi Trọng Tâm",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "CẢNH BÁO BẢO MẬT NÓNG HỔI!",
+        "narration": {
+          "text": "Điểm qua 5 sự cố an ninh mạng quan trọng vừa diễn ra hôm nay!",
+          "cited_article_ids": [
+            "12404fdb4aa23698",
+            "0b7161df55d908be",
+            "849b59f87213c1c7",
+            "0640f1caefba0b3c",
+            "0065644152dc79f8"
+          ]
+        },
+        "duration_sec": 6.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "OpenSSH: Lỗ Hổng SSHole",
+        "narration": {
+          "text": "OpenSSH bị khai thác lỗ hổng SSHole trên hệ thống Linux musl C không dùng PAM, cho phép chiếm quyền root.",
+          "cited_article_ids": [
+            "12404fdb4aa23698"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "MS Paint: Cập Nhật Qua Store",
+        "narration": {
+          "text": "Microsoft Paint có lỗi RCE CVE-2026-83844, bản vá chỉ có trên Microsoft Store chứ không qua Windows Update.",
+          "cited_article_ids": [
+            "0b7161df55d908be"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "DigiCert: Lộ Dữ Liệu Khách Hàng",
+        "narration": {
+          "text": "DigiCert bị sự cố rò rỉ thông tin khách hàng doanh nghiệp do hệ thống nội bộ vô tình mở ra ngoài.",
+          "cited_article_ids": [
+            "849b59f87213c1c7"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "CISA & FBI: Bảo Vệ Hệ Thống Làm Lạnh",
+        "narration": {
+          "text": "CISA và FBI cảnh báo bảo vệ hệ thống làm lạnh siêu thị sau hàng loạt vụ can thiệp nhiệt độ.",
+          "cited_article_ids": [
+            "0640f1caefba0b3c"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "Nhật Bản: Gói Bảo Mật Khẩn Cấp",
+        "narration": {
+          "text": "Nhật Bản ra gói an ninh mạng khẩn cấp sau khi hàng loạt công ty và chính phủ bị rò rỉ dữ liệu.",
+          "cited_article_ids": [
+            "0065644152dc79f8"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "Hãy Cập Nhật Bản Vá Ngay!",
+        "narration": {
+          "text": "Hãy kiểm tra và cập nhật các hệ thống của bạn ngay hôm nay để giữ an toàn!",
+          "cited_article_ids": [
+            "12404fdb4aa23698",
+            "0b7161df55d908be",
+            "849b59f87213c1c7",
+            "0640f1caefba0b3c",
+            "0065644152dc79f8"
+          ]
+        },
+        "duration_sec": 6.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "Điểm tin An toàn thông tin mới nhất:\n- Lỗ hổng SSHole (CVE-2026-123158) trên OpenSSH bị tấn công chỉ sau vài giờ công bố.\n- Microsoft phát hành bản vá RCE cho Paint qua Microsoft Store.\n- DigiCert gặp sự cố rò rỉ dữ liệu khách hàng doanh nghiệp.\n- CISA và FBI cảnh báo về tấn công hệ thống làm lạnh công nghiệp.\n- Nhật Bản ra gói an ninh mạng khẩn cấp.",
+      "hashtags": [
+        "#CyberSecurity",
+        "#OpenSSH",
+        "#Microsoft",
+        "#DigiCert",
+        "#AnNinhMang"
+      ],
+      "cited_article_ids": [
+        "12404fdb4aa23698",
+        "0b7161df55d908be",
+        "849b59f87213c1c7",
+        "0640f1caefba0b3c",
+        "0065644152dc79f8"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Cập nhật các sự kiện an ninh mạng nổi bật:\n1. OpenSSH dính lỗ hổng SSHole (CVE-2026-123158) bị hacker khai thác ngay lập tức.\n2. Microsoft tung bản vá RCE (CVE-2026-83844) cho Paint trên Microsoft Store.\n3. DigiCert thông báo sự cố truy cập trái phép dữ liệu khách hàng.\n4. CISA & FBI yêu cầu bảo vệ hệ thống làm lạnh siêu thị trước các đợt tấn công nhiệt độ.\n5. Nhật Bản thông báo gói an ninh mạng khẩn cấp.",
+      "hashtags": [
+        "#CyberSecurity",
+        "#TinTucAnNinhMang",
+        "#OpenSSH",
+        "#DigiCert"
+      ],
+      "cited_article_ids": [
+        "12404fdb4aa23698",
+        "0b7161df55d908be",
+        "849b59f87213c1c7",
+        "0640f1caefba0b3c",
+        "0065644152dc79f8"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Tin an ninh mạng hot: OpenSSH dính lỗi SSHole bị hack ngay lập tức, Microsoft vá lỗi Paint qua Store, DigiCert rò rỉ dữ liệu khách hàng!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#CongNghe",
+        "#CyberSecurity"
+      ],
+      "cited_article_ids": [
+        "12404fdb4aa23698",
+        "0b7161df55d908be",
+        "849b59f87213c1c7"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+1
+00:00:00,000 --> 00:00:04,188
+[Minh] Chào mừng các bạn đến với bản tin an ninh mạng hôm nay. Tôi là Minh,
+
+2
+00:00:04,188 --> 00:00:09,238
+đồng hành cùng cô bạn Lan để điểm qua những tin tức bảo mật nóng hổi nhất vừa được
+
+3
+00:00:09,238 --> 00:00:09,792
+ghi nhận.
+
+4
+00:00:10,142 --> 00:00:12,490
+[Lan] Chào anh Minh và các bạn.
+
+5
+00:00:12,490 --> 00:00:18,030
+Mở đầu hôm nay là cảnh báo về lỗ hổng SSHole trong OpenSSH,
+
+6
+00:00:18,030 --> 00:00:21,974
+mã hiệu CVE-2026-123158 với điểm CVSS 8.1.
+
+7
+00:00:22,324 --> 00:00:27,292
+[Minh] Lỗ hổng này ảnh hưởng đến hệ thống Linux chạy OpenSSH trên thư viện musl C mà tắt
+
+8
+00:00:27,292 --> 00:00:27,537
+PAM.
+
+9
+00:00:27,537 --> 00:00:32,689
+Kẻ tấn công có thể đăng nhập vào tài khoản không đặt mật khẩu và đã chiếm quyền root
+
+10
+00:00:32,689 --> 00:00:35,020
+trên honeypot chỉ sau vài giờ công bố.
+
+11
+00:00:35,370 --> 00:00:37,911
+[Lan] Chuyển sang tin tức từ Microsoft,
+
+12
+00:00:37,911 --> 00:00:44,380
+một lỗ hổng thực thi mã từ xa RCE trong ứng dụng Paint có mã CVE-2026-83844 vừa được
+
+13
+00:00:44,380 --> 00:00:45,690
+phát hành bản vá.
+
+14
+00:00:46,040 --> 00:00:49,133
+[Minh] Lỗi này là do đọc ngoài phạm vi bộ nhớ.
+
+15
+00:00:49,133 --> 00:00:54,367
+Điều đáng chú ý là Windows Update sẽ không tự cập nhật bản vá này,
+
+16
+00:00:54,367 --> 00:00:59,840
+người dùng phải cập nhật bản Paint 11.2609.401.0 qua Microsoft Store.
+
+17
+00:01:00,190 --> 00:01:00,755
+[Lan] Tiếp theo,
+
+18
+00:01:00,755 --> 00:01:05,498
+nhà cung cấp chứng thư DigiCert vừa báo cáo một sự cố lộ dữ liệu liên quan đến thông
+
+19
+00:01:05,498 --> 00:01:07,078
+tin khách hàng doanh nghiệp.
+
+20
+00:01:07,428 --> 00:01:11,954
+[Minh] DigiCert giải thích rằng một hệ thống nội bộ đã vô tình mở ra bên ngoài trong mùa
+
+21
+00:01:11,954 --> 00:01:14,580
+hè, cho phép ai đó tạo một tài khoản trái phép.
+
+22
+00:01:14,930 --> 00:01:16,396
+[Lan] Ở một diễn biến khác,
+
+23
+00:01:16,396 --> 00:01:21,770
+CISA và FBI đã đưa ra cảnh báo yêu cầu bảo vệ mạng lưới làm lạnh công nghiệp.
+
+24
+00:01:22,120 --> 00:01:26,628
+[Minh] Động thái này diễn ra sau một chuỗi cuộc tấn công can thiệp vào nhiệt độ hệ thống
+
+25
+00:01:26,628 --> 00:01:28,576
+làm lạnh siêu thị kết nối internet.
+
+26
+00:01:28,926 --> 00:01:29,513
+[Lan] Cuối cùng,
+
+27
+00:01:29,513 --> 00:01:34,324
+Nhật Bản đã công bố gói an ninh mạng khẩn cấp sau hàng loạt cuộc tấn công vào hàng
+
+28
+00:01:34,324 --> 00:01:36,318
+chục công ty và cơ quan chính phủ.
+
+29
+00:01:36,668 --> 00:01:41,833
+[Minh] Các sự cố truy cập trái phép và rò rỉ dữ liệu khách hàng này đã gây ra lo ngại trên
+
+30
+00:01:41,833 --> 00:01:42,704
+khắp Nhật Bản.
+
+31
+00:01:42,704 --> 00:01:47,372
+Cảm ơn các bạn đã lắng nghe, hãy luôn cập nhật bản vá bảo mật kịp thời nhé!
