@@ -1,5 +1,19 @@
 """CyberPulse Media Video namespace re-export."""
 
+from cyberpulse.media_illustrations import (
+    IllustrationBeat,
+    IllustrationReport,
+    ensure_beat_illustrations,
+    split_scene_into_beats,
+)
+from cyberpulse.media_motion import (
+    PlateBeat,
+    SceneMotionRenderer,
+    SceneMotionSpec,
+    WordTiming,
+    align_words,
+    decode_audio_envelope,
+)
 from cyberpulse.media_video import (
     DEFAULT_RESOLUTION,
     DEFAULT_TARGET_DURATION_SEC,
