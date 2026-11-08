@@ -1,0 +1,86 @@
+{
+  "run_id": "run-20261108T024143Z-9042d74d",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "95f744e469bb2d9f",
+        "source_name": "SecurityWeek",
+        "title": "SonicWall Patches Exploited SonicOS Vulnerability That Weakens VPN Logins",
+        "url": "https://securityweek.com/sonicwall-patches-exploited-sonicos-bug-that-weakens-vpn-logins",
+        "published_at": "2026-11-07T10:16:23Z",
+        "summary": "CVE-2026-19868 can let attackers holding credentials for a different login method get past SAML checks, including SAML-enforced MFA. The post SonicWall Patches Exploited SonicOS Vulnerability That Weakens VPN Logins appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-08T02:41:41.142466Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "SonicWall phát hành bản vá cho lỗ hổng trong SonicOS đang bị khai thác thực tế nhằm vượt qua cơ chế xác thực VPN và MFA."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "12404fdb4aa23698",
+        "source_name": "The Hacker News",
+        "title": "Hackers Target OpenSSH SSHole Flaw Within Hours of Disclosure, Gain Root on Honeypot",
+        "url": "https://thehackernews.com/2026/11/hackers-exploited-openssh-sshole-flaw.html",
+        "published_at": "2026-11-06T15:21:49Z",
+        "summary": "Threat actors are attempting to exploit a recently disclosed security flaw impacting OpenSSH that can enable sign-ins to accounts that have no password set, according to Previdian. The vulnerability, tracked as CVE-2026-123158 (CVSS score: 8.1) and codenamed SSHole (or *sshole), impacts Linux systems that run OpenSSH on the musl C library with Pluggable Authentication Modules (PAM) disabled,",
+        "fetched_at": "2026-11-08T02:41:40.700819Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Lỗ hổng nghiêm trọng SSHole trên OpenSSH cho phép truy cập các tài khoản không đặt mật khẩu đang bị tin tặc chủ động khai thác ngay sau khi công bố."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "9989e939e148877e",
+        "source_name": "The Hacker News",
+        "title": "Claude Code's “Don't Ask Again” File Exposes Passwords and Keys in 1,122 Public Copies on GitHub",
+        "url": "https://thehackernews.com/2026/11/claude-codes-dont-ask-again-file.html",
+        "published_at": "2026-11-07T06:44:17Z",
+        "summary": "Passwords and API keys that developers typed into commands they approved in Claude Code are sitting in public GitHub repositories, where anyone can read them. When a user selects \"Yes, and don't ask again,\" Anthropic's AI coding assistant can save the command, word-for-word, including the secret, in a project settings file. Software security company Apiiro said yesterday that 1,122 public",
+        "fetched_at": "2026-11-08T02:41:40.700819Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Tính năng lưu lệnh của Claude Code khiến hơn 1.100 bản sao công khai trên GitHub làm rò rỉ mật khẩu và khóa API của lập trình viên."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "849b59f87213c1c7",
+        "source_name": "The Record",
+        "title": "Certificate authority DigiCert reports data breach involving business customer info",
+        "url": "https://therecord.media/digicert-certificate-authority-reports-data-breach",
+        "published_at": "2026-11-06T18:56:00Z",
+        "summary": "DigiCert explained that over the summer, an internal business system was \"externally accessible when that was not intended,\" and someone had created an unauthorized account.",
+        "fetched_at": "2026-11-08T02:41:40.866813Z",
+        "topics_matched": [
+          "data breach"
+        ]
+      },
+      "relevance_reason": "Nhà cung cấp chứng thư DigiCert báo cáo sự cố lộ dữ liệu thông tin khách hàng doanh nghiệp do hệ thống nội bộ bị truy cập trái phép."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "0065644152dc79f8",
+        "source_name": "SecurityWeek",
+        "title": "Japan Announces Emergency Cybersecurity Package Following a Wave of Attacks",
+        "url": "https://securityweek.com/japan-announces-emergency-cybersecurity-package-following-a-wave-of-attacks",
+        "published_at": "2026-11-06T18:28:41Z",
+        "summary": "The emergency package comes after dozens of companies and government agencies were hit by unauthorized access to their systems and leaks of client data, prompting uneasiness across Japan. The post Japan Announces Emergency Cybersecurity Package Following a Wave of Attacks appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-08T02:41:41.142466Z",
+        "topics_matched": [
+          "cybersecurity"
+        ]
+      },
+      "relevance_reason": "Chính phủ Nhật Bản công bố gói an ninh mạng khẩn cấp sau làn sóng tấn công và rò rỉ dữ liệu nhắm vào hàng loạt cơ quan, doanh nghiệp."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=4"
+}

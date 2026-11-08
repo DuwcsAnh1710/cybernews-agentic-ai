@@ -1,0 +1,77 @@
+{
+  "run_id": "run-20261108T024143Z-9042d74d",
+  "passed": true,
+  "errors": [],
+  "warnings": [
+    {
+      "code": "W_PODCAST_LENGTH",
+      "severity": "warning",
+      "path": "podcast.segments",
+      "message": "Total podcast words (450) outside target range [480, 720] (target 600 ± 20%)",
+      "evidence": "450 words (expected 480-720)"
+    },
+    {
+      "code": "W_SECTION_LENGTH",
+      "severity": "warning",
+      "path": "digest.sections[1].body.text",
+      "message": "Section body word count (57) outside allowed range [60, 120]",
+      "evidence": "57 words"
+    },
+    {
+      "code": "W_SECTION_LENGTH",
+      "severity": "warning",
+      "path": "digest.sections[3].body.text",
+      "message": "Section body word count (55) outside allowed range [60, 120]",
+      "evidence": "55 words"
+    },
+    {
+      "code": "W_SECTION_LENGTH",
+      "severity": "warning",
+      "path": "digest.sections[4].body.text",
+      "message": "Section body word count (52) outside allowed range [60, 120]",
+      "evidence": "52 words"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "podcast.segments[2].line.text",
+      "message": "Term 'VPN' not found in cited source text and not allowlisted",
+      "evidence": "VPN"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "podcast.segments[2].line.text",
+      "message": "Term 'MFA' not found in cited source text and not allowlisted",
+      "evidence": "MFA"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "podcast.segments[2].line.text",
+      "message": "Term 'SonicWall' not found in cited source text and not allowlisted",
+      "evidence": "SonicWall"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "podcast.segments[7].line.text",
+      "message": "Term 'SSH' not found in cited source text and not allowlisted",
+      "evidence": "SSH"
+    },
+    {
+      "code": "W_CLAIM_OVERSTATED",
+      "severity": "warning",
+      "path": "digest.sections[2].body.text",
+      "message": "Claim review (overstated): Nguồn A3 xác nhận có 1.122 bản sao công khai trên GitHub (1,122 public copies), việc ghi 'hàng nghìn tệp lưu trữ' là phóng đại so với con số cụ thể trong nguồn.",
+      "evidence": "hàng nghìn tệp lưu trữ công khai trên GitHub"
+    }
+  ],
+  "checks_run": [
+    "layer1_structural",
+    "layer2_source_consistency",
+    "layer3_llm_claim_review (findings=1, dropped=0)"
+  ],
+  "llm_review": "done",
+  "scope_note": "Structural and source-consistency checks against RSS title/summary only. Facts are NOT independently verified."
+}

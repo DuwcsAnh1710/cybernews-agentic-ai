@@ -1,0 +1,34 @@
+1
+00:00:00,000 --> 00:00:05,000
+[SCENE 1] Cảnh Báo An Ninh Mạng Nóng
+Điểm qua những sự cố an ninh mạng nguy hiểm nhất vừa được phát hiện!
+
+2
+00:00:05,000 --> 00:00:17,000
+[SCENE 2] SonicWall Vá Lỗ Hổng VPN
+SonicWall vá lỗ hổng CVE-2026-19868 bị khai thác, cho phép vượt qua SAML và MFA của VPN.
+
+3
+00:00:17,000 --> 00:00:30,000
+[SCENE 3] OpenSSH SSHole Bị Khai Thác
+Lỗ hổng SSHole CVE-2026-123158 trên OpenSSH bị hacker khai thác chiếm quyền root chỉ sau vài giờ.
+
+4
+00:00:30,000 --> 00:00:43,000
+[SCENE 4] Claude Code Rò Rỉ API Key
+Tùy chọn ghi nhớ của Claude Code làm rò rỉ mật khẩu và API key trên 1.122 kho GitHub.
+
+5
+00:00:43,000 --> 00:00:55,000
+[SCENE 5] DigiCert Bị Rò Rỉ Dữ Liệu
+DigiCert lộ dữ liệu khách hàng do hệ thống nội bộ bị truy cập trái phép từ bên ngoài.
+
+6
+00:00:55,000 --> 00:01:07,000
+[SCENE 6] Nhật Bản Ra Gói An Ninh Khẩn Cấp
+Nhật Bản công bố gói an ninh mạng khẩn cấp sau hàng loạt vụ tấn công rò rỉ dữ liệu.
+
+7
+00:01:07,000 --> 00:01:15,000
+[SCENE 7] Cập Nhật Bảo Mật Ngay!
+Hãy luôn cập nhật phần mềm và kiểm tra kỹ các thông tin bảo mật của bạn nhé!

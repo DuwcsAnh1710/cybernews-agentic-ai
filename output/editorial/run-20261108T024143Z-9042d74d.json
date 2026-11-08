@@ -1,0 +1,286 @@
+{
+  "run_id": "run-20261108T024143Z-9042d74d",
+  "language": "vi",
+  "digest": {
+    "title": "Điểm tin An toàn thông tin: Lỗ hổng SonicOS, OpenSSH và các sự cố bảo mật mới nhất",
+    "intro": "Tóm tắt các tin tức an toàn thông tin nổi bật: SonicWall vá lỗ hổng VPN đang bị khai thác, lỗ hổng SSHole trên OpenSSH bị tấn công nhanh chóng, cùng với các sự cố rò rỉ dữ liệu và gói an ninh mạng khẩn cấp tại Nhật Bản.",
+    "sections": [
+      {
+        "heading": "SonicWall khắc phục lỗ hổng trong SonicOS ảnh hưởng đến đăng nhập VPN",
+        "body": {
+          "text": "SonicWall đã phát hành bản vá cho lỗ hổng CVE-2026-19868 trong hệ điều hành SonicOS. Lỗ hổng này đang bị khai thác thực tế, cho phép kẻ tấn công sở hữu thông tin xác thực của phương thức đăng nhập khác vượt qua kiểm tra SAML (giao thức xác thực nguồn mở), bao gồm cả xác thực đa yếu tố (MFA - Multi-Factor Authentication) bắt buộc qua SAML.",
+          "cited_article_ids": [
+            "95f744e469bb2d9f"
+          ]
+        }
+      },
+      {
+        "heading": "Lỗ hổng SSHole trong OpenSSH bị khai thác ngay sau khi công bố",
+        "body": {
+          "text": "Các hacker đang nỗ lực khai thác lỗ hổng SSHole (CVE-2026-123158, điểm CVSS: 8.1) trên OpenSSH. Sự cố này ảnh hưởng đến hệ thống Linux chạy OpenSSH trên thư viện musl C khi tắt PAM (Pluggable Authentication Modules - Mô-đun xác thực cắm được), cho phép đăng nhập vào các tài khoản không thiết lập mật khẩu.",
+          "cited_article_ids": [
+            "12404fdb4aa23698"
+          ]
+        }
+      },
+      {
+        "heading": "Tính năng của Claude Code làm lộ mật khẩu và API key trên GitHub",
+        "body": {
+          "text": "Khi người dùng chọn tùy chọn không hỏi lại trong trợ lý lập trình Claude Code, công cụ AI của Anthropic có thể lưu toàn bộ lệnh bao gồm cả các bí mật vào tệp cài đặt dự án. Theo công ty an ninh mạng Apiiro, hàng nghìn tệp lưu trữ công khai trên GitHub đã bị lộ mật khẩu và khóa API (API key).",
+          "cited_article_ids": [
+            "9989e939e148877e"
+          ]
+        }
+      },
+      {
+        "heading": "DigiCert thông báo sự cố rò rỉ dữ liệu khách hàng doanh nghiệp",
+        "body": {
+          "text": "Tổ chức cấp phát chứng thư số DigiCert đã báo cáo một sự cố rò rỉ dữ liệu liên quan đến thông tin khách hàng doanh nghiệp. Nguyên nhân xuất phát từ một hệ thống nội bộ vô tình bị truy cập từ bên ngoài, dẫn đến việc tài khoản trái phép được tạo ra.",
+          "cited_article_ids": [
+            "849b59f87213c1c7"
+          ]
+        }
+      },
+      {
+        "heading": "Nhật Bản ban hành gói an ninh mạng khẩn cấp sau chuỗi tấn công",
+        "body": {
+          "text": "Chính phủ Nhật Bản vừa công bố gói an ninh mạng khẩn cấp sau khi hàng loạt công ty và cơ quan nhà nước bị truy cập trái phép và lộ dữ liệu khách hàng. Động thái này nhằm củng cố an ninh trước làn sóng tấn công mạng đang gia tăng.",
+          "cited_article_ids": [
+            "0065644152dc79f8"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: Lỗ Hổng SonicOS, OpenSSH Và Nguy Cơ Rò Rỉ Mã Dữ Liệu",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin an ninh mạng hôm nay. Tôi là Minh, và cùng đồng hành với tôi là chị Lan. Hôm nay chúng ta sẽ điểm qua những sự cố và lỗ hổng bảo mật đáng chú ý vừa được phát hiện.",
+          "cited_article_ids": [
+            "95f744e469bb2d9f",
+            "12404fdb4aa23698",
+            "9989e939e148877e",
+            "849b59f87213c1c7",
+            "0065644152dc79f8"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào Minh và chào các bạn nghe đài. Đầu tiên phải kể đến thông tin SonicWall vừa vá một lỗ hổng nghiêm trọng trên SonicOS mã hiệu CVE-2026-19868. Lỗ hổng này đã bị khai thác trong thực tế, cho phép kẻ tấn công có thông tin đăng nhập thuộc phương thức khác có thể vượt qua bước kiểm tra SAML, bao gồm cả xác thực đa yếu tố MFA bằng SAML để can thiệp vào VPN.",
+          "cited_article_ids": [
+            "95f744e469bb2d9f"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đúng vậy, VPN bị vượt qua MFA là rủi ro rất lớn. Không chỉ SonicWall, OpenSSH cũng đang đối mặt với lỗ hổng nghiêm trọng có tên SSHole hay CVE-2026-123158 với điểm CVSS 8.1. Theo Previdian, kẻ tấn công đã cố gắng khai thác nó chỉ vài giờ sau khi công bố và giành quyền root trên honeypot.",
+          "cited_article_ids": [
+            "12404fdb4aa23698"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Điều đáng chú ý là lỗ hổng SSHole này ảnh hưởng đến các hệ thống Linux chạy OpenSSH trên thư viện musl C mà tắt tính năng PAM (Pluggable Authentication Modules), cho phép đăng nhập vào các tài khoản không đặt mật khẩu. Tiếp theo, liên quan đến các công cụ lập trình AI, công ty Apiiro vừa cảnh báo về Claude Code.",
+          "cited_article_ids": [
+            "12404fdb4aa23698",
+            "9989e939e148877e"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Cụ thể là khi lập trình viên chọn tùy chọn \"Yes, and don't ask again\", trợ lý AI này sẽ lưu lại nguyên văn câu lệnh bao gồm cả mật khẩu và API key vào tệp cấu hình dự án. Apiiro phát hiện có tới 1.122 bản sao công khai trên GitHub chứa thông tin nhạy cảm này.",
+          "cited_article_ids": [
+            "9989e939e148877e"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Một thông tin khác từ DigiCert, nhà cung cấp chứng thư số này vừa báo cáo sự cố rò rỉ dữ liệu liên quan đến thông tin khách hàng doanh nghiệp. Nguyên nhân do một hệ thống kinh doanh nội bộ vô tình bị truy cập từ bên ngoài vào mùa hè qua, dẫn đến việc ai đó tạo tài khoản trái phép.",
+          "cited_article_ids": [
+            "849b59f87213c1c7"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Cuối cùng, trước làn sóng tấn công mạng nhắm vào hàng loạt công ty và cơ quan chính phủ gây rò rỉ dữ liệu khách hàng, chính phủ Nhật Bản đã chính thức công bố gói an ninh mạng khẩn cấp để ứng phó với tình hình.",
+          "cited_article_ids": [
+            "0065644152dc79f8"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Những thông tin trên cho thấy nguy cơ an ninh mạng luôn hiện hữu từ thiết bị VPN, dịch vụ SSH cho đến các công cụ AI. Cảm ơn các bạn đã theo dõi bản tin hôm nay.",
+          "cited_article_ids": [
+            "95f744e469bb2d9f",
+            "12404fdb4aa23698",
+            "9989e939e148877e",
+            "849b59f87213c1c7",
+            "0065644152dc79f8"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Cảnh Báo An Ninh Mạng Hot Nhất Tuần",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "Cảnh Báo An Ninh Mạng Nóng",
+        "narration": {
+          "text": "Điểm qua những sự cố an ninh mạng nguy hiểm nhất vừa được phát hiện!",
+          "cited_article_ids": [
+            "95f744e469bb2d9f",
+            "12404fdb4aa23698",
+            "9989e939e148877e",
+            "849b59f87213c1c7",
+            "0065644152dc79f8"
+          ]
+        },
+        "duration_sec": 5.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "SonicWall Vá Lỗ Hổng VPN",
+        "narration": {
+          "text": "SonicWall vá lỗ hổng CVE-2026-19868 bị khai thác, cho phép vượt qua SAML và MFA của VPN.",
+          "cited_article_ids": [
+            "95f744e469bb2d9f"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "OpenSSH SSHole Bị Khai Thác",
+        "narration": {
+          "text": "Lỗ hổng SSHole CVE-2026-123158 trên OpenSSH bị hacker khai thác chiếm quyền root chỉ sau vài giờ.",
+          "cited_article_ids": [
+            "12404fdb4aa23698"
+          ]
+        },
+        "duration_sec": 13.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Claude Code Rò Rỉ API Key",
+        "narration": {
+          "text": "Tùy chọn ghi nhớ của Claude Code làm rò rỉ mật khẩu và API key trên 1.122 kho GitHub.",
+          "cited_article_ids": [
+            "9989e939e148877e"
+          ]
+        },
+        "duration_sec": 13.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "DigiCert Bị Rò Rỉ Dữ Liệu",
+        "narration": {
+          "text": "DigiCert lộ dữ liệu khách hàng do hệ thống nội bộ bị truy cập trái phép từ bên ngoài.",
+          "cited_article_ids": [
+            "849b59f87213c1c7"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "Nhật Bản Ra Gói An Ninh Khẩn Cấp",
+        "narration": {
+          "text": "Nhật Bản công bố gói an ninh mạng khẩn cấp sau hàng loạt vụ tấn công rò rỉ dữ liệu.",
+          "cited_article_ids": [
+            "0065644152dc79f8"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "Cập Nhật Bảo Mật Ngay!",
+        "narration": {
+          "text": "Hãy luôn cập nhật phần mềm và kiểm tra kỹ các thông tin bảo mật của bạn nhé!",
+          "cited_article_ids": [
+            "95f744e469bb2d9f",
+            "12404fdb4aa23698",
+            "9989e939e148877e",
+            "849b59f87213c1c7",
+            "0065644152dc79f8"
+          ]
+        },
+        "duration_sec": 8.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "Điểm tin An toàn thông tin tuần này:\n- SonicWall vá lỗ hổng VPN (CVE-2026-19868) vượt qua xác thực MFA.\n- Lỗ hổng SSHole (CVE-2026-123158) trên OpenSSH bị khai thác chỉ sau vài giờ công bố.\n- Claude Code vô tình làm lộ mật khẩu và khóa API trên các kho lưu trữ GitHub công khai.\n- DigiCert báo cáo sự cố rò rỉ dữ liệu thông tin khách hàng.\n- Nhật Bản ban hành gói an ninh mạng khẩn cấp sau nhiều vụ tấn công.",
+      "hashtags": [
+        "#CyberSecurity",
+        "#SonicWall",
+        "#OpenSSH",
+        "#DigiCert",
+        "#ClaudeCode"
+      ],
+      "cited_article_ids": [
+        "95f744e469bb2d9f",
+        "12404fdb4aa23698",
+        "9989e939e148877e",
+        "849b59f87213c1c7",
+        "0065644152dc79f8"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Cập nhật tin tức an ninh mạng mới nhất:\n\n1. SonicWall phát hành bản vá cho lỗ hổng SonicOS (CVE-2026-19868) giúp kẻ tấn công vượt qua kiểm tra SAML và MFA trên VPN.\n2. Lỗ hổng SSHole (CVE-2026-123158) ảnh hưởng đến OpenSSH trên Linux chạy thư viện musl C khi tắt PAM, cho phép đăng nhập tài khoản không mật khẩu.\n3. Công cụ Claude Code lưu lại các lệnh chứa API key và mật khẩu vào tệp cấu hình, làm lộ dữ liệu trên GitHub.\n4. DigiCert ghi nhận sự cố truy cập trái phép vào hệ thống nội bộ làm lộ thông tin khách hàng.\n5. Nhật Bản thông qua gói an ninh mạng khẩn cấp sau chuỗi sự cố rò rỉ dữ liệu.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#TinTucCongNghe",
+        "#VatLyBaMat",
+        "#OpenSSH",
+        "#SonicWall"
+      ],
+      "cited_article_ids": [
+        "95f744e469bb2d9f",
+        "12404fdb4aa23698",
+        "9989e939e148877e",
+        "849b59f87213c1c7",
+        "0065644152dc79f8"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Cập nhật an ninh mạng: Lỗ hổng SonicWall VPN & OpenSSH SSHole bị khai thác nhanh chóng. Claude Code làm lộ mật khẩu trên GitHub. DigiCert bị lộ dữ liệu khách hàng và Nhật Bản ra gói an ninh khẩn cấp!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#CyberSecurity",
+        "#Hacker",
+        "#OpenSSH"
+      ],
+      "cited_article_ids": [
+        "95f744e469bb2d9f",
+        "12404fdb4aa23698",
+        "9989e939e148877e",
+        "849b59f87213c1c7",
+        "0065644152dc79f8"
+      ]
+    }
+  ]
+}

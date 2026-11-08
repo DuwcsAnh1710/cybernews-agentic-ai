@@ -1,0 +1,84 @@
+{
+  "run_id": "run-20261108T024143Z-9042d74d",
+  "video_title": "Cảnh Báo An Ninh Mạng Hot Nhất Tuần",
+  "aspect_ratio": "9:16",
+  "resolution": "1080x1920",
+  "width": 1080,
+  "height": 1920,
+  "voice": "vi-VN-NamMinhNeural",
+  "total_duration_sec": 75.0,
+  "scene_count": 7,
+  "preview_only": false,
+  "scenes": [
+    {
+      "scene_no": 1,
+      "on_screen_text": "Cảnh Báo An Ninh Mạng Nóng",
+      "narration": "Điểm qua những sự cố an ninh mạng nguy hiểm nhất vừa được phát hiện!",
+      "duration_sec": 5.0,
+      "start_sec": 0.0,
+      "end_sec": 5.0,
+      "slide_image": "run-20261108T024143Z-9042d74d_scenes/scene_01.png"
+    },
+    {
+      "scene_no": 2,
+      "on_screen_text": "SonicWall Vá Lỗ Hổng VPN",
+      "narration": "SonicWall vá lỗ hổng CVE-2026-19868 bị khai thác, cho phép vượt qua SAML và MFA của VPN.",
+      "duration_sec": 12.0,
+      "start_sec": 5.0,
+      "end_sec": 17.0,
+      "slide_image": "run-20261108T024143Z-9042d74d_scenes/scene_02.png"
+    },
+    {
+      "scene_no": 3,
+      "on_screen_text": "OpenSSH SSHole Bị Khai Thác",
+      "narration": "Lỗ hổng SSHole CVE-2026-123158 trên OpenSSH bị hacker khai thác chiếm quyền root chỉ sau vài giờ.",
+      "duration_sec": 13.0,
+      "start_sec": 17.0,
+      "end_sec": 30.0,
+      "slide_image": "run-20261108T024143Z-9042d74d_scenes/scene_03.png"
+    },
+    {
+      "scene_no": 4,
+      "on_screen_text": "Claude Code Rò Rỉ API Key",
+      "narration": "Tùy chọn ghi nhớ của Claude Code làm rò rỉ mật khẩu và API key trên 1.122 kho GitHub.",
+      "duration_sec": 13.0,
+      "start_sec": 30.0,
+      "end_sec": 43.0,
+      "slide_image": "run-20261108T024143Z-9042d74d_scenes/scene_04.png"
+    },
+    {
+      "scene_no": 5,
+      "on_screen_text": "DigiCert Bị Rò Rỉ Dữ Liệu",
+      "narration": "DigiCert lộ dữ liệu khách hàng do hệ thống nội bộ bị truy cập trái phép từ bên ngoài.",
+      "duration_sec": 12.0,
+      "start_sec": 43.0,
+      "end_sec": 55.0,
+      "slide_image": "run-20261108T024143Z-9042d74d_scenes/scene_05.png"
+    },
+    {
+      "scene_no": 6,
+      "on_screen_text": "Nhật Bản Ra Gói An Ninh Khẩn Cấp",
+      "narration": "Nhật Bản công bố gói an ninh mạng khẩn cấp sau hàng loạt vụ tấn công rò rỉ dữ liệu.",
+      "duration_sec": 12.0,
+      "start_sec": 55.0,
+      "end_sec": 67.0,
+      "slide_image": "run-20261108T024143Z-9042d74d_scenes/scene_06.png"
+    },
+    {
+      "scene_no": 7,
+      "on_screen_text": "Cập Nhật Bảo Mật Ngay!",
+      "narration": "Hãy luôn cập nhật phần mềm và kiểm tra kỹ các thông tin bảo mật của bạn nhé!",
+      "duration_sec": 8.0,
+      "start_sec": 67.0,
+      "end_sec": 75.0,
+      "slide_image": "run-20261108T024143Z-9042d74d_scenes/scene_07.png"
+    }
+  ],
+  "files": {
+    "video": "run-20261108T024143Z-9042d74d.mp4",
+    "subtitles": "run-20261108T024143Z-9042d74d.srt",
+    "metadata": "run-20261108T024143Z-9042d74d.json",
+    "cover": "run-20261108T024143Z-9042d74d_cover.png"
+  },
+  "created_at": "2026-11-08T02:43:51.423072+00:00"
+}
