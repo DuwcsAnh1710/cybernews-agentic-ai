@@ -118,6 +118,11 @@ class VideoMediaOptions:
     max_duration_sec: float = DEFAULT_TARGET_DURATION_SEC
     prefer_podcast_audio: bool = True
     export_hyperframes: bool = True
+    # "auto": generate context-matched AI illustrations per beat (Gemini image -> Pollinations);
+    # "off": only use images already present in <run_id>_assets/ (hermetic default for tests).
+    illustrations: str = "off"
+    # Frame-accurate motion timeline (karaoke transcript, Ken Burns, dissolves) when FFmpeg exists.
+    motion: bool = True
 
 
 @dataclass(frozen=True)
@@ -153,6 +158,7 @@ class SceneRenderResult:
     speaker_role: str = "Bản tin sáng"
     category_label: str = "Tiêu điểm an ninh mạng"
     cue_frames: list[tuple[Path, float]] = field(default_factory=list)
+    motion: Any = None  # media_motion.SceneMotionSpec when the motion timeline is used
 
 
 @dataclass(frozen=True)
@@ -1359,6 +1365,194 @@ render_hallmark_frame = render_cyber_frame
 # ==============================================================================
 
 
+def _hyperframes_motion_scene_html(
+    s: SceneRenderResult,
+    comp_id: str,
+    width: int,
+    height: int,
+    assets_dir: Path,
+) -> str:
+    """Build a HyperFrames <template> scene with beat illustrations, Ken Burns motion, and word-level karaoke GSAP tweens."""
+    motion = s.motion
+    dur = round(s.duration_sec, 3)
+    headline_esc = html.escape(format_editorial_headline(s.on_screen_text))
+    speaker_esc = html.escape(s.speaker)
+    role_esc = html.escape(s.speaker_role)
+    rubric_esc = html.escape(s.category_label)
+
+    # 1. Copy beat illustration files into assets/ and build beat clips + GSAP tweens
+    beat_clips_html: list[str] = []
+    beat_tweens_js: list[str] = []
+    beats = getattr(motion, "beats", []) or []
+    for b_idx, beat in enumerate(beats):
+        b_start = round(max(0.0, float(beat.start)), 3)
+        b_dur = round(max(0.2, float(beat.end) - b_start), 3)
+        if beat.image_path and Path(beat.image_path).exists():
+            dest_name = f"scene_{s.scene_no:02d}_beat_{b_idx + 1:02d}{Path(beat.image_path).suffix}"
+            shutil.copy2(beat.image_path, assets_dir / dest_name)
+            img_rel = f"assets/{dest_name}"
+        else:
+            img_rel = f"assets/{s.slide_image_path.name}"
+
+        clip_dom_id = f"{comp_id}-beat-{b_idx + 1}"
+        inner_dom_id = f"{comp_id}-beat-{b_idx + 1}-inner"
+        beat_clips_html.append(
+            f"""      <div id="{clip_dom_id}" class="clip" data-start="{b_start}" data-duration="{b_dur}" data-track-index="1" style="position: absolute; inset: 16px; overflow: hidden; z-index: {b_idx + 1};">
+        <div id="{inner_dom_id}" style="position: absolute; inset: 0;">
+          <img src="{img_rel}" alt="{headline_esc}" style="width: 100%; height: 100%; object-fit: cover;" />
+        </div>
+      </div>"""
+        )
+        zoom_from, zoom_to = (1.0, 1.08) if (s.scene_no + b_idx) % 2 == 0 else (1.08, 1.0)
+        pan_x = -18 if (s.scene_no + b_idx) % 2 == 0 else 18
+        beat_tweens_js.append(
+            f'    tl.fromTo("#{inner_dom_id}", {{ opacity: {0.0 if b_idx > 0 else 0.9}, scale: {zoom_from}, x: 0 }}, '
+            f'{{ opacity: 1, scale: {zoom_to}, x: {pan_x}, duration: {b_dur}, ease: "sine.inOut" }}, {b_start});'
+        )
+
+    # 2. Build word-by-word spans and synchronized highlight tweens
+    words = getattr(motion, "words", []) or []
+    word_spans_html: list[str] = []
+    word_tweens_js: list[str] = []
+    for w_idx, wt in enumerate(words):
+        w_id = f"{comp_id}-w-{w_idx}"
+        w_esc = html.escape(wt.text)
+        w_start = round(max(0.0, float(wt.start)), 3)
+        w_dur = round(max(0.06, float(wt.end) - w_start), 3)
+        word_spans_html.append(f'<span id="{w_id}" class="{comp_id}-word">{w_esc}</span>')
+        word_tweens_js.append(
+            f'    tl.fromTo("#{w_id}", {{ color: "var(--color-upcoming)", backgroundColor: "transparent" }}, '
+            f'{{ color: "var(--color-accent)", backgroundColor: "var(--color-highlight)", duration: 0.06, ease: "power2.out" }}, {w_start});\n'
+            f'    tl.to("#{w_id}", {{ color: "var(--color-ink-body)", backgroundColor: "transparent", duration: 0.08, ease: "power1.out" }}, {round(w_start + w_dur, 3)});'
+        )
+
+    if not word_spans_html:
+        narr_clean = html.escape(re.sub(r"^\s*\[[^\]]+\]\s*", "", s.narration.strip()))
+        word_spans_html.append(f'<span class="{comp_id}-word">{narr_clean}</span>')
+
+    fade_out_t = round(max(0.1, dur - 0.28), 3)
+
+    return f"""<template>
+  <style>
+    #root {{
+      position: absolute;
+      inset: 0;
+      background: var(--color-paper);
+      color: var(--color-ink);
+      font-family: var(--font-body);
+    }}
+    .{comp_id}-header {{
+      position: absolute;
+      left: 72px;
+      right: 72px;
+      top: 108px;
+    }}
+    .{comp_id}-rubric {{
+      font-size: 23px;
+      font-weight: 700;
+      color: var(--color-accent);
+      margin: 0 0 12px 0;
+    }}
+    .{comp_id}-headline {{
+      font-family: var(--font-display);
+      font-size: 42px;
+      line-height: 1.24;
+      font-weight: 700;
+      color: var(--color-ink);
+      margin: 0;
+    }}
+    .{comp_id}-plate {{
+      position: absolute;
+      left: 72px;
+      right: 72px;
+      top: 505px;
+      height: 600px;
+      background: var(--color-paper-mat);
+      border: 2px solid var(--color-ink);
+    }}
+    .{comp_id}-card {{
+      position: absolute;
+      left: 72px;
+      right: 72px;
+      top: 1190px;
+      height: 482px;
+      padding: 28px 32px;
+      background: var(--color-paper-well);
+      border-top: 2px solid var(--color-ink);
+      border-bottom: var(--rule-hair) solid var(--color-rule);
+      overflow: hidden;
+    }}
+    .{comp_id}-byline {{
+      font-size: 25px;
+      font-weight: 700;
+      color: var(--color-ink);
+      margin: 0 0 18px 0;
+      padding-left: 16px;
+      border-left: 4px solid var(--color-accent);
+    }}
+    .{comp_id}-role {{
+      font-weight: 400;
+      color: var(--color-muted);
+    }}
+    .{comp_id}-transcript {{
+      font-size: 35px;
+      line-height: 1.48;
+      color: var(--color-upcoming);
+      margin: 0;
+      overflow-wrap: break-word;
+      min-width: 0;
+    }}
+    .{comp_id}-word {{
+      display: inline-block;
+      padding: 1px 5px;
+      margin-right: 4px;
+      border-radius: 5px;
+    }}
+  </style>
+  <div id="root" data-composition-id="{comp_id}" data-width="{width}" data-height="{height}">
+    <div id="{comp_id}-head-clip" class="clip" data-start="0" data-duration="{dur}" data-track-index="1" style="position: absolute; inset: 0; z-index: 1;">
+      <div id="{comp_id}-head-inner" class="{comp_id}-header">
+        <p class="{comp_id}-rubric">{rubric_esc}</p>
+        <h1 class="{comp_id}-headline">{headline_esc}</h1>
+      </div>
+    </div>
+    <div id="{comp_id}-plate-frame" class="{comp_id}-plate" style="z-index: 2;">
+{chr(10).join(beat_clips_html)}
+    </div>
+    <div id="{comp_id}-caption-clip" class="clip" data-start="0.08" data-duration="{round(max(0.2, dur - 0.08), 3)}" data-track-index="2" data-layout-allow-caption-zone style="position: absolute; inset: 0; z-index: 3;">
+      <div id="{comp_id}-caption-inner" class="{comp_id}-card">
+        <p class="{comp_id}-byline">{speaker_esc} <span class="{comp_id}-role">— {role_esc}</span></p>
+        <p class="{comp_id}-transcript">{" ".join(word_spans_html)}</p>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({{ paused: true }});
+    tl.fromTo(
+      "#{comp_id}-head-inner",
+      {{ opacity: 0, y: 18 }},
+      {{ opacity: 1, y: 0, duration: 0.42, ease: "power3.out" }},
+      0
+    );
+{chr(10).join(beat_tweens_js)}
+    tl.fromTo(
+      "#{comp_id}-caption-inner",
+      {{ opacity: 0, y: 16 }},
+      {{ opacity: 1, y: 0, duration: 0.32, ease: "power3.out" }},
+      0.12
+    );
+{chr(10).join(word_tweens_js)}
+    tl.to(
+      "#{comp_id}-caption-inner",
+      {{ opacity: 0.96, duration: 0.18, ease: "power2.in" }},
+      {fade_out_t}
+    );
+    window.__timelines["{comp_id}"] = tl;
+  </script>
+</template>
+"""
+
+
 def export_hyperframes_project(
     run_id: str,
     video_title: str,
@@ -1413,6 +1607,8 @@ def export_hyperframes_project(
   --color-accent: oklch(48.0% 0.175 28);
   --color-accent-ink: oklch(97.5% 0.010 82);
   --color-focus: oklch(48.0% 0.175 28);
+  --color-upcoming: oklch(62.0% 0.016 70);
+  --color-highlight: oklch(86.0% 0.060 40);
   --font-display: "Playfair Display", Georgia, serif;
   --font-body: "Inter", system-ui, sans-serif;
   --rule-hair: 1px;
@@ -1461,6 +1657,26 @@ html, body {
         role_esc = html.escape(s.speaker_role)
         rubric_esc = html.escape(s.category_label)
         slide_src = f"assets/{s.slide_image_path.name}"
+
+        if s.motion is not None:
+            scene_html = _hyperframes_motion_scene_html(s, comp_id, width, height, assets_dir)
+            (comp_dir / f"scene_{s.scene_no:02d}.html").write_text(scene_html, encoding="utf-8")
+            scene_mounts_html.append(
+                f"""      <div
+        id="{comp_id}"
+        class="clip"
+        data-composition-id="{comp_id}"
+        data-composition-src="{comp_file}"
+        data-start="{start}"
+        data-duration="{dur}"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="{width}"
+        data-height="{height}"
+        style="position: absolute; left: 0; top: 0; width: {width}px; height: {height}px; z-index: {s.scene_no};"
+      ></div>"""
+            )
+            continue
 
         scene_html = f"""<template>
   <style>
@@ -1816,9 +2032,29 @@ class FFmpegVideoAssembler:
         height: int,
         fps: int = 30,
     ) -> float:
-        """Assemble scenes (and phrase-level cue sub-frames if present) into an MP4 video via FFmpeg."""
+        """Assemble scenes into an MP4 via FFmpeg.
+
+        When every scene carries a motion spec, frames are rendered at full frame rate and
+        streamed into FFmpeg (karaoke transcript, Ken Burns plate, dissolves). Otherwise the
+        legacy still/cue-frame concat path is used.
+        """
         output_path.parent.mkdir(parents=True, exist_ok=True)
         total_duration = sum(s.duration_sec for s in scenes)
+
+        if scenes and all(s.motion is not None for s in scenes):
+            from cyberpulse.media_motion import render_motion_video
+
+            timeline_end = max(s.end_sec for s in scenes)
+            return render_motion_video(
+                specs=[s.motion for s in scenes],
+                audio_path=assembled_audio_path,
+                output_path=output_path,
+                width=width,
+                height=height,
+                fps=fps,
+                ffmpeg_bin=str(self.ffmpeg_bin),
+                total_duration=timeline_end,
+            )
 
         with tempfile.TemporaryDirectory(prefix="cyberpulse_ffmpeg_video_") as tmp_dir_str:
             tmp_dir = Path(tmp_dir_str)
@@ -1918,6 +2154,27 @@ def build_video_srt(scenes: list[SceneRenderResult]) -> str:
     cue_index = 1
 
     for s in scenes:
+        motion = getattr(s, "motion", None)
+        if motion is not None and getattr(motion, "words", None):
+            # Phrase-level cues timed from the word alignment (max ~7 words or a clause).
+            group: list[Any] = []
+            first_cue = True
+            for i, wt in enumerate(motion.words):
+                group.append(wt)
+                is_clause_end = bool(re.search(r"[.!?,;:…]$", wt.text))
+                if len(group) >= 7 or (is_clause_end and len(group) >= 3) or i == len(motion.words) - 1:
+                    st = round((s.start_sec + group[0].start) * 1000)
+                    en = round((s.start_sec + group[-1].end) * 1000)
+                    phrase = " ".join(w.text for w in group)
+                    lines.append(str(cue_index))
+                    lines.append(f"{format_srt_timestamp(st)} --> {format_srt_timestamp(en)}")
+                    lines.append(f"{s.speaker}: {phrase}" if first_cue else phrase)
+                    lines.append("")
+                    cue_index += 1
+                    first_cue = False
+                    group = []
+            continue
+
         start_ms = round(s.start_sec * 1000)
         end_ms = round(s.end_sec * 1000)
 
@@ -1968,6 +2225,7 @@ def build_video_metadata(
                 "start_sec": round(s.start_sec, 3),
                 "end_sec": round(s.end_sec, 3),
                 "slide_image": f"{run_id}_scenes/{s.slide_image_path.name}",
+                **_motion_metadata(s),
             }
             for s in scenes
         ],
@@ -1982,13 +2240,34 @@ def build_video_metadata(
     }
 
 
+def _motion_metadata(s: SceneRenderResult) -> dict[str, Any]:
+    motion = getattr(s, "motion", None)
+    if motion is None:
+        return {}
+    return {
+        "words": [{"w": w.text, "s": w.start, "e": w.end} for w in motion.words],
+        "illustrations": [
+            {
+                "file": b.image_path.name if b.image_path else None,
+                "start_sec": round(b.start, 3),
+                "end_sec": round(b.end, 3),
+                "caption": b.caption,
+            }
+            for b in motion.beats
+        ],
+    }
+
+
+_GENERATED_BEAT_RE = re.compile(r"^seg\d+_b\d+\.(?:jpe?g|png|webp)$", re.IGNORECASE)
+
+
 def _discover_contextual_images(run_id: str, output_media_dir: Path, count: int) -> list[Path | None]:
-    """Look for contextual scene illustrations in <run_id>_assets or shared media folders."""
+    """Look for hand-placed scene illustrations in <run_id>_assets (excluding generated beat images)."""
     candidates: list[Path] = []
     assets_dir = output_media_dir / f"{run_id}_assets"
     if assets_dir.exists() and assets_dir.is_dir():
         for ext in ("*.jpg", "*.jpeg", "*.png", "*.webp"):
-            candidates.extend(sorted(assets_dir.glob(ext)))
+            candidates.extend(p for p in sorted(assets_dir.glob(ext)) if not _GENERATED_BEAT_RE.match(p.name))
 
     if not candidates:
         return [None] * count
@@ -2010,6 +2289,8 @@ def synthesize_video(
     assembler: VideoAssembler | None = None,
     progress_callback: Callable[[int, int, str], None] | None = None,
     clock_fn: Callable[[], datetime] = lambda: datetime.now(timezone.utc),
+    illustration_providers: list[Any] | None = None,
+    prompt_writer: Any = None,
 ) -> VideoMediaResult:
     """Synthesize a sub-60s 9:16 video in the Hallmark Aesthetic using curated Podcast audio.
 
@@ -2119,6 +2400,54 @@ def synthesize_video(
             if used_voices:
                 voice_label = " + ".join(used_voices)
 
+            # Motion timeline is only possible when frames are streamed through FFmpeg.
+            use_motion = bool(
+                options.motion and not options.preview_only and isinstance(chosen_assembler, FFmpegVideoAssembler)
+            )
+            ffmpeg_for_audio = getattr(chosen_assembler, "ffmpeg_bin", None) if use_motion else None
+
+            # Plan illustration beats (1-2 per turn) and make sure each has a matching image.
+            from cyberpulse.media_illustrations import (
+                GeminiPromptWriter,
+                default_providers,
+                ensure_beat_illustrations,
+                split_scene_into_beats,
+            )
+
+            scene_beats: list[list[Any]] = [
+                split_scene_into_beats(i + 1, c.segment_index, c.headline, c.text, c.duration_sec)
+                for i, c in enumerate(curated_clips)
+            ]
+            providers = illustration_providers
+            writer = prompt_writer
+            if providers is None and options.illustrations == "auto" and not options.preview_only:
+                providers = default_providers()
+                writer = writer or GeminiPromptWriter()
+            if providers:
+                if progress_callback:
+                    progress_callback(0, total_scenes, "Đang vẽ minh họa AI theo từng đoạn thoại")
+                flat, ill_report = ensure_beat_illustrations(
+                    [b for group in scene_beats for b in group],
+                    assets_dir=output_media_dir / f"{run_id}_assets",
+                    providers=providers,
+                    prompt_writer=writer,
+                )
+                logger.info(
+                    "Illustrations: generated=%d reused=%d failed=%d providers=%s",
+                    ill_report.generated, ill_report.reused, ill_report.failed, ill_report.providers,
+                )
+                it = iter(flat)
+                scene_beats = [[next(it) for _ in group] for group in scene_beats]
+            else:
+                # Reuse cached beat illustrations from an earlier run, never call the network.
+                flat, _ = ensure_beat_illustrations(
+                    [b for group in scene_beats for b in group],
+                    assets_dir=output_media_dir / f"{run_id}_assets",
+                    providers=[],
+                ) if (output_media_dir / f"{run_id}_assets").is_dir() else ([b for g in scene_beats for b in g], None)
+                it = iter(flat)
+                scene_beats = [[next(it) for _ in group] for group in scene_beats]
+
             for idx, clip in enumerate(curated_clips):
                 scene_no = idx + 1
                 if progress_callback:
@@ -2154,32 +2483,85 @@ def synthesize_video(
                             seg_mp3_bytes = scene_audio_path.read_bytes()
 
                 energy_prof = extract_mp3_energy_profile(seg_mp3_bytes, num_points=28)
-                ctx_img = ctx_images[idx] if idx < len(ctx_images) else None
+                beats_here = scene_beats[idx] if idx < len(scene_beats) else []
+                first_beat_img = next((b.image_path for b in beats_here if b.image_path), None)
+                ctx_img = first_beat_img or (ctx_images[idx] if idx < len(ctx_images) else None)
 
-                # Render primary scene slide
-                slide_img = render_cyber_frame(
-                    scene_no=scene_no,
-                    total_scenes=total_scenes,
-                    on_screen_text=clip.headline,
-                    narration_text=clip.text,
-                    duration_sec=measured_dur,
-                    run_id=run_id,
-                    width=width,
-                    height=height,
-                    is_cover=False,
-                    speaker=clip.speaker,
-                    speaker_role=clip.speaker_role,
-                    category_label=clip.category_label,
-                    contextual_image_path=ctx_img,
-                    zoom_progress=0.35,
-                    energy_profile=energy_prof,
-                )
+                start_t = timeline_curr
+                end_t = start_t + measured_dur
+                timeline_curr = end_t + (inter_pause_sec if idx < total_scenes - 1 else 0.0)
+
+                motion_spec: Any = None
+                if use_motion:
+                    from cyberpulse.media_motion import PlateBeat, SceneMotionSpec, align_words, decode_audio_envelope
+
+                    envelope = decode_audio_envelope(scene_audio_path, ffmpeg_for_audio) if scene_audio_path else []
+                    words = align_words(clip.text, measured_dur, envelope)
+                    plate_beats: list[Any] = []
+                    for b_idx, b in enumerate(beats_here):
+                        b_start = 0.0
+                        if b_idx > 0 and b.word_start < len(words):
+                            b_start = max(0.0, words[b.word_start].start - 0.35)
+                        img_path = b.image_path or (ctx_img if b_idx == 0 else None)
+                        if b.provider in ("gemini-image",):
+                            credit = "Minh họa AI theo lời thoại, tạo bằng Gemini"
+                        elif b.provider == "pollinations":
+                            credit = "Minh họa AI theo lời thoại, tạo bằng Pollinations Flux"
+                        elif b.image_path:
+                            credit = "Minh họa AI theo lời thoại"
+                        else:
+                            credit = "Ảnh minh họa biên tập"
+                        plate_beats.append(PlateBeat(img_path, b_start, measured_dur, credit))
+                    for b_idx in range(len(plate_beats) - 1):
+                        cur_b = plate_beats[b_idx]
+                        plate_beats[b_idx] = PlateBeat(cur_b.image_path, cur_b.start, plate_beats[b_idx + 1].start, cur_b.caption)
+                    if not plate_beats:
+                        plate_beats = [PlateBeat(ctx_img, 0.0, measured_dur, "Ảnh minh họa biên tập")]
+                    motion_spec = SceneMotionSpec(
+                        scene_no=scene_no,
+                        total_scenes=total_scenes,
+                        run_id=run_id,
+                        headline=clip.headline,
+                        category_label=clip.category_label,
+                        speaker=clip.speaker,
+                        speaker_role=clip.speaker_role,
+                        narration=clip.text,
+                        duration_sec=measured_dur,
+                        words=words,
+                        beats=plate_beats,
+                        envelope=envelope,
+                        start_sec=start_t,
+                    )
+
                 slide_path = tmp_scenes_dir / f"scene_{scene_no:02d}.png"
-                slide_img.save(slide_path, "PNG")
-
-                # Render phrase-level cue frames so captions & cadence animate smoothly during playback
                 cue_frames: list[tuple[Path, float]] = []
-                if not options.preview_only:
+                if motion_spec is not None:
+                    from cyberpulse.media_motion import SceneMotionRenderer
+
+                    # Representative still: mid-scene, with the karaoke highlight in flight.
+                    SceneMotionRenderer(motion_spec, width, height).render(measured_dur * 0.42).save(slide_path, "PNG")
+                else:
+                    slide_img = render_cyber_frame(
+                        scene_no=scene_no,
+                        total_scenes=total_scenes,
+                        on_screen_text=clip.headline,
+                        narration_text=clip.text,
+                        duration_sec=measured_dur,
+                        run_id=run_id,
+                        width=width,
+                        height=height,
+                        is_cover=False,
+                        speaker=clip.speaker,
+                        speaker_role=clip.speaker_role,
+                        category_label=clip.category_label,
+                        contextual_image_path=ctx_img,
+                        zoom_progress=0.35,
+                        energy_profile=energy_prof,
+                    )
+                    slide_img.save(slide_path, "PNG")
+
+                # Legacy phrase-level cue frames (only when the motion timeline is unavailable)
+                if motion_spec is None and not options.preview_only:
                     cues = split_text_into_cues(clip.text, max_chars_per_line=44, max_lines_per_cue=3)
                     if len(cues) > 1:
                         total_chars = max(1, sum(len(c) for c in cues))
@@ -2207,10 +2589,6 @@ def synthesize_video(
                             cue_img.save(cue_path, "PNG")
                             cue_frames.append((cue_path, c_dur))
 
-                start_t = timeline_curr
-                end_t = start_t + measured_dur
-                timeline_curr = end_t + (inter_pause_sec if idx < total_scenes - 1 else 0.0)
-
                 scene_render_results.append(
                     SceneRenderResult(
                         scene_no=scene_no,
@@ -2225,6 +2603,7 @@ def synthesize_video(
                         speaker_role=clip.speaker_role,
                         category_label=clip.category_label,
                         cue_frames=cue_frames,
+                        motion=motion_spec,
                     )
                 )
 
@@ -2317,6 +2696,10 @@ def synthesize_video(
         )
         cover_narr = first_rendered.narration if first_rendered else editorial_pkg.digest.intro
         cover_ctx_img = _discover_contextual_images(run_id, output_media_dir, 1)[0]
+        if first_rendered is not None and first_rendered.motion is not None:
+            cover_ctx_img = next(
+                (b.image_path for b in first_rendered.motion.beats if b.image_path), cover_ctx_img
+            )
         cover_img = render_cyber_frame(
             scene_no=1,
             total_scenes=max(1, final_scene_count),
