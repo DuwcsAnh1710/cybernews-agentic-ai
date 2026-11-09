@@ -16,7 +16,7 @@ from tests.test_ui_data import make_sample_editorial
 
 def test_format_email_plain_contains_required_elements() -> None:
     pkg = make_sample_editorial("run-20261103T120000Z-emlplain")
-    base_url = "https://cyberpulseda.wuaze.com"
+    base_url = "https://duwcsanh1710.github.io/cybernews-agentic-ai"
 
     plain = format_email_plain(pkg, base_url=base_url)
 
@@ -35,7 +35,7 @@ def test_format_email_plain_contains_required_elements() -> None:
 
 def test_format_email_html_structure_and_styling() -> None:
     pkg = make_sample_editorial("run-20261103T120000Z-emlhtml")
-    base_url = "https://cyberpulseda.wuaze.com"
+    base_url = "https://duwcsanh1710.github.io/cybernews-agentic-ai"
 
     html = format_email_html(pkg, base_url=base_url)
 

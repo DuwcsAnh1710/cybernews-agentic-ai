@@ -1,35 +1,115 @@
 1
-00:00:00,000 --> 00:00:01,972
-[Lan] Chào Minh và chào mọi người!
+00:00:00,180 --> 00:00:01,710
+Lan: Chào Minh và chào mọi người!
 
 2
-00:00:01,972 --> 00:00:07,887
-Đầu tiên là thông tin từ CISA khi họ vừa đưa lỗ hổng CVE-2024-27834 trên các hệ điều
+00:00:02,640 --> 00:00:04,688
+Đầu tiên là thông tin từ CISA
 
 3
-00:00:07,887 --> 00:00:12,745
-hành Apple vào danh mục KEV. Đây là lỗ hổng xác thực không đúng cách,
+00:00:04,688 --> 00:00:07,093
+khi họ vừa đưa lỗ hổng CVE-2024-27834
 
 4
-00:00:12,745 --> 00:00:18,096
-đang bị kẻ tấn công khai thác thực tế để phát tán mã độc đánh cắp thông tin.
+00:00:07,093 --> 00:00:09,189
+trên các hệ điều hành Apple vào
 
 5
-00:00:18,446 --> 00:00:21,222
-[Minh] Đáng lo ngại thật. Nhưng không chỉ có Apple,
+00:00:09,189 --> 00:00:10,070
+danh mục KEV.
 
 6
-00:00:21,222 --> 00:00:26,522
-các hệ thống Linux như Debian và Ubuntu cũng vừa ghi nhận lỗ hổng nghiêm trọng trong
+00:00:10,200 --> 00:00:12,120
+Đây là lỗ hổng xác thực không
 
 7
-00:00:26,522 --> 00:00:27,910
-trình quản lý gói APT.
+00:00:12,120 --> 00:00:14,028
+đúng cách, đang bị kẻ tấn công
 
 8
-00:00:27,910 --> 00:00:33,084
-Lỗi này cho phép kẻ tấn công Man-in-the-Middle đánh tráo gói phần mềm khi hệ thống
+00:00:14,028 --> 00:00:15,760
+khai thác thực tế để phát tán
 
 9
-00:00:33,084 --> 00:00:36,806
-tự động tải lại file lỗi, từ đó chạy mã độc với quyền root.
+00:00:15,760 --> 00:00:17,250
+mã độc đánh cắp thông tin.
+
+10
+00:00:18,596 --> 00:00:19,516
+Minh: Đáng lo ngại thật.
+
+11
+00:00:20,536 --> 00:00:21,726
+Nhưng không chỉ có Apple,
+
+12
+00:00:22,036 --> 00:00:23,895
+các hệ thống Linux như Debian và
+
+13
+00:00:23,895 --> 00:00:25,754
+Ubuntu cũng vừa ghi nhận lỗ hổng
+
+14
+00:00:25,754 --> 00:00:27,695
+nghiêm trọng trong trình quản lý gói
+
+15
+00:00:27,695 --> 00:00:30,261
+APT. Lỗi này cho phép kẻ tấn
+
+16
+00:00:30,261 --> 00:00:32,082
+công Man-in-the-Middle đánh tráo gói phần mềm
+
+17
+00:00:32,082 --> 00:00:33,646
+khi hệ thống tự động tải lại
+
+18
+00:00:33,646 --> 00:00:35,293
+file lỗi, từ đó chạy mã độc
+
+19
+00:00:35,293 --> 00:00:35,856
+với quyền root.
+
+20
+00:00:37,240 --> 00:00:38,744
+Minh: Tấn công qua chuỗi cung ứng đang
+
+21
+00:00:38,744 --> 00:00:40,180
+trở thành mối đe dọa cực lớn.
+
+22
+00:00:41,170 --> 00:00:41,870
+Nhắc đến điều này,
+
+23
+00:00:42,190 --> 00:00:43,908
+ngân hàng Pháp Crédit Mutuel Arkéa vừa
+
+24
+00:00:43,908 --> 00:00:45,447
+xác nhận bị dính một vụ cướp
+
+25
+00:00:45,447 --> 00:00:47,058
+mạng khi hacker xâm nhập vào một
+
+26
+00:00:47,058 --> 00:00:48,633
+nhà cung cấp chưa được tiết lộ
+
+27
+00:00:48,633 --> 00:00:50,740
+tên, qua đó thực hiện các giao
+
+28
+00:00:50,740 --> 00:00:52,560
+dịch chuyển tiền trái phép trị giá
+
+29
+00:00:52,560 --> 00:00:54,210
+ước tính khoảng 133 triệu USD.

@@ -1388,6 +1388,8 @@ def run_media_video(
         force=force,
         preview_only=preview_only,
         allow_unvalidated=allow_unvalidated,
+        illustrations="off" if preview_only else "auto",
+        motion=True,
     )
     target_output_dir = output_dir or (settings.paths.output_dir / "media" / "video")
 

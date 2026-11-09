@@ -1,0 +1,103 @@
+1
+00:00:00,180 --> 00:00:01,670
+Lan: Chào Minh và chào các bạn.
+
+2
+00:00:02,590 --> 00:00:04,278
+Tin tức đầu tiên cực kỳ nóng
+
+3
+00:00:04,278 --> 00:00:05,350
+liên quan đến OpenSSH.
+
+4
+00:00:06,390 --> 00:00:08,166
+OpenSSH vừa phát hành bản sửa lỗi
+
+5
+00:00:08,166 --> 00:00:10,151
+khẩn cấp phiên bản 10.6p2 để vá
+
+6
+00:00:10,151 --> 00:00:11,928
+một lỗ hổng nghiêm trọng trên một
+
+7
+00:00:11,928 --> 00:00:13,684
+số máy chủ Alpine Linux chạy gói
+
+8
+00:00:13,684 --> 00:00:14,650
+openssh-server tiêu chuẩn.
+
+9
+00:00:15,990 --> 00:00:16,980
+Minh: Thật đáng ngạc nhiên.
+
+10
+00:00:18,090 --> 00:00:19,749
+Tiếp theo là một nghiên cứu đầy
+
+11
+00:00:19,749 --> 00:00:20,710
+ấn tượng từ OpenAI.
+
+12
+00:00:21,830 --> 00:00:23,432
+Một mô hình AI chưa phát hành
+
+13
+00:00:23,432 --> 00:00:24,978
+của họ đã tìm thấy và khai
+
+14
+00:00:24,978 --> 00:00:26,738
+thác thành công 948 lỗi leo thang
+
+15
+00:00:26,738 --> 00:00:28,487
+quyền hạn trong Linux kernel để chiếm
+
+16
+00:00:28,487 --> 00:00:31,013
+quyền root, với chi phí khoảng 1,2
+
+17
+00:00:31,013 --> 00:00:31,610
+triệu USD.
+
+18
+00:00:32,894 --> 00:00:34,199
+Lan: Chuyển sang tin tức về an ninh
+
+19
+00:00:34,199 --> 00:00:34,934
+thiết bị di động,
+
+20
+00:00:35,254 --> 00:00:36,836
+các nhà nghiên cứu phát hiện các
+
+21
+00:00:36,836 --> 00:00:38,365
+tin tặc có liên kết với chính
+
+22
+00:00:38,365 --> 00:00:39,911
+phủ Nga đang nhắm mục tiêu vào
+
+23
+00:00:39,911 --> 00:00:41,634
+người dùng iPhone và Android tại Ukraine,
+
+24
+00:00:41,994 --> 00:00:43,426
+Mỹ và Châu Âu trong một chiến
+
+25
+00:00:43,426 --> 00:00:44,975
+dịch gián điệp zero-click để đánh cắp
+
+26
+00:00:44,975 --> 00:00:45,824
+thông tin nhạy cảm.

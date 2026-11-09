@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "style": "hallmark-gouache",
+  "beats": {
+    "seg01_b1": {
+      "file": "seg01_b1.jpg",
+      "prompt": "OpenSSH phát hành bản vá khẩn cấp cho lỗ hổng mật khẩu dài trên Alpine Linux",
+      "brief": "OpenSSH phát hành bản vá khẩn cấp cho lỗ hổng mật khẩu dài trên Alpine Linux",
+      "text": "Chào Minh và chào các bạn. Tin tức đầu tiên cực kỳ nóng liên quan đến OpenSSH.",
+      "text_hash": "279c1c630511",
+      "provider": "gemini-image"
+    },
+    "seg01_b2": {
+      "file": "seg01_b2.jpg",
+      "prompt": "OpenSSH phát hành bản vá khẩn cấp cho lỗ hổng mật khẩu dài trên Alpine Linux",
+      "brief": "OpenSSH phát hành bản vá khẩn cấp cho lỗ hổng mật khẩu dài trên Alpine Linux",
+      "text": "OpenSSH vừa phát hành bản sửa lỗi khẩn cấp phiên bản 10.6p2 để vá một lỗ hổng nghiêm trọng trên một số máy chủ Alpine Linux chạy gói openssh-server tiêu chuẩn.",
+      "text_hash": "728a2cfba286",
+      "provider": "gemini-image"
+    },
+    "seg04_b1": {
+      "file": "seg04_b1.jpg",
+      "prompt": "Mô hình AI của OpenAI phát hiện và khai thác 948 lỗ hổng nhân Linux",
+      "brief": "Mô hình AI của OpenAI phát hiện và khai thác 948 lỗ hổng nhân Linux",
+      "text": "Thật đáng ngạc nhiên. Tiếp theo là một nghiên cứu đầy ấn tượng từ OpenAI.",
+      "text_hash": "e4a05c57c827",
+      "provider": "gemini-image"
+    },
+    "seg04_b2": {
+      "file": "seg04_b2.jpg",
+      "prompt": "Mô hình AI của OpenAI phát hiện và khai thác 948 lỗ hổng nhân Linux",
+      "brief": "Mô hình AI của OpenAI phát hiện và khai thác 948 lỗ hổng nhân Linux",
+      "text": "Một mô hình AI chưa phát hành của họ đã tìm thấy và khai thác thành công 948 lỗi leo thang quyền hạn trong Linux kernel để chiếm quyền root, với chi phí khoảng 1,2 triệu USD.",
+      "text_hash": "4a8457108475",
+      "provider": "gemini-image"
+    },
+    "seg05_b1": {
+      "file": "seg05_b1.jpg",
+      "prompt": "Chiến dịch gián điệp zero-click nhắm vào thiết bị iPhone và Android",
+      "brief": "Chiến dịch gián điệp zero-click nhắm vào thiết bị iPhone và Android",
+      "text": "Chuyển sang tin tức về an ninh thiết bị di động, các nhà nghiên cứu phát hiện các tin tặc có liên kết với chính phủ Nga đang nhắm mục tiêu vào người dùng iPhone và Android tại Ukraine, Mỹ và Châu Âu trong một chiến dịch gián điệp zero-click để đánh cắp thông tin nhạy cảm.",
+      "text_hash": "07e60ff450ed",
+      "provider": "gemini-image"
+    }
+  }
+}

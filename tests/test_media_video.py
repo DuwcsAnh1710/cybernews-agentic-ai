@@ -169,7 +169,9 @@ def mock_settings(tmp_path: Path) -> Settings:
 
 
 def test_render_cyber_frame_dimensions_and_theme() -> None:
-    """Test rendering 1080x1920 and 720x1280 frames with Dark Cybersecurity theme."""
+    """Test rendering 1080x1920 and 720x1280 frames with Hallmark Handcrafted Editorial theme."""
+    from cyberpulse.media_video import HALLMARK_PAPER
+
     # 1. 1080x1920
     img_1080 = render_cyber_frame(
         scene_no=1,
@@ -182,9 +184,9 @@ def test_render_cyber_frame_dimensions_and_theme() -> None:
         height=1920,
     )
     assert img_1080.size == (1080, 1920)
-    # Background color check near top-left inside corner
+    # Background color check near top-left inside corner (Hallmark Warm Archival Paper #F6F2EA)
     pixel = img_1080.getpixel((10, 10))
-    assert pixel == (15, 23, 42)  # #0F172A
+    assert pixel == HALLMARK_PAPER
 
     # 2. 720x1280
     img_720 = render_cyber_frame(
@@ -642,3 +644,323 @@ def test_export_editorial_bundle_includes_video(
     assert exported_mp4.exists()
     assert exported_mp4.read_bytes() == b"MOCK_MP4_CONTENT"
     assert f"{run_id}.mp4" in res.files_created
+
+
+# ==============================================================================
+# Podcast-to-Video Sub-60s Curation, Audio Slicing & HyperFrames Tests
+# ==============================================================================
+
+
+def test_format_editorial_headline_preserves_acronyms() -> None:
+    """Test shouting ALL-CAPS headlines are converted to natural sentence case while keeping technical acronyms."""
+    from cyberpulse.media_video import format_editorial_headline
+
+    h1 = format_editorial_headline("[CISA KEV ALERT] • LỖ HỔNG XÁC THỰC CVE-2024-27834 TRÊN APPLE IOS!")
+    assert "CVE-2024-27834" in h1
+    assert "Apple" in h1
+    assert "iOS" in h1
+    assert "[CISA" not in h1
+    assert "•" not in h1
+
+
+def test_curate_podcast_highlights_under_60s(mock_settings: Settings) -> None:
+    """Test multi-segment 2-MC podcast (~140s) is automatically trimmed under 60s keeping core stories."""
+    from cyberpulse.media_video import curate_podcast_highlights
+
+    pkg = EditorialPackage(
+        run_id="run-podcast-curate-test",
+        language="vi",
+        digest=Digest(
+            title="Điểm tin an ninh mạng",
+            intro="Tóm tắt bản tin.",
+            sections=[
+                DigestSection(
+                    heading="OpenSSH phát hành bản vá khẩn cấp trên Alpine Linux",
+                    body=CitedText(text="Chi tiết lỗi OpenSSH.", cited_article_ids=["a1"]),
+                ),
+                DigestSection(
+                    heading="Mô hình AI khai thác 948 lỗ hổng nhân Linux",
+                    body=CitedText(text="Chi tiết 948 lỗ hổng kernel.", cited_article_ids=["a2"]),
+                ),
+                DigestSection(
+                    heading="Chiến dịch gián điệp zero-click trên thiết bị di động",
+                    body=CitedText(text="Chi tiết chiến dịch zero-click.", cited_article_ids=["a3"]),
+                ),
+            ],
+        ),
+        podcast=PodcastScript(
+            title="Podcast Sáng",
+            segments=[
+                PodcastSegment(
+                    speaker="Minh",
+                    line=CitedText(
+                        text="Xin chào các bạn nghe đài, chào mừng quay trở lại với bản tin. Mình là Minh và đồng hành cùng mình hôm nay là chị Lan.",
+                        cited_article_ids=["a1", "a2", "a3"],
+                    ),
+                ),
+                PodcastSegment(
+                    speaker="Lan",
+                    line=CitedText(
+                        text="Chào Minh. Tin đầu tiên là OpenSSH vừa phát hành phiên bản 10.6p2 vá lỗ hổng nghiêm trọng trên Alpine Linux.",
+                        cited_article_ids=["a1"],
+                    ),
+                ),
+                PodcastSegment(
+                    speaker="Minh",
+                    line=CitedText(
+                        text="Lỗ hổng này nghiêm trọng ra sao vậy chị Lan?",
+                        cited_article_ids=["a1"],
+                    ),
+                ),
+                PodcastSegment(
+                    speaker="Lan",
+                    line=CitedText(
+                        text="Kẻ tấn công có thể dùng mật khẩu dài từ 257 đến 1024 byte để vượt qua xác thực SSH trên máy chủ.",
+                        cited_article_ids=["a1"],
+                    ),
+                ),
+                PodcastSegment(
+                    speaker="Minh",
+                    line=CitedText(
+                        text="Tiếp theo là nghiên cứu từ OpenAI khi mô hình AI của họ tìm thấy và khai thác 948 lỗ hổng leo thang đặc quyền trong nhân Linux.",
+                        cited_article_ids=["a2"],
+                    ),
+                ),
+                PodcastSegment(
+                    speaker="Lan",
+                    line=CitedText(
+                        text="Ngoài ra các nhà nghiên cứu vừa phát hiện chiến dịch tấn công zero-click nhắm vào người dùng iPhone và Android để đánh cắp dữ liệu.",
+                        cited_article_ids=["a3"],
+                    ),
+                ),
+                PodcastSegment(
+                    speaker="Minh",
+                    line=CitedText(
+                        text="Cảm ơn chị Lan. Cảm ơn các bạn đã theo dõi podcast hôm nay, hẹn gặp lại các bạn!",
+                        cited_article_ids=["a1", "a2", "a3"],
+                    ),
+                ),
+            ],
+        ),
+        video=VideoScript(
+            title="Video Điểm Tin",
+            scenes=[
+                VideoScene(
+                    scene_no=1,
+                    on_screen_text="OpenSSH Vá Lỗi Alpine Linux",
+                    narration=CitedText(text="OpenSSH ra bản vá 10.6p2.", cited_article_ids=["a1"]),
+                    duration_sec=12.0,
+                )
+            ],
+        ),
+        captions=[
+            Caption(
+                platform="tiktok",
+                text="Điểm tin an ninh mạng",
+                hashtags=["#CyberPulse"],
+                cited_article_ids=["a1"],
+            )
+        ],
+    )
+
+    podcast_meta = {
+        "segments": [
+            {"index": 0, "speaker": "Minh", "start_sec": 0.0, "end_sec": 14.0, "duration_sec": 14.0},
+            {"index": 1, "speaker": "Lan", "start_sec": 14.35, "end_sec": 30.35, "duration_sec": 16.0},
+            {"index": 2, "speaker": "Minh", "start_sec": 30.7, "end_sec": 37.7, "duration_sec": 7.0},
+            {"index": 3, "speaker": "Lan", "start_sec": 38.05, "end_sec": 56.05, "duration_sec": 18.0},
+            {"index": 4, "speaker": "Minh", "start_sec": 56.4, "end_sec": 73.4, "duration_sec": 17.0},
+            {"index": 5, "speaker": "Lan", "start_sec": 73.75, "end_sec": 90.75, "duration_sec": 17.0},
+            {"index": 6, "speaker": "Minh", "start_sec": 91.1, "end_sec": 103.1, "duration_sec": 12.0},
+        ]
+    }
+
+    clips = curate_podcast_highlights(
+        editorial_pkg=pkg,
+        settings=mock_settings,
+        podcast_meta=podcast_meta,
+        max_duration_sec=56.0,
+    )
+
+    assert len(clips) >= 2
+    total_dur = sum(c.duration_sec for c in clips) + (len(clips) - 1) * 0.24
+    assert total_dur < 60.0
+    # Greeting (index 0) and sign-off (index 6) should be excluded
+    selected_indices = [c.segment_index for c in clips]
+    assert 0 not in selected_indices
+    assert 6 not in selected_indices
+    # Both speakers (Minh & Lan) should be represented
+    speakers = {c.speaker for c in clips}
+    assert "Minh" in speakers and "Lan" in speakers
+
+
+def test_slice_mp3_bytes_and_energy_profile() -> None:
+    """Test slicing valid MPEG frames by timestamp and extracting a voice energy profile."""
+    from cyberpulse.media_video import extract_mp3_energy_profile, slice_mp3_bytes
+
+    # 100 MPEG-2 Layer 3 frames (~2.4 seconds at 24ms/frame)
+    single_frame = b"\xff\xf3\x64\xc4" + bytes((i * 17) % 256 for i in range(140))
+    mock_mp3 = single_frame * 100
+
+    sliced, dur = slice_mp3_bytes(mock_mp3, start_sec=0.48, end_sec=1.44)
+    assert len(sliced) > 0
+    assert 0.85 <= dur <= 1.05
+
+    profile = extract_mp3_energy_profile(sliced, num_points=28)
+    assert len(profile) == 28
+    assert all(0.15 <= p <= 1.0 for p in profile)
+
+
+def test_synthesize_video_auto_podcast_and_hyperframes(
+    tmp_path: Path,
+    sample_editorial_pkg: EditorialPackage,
+    mock_settings: Settings,
+) -> None:
+    """Test synthesize_video automatically slices pre-existing podcast MP3 and exports HyperFrames project."""
+    podcast_dir = tmp_path / "output" / "media" / "podcast"
+    video_dir = tmp_path / "output" / "media" / "video"
+    podcast_dir.mkdir(parents=True, exist_ok=True)
+
+    run_id = sample_editorial_pkg.run_id
+    # Create a mock 24-second MP3 (1000 frames * 0.024s)
+    frame = b"\xff\xf3\x64\xc4" + b"\x2a" * 140
+    (podcast_dir / f"{run_id}.mp3").write_bytes(frame * 1000)
+    (podcast_dir / f"{run_id}.json").write_text(
+        json.dumps({
+            "run_id": run_id,
+            "segments": [
+                {
+                    "index": 0,
+                    "speaker": "Minh",
+                    "voice": "vi-VN-NamMinhNeural",
+                    "start_sec": 0.0,
+                    "end_sec": 8.4,
+                    "duration_sec": 8.4,
+                }
+            ],
+        }),
+        encoding="utf-8",
+    )
+
+    res = synthesize_video(
+        run_id=run_id,
+        editorial_pkg=sample_editorial_pkg,
+        settings=mock_settings,
+        options=VideoMediaOptions(force=True, prefer_ffmpeg=False),
+        output_media_dir=video_dir,
+        assembler=PurePythonVideoAssembler(),
+    )
+
+    assert res.video_path is not None and res.video_path.exists()
+    assert res.total_duration_sec < 60.0
+    assert res.audio_source == "podcast-sliced"
+    assert res.hyperframes_dir is not None and res.hyperframes_dir.exists()
+    assert (res.hyperframes_dir / "index.html").exists()
+    assert (res.hyperframes_dir / "tokens.css").exists()
+    assert (res.hyperframes_dir / "compositions" / "scene_01.html").exists()
+    assert (res.hyperframes_dir / "TRANSLATION_NOTES.md").exists()
+
+    tokens_content = (res.hyperframes_dir / "tokens.css").read_text(encoding="utf-8")
+    assert tokens_content.startswith("/* Hallmark · v2.0.0")
+    assert "--color-paper:" in tokens_content
+
+
+def test_split_scene_into_beats_and_illustration_cache(tmp_path: Path) -> None:
+    """Test beat splitting at sentence boundary and manifest-cached AI illustration generation."""
+    from io import BytesIO
+    from PIL import Image
+    from cyberpulse.media_illustrations import (
+        ensure_beat_illustrations,
+        split_scene_into_beats,
+    )
+
+    long_text = (
+        "OpenSSH vừa phát hành bản sửa lỗi khẩn cấp phiên bản 10.6p2 để vá lỗ hổng nghiêm trọng. "
+        "Lỗ hổng này cho phép kẻ tấn công vượt qua bước xác thực trên các máy chủ Alpine Linux."
+    )
+    beats = split_scene_into_beats(
+        scene_no=1,
+        segment_index=1,
+        headline="OpenSSH phát hành bản vá khẩn cấp",
+        text=long_text,
+        duration_sec=15.5,
+    )
+    assert len(beats) == 2
+    assert beats[0].word_start == 0
+    assert beats[1].word_start == beats[0].word_end
+
+    class _FakeProvider:
+        name = "fake-illust"
+
+        def __init__(self) -> None:
+            self.calls = 0
+
+        def generate(self, prompt: str, seed: int) -> bytes | None:
+            self.calls += 1
+            buf = BytesIO()
+            Image.new("RGB", (600, 400), color=(210, 175, 130)).save(buf, format="JPEG")
+            return buf.getvalue()
+
+    provider = _FakeProvider()
+    assets_dir = tmp_path / "run_assets"
+
+    resolved1, rep1 = ensure_beat_illustrations(beats, assets_dir=assets_dir, providers=[provider])
+    assert rep1.generated == 2
+    assert rep1.reused == 0
+    assert provider.calls == 2
+    assert all(b.image_path is not None and b.image_path.exists() for b in resolved1)
+
+    # Second call with identical text should reuse the manifest cache without calling provider
+    resolved2, rep2 = ensure_beat_illustrations(beats, assets_dir=assets_dir, providers=[provider])
+    assert rep2.generated == 0
+    assert rep2.reused == 2
+    assert provider.calls == 2
+    assert [b.image_path for b in resolved2] == [b.image_path for b in resolved1]
+
+
+def test_align_words_and_motion_renderer_karaoke(tmp_path: Path) -> None:
+    """Test word-level alignment with pause anchors and frame-accurate karaoke highlight rendering."""
+    from PIL import Image
+    from cyberpulse.media_motion import (
+        PlateBeat,
+        SceneMotionRenderer,
+        SceneMotionSpec,
+        align_words,
+    )
+
+    text = "CISA vừa cảnh báo lỗ hổng CVE-2024-27834 trên hệ điều hành Apple. Hãy cập nhật ngay hôm nay."
+    # Envelope with a clear pause around 3.2s - 3.5s
+    env = [0.6 if not (320 <= i <= 350) else 0.01 for i in range(600)]
+    words = align_words(text, duration=6.0, envelope=env)
+    assert len(words) == len(text.split())
+    assert words[0].start >= 0.0
+    assert words[-1].end <= 6.0
+    for a, b in zip(words, words[1:]):
+        assert a.start <= a.end <= b.start + 1e-3
+
+    img_path = tmp_path / "beat1.jpg"
+    Image.new("RGB", (1200, 800), color=(205, 165, 120)).save(img_path, "JPEG")
+
+    spec = SceneMotionSpec(
+        scene_no=1,
+        total_scenes=3,
+        run_id="run-20261106T022500Z-3f403298",
+        headline="CISA cảnh báo lỗ hổng trên hệ điều hành Apple",
+        category_label="Hồ sơ lỗ hổng và bản vá khẩn",
+        speaker="Lan",
+        speaker_role="Biên tập viên chuyên mục",
+        narration=text,
+        duration_sec=6.0,
+        words=words,
+        beats=[PlateBeat(img_path, 0.0, 6.0, "Minh họa AI theo lời thoại")],
+        envelope=env,
+        start_sec=0.0,
+    )
+    renderer = SceneMotionRenderer(spec, width=540, height=960)
+    f_early = renderer.render(0.4)
+    f_mid = renderer.render(3.0)
+    assert f_early.size == (540, 960)
+    assert f_mid.size == (540, 960)
+    assert f_early.tobytes() != f_mid.tobytes()
+
+
