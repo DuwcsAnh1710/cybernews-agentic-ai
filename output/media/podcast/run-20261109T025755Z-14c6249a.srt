@@ -1,0 +1,151 @@
+1
+00:00:00,000 --> 00:00:04,237
+[Minh] Chào mừng các bạn đến với bản tin an ninh mạng hôm nay. Tôi là Minh,
+
+2
+00:00:04,237 --> 00:00:09,471
+và hôm nay chúng ta sẽ cùng cô Lan thảo luận về những thông tin bảo mật mới nhất vừa
+
+3
+00:00:09,471 --> 00:00:09,720
+qua.
+
+4
+00:00:10,070 --> 00:00:12,153
+[Lan] Chào Minh và chào các độc giả.
+
+5
+00:00:12,153 --> 00:00:17,082
+Hôm nay chúng ta có nhiều tin tức đáng chú ý liên quan đến lỗ hổng VPN,
+
+6
+00:00:17,082 --> 00:00:21,734
+nguy cơ rò rỉ dữ liệu từ công cụ AI, và các chiến lược bảo mật mới.
+
+7
+00:00:22,084 --> 00:00:24,857
+[Minh] Đầu tiên là thông tin từ SonicWall.
+
+8
+00:00:24,857 --> 00:00:30,958
+Họ vừa phát hành bản vá cho lỗ hổng CVE-2026-19868 trên hệ điều hành SonicOS.
+
+9
+00:00:30,958 --> 00:00:37,060
+Lỗ hổng này đang bị khai thác thực tế và làm suy yếu quy trình đăng nhập VPN.
+
+10
+00:00:37,410 --> 00:00:38,089
+[Lan] Đúng vậy,
+
+11
+00:00:38,089 --> 00:00:43,977
+lỗ hổng CVE-2026-19868 cho phép kẻ tấn công sở hữu thông tin đăng nhập của một
+
+12
+00:00:43,977 --> 00:00:46,996
+phương thức khác vượt qua kiểm tra SAML,
+
+13
+00:00:46,996 --> 00:00:50,922
+bao gồm cả xác thực đa yếu tố MFA bắt buộc qua SAML.
+
+14
+00:00:51,272 --> 00:00:54,689
+[Minh] Tiếp theo là mối lo ngại về công cụ AI Claude Code.
+
+15
+00:00:54,689 --> 00:00:56,900
+Theo công ty an ninh mạng Apiiro,
+
+16
+00:00:56,900 --> 00:01:02,528
+tùy chọn 'Don't Ask Again' đang vô tình làm rò rỉ mật khẩu và khóa API của lập trình
+
+17
+00:01:02,528 --> 00:01:02,864
+viên.
+
+18
+00:01:03,214 --> 00:01:06,236
+[Lan] Khi người dùng chọn 'Yes, and don't ask again',
+
+19
+00:01:06,236 --> 00:01:11,380
+Claude Code lưu chính xác từng từ trong lệnh đã phê duyệt vào tệp cài đặt dự án.
+
+20
+00:01:11,380 --> 00:01:16,654
+Apiiro đã phát hiện 1.122 bản sao công khai trên GitHub chứa thông tin bí mật này.
+
+21
+00:01:17,004 --> 00:01:21,773
+[Minh] Về vấn đề quản lý agent AI, trong bài phỏng vấn trên Help Net Security,
+
+22
+00:01:21,773 --> 00:01:24,258
+ông Vinay Thakker, CTO của KloudStax,
+
+23
+00:01:24,258 --> 00:01:29,028
+đã chia sẻ 10 dòng chính sách lệnh đầu tiên cho các agent lập trình AI.
+
+24
+00:01:29,378 --> 00:01:33,338
+[Lan] Ông nhấn mạnh rằng các AI agent nên hoạt động dưới danh tính riêng của chúng,
+
+25
+00:01:33,338 --> 00:01:37,555
+đồng thời gắn kèm danh tính của người dùng khi thực hiện các thao tác thay mặt cho
+
+26
+00:01:37,555 --> 00:01:38,018
+người đó.
+
+27
+00:01:38,368 --> 00:01:39,564
+[Minh] Cũng trong tuần qua,
+
+28
+00:01:39,564 --> 00:01:44,466
+các vụ tấn công mạng nhắm vào hệ thống làm lạnh lại tiếp tục ảnh hưởng đến các nhà
+
+29
+00:01:44,466 --> 00:01:47,992
+bán lẻ châu Âu, bên cạnh việc Google triệt phá botnet XCPE.
+
+30
+00:01:48,342 --> 00:01:48,935
+[Lan] Cuối cùng,
+
+31
+00:01:48,935 --> 00:01:53,678
+công ty Brava Security vừa rời khỏi trạng thái ẩn danh với khoản đầu tư 15 triệu
+
+32
+00:01:53,678 --> 00:01:53,915
+USD.
+
+33
+00:01:53,915 --> 00:01:58,895
+Nền tảng multi-agent AI của họ tạo ra dữ liệu telemetry mà một cuộc tấn công thực tế
+
+34
+00:01:58,895 --> 00:02:02,334
+sẽ sinh ra, giúp doanh nghiệp khắc phục lỗ hổng phòng thủ.
+
+35
+00:02:02,684 --> 00:02:06,054
+[Minh] Đó là những thông tin quan trọng nhất tuần này.
+
+36
+00:02:06,054 --> 00:02:11,790
+Đừng quên cập nhật bản vá cho VPN và kiểm tra các tệp cấu hình AI agent của bạn.
+
+37
+00:02:11,790 --> 00:02:14,228
+Cảm ơn Lan và hẹn gặp lại các bạn!
+
+38
+00:02:14,578 --> 00:02:18,106
+[Lan] Xin chào và hẹn gặp lại trong các số tiếp theo!

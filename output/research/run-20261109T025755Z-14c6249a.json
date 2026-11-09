@@ -1,0 +1,66 @@
+{
+  "run_id": "run-20261109T025755Z-14c6249a",
+  "status": "insufficient",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "95f744e469bb2d9f",
+        "source_name": "SecurityWeek",
+        "title": "SonicWall Patches Exploited SonicOS Vulnerability That Weakens VPN Logins",
+        "url": "https://securityweek.com/sonicwall-patches-exploited-sonicos-bug-that-weakens-vpn-logins",
+        "published_at": "2026-11-07T10:16:23Z",
+        "summary": "CVE-2026-19868 can let attackers holding credentials for a different login method get past SAML checks, including SAML-enforced MFA. The post SonicWall Patches Exploited SonicOS Vulnerability That Weakens VPN Logins appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-09T02:57:53.233250Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "SonicWall đã phát hành bản vá cho lỗ hổng SonicOS đang bị khai thác thực tế cho phép kẻ tấn công vượt qua xác thực đa yếu tố MFA trên các kết nối VPN."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "9989e939e148877e",
+        "source_name": "The Hacker News",
+        "title": "Claude Code's “Don't Ask Again” File Exposes Passwords and Keys in 1,122 Public Copies on GitHub",
+        "url": "https://thehackernews.com/2026/11/claude-codes-dont-ask-again-file.html",
+        "published_at": "2026-11-07T06:44:17Z",
+        "summary": "Passwords and API keys that developers typed into commands they approved in Claude Code are sitting in public GitHub repositories, where anyone can read them. When a user selects \"Yes, and don't ask again,\" Anthropic's AI coding assistant can save the command, word-for-word, including the secret, in a project settings file. Software security company Apiiro said yesterday that 1,122 public",
+        "fetched_at": "2026-11-09T02:57:52.880538Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Tính năng lưu câu lệnh của công cụ Claude Code đã làm rò rỉ nhiều mật khẩu và mã khóa API công khai trên GitHub."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "6e3b1e6d72c5556c",
+        "source_name": "Help Net Security",
+        "title": "Week in review: Refrigeration cyberattacks hit European retailers again, Patch Tuesday forecast",
+        "url": "https://helpnetsecurity.com/2026/11/08/week-in-review-refrigeration-cyberattacks-hit-european-retailers-again-patch-tuesday-forecast",
+        "published_at": "2026-11-08T09:00:21Z",
+        "summary": "Here’s an overview of some of last week’s most interesting news, articles, interviews and videos: The first ten lines of a command policy for AI coding agents In this Help Net Security interview, Vinay Thakker, CTO of KloudStax, explains how to set identity, credentials, and network limits for AI agents. He argues that agents should run under their own identity, with the person’s identity attached when acting on someone’s behalf. Google disrupts XCPE botnet, bans … More → The post Week in review: Refrigeration cyberattacks hit European retailers again, Patch Tuesday forecast appeared first on Help Net Security .",
+        "fetched_at": "2026-11-09T02:57:53.543886Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Bài tổng hợp tuần điểm qua các đợt tấn công mạng nhằm vào ngành bán lẻ Châu Âu và dự báo về kỳ Patch Tuesday sắp tới."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "7a3cca9331495d22",
+        "source_name": "SecurityWeek",
+        "title": "Brava Security Emerges From Stealth With $15 Million in Funding",
+        "url": "https://securityweek.com/brava-security-emerges-from-stealth-with-15-million-in-funding",
+        "published_at": "2026-11-08T12:14:00Z",
+        "summary": "Its multi-agent AI platform generates the telemetry an attack would produce to fix gaps in enterprise defenses. The post Brava Security Emerges From Stealth With $15 Million in Funding appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-09T02:57:53.233250Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Brava Security ra mắt nền tảng AI đa tác tử giúp tự động phát hiện lỗ hổng phòng thủ doanh nghiệp cùng khoản đầu tư 15 triệu USD."
+    }
+  ],
+  "notes": "insufficient items: requested 5, kept 4; candidates_available=4; hallucinated=0; duplicates=0; source_cap_dropped=0; model=gemini-3.6-flash; attempts=2"
+}

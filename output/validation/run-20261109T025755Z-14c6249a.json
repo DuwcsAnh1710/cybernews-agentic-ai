@@ -1,0 +1,21 @@
+{
+  "run_id": "run-20261109T025755Z-14c6249a",
+  "passed": true,
+  "errors": [],
+  "warnings": [
+    {
+      "code": "W_PODCAST_LENGTH",
+      "severity": "warning",
+      "path": "podcast.segments",
+      "message": "Total podcast words (447) outside target range [480, 720] (target 600 ± 20%)",
+      "evidence": "447 words (expected 480-720)"
+    }
+  ],
+  "checks_run": [
+    "layer1_structural",
+    "layer2_source_consistency",
+    "layer3_llm_claim_review (findings=0, dropped=0)"
+  ],
+  "llm_review": "done",
+  "scope_note": "Structural and source-consistency checks against RSS title/summary only. Facts are NOT independently verified."
+}

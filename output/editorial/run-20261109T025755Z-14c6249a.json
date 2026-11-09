@@ -1,0 +1,299 @@
+{
+  "run_id": "run-20261109T025755Z-14c6249a",
+  "language": "vi",
+  "digest": {
+    "title": "Điểm tin An ninh mạng: Lỗ hổng SonicOS bị khai thác, rò rỉ dữ liệu từ AI Coding Assistant và tấn công nhà bán lẻ",
+    "intro": "Điểm tin an ninh mạng tuần này cập nhật lỗ hổng bảo mật nghiêm trọng trong hệ điều hành SonicOS của SonicWall đã và đang bị khai thác thực tế. Bên cạnh đó là các cảnh báo liên quan đến việc rò rỉ thông tin đăng nhập từ trợ lý AI Claude Code, các cuộc tấn công mạng nhằm vào nhà bán lẻ Châu Âu và bước tiến của Brava Security.",
+    "sections": [
+      {
+        "heading": "SonicWall vá lỗ hổng SonicOS ảnh hưởng đến xác thực VPN",
+        "body": {
+          "text": "SonicWall đã phát hành bản vá cho lỗ hổng CVE-2026-19868 trong SonicOS. Lỗ hổng này đang bị khai thác trong thực tế, cho phép kẻ tấn công có thông tin đăng nhập từ phương thức khác vượt qua các bước kiểm tra SAML, bao gồm cả xác thực đa yếu tố (MFA - Multi-Factor Authentication) được bắt buộc bởi SAML để xâm nhập VPN.",
+          "cited_article_ids": [
+            "95f744e469bb2d9f"
+          ]
+        }
+      },
+      {
+        "heading": "Hơn 1.000 tệp cấu hình Claude Code rò rỉ mật khẩu và API Key trên GitHub",
+        "body": {
+          "text": "Theo công ty an ninh mạng Apiiro, 1.122 bản sao công khai trên GitHub của tệp cấu hình dự án thuộc Claude Code đang làm lộ mật khẩu và khóa API. Khi người dùng chọn tùy chọn đồng ý và không hỏi lại (\"Yes, and don't ask again\"), trợ lý lập trình AI của Anthropic sẽ lưu toàn bộ câu lệnh chứa thông tin bí mật vào tệp này.",
+          "cited_article_ids": [
+            "9989e939e148877e"
+          ]
+        }
+      },
+      {
+        "heading": "Tổng hợp tuần: Tấn công hệ thống làm lạnh tại Châu Âu và gián đoạn mạng botnet XCPE",
+        "body": {
+          "text": "Các nhà bán lẻ tại Châu Âu tiếp tục tái diễn các cuộc tấn công mạng nhắm vào hệ thống làm lạnh (refrigeration cyberattacks). Trong khi đó, Google đã triệt phá thành công mạng máy tính ma XCPE (botnet). Ngoài ra, các chuyên gia cũng đưa ra khuyến nghị về chính sách giới hạn danh tính và mạng cho các tác vụ AI agent.",
+          "cited_article_ids": [
+            "6e3b1e6d72c5556c"
+          ]
+        }
+      },
+      {
+        "heading": "Brava Security rời khỏi trạng thái bí mật với khoản đầu tư 15 triệu USD",
+        "body": {
+          "text": "Công ty Brava Security đã chính thức công khai hoạt động cùng khoản đầu tư 15 triệu USD. Brava Security sở hữu nền tảng AI đa tác vụ (multi-agent AI platform) có khả năng tự động tạo dữ liệu đo kiểm từ xa (telemetry) mô phỏng cuộc tấn công để khắc phục các lỗ hổng bảo vệ trong doanh nghiệp.",
+          "cited_article_ids": [
+            "7a3cca9331495d22"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: Lỗ Hổng VPN, Rò Rỉ Mật Khẩu AI Và Bảo Vệ Doanh Nghiệp",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin an ninh mạng hôm nay. Tôi là Minh, và hôm nay chúng ta sẽ cùng cô Lan thảo luận về những thông tin bảo mật mới nhất vừa qua.",
+          "cited_article_ids": [
+            "95f744e469bb2d9f",
+            "9989e939e148877e",
+            "6e3b1e6d72c5556c",
+            "7a3cca9331495d22"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào Minh và chào các độc giả. Hôm nay chúng ta có nhiều tin tức đáng chú ý liên quan đến lỗ hổng VPN, nguy cơ rò rỉ dữ liệu từ công cụ AI, và các chiến lược bảo mật mới.",
+          "cited_article_ids": [
+            "95f744e469bb2d9f",
+            "9989e939e148877e",
+            "6e3b1e6d72c5556c",
+            "7a3cca9331495d22"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đầu tiên là thông tin từ SonicWall. Họ vừa phát hành bản vá cho lỗ hổng CVE-2026-19868 trên hệ điều hành SonicOS. Lỗ hổng này đang bị khai thác thực tế và làm suy yếu quy trình đăng nhập VPN.",
+          "cited_article_ids": [
+            "95f744e469bb2d9f"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Đúng vậy, lỗ hổng CVE-2026-19868 cho phép kẻ tấn công sở hữu thông tin đăng nhập của một phương thức khác vượt qua kiểm tra SAML, bao gồm cả xác thực đa yếu tố MFA bắt buộc qua SAML.",
+          "cited_article_ids": [
+            "95f744e469bb2d9f"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Tiếp theo là mối lo ngại về công cụ AI Claude Code. Theo công ty an ninh mạng Apiiro, tùy chọn 'Don't Ask Again' đang vô tình làm rò rỉ mật khẩu và khóa API của lập trình viên.",
+          "cited_article_ids": [
+            "9989e939e148877e"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Khi người dùng chọn 'Yes, and don't ask again', Claude Code lưu chính xác từng từ trong lệnh đã phê duyệt vào tệp cài đặt dự án. Apiiro đã phát hiện 1.122 bản sao công khai trên GitHub chứa thông tin bí mật này.",
+          "cited_article_ids": [
+            "9989e939e148877e"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Về vấn đề quản lý agent AI, trong bài phỏng vấn trên Help Net Security, ông Vinay Thakker, CTO của KloudStax, đã chia sẻ 10 dòng chính sách lệnh đầu tiên cho các agent lập trình AI.",
+          "cited_article_ids": [
+            "6e3b1e6d72c5556c"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Ông nhấn mạnh rằng các AI agent nên hoạt động dưới danh tính riêng của chúng, đồng thời gắn kèm danh tính của người dùng khi thực hiện các thao tác thay mặt cho người đó.",
+          "cited_article_ids": [
+            "6e3b1e6d72c5556c"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Cũng trong tuần qua, các vụ tấn công mạng nhắm vào hệ thống làm lạnh lại tiếp tục ảnh hưởng đến các nhà bán lẻ châu Âu, bên cạnh việc Google triệt phá botnet XCPE.",
+          "cited_article_ids": [
+            "6e3b1e6d72c5556c"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cuối cùng, công ty Brava Security vừa rời khỏi trạng thái ẩn danh với khoản đầu tư 15 triệu USD. Nền tảng multi-agent AI của họ tạo ra dữ liệu telemetry mà một cuộc tấn công thực tế sẽ sinh ra, giúp doanh nghiệp khắc phục lỗ hổng phòng thủ.",
+          "cited_article_ids": [
+            "7a3cca9331495d22"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đó là những thông tin quan trọng nhất tuần này. Đừng quên cập nhật bản vá cho VPN và kiểm tra các tệp cấu hình AI agent của bạn. Cảm ơn Lan và hẹn gặp lại các bạn!",
+          "cited_article_ids": [
+            "95f744e469bb2d9f",
+            "9989e939e148877e",
+            "6e3b1e6d72c5556c",
+            "7a3cca9331495d22"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Xin chào và hẹn gặp lại trong các số tiếp theo!",
+          "cited_article_ids": [
+            "95f744e469bb2d9f",
+            "9989e939e148877e",
+            "6e3b1e6d72c5556c",
+            "7a3cca9331495d22"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Cảnh Báo An Ninh Mạng: Lỗ Hổng VPN Và Rò Rỉ Mật Khẩu AI",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "Cảnh báo bảo mật tuần qua!",
+        "narration": {
+          "text": "Điểm qua những thông tin an ninh mạng nóng nhất tuần này!",
+          "cited_article_ids": [
+            "95f744e469bb2d9f",
+            "9989e939e148877e",
+            "6e3b1e6d72c5556c",
+            "7a3cca9331495d22"
+          ]
+        },
+        "duration_sec": 5.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "SonicWall vá lỗ hổng CVE-2026-19868",
+        "narration": {
+          "text": "SonicWall cập nhật bản vá CVE-2026-19868 trên SonicOS, ngăn kẻ tấn công vượt qua xác thực SAML và MFA của VPN.",
+          "cited_article_ids": [
+            "95f744e469bb2d9f"
+          ]
+        },
+        "duration_sec": 15.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "Claude Code làm lộ mật khẩu trên GitHub",
+        "narration": {
+          "text": "Tính năng Don't Ask Again của Claude Code khiến 1.122 dự án công khai trên GitHub lộ mật khẩu và API key.",
+          "cited_article_ids": [
+            "9989e939e148877e"
+          ]
+        },
+        "duration_sec": 15.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Quản lý danh tính cho AI Agent",
+        "narration": {
+          "text": "CTO Vinay Thakker khuyến nghị thiết lập danh tính riêng cho các AI agent khi hoạt động.",
+          "cited_article_ids": [
+            "6e3b1e6d72c5556c"
+          ]
+        },
+        "duration_sec": 15.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "Brava Security gọi vốn 15 triệu USD",
+        "narration": {
+          "text": "Brava Security nhận 15 triệu USD cho nền tảng multi-agent AI mô phỏng dữ liệu tấn công để khắc phục lỗ hổng.",
+          "cited_article_ids": [
+            "7a3cca9331495d22"
+          ]
+        },
+        "duration_sec": 15.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "Cập nhật bản vá ngay hôm nay!",
+        "narration": {
+          "text": "Hãy kiểm tra và cập nhật hệ thống của bạn ngay lập tức để đảm bảo an toàn!",
+          "cited_article_ids": [
+            "95f744e469bb2d9f",
+            "9989e939e148877e",
+            "6e3b1e6d72c5556c",
+            "7a3cca9331495d22"
+          ]
+        },
+        "duration_sec": 5.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "Cập nhật an ninh mạng nổi bật: SonicWall vá lỗ hổng VPN SonicOS (CVE-2026-19868) đang bị khai thác; cảnh báo 1.122 tệp Claude Code rò rỉ API key trên GitHub; hệ thống làm lạnh của các nhà bán lẻ Châu Âu lại bị tấn công và Google triệt phá botnet XCPE. Đọc bản tin chi tiết ngay!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#SonicWall",
+        "#ClaudeCode",
+        "#CyberSecurity",
+        "#Botnet"
+      ],
+      "cited_article_ids": [
+        "95f744e469bb2d9f",
+        "9989e939e148877e",
+        "6e3b1e6d72c5556c",
+        "7a3cca9331495d22"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Bản tin An ninh mạng hôm nay gồm các tin chính:\n1. SonicWall phát hành bản vá khẩn cấp cho lỗ hổng SonicOS (CVE-2026-19868) giúp qua mặt xác thực MFA của VPN.\n2. Cảnh báo rò rỉ mật khẩu và khóa API từ tính năng lưu lệnh của trợ lý AI Claude Code trên GitHub.\n3. Các nhà bán lẻ Châu Âu tiếp tục bị tấn công mạng vào hệ thống làm lạnh; Google đánh sập botnet XCPE.\n4. Brava Security huy động thành công 15 triệu USD cho nền tảng AI phòng vệ doanh nghiệp.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#TinTucCongNghe",
+        "#BaoMatInformation",
+        "#SonicOS",
+        "#AI"
+      ],
+      "cited_article_ids": [
+        "95f744e469bb2d9f",
+        "9989e939e148877e",
+        "6e3b1e6d72c5556c",
+        "7a3cca9331495d22"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Cảnh báo bảo mật: Lỗ hổng SonicOS bị khai thác vượt MFA VPN; rò rỉ khóa API trên GitHub từ Claude Code; các nhà bán lẻ Châu Âu bị tấn công hệ thống làm lạnh!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#BaoMat",
+        "#LearnOnTikTok",
+        "#CongNghe"
+      ],
+      "cited_article_ids": [
+        "95f744e469bb2d9f",
+        "9989e939e148877e",
+        "6e3b1e6d72c5556c"
+      ]
+    }
+  ]
+}

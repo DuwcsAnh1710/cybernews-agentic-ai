@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "style": "hallmark-gouache",
+  "beats": {
+    "seg00_b1": {
+      "file": "seg00_b1.jpg",
+      "prompt": "a craftsman carefully stitching a patch onto a worn canvas shaped like a shield; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "a craftsman carefully stitching a patch onto a worn canvas shaped like a shield; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern",
+      "text": "Chào mừng các bạn đến với bản tin an ninh mạng hôm nay. Tôi là Minh, và hôm nay chúng ta sẽ cùng cô Lan thảo luận về những thông tin bảo mật mới nhất vừa qua.",
+      "text_hash": "476064f4f0db",
+      "provider": "pollinations"
+    },
+    "seg09_b2": {
+      "file": "seg09_b2.jpg",
+      "prompt": "paper records slipping out of a cracked archive box onto a desk, a magnifying glass nearby; in the background, a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "paper records slipping out of a cracked archive box onto a desk, a magnifying glass nearby; in the background, a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines",
+      "text": "Nền tảng multi-agent AI của họ tạo ra dữ liệu telemetry mà một cuộc tấn công thực tế sẽ sinh ra, giúp doanh nghiệp khắc phục lỗ hổng phòng thủ.",
+      "text_hash": "8fd1105233aa",
+      "provider": "pollinations"
+    }
+  }
+}
