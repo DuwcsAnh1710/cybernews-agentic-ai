@@ -1,0 +1,171 @@
+1
+00:00:00,000 --> 00:00:04,342
+[Minh] Chào mừng các bạn đến với bản tin an ninh mạng tuần này! Tôi là Minh,
+
+2
+00:00:04,342 --> 00:00:09,565
+và hôm nay chúng ta sẽ cùng chuyên gia Lan điểm qua các sự kiện bảo mật nổi bật vừa
+
+3
+00:00:09,565 --> 00:00:09,816
+qua.
+
+4
+00:00:10,166 --> 00:00:11,988
+[Lan] Xin chào Minh và các khán giả!
+
+5
+00:00:11,988 --> 00:00:17,090
+Hôm nay chúng ta có nhiều thông tin quan trọng về các lỗ hổng đang bị khai thác thực
+
+6
+00:00:17,090 --> 00:00:20,006
+tế mà các quản trị viên hệ thống cần chú ý ngay.
+
+7
+00:00:20,356 --> 00:00:20,913
+[Minh] Đầu tiên,
+
+8
+00:00:20,913 --> 00:00:26,051
+tin tức từ SecurityWeek cho thấy các hacker đang khai thác lỗ hổng qua mặt xác thực
+
+9
+00:00:26,051 --> 00:00:27,475
+'SSHole' trong OpenSSH.
+
+10
+00:00:27,475 --> 00:00:31,684
+Lan có thể chia sẻ thêm ai đang đứng sau các đợt tấn công này không?
+
+11
+00:00:32,034 --> 00:00:32,878
+[Lan] Theo báo cáo,
+
+12
+00:00:32,878 --> 00:00:38,332
+các nỗ lực khai thác ban đầu được quy cho các mạng máy tính ma botnet và kẻ đào tiền
+
+13
+00:00:38,332 --> 00:00:43,722
+điện tử crypto miners. Tuy nhiên, các nhóm đe doạ khác dự kiến cũng sẽ sớm nối gót.
+
+14
+00:00:44,072 --> 00:00:47,903
+[Minh] Thông tin tiếp theo liên quan đến SonicWall.
+
+15
+00:00:47,903 --> 00:00:55,129
+Họ vừa khắc phục lỗ hổng CVE-2026-19868 trên SonicOS SSL-VPN đang bị khai thác đúng
+
+16
+00:00:55,129 --> 00:00:56,000
+không Lan?
+
+17
+00:00:56,350 --> 00:00:57,087
+[Lan] Đúng vậy.
+
+18
+00:00:57,087 --> 00:01:03,559
+Lỗ hổng này cho phép kẻ tấn công có thông tin đăng nhập hợp lệ qua mặt xác thực
+
+19
+00:01:03,559 --> 00:01:09,130
+nhiều yếu tố MFA dùng SAML. Lỗi xảy ra khi dịch vụ SSL-VPN bật SAML.
+
+20
+00:01:09,130 --> 00:01:15,766
+Vì không có giải pháp thay thế, SonicWall thúc giục cập nhật bản vá ngay lập tức.
+
+21
+00:01:16,116 --> 00:01:19,773
+[Minh] Một tin tức đáng lo ngại khác về điện toán đám mây: Qubole -
+
+22
+00:01:19,773 --> 00:01:22,394
+nền tảng data lake thuộc sở hữu của Idera -
+
+23
+00:01:22,394 --> 00:01:27,452
+đã bị hacker lợi dụng quyền truy cập AWS được tin tưởng để xâm nhập tài khoản khách
+
+24
+00:01:27,452 --> 00:01:27,756
+hàng.
+
+25
+00:01:28,106 --> 00:01:32,945
+[Lan] Công ty an ninh mạng Wiz cho biết kẻ tấn công đã đột nhập tài khoản AWS của nhiều
+
+26
+00:01:32,945 --> 00:01:37,724
+khách hàng Qubole từ ngày 14 đến ngày 26 tháng 10 để đánh cắp bí mật và dữ liệu.
+
+27
+00:01:37,724 --> 00:01:41,846
+Kẻ tấn công dùng thông tin đăng nhập tài khoản AWS mà Qubole sử dụng,
+
+28
+00:01:41,846 --> 00:01:44,714
+dù cách thức lộ thông tin vẫn chưa được công bố.
+
+29
+00:01:45,064 --> 00:01:47,065
+[Minh] Về mảng chuỗi cung ứng mã nguồn mở,
+
+30
+00:01:47,065 --> 00:01:51,809
+Infosecurity Magazine vừa đưa tin về một cuộc tấn công chuỗi cung ứng mới ảnh hưởng
+
+31
+00:01:51,809 --> 00:01:53,752
+hàng chục ngàn kho lưu trữ GitHub.
+
+32
+00:01:54,102 --> 00:01:54,699
+[Lan] Chính xác.
+
+33
+00:01:54,699 --> 00:01:59,658
+Các nhà nghiên cứu bảo mật đã phát hiện một quy trình làm việc độc hại workflow ảnh
+
+34
+00:01:59,658 --> 00:02:02,586
+hưởng đến hàng chục nghìn repository trên GitHub,
+
+35
+00:02:02,586 --> 00:02:05,454
+bao gồm cả các repository thuộc sở hữu của Uber.
+
+36
+00:02:05,804 --> 00:02:11,448
+[Minh] Cuối cùng là cảnh báo Plex2Shell đang bị khai thác nhắm vào người dùng thiết bị lưu
+
+37
+00:02:11,448 --> 00:02:12,332
+trữ QNAP NAS.
+
+38
+00:02:12,682 --> 00:02:13,298
+[Lan] Đúng vậy,
+
+39
+00:02:13,298 --> 00:02:18,775
+các nhóm đe doạ đang khai thác chuỗi gồm 4 lỗ hổng này để tấn công ứng dụng Plex
+
+40
+00:02:18,775 --> 00:02:21,514
+Media Server trên các thiết bị QNAP NAS.
+
+41
+00:02:21,864 --> 00:02:24,765
+[Minh] Cảm ơn Lan vì những chia sẻ rất giá trị.
+
+42
+00:02:24,765 --> 00:02:29,915
+Các bạn hãy kiểm tra và cập nhật bản vá cho hệ thống của mình ngay nhé.
+
+43
+00:02:29,915 --> 00:02:31,656
+Xin chào và hẹn gặp lại!

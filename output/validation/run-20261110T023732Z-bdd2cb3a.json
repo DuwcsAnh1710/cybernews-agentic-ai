@@ -1,0 +1,57 @@
+{
+  "run_id": "run-20261110T023732Z-bdd2cb3a",
+  "passed": false,
+  "errors": [
+    {
+      "code": "E_NUMBER_UNSUPPORTED",
+      "severity": "error",
+      "path": "podcast.segments[7].line.text",
+      "message": "Number '10' not found in cited source text",
+      "evidence": "10"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "W_SECTION_LENGTH",
+      "severity": "warning",
+      "path": "digest.sections[3].body.text",
+      "message": "Section body word count (57) outside allowed range [60, 120]",
+      "evidence": "57 words"
+    },
+    {
+      "code": "W_SECTION_LENGTH",
+      "severity": "warning",
+      "path": "digest.sections[4].body.text",
+      "message": "Section body word count (46) outside allowed range [60, 120]",
+      "evidence": "46 words"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "podcast.segments[8].line.text",
+      "message": "Term 'Infosecurity' not found in cited source text and not allowlisted",
+      "evidence": "Infosecurity"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "podcast.segments[8].line.text",
+      "message": "Term 'Magazine' not found in cited source text and not allowlisted",
+      "evidence": "Magazine"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "captions[0].text",
+      "message": "Term 'NINH' not found in cited source text and not allowlisted",
+      "evidence": "NINH"
+    }
+  ],
+  "checks_run": [
+    "layer1_structural",
+    "layer2_source_consistency",
+    "layer3_llm_claim_review (skipped)"
+  ],
+  "llm_review": "skipped",
+  "scope_note": "Structural and source-consistency checks against RSS title/summary only. Facts are NOT independently verified."
+}

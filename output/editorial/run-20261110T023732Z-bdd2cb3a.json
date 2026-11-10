@@ -1,0 +1,332 @@
+{
+  "run_id": "run-20261110T023732Z-bdd2cb3a",
+  "language": "vi",
+  "digest": {
+    "title": "Điểm tin an ninh mạng: Các lỗ hổng xác thực và tấn công chuỗi cung ứng mới",
+    "intro": "Bản tin an toàn thông tin hôm nay cập nhật các chiến dịch khai thác lỗ hổng nghiêm trọng trên OpenSSH, SonicWall SSL-VPN và thiết bị QNAP NAS. Bên cạnh đó, các cuộc tấn công nhắm vào tài khoản đám mây AWS và chuỗi cung ứng trên GitHub cũng đang gây ảnh hưởng lớn.",
+    "sections": [
+      {
+        "heading": "Lỗ hổng vượt qua xác thực 'SSHole' trong OpenSSH bị khai thác",
+        "body": {
+          "text": "Các tin tặc đang tích cực khai thác lỗ hổng vượt qua xác thực (Authentication Bypass - phương thức cho phép truy cập không cần xác thực hợp lệ) có tên 'SSHole' trong OpenSSH. Những đợt tấn công ban đầu được xác định do các mạng máy tính ma (botnets) và kẻ đào tiền điện tử (crypto miners) thực hiện. Các chuyên gia dự báo nhiều nhóm tấn công khác sẽ sớm tham gia khai thác lỗ hổng này.",
+          "cited_article_ids": [
+            "dc1c6a19f46b22f7"
+          ]
+        }
+      },
+      {
+        "heading": "Lỗ hổng CVE-2026-19868 trên SonicWall SSL-VPN cho phép vượt qua MFA",
+        "body": {
+          "text": "SonicWall đã phát hành bản vá cho lỗ hổng CVE-2026-19868 trong dịch vụ SonicOS SSL-VPN đang bị khai thác thực tế. Lỗi này xảy ra khi tính năng xác thực SAML được bật, cho phép kẻ tấn công có thông tin đăng nhập hợp lệ vượt qua cơ chế xác thực nhiều yếu tố (MFA - Multi-Factor Authentication). Do không có giải pháp khắc phục tạm thời, SonicWall khuyến cáo quản trị viên cần cập nhật bản vá ngay lập tức.",
+          "cited_article_ids": [
+            "40d118ede1f30abf"
+          ]
+        }
+      },
+      {
+        "heading": "Khai thác quyền truy cập AWS từ Qubole để đánh cắp dữ liệu khách hàng",
+        "body": {
+          "text": "Trong khoảng thời gian từ October 14 đến October 26, tin tặc đã xâm nhập vào tài khoản AWS của nhiều khách hàng sử dụng nền tảng Qubole để đánh cắp dữ liệu và bí mật lưu trữ. Theo công ty an ninh đám mây Wiz, kẻ tấn công đã sử dụng thông tin đăng nhập tài khoản AWS mà Qubole dùng để kết nối với khách hàng. Hiện chưa rõ cách thức tin tặc thu thập được các thông tin đăng nhập này.",
+          "cited_article_ids": [
+            "ee5e2ceda03abe1e"
+          ]
+        }
+      },
+      {
+        "heading": "Tấn công chuỗi cung ứng ảnh hưởng hàng chục nghìn kho lưu trữ GitHub",
+        "body": {
+          "text": "Các nghiên cứu sinh an ninh mạng vừa phát hiện một quy trình làm việc độc hại (malicious workflow) đang ảnh hưởng đến hàng chục nghìn kho lưu trữ (repositories) trên GitHub. Đợt tấn công chuỗi cung ứng (Supply Chain Attack) quy mô lớn này bao gồm cả các kho lưu trữ thuộc sở hữu của Uber.",
+          "cited_article_ids": [
+            "73521ad1ac4676bf"
+          ]
+        }
+      },
+      {
+        "heading": "Chuỗi lỗ hổng Plex2Shell bị khai thác nhắm vào người dùng QNAP NAS",
+        "body": {
+          "text": "Các nhóm tin tặc đang tích cực khai thác chuỗi 4 lỗ hổng bảo mật có tên Plex2Shell. Mục tiêu của đợt tấn công này là xâm nhập ứng dụng Plex Media Server hoạt động trên các thiết bị lưu trữ kết nối mạng QNAP NAS.",
+          "cited_article_ids": [
+            "0771611e46288b10"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: Từ Lỗ Hổng SSHole Đến Tấn Công Chuỗi Cung Ứng",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin an ninh mạng tuần này! Tôi là Minh, và hôm nay chúng ta sẽ cùng chuyên gia Lan điểm qua các sự kiện bảo mật nổi bật vừa qua.",
+          "cited_article_ids": [
+            "dc1c6a19f46b22f7",
+            "40d118ede1f30abf",
+            "ee5e2ceda03abe1e",
+            "73521ad1ac4676bf",
+            "0771611e46288b10"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Xin chào Minh và các khán giả! Hôm nay chúng ta có nhiều thông tin quan trọng về các lỗ hổng đang bị khai thác thực tế mà các quản trị viên hệ thống cần chú ý ngay.",
+          "cited_article_ids": [
+            "dc1c6a19f46b22f7",
+            "40d118ede1f30abf",
+            "ee5e2ceda03abe1e",
+            "73521ad1ac4676bf",
+            "0771611e46288b10"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đầu tiên, tin tức từ SecurityWeek cho thấy các hacker đang khai thác lỗ hổng qua mặt xác thực 'SSHole' trong OpenSSH. Lan có thể chia sẻ thêm ai đang đứng sau các đợt tấn công này không?",
+          "cited_article_ids": [
+            "dc1c6a19f46b22f7"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Theo báo cáo, các nỗ lực khai thác ban đầu được quy cho các mạng máy tính ma botnet và kẻ đào tiền điện tử crypto miners. Tuy nhiên, các nhóm đe doạ khác dự kiến cũng sẽ sớm nối gót.",
+          "cited_article_ids": [
+            "dc1c6a19f46b22f7"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Thông tin tiếp theo liên quan đến SonicWall. Họ vừa khắc phục lỗ hổng CVE-2026-19868 trên SonicOS SSL-VPN đang bị khai thác đúng không Lan?",
+          "cited_article_ids": [
+            "40d118ede1f30abf"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Đúng vậy. Lỗ hổng này cho phép kẻ tấn công có thông tin đăng nhập hợp lệ qua mặt xác thực nhiều yếu tố MFA dùng SAML. Lỗi xảy ra khi dịch vụ SSL-VPN bật SAML. Vì không có giải pháp thay thế, SonicWall thúc giục cập nhật bản vá ngay lập tức.",
+          "cited_article_ids": [
+            "40d118ede1f30abf"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Một tin tức đáng lo ngại khác về điện toán đám mây: Qubole - nền tảng data lake thuộc sở hữu của Idera - đã bị hacker lợi dụng quyền truy cập AWS được tin tưởng để xâm nhập tài khoản khách hàng.",
+          "cited_article_ids": [
+            "ee5e2ceda03abe1e"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Công ty an ninh mạng Wiz cho biết kẻ tấn công đã đột nhập tài khoản AWS của nhiều khách hàng Qubole từ ngày 14 đến ngày 26 tháng 10 để đánh cắp bí mật và dữ liệu. Kẻ tấn công dùng thông tin đăng nhập tài khoản AWS mà Qubole sử dụng, dù cách thức lộ thông tin vẫn chưa được công bố.",
+          "cited_article_ids": [
+            "ee5e2ceda03abe1e"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Về mảng chuỗi cung ứng mã nguồn mở, Infosecurity Magazine vừa đưa tin về một cuộc tấn công chuỗi cung ứng mới ảnh hưởng hàng chục ngàn kho lưu trữ GitHub.",
+          "cited_article_ids": [
+            "73521ad1ac4676bf"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chính xác. Các nhà nghiên cứu bảo mật đã phát hiện một quy trình làm việc độc hại workflow ảnh hưởng đến hàng chục nghìn repository trên GitHub, bao gồm cả các repository thuộc sở hữu của Uber.",
+          "cited_article_ids": [
+            "73521ad1ac4676bf"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Cuối cùng là cảnh báo Plex2Shell đang bị khai thác nhắm vào người dùng thiết bị lưu trữ QNAP NAS.",
+          "cited_article_ids": [
+            "0771611e46288b10"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Đúng vậy, các nhóm đe doạ đang khai thác chuỗi gồm 4 lỗ hổng này để tấn công ứng dụng Plex Media Server trên các thiết bị QNAP NAS.",
+          "cited_article_ids": [
+            "0771611e46288b10"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Cảm ơn Lan vì những chia sẻ rất giá trị. Các bạn hãy kiểm tra và cập nhật bản vá cho hệ thống của mình ngay nhé. Xin chào và hẹn gặp lại!",
+          "cited_article_ids": [
+            "dc1c6a19f46b22f7",
+            "40d118ede1f30abf",
+            "ee5e2ceda03abe1e",
+            "73521ad1ac4676bf",
+            "0771611e46288b10"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Cảnh Báo An Ninh Mạng Nóng Hổi",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "Cảnh Báo Bảo Mật Nóng!",
+        "narration": {
+          "text": "Điểm qua 5 sự cố an ninh mạng nóng nhất bạn cần biết ngay hôm nay!",
+          "cited_article_ids": [
+            "dc1c6a19f46b22f7",
+            "40d118ede1f30abf",
+            "ee5e2ceda03abe1e",
+            "73521ad1ac4676bf",
+            "0771611e46288b10"
+          ]
+        },
+        "duration_sec": 8.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "OpenSSH Bị Khai Thác SSHole",
+        "narration": {
+          "text": "Hacker và botnet đang khai thác lỗ hổng qua mặt xác thực SSHole trong OpenSSH.",
+          "cited_article_ids": [
+            "dc1c6a19f46b22f7"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "Lỗ Hổng SonicWall CVE-2026-19868",
+        "narration": {
+          "text": "SonicWall vá khẩn lỗ hổng SSL-VPN cho phép vượt qua xác thực MFA dùng SAML.",
+          "cited_article_ids": [
+            "40d118ede1f30abf"
+          ]
+        },
+        "duration_sec": 13.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Qubole Bị Hacker Xâm Nhập AWS",
+        "narration": {
+          "text": "Kẻ tấn công lợi dụng quyền truy cập AWS của Qubole để đánh cắp dữ liệu khách hàng.",
+          "cited_article_ids": [
+            "ee5e2ceda03abe1e"
+          ]
+        },
+        "duration_sec": 13.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "Tấn Công Chuỗi Cung Ứng GitHub",
+        "narration": {
+          "text": "Hàng chục ngàn repository GitHub, gồm cả của Uber, bị ảnh hưởng bởi workflow độc hại.",
+          "cited_article_ids": [
+            "73521ad1ac4676bf"
+          ]
+        },
+        "duration_sec": 13.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "QNAP NAS Bị Tấn Công Plex2Shell",
+        "narration": {
+          "text": "Thiết bị QNAP NAS bị tấn công qua chuỗi 4 lỗ hổng Plex2Shell trên Plex Media Server.",
+          "cited_article_ids": [
+            "0771611e46288b10"
+          ]
+        },
+        "duration_sec": 13.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "Cập Nhật Bản Vá Ngay!",
+        "narration": {
+          "text": "Hãy kiểm tra và vá hệ thống ngay hôm nay để tự bảo vệ khỏi các mối đe dọa!",
+          "cited_article_ids": [
+            "dc1c6a19f46b22f7",
+            "40d118ede1f30abf",
+            "ee5e2ceda03abe1e",
+            "73521ad1ac4676bf",
+            "0771611e46288b10"
+          ]
+        },
+        "duration_sec": 8.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "🔴 CẬP NHẬT AN NINH MẠNG NỔI BẬT\n\n- Lỗ hổng 'SSHole' trên OpenSSH đang bị các botnet và ứng dụng khai thác tiền điện tử tấn công.\n- SonicWall vá gấp lỗ hổng CVE-2026-19868 cho phép vượt qua xác thực MFA trên SonicOS SSL-VPN.\n- Khách hàng Qubole bị đánh cắp dữ liệu trên AWS do rò rỉ thông tin truy cập.\n- Hàng chục nghìn kho lưu trữ GitHub bị ảnh hưởng bởi tấn công chuỗi cung ứng.\n- Chuỗi lỗ hổng Plex2Shell tấn công ứng dụng Plex trên thiết bị QNAP NAS.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#BaoMat",
+        "#OpenSSH",
+        "#SonicWall",
+        "#GitHub",
+        "#QNAP"
+      ],
+      "cited_article_ids": [
+        "dc1c6a19f46b22f7",
+        "40d118ede1f30abf",
+        "ee5e2ceda03abe1e",
+        "73521ad1ac4676bf",
+        "0771611e46288b10"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Điểm tin An ninh mạng mới nhất:\n\n- Khai thác thực tế lỗ hổng 'SSHole' trong OpenSSH bởi các botnet và crypto miners.\n- SonicWall phát hành bản vá cho lỗ hổng CVE-2026-19868 trên SonicOS SSL-VPN giúp vượt qua bảo mật MFA.\n- Sự cố an ninh tại Qubole khiến tin tặc chiếm quyền truy cập và đánh cắp dữ liệu trên các tài khoản AWS của khách hàng.\n- Phát hiện tấn công chuỗi cung ứng quy mô lớn trên GitHub ảnh hưởng hàng chục nghìn repositories.\n- Tin tặc khai thác chuỗi lỗ hổng Plex2Shell nhắm vào ứng dụng Plex Media Server trên thiết bị QNAP NAS.",
+      "hashtags": [
+        "#CyberSecurity",
+        "#TinTucBaoMat",
+        "#AWS",
+        "#LoiBaoMat"
+      ],
+      "cited_article_ids": [
+        "dc1c6a19f46b22f7",
+        "40d118ede1f30abf",
+        "ee5e2ceda03abe1e",
+        "73521ad1ac4676bf",
+        "0771611e46288b10"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Cảnh báo an ninh mạng: Khai thác lỗ hổng SSHole trên OpenSSH, lỗi CVE-2026-19868 vượt MFA của SonicWall, sự cố lộ dữ liệu AWS qua Qubole và tấn công chuỗi cung ứng hàng chục nghìn repo GitHub!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#BaoMatThôngTin",
+        "#Hacker"
+      ],
+      "cited_article_ids": [
+        "dc1c6a19f46b22f7",
+        "40d118ede1f30abf",
+        "ee5e2ceda03abe1e",
+        "73521ad1ac4676bf"
+      ]
+    }
+  ]
+}

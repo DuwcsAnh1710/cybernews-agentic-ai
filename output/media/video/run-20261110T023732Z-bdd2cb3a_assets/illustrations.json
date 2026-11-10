@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "style": "hallmark-gouache",
+  "beats": {
+    "seg11_b1": {
+      "file": "seg11_b1.jpg",
+      "prompt": "a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines; in the background, dozens of small household devices linked by red thread to a single puppeteer's hand. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines; in the background, dozens of small household devices linked by red thread to a single puppeteer's hand",
+      "text": "Đúng vậy, các nhóm đe doạ đang khai thác chuỗi gồm 4 lỗ hổng này để tấn công ứng dụng Plex Media Server trên các thiết bị QNAP NAS.",
+      "text_hash": "b664af58008e",
+      "provider": "pollinations"
+    }
+  }
+}

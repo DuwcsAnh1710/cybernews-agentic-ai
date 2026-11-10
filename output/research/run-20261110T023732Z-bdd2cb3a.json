@@ -1,0 +1,80 @@
+{
+  "run_id": "run-20261110T023732Z-bdd2cb3a",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "dc1c6a19f46b22f7",
+        "source_name": "SecurityWeek",
+        "title": "Hackers Exploiting ‘SSHole’ Authentication Bypass in OpenSSH",
+        "url": "https://securityweek.com/hackers-exploiting-sshole-authentication-bypass-in-openssh",
+        "published_at": "2026-11-09T12:13:32Z",
+        "summary": "The initial exploitation attempts are attributed to botnets and crypto miners, but other threat actors are expected to follow suit. The post Hackers Exploiting ‘SSHole’ Authentication Bypass in OpenSSH appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-10T02:37:29.237036Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Kẻ tấn công đang khai thác lỗ hổng 'SSHole' trong OpenSSH để vượt qua xác thực, đe dọa trực tiếp đến vô số hệ thống máy chủ Linux trên toàn thế giới."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "40d118ede1f30abf",
+        "source_name": "Help Net Security",
+        "title": "Exploited SonicWall SSL-VPN flaw lets attackers bypass SAML-enforced MFA (CVE-2026-19868)",
+        "url": "https://helpnetsecurity.com/2026/11/09/exploited-sonicwall-ssl-vpn-flaw-lets-attackers-bypass-saml-enforced-mfa-cve-2026-19868",
+        "published_at": "2026-11-09T10:30:25Z",
+        "summary": "SonicWall has fixed an exploited SonicOS SSL-VPN vulnerability (CVE-2026-19868) that may allow attackers with valid credentials to bypass SAML-enforced multi-factor authentication. With no workarounds listed, the company has urged admins to patch quickly. About CVE-2026-19868 CVE-2026-19868 is an authentication enforcement flaw in the SonicOS SSL-VPN service, and is exploitable only if SAML is enabled for SSL-VPN logins. According to SonicWall, a user with valid credentials for an alternate authentication method may be able to bypass … More → The post Exploited SonicWall SSL-VPN flaw lets attackers bypass SAML-enforced MFA (CVE-2026-19868) appeared first on Help Net Security .",
+        "fetched_at": "2026-11-10T02:37:29.630109Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "SonicWall cảnh báo về lỗ hổng CVE-2026-19868 đang bị khai thác thực tế trên các thiết bị SSL-VPN, cho phép kẻ tấn công vượt qua xác thực đa yếu tố SAML."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "ee5e2ceda03abe1e",
+        "source_name": "The Hacker News",
+        "title": "Hackers Exploit Qubole's Trusted AWS Access to Breach Customer Accounts and Steal Data",
+        "url": "https://thehackernews.com/2026/11/hackers-exploit-quboles-trusted-aws.html",
+        "published_at": "2026-11-09T17:51:21Z",
+        "summary": "An attacker broke into AWS accounts belonging to multiple Qubole customers between October 14 and October 26 and stole stored secrets and data, cloud security company Wiz said today. The attacker used credentials for an AWS account that Qubole's platform uses to reach those customers. How the attacker got those credentials has not been disclosed. Qubole, a data lake platform owned by Idera,",
+        "fetched_at": "2026-11-10T02:37:28.604479Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Hacker đã khai thác quyền truy cập AWS được tin tưởng của Qubole để đột nhập vào tài khoản cloud của nhiều khách hàng và đánh cắp dữ liệu nhạy cảm."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "73521ad1ac4676bf",
+        "source_name": "Infosecurity Magazine",
+        "title": "New Supply Chain Attack Compromises Tens of Thousands of GitHub Repositories",
+        "url": "https://infosecurity-magazine.com/news/supply-chain-attack-thousands",
+        "published_at": "2026-11-09T14:30:00Z",
+        "summary": "Security researchers have detected a malicious workflow affecting tens of thousands of GitHub repositories, including Uber-owned ones",
+        "fetched_at": "2026-11-10T02:37:29.518550Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Một cuộc tấn công chuỗi cung ứng mới trên GitHub đã làm tổn hại hàng chục nghìn kho mã nguồn, bao gồm cả các kho thuộc sở hữu của Uber."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "0771611e46288b10",
+        "source_name": "SecurityWeek",
+        "title": "Plex2Shell Exploited Against QNAP NAS Users",
+        "url": "https://securityweek.com/plex2shell-exploited-against-qnap-nas-users",
+        "published_at": "2026-11-09T13:13:28Z",
+        "summary": "Threat actors are exploiting the four-flaw chain to hack the Plex Media Server application on QNAP NAS devices. The post Plex2Shell Exploited Against QNAP NAS Users appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-10T02:37:29.237036Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Hacker đang khai thác chuỗi 4 lỗ hổng 'Plex2Shell' trên ứng dụng Plex Media Server để tấn công các thiết bị lưu trữ NAS QNAP."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=0"
+}
