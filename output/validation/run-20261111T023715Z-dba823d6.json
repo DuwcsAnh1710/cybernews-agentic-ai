@@ -1,0 +1,28 @@
+{
+  "run_id": "run-20261111T023715Z-dba823d6",
+  "passed": true,
+  "errors": [],
+  "warnings": [
+    {
+      "code": "W_PODCAST_LENGTH",
+      "severity": "warning",
+      "path": "podcast.segments",
+      "message": "Total podcast words (404) outside target range [480, 720] (target 600 ± 20%)",
+      "evidence": "404 words (expected 480-720)"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "captions[0].text",
+      "message": "Term 'NINH' not found in cited source text and not allowlisted",
+      "evidence": "NINH"
+    }
+  ],
+  "checks_run": [
+    "layer1_structural",
+    "layer2_source_consistency",
+    "layer3_llm_claim_review (findings=0, dropped=0)"
+  ],
+  "llm_review": "done",
+  "scope_note": "Structural and source-consistency checks against RSS title/summary only. Facts are NOT independently verified."
+}

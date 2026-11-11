@@ -1,0 +1,80 @@
+{
+  "run_id": "run-20261111T023715Z-dba823d6",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "56e8f28d1062a8e8",
+        "source_name": "Krebs on Security",
+        "title": "Microsoft Fixes Nearly 1,100 Security Vulnerabilities",
+        "url": "https://krebsonsecurity.com/2026/11/microsoft-fixes-nearly-1100-security-vulnerabilities",
+        "published_at": "2026-11-10T21:55:03Z",
+        "summary": "Microsoft did another four-digit patch drop today, releasing updates to fix almost 1,100 security vulnerabilities in its Windows operating systems and supported software. This month's Patch Tuesday addresses 63 critical flaws -- including a zero-day in Microsoft Outlook -- and comes amid important security updates from other software makers, including Adobe, Apple, Google and Mozilla.",
+        "fetched_at": "2026-11-11T02:37:12.835873Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Microsoft phát hành bản cập nhật Patch Tuesday vá gần 1.100 lỗ hổng bảo mật, bao gồm một lỗ hổng 0-day đang bị khai thác thực tế trong Microsoft Outlook."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "98e4d72a559c644f",
+        "source_name": "The Hacker News",
+        "title": "Git Patches Flaw That Lets Malicious Repositories Execute Code During Recursive Clones",
+        "url": "https://thehackernews.com/2026/11/git-patches-flaw-that-lets-malicious.html",
+        "published_at": "2026-11-10T19:23:10Z",
+        "summary": "A flaw in Git can let a malicious repository run an attacker's code on a computer that clones it recursively, together with its submodules. The Git project fixed it this week in Git 2.56.1, with matching fixes for the 2.50 through 2.55 series in 2.50.2, 2.51.3, 2.52.1, 2.53.1, 2.54.1 and 2.55.1. The flaw, tracked as CVE-2026-111760, is an integer truncation in how Git handles its index. An",
+        "fetched_at": "2026-11-11T02:37:11.993297Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Dự án Git vừa vá một lỗ hổng nguy hiểm cho phép các kho lưu trữ độc hại thực thi mã từ xa khi người dùng thực hiện lệnh clone đệ quy."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "452012a5ab466238",
+        "source_name": "The Hacker News",
+        "title": "Hackers Exploit Critical Xen Orchestra Auth Bypass Flaw to Gain Admin Access",
+        "url": "https://thehackernews.com/2026/11/hackers-exploit-critical-xen-orchestra.html",
+        "published_at": "2026-11-10T18:12:21Z",
+        "summary": "French software company Vates VMS has warned of a critical security vulnerability in Xen Orchestra that it said is being actively exploited in the wild. The authentication bypass flaw, which does not yet have a CVE identifier, is tracked as VSA-2026-062. \"REST cookie parsing turns authenticationToken=j:%7B%7D into {},\" Vates VMS said in an alert. \"REST authentication passes that object to the",
+        "fetched_at": "2026-11-11T02:37:11.993297Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Cảnh báo lỗ hổng nghiêm trọng cho phép bỏ qua xác thực trong Xen Orchestra đang bị các tác nhân đe dọa tích cực khai thác thực tế để chiếm quyền quản trị."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "bc8d0735c275e458",
+        "source_name": "SecurityWeek",
+        "title": "SAP Patches Critical ICM2SHELL, ProxyGate Vulnerabilities",
+        "url": "https://securityweek.com/sap-patches-critical-icm2shell-proxygate-vulnerabilities",
+        "published_at": "2026-11-10T14:46:28Z",
+        "summary": "SAP has published 42 new and updated security advisories, including nine that address critical-severity vulnerabilities. The post SAP Patches Critical ICM2SHELL, ProxyGate Vulnerabilities appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-11T02:37:12.921574Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "SAP phát hành 42 khuyến nghị bảo mật mới và cập nhật, bao gồm 9 thông báo xử lý các lỗ hổng có mức độ nghiêm trọng cao như ICM2SHELL và ProxyGate."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "b27ae4ae529c7401",
+        "source_name": "SecurityWeek",
+        "title": "Over a Dozen Organizations Hit in Qubole Supply Chain Attack",
+        "url": "https://securityweek.com/over-a-dozen-organizations-hit-in-qubole-supply-chain-attack",
+        "published_at": "2026-11-10T13:27:44Z",
+        "summary": "Hackers used compromised Qubole IAM credentials to steal customer files, secrets, keys, environment variables, and credentials. The post Over a Dozen Organizations Hit in Qubole Supply Chain Attack appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-11T02:37:12.921574Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Hơn một tá tổ chức đã bị ảnh hưởng trong một cuộc tấn công chuỗi cung ứng nhắm vào Qubole, dẫn đến rò rỉ tệp tin, khóa bảo mật và thông tin xác thực."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=1"
+}

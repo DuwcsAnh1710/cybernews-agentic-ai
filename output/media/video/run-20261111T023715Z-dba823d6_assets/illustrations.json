@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "style": "hallmark-gouache",
+  "beats": {
+    "seg00_b1": {
+      "file": "seg00_b1.jpg",
+      "prompt": "a craftsman carefully stitching a patch onto a worn canvas shaped like a shield; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "a craftsman carefully stitching a patch onto a worn canvas shaped like a shield; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern",
+      "text": "Chào mừng các bạn đến với bản tin an ninh mạng hôm nay! Tôi là Minh, và hôm nay chúng ta có rất nhiều tin tức quan trọng về các bản cập nhật bảo mật vừa được tung ra.",
+      "text_hash": "9ef46d74ad8b",
+      "provider": "pollinations"
+    },
+    "seg03_b1": {
+      "file": "seg03_b1.jpg",
+      "prompt": "a craftsman carefully stitching a patch onto a worn canvas shaped like a shield; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "a craftsman carefully stitching a patch onto a worn canvas shaped like a shield; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern",
+      "text": "Tiếp theo là thông tin dành cho các lập trình viên. Dự án Git vừa khắc phục lỗ hổng CVE-2026-111760.",
+      "text_hash": "089d1cc9fabd",
+      "provider": "pollinations"
+    },
+    "seg03_b2": {
+      "file": "seg03_b2.jpg",
+      "prompt": "a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines; in the background, a craftsman carefully stitching a patch onto a worn canvas shaped like a shield. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines; in the background, a craftsman carefully stitching a patch onto a worn canvas shaped like a shield",
+      "text": "Lỗi này cho phép kho lưu trữ độc hại thực thi mã của kẻ tấn công khi ai đó thực hiện lệnh clone đệ quy cùng với submodule.",
+      "text_hash": "fc94ea0bda94",
+      "provider": "pollinations"
+    },
+    "seg05_b2": {
+      "file": "seg05_b2.jpg",
+      "prompt": "a government bulletin board with pinned paper warning notices and a red ribbon, an analyst reading one closely; in the background, a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "a government bulletin board with pinned paper warning notices and a red ribbon, an analyst reading one closely; in the background, a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines",
+      "text": "Họ cảnh báo về một lỗ hổng qua mặt xác thực cực kỳ nghiêm trọng mã hiệu VSA-2026-062 đang bị khai thác trong thực tế.",
+      "text_hash": "652b28464184",
+      "provider": "pollinations"
+    },
+    "seg07_b1": {
+      "file": "seg07_b1.jpg",
+      "prompt": "paper records slipping out of a cracked archive box onto a desk, a magnifying glass nearby. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "paper records slipping out of a cracked archive box onto a desk, a magnifying glass nearby",
+      "text": "Cuối cùng là cuộc tấn công chuỗi cung ứng nhắm vào Qubole. Kẻ tấn công đã sử dụng thông tin đăng nhập IAM của Qubole bị rò rỉ để đánh cắp tệp tin của khách hàng, các bí mật, khóa, biến môi trường và thông tin xác thực của hơn một tá tổ chức.",
+      "text_hash": "bc1c137899d7",
+      "provider": "pollinations"
+    }
+  }
+}

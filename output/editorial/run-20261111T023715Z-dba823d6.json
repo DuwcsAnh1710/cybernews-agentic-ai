@@ -1,0 +1,293 @@
+{
+  "run_id": "run-20261111T023715Z-dba823d6",
+  "language": "vi",
+  "digest": {
+    "title": "Bản tin An ninh mạng: Microsoft phát hành bản vá kỷ lục, lỗ hổng nghiêm trọng trong Git, Xen Orchestra và SAP",
+    "intro": "Bản tin an ninh mạng hôm nay cập nhật các thông tin quan trọng về đợt phát hành bản vá quy mô lớn từ Microsoft cùng các lỗ hổng nghiêm trọng trên Git, Xen Orchestra và SAP. Bên cạnh đó là cảnh báo về cuộc tấn công chuỗi cung ứng nhắm vào Qubole ảnh hưởng đến nhiều tổ chức.",
+    "sections": [
+      {
+        "heading": "Microsoft khắc phục gần 1.100 lỗ hổng bảo mật trong đợt Patch Tuesday",
+        "body": {
+          "text": "Microsoft vừa phát hành các bản cập nhật để sửa gần 1.100 lỗ hổng bảo mật trong hệ điều hành Windows và các phần mềm được hỗ trợ. Đợt Patch Tuesday (ngày cập nhật bản vá định kỳ hàng tháng) này xử lý 63 lỗ hổng nghiêm trọng, bao gồm một lỗ hổng zero-day (lỗi chưa có bản vá trước khi bị phát hiện) trong Microsoft Outlook. Động thái này diễn ra cùng lúc với các cập nhật bảo mật quan trọng từ những nhà sản xuất phần mềm khác như Adobe, Apple, Google và Mozilla.",
+          "cited_article_ids": [
+            "56e8f28d1062a8e8"
+          ]
+        }
+      },
+      {
+        "heading": "Git vá lỗ hổng thực thi mã từ xa khi clone repository theo cơ chế đệ quy",
+        "body": {
+          "text": "Dự án Git đã khắc phục một lỗ hổng bảo mật (mã định danh CVE-2026-111760) cho phép kho lưu trữ mã nguồn (repository) độc hại thực thi mã của kẻ tấn công trên máy tính thực hiện thao tác clone đệ quy cùng với các submodule. Sự cố phát sinh do lỗi cắt ngắn số nguyên (integer truncation) trong cách Git xử lý chỉ mục (index). Bản vá đã được cập nhật trên phiên bản Git 2.56.1 cùng các bản sửa lỗi tương ứng cho các dòng từ 2.50 đến 2.55.",
+          "cited_article_ids": [
+            "98e4d72a559c644f"
+          ]
+        }
+      },
+      {
+        "heading": "Hacker khai thác lỗ hổng bypass xác thực nghiêm trọng trên Xen Orchestra",
+        "body": {
+          "text": "Công ty phần mềm Vates VMS phát cảnh báo về lỗ hổng qua mặt xác thực (authentication bypass - kỹ thuật bỏ qua bước kiểm tra danh tính) mang mã theo dõi VSA-2026-062 trên Xen Orchestra đang bị khai thác trong thực tế. Lỗi xuất hiện trong quá trình phân tích REST cookie khi xử lý dữ liệu đầu vào. Kẻ tấn công có thể lợi dụng sơ hở này để chiếm quyền truy cập quản trị viên (admin access) trên hệ thống.",
+          "cited_article_ids": [
+            "452012a5ab466238"
+          ]
+        }
+      },
+      {
+        "heading": "SAP phát hành các bản vá cho lỗ hổng nghiêm trọng ICM2SHELL và ProxyGate",
+        "body": {
+          "text": "SAP đã công bố 42 khuyến cáo bảo mật mới và cập nhật. Trong số các thông báo này, có 9 khuyến cáo giải quyết các lỗ hổng ở mức độ nghiêm trọng cao, đáng chú ý bao gồm các lỗ hổng có tên ICM2SHELL và ProxyGate. Các tổ chức sử dụng giải pháp của SAP được khuyến nghị kiểm tra và áp dụng bản vá sớm.",
+          "cited_article_ids": [
+            "bc8d0735c275e458"
+          ]
+        }
+      },
+      {
+        "heading": "Hơn một tá tổ chức bị ảnh hưởng bởi cuộc tấn công chuỗi cung ứng Qubole",
+        "body": {
+          "text": "Hơn một tá tổ chức đã bị ảnh hưởng trong một cuộc tấn công chuỗi cung ứng (supply chain attack - phương thức tấn công thông qua đối tác hoặc nhà cung cấp dịch vụ). Kẻ tấn công đã sử dụng các thông tin xác thực IAM của Qubole bị trộm để lấy đi các tệp tin của khách hàng, dữ liệu bí mật, khóa bảo mật, biến môi trường và các thông tin truy cập khác.",
+          "cited_article_ids": [
+            "b27ae4ae529c7401"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: Patch Tuesday Kỷ Lục Và Các Lỗ Hổng Nghiêm Trọng",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin an ninh mạng hôm nay! Tôi là Minh, và hôm nay chúng ta có rất nhiều tin tức quan trọng về các bản cập nhật bảo mật vừa được tung ra.",
+          "cited_article_ids": [
+            "56e8f28d1062a8e8",
+            "98e4d72a559c644f",
+            "452012a5ab466238",
+            "bc8d0735c275e458",
+            "b27ae4ae529c7401"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào Minh và chào khán giả. Đầu tiên phải kể đến đợt phát hành bản vá kỷ lục của Microsoft trong đợt Patch Tuesday này đúng không?",
+          "cited_article_ids": [
+            "56e8f28d1062a8e8"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đúng vậy, Microsoft vừa tung ra bản vá lỗi cho gần 1,100 lỗ hổng bảo mật trên hệ điều hành Windows và các phần mềm được hỗ trợ. Trong đó có 63 lỗi nghiêm trọng, bao gồm một lỗi zero-day trong Microsoft Outlook. Các hãng khác như Adobe, Apple, Google và Mozilla cũng ra mắt các cập nhật quan trọng.",
+          "cited_article_ids": [
+            "56e8f28d1062a8e8"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Tiếp theo là thông tin dành cho các lập trình viên. Dự án Git vừa khắc phục lỗ hổng CVE-2026-111760. Lỗi này cho phép kho lưu trữ độc hại thực thi mã của kẻ tấn công khi ai đó thực hiện lệnh clone đệ quy cùng với submodule.",
+          "cited_article_ids": [
+            "98e4d72a559c644f"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đúng vậy, nguyên nhân do lỗi cắt gọt số nguyên (integer truncation) khi Git xử lý chỉ mục. Sự cố đã được khắc phục trong phiên bản Git 2.56.1 cùng các bản vá tương ứng từ chuỗi 2.50 đến 2.55.",
+          "cited_article_ids": [
+            "98e4d72a559c644f"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cảnh báo tiếp theo đến từ công ty Vates VMS của Pháp về phần mềm Xen Orchestra. Họ cảnh báo về một lỗ hổng qua mặt xác thực cực kỳ nghiêm trọng mã hiệu VSA-2026-062 đang bị khai thác trong thực tế.",
+          "cited_article_ids": [
+            "452012a5ab466238"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Vấn đề nằm ở việc phân tích REST cookie đã chuyển đổi chuỗi xác thực thành một đối tượng rỗng và vượt qua bước kiểm tra đăng nhập để chiếm quyền quản trị. Ngoài ra, về phía doanh nghiệp, SAP cũng vừa phát hành 42 khuyến nghị bảo mật mới và cập nhật, bao gồm 9 lỗi ở mức độ nghiêm trọng như ICM2SHELL và ProxyGate.",
+          "cited_article_ids": [
+            "452012a5ab466238",
+            "bc8d0735c275e458"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cuối cùng là cuộc tấn công chuỗi cung ứng nhắm vào Qubole. Kẻ tấn công đã sử dụng thông tin đăng nhập IAM của Qubole bị rò rỉ để đánh cắp tệp tin của khách hàng, các bí mật, khóa, biến môi trường và thông tin xác thực của hơn một tá tổ chức.",
+          "cited_article_ids": [
+            "b27ae4ae529c7401"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Hãy luôn cập nhật hệ thống và kiểm tra kỹ lưỡng các quyền truy cập để bảo vệ an toàn nhé. Cảm ơn các bạn đã lắng nghe!",
+          "cited_article_ids": [
+            "56e8f28d1062a8e8",
+            "98e4d72a559c644f",
+            "452012a5ab466238",
+            "bc8d0735c275e458",
+            "b27ae4ae529c7401"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Cảnh Báo Bảo Mật Nóng Trong Tần",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "CẢNH BÁO AN NINH MẠNG NÓNG!",
+        "narration": {
+          "text": "Cập nhật ngay những thông tin an ninh mạng quan trọng nhất hôm nay!",
+          "cited_article_ids": [
+            "56e8f28d1062a8e8",
+            "98e4d72a559c644f",
+            "452012a5ab466238",
+            "bc8d0735c275e458",
+            "b27ae4ae529c7401"
+          ]
+        },
+        "duration_sec": 5.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "Microsoft Vá Gần 1,100 Lỗ Hổng",
+        "narration": {
+          "text": "Microsoft vừa sửa gần 1,100 lỗ hổng, gồm 63 lỗi nghiêm trọng và zero-day trên Outlook.",
+          "cited_article_ids": [
+            "56e8f28d1062a8e8"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "Lỗ Hổng Git Mã Thực Thi Từ Xa",
+        "narration": {
+          "text": "Git cập nhật bản vá CVE-2026-111760 chặn mã độc khi clone đệ quy kho lưu trữ.",
+          "cited_article_ids": [
+            "98e4d72a559c644f"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Xen Orchestra Bị Khai Thác Bắt Hợp Lệ",
+        "narration": {
+          "text": "Xen Orchestra bị khai thác lỗ hổng VSA-2026-062 cho phép chiếm quyền admin.",
+          "cited_article_ids": [
+            "452012a5ab466238"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "SAP Cập Nhật 9 Lỗi Cực Kỳ Nghiêm Trọng",
+        "narration": {
+          "text": "SAP phát hành 42 khuyến nghị bảo mật, sửa các lỗi nguy hiểm như ICM2SHELL và ProxyGate.",
+          "cited_article_ids": [
+            "bc8d0735c275e458"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "Tấn Công Chuỗi Cung Ứng Qubole",
+        "narration": {
+          "text": "Hơn một tá tổ chức bị lấy cắp dữ liệu do lộ tài khoản IAM của Qubole.",
+          "cited_article_ids": [
+            "b27ae4ae529c7401"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "CẬP NHẬT BẢN VÁ NGAY HÔM NAY!",
+        "narration": {
+          "text": "Hãy kiểm tra và cập nhật thiết bị của bạn ngay lập tức!",
+          "cited_article_ids": [
+            "56e8f28d1062a8e8",
+            "98e4d72a559c644f",
+            "452012a5ab466238",
+            "bc8d0735c275e458",
+            "b27ae4ae529c7401"
+          ]
+        },
+        "duration_sec": 5.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "🔴 CẬP NHẬT AN NINH MẠNG NỔI BẬT\n\n📌 Microsoft sửa gần 1.100 lỗ hổng bảo mật, bao gồm 63 lỗi nghiêm trọng và một zero-day trong Outlook.\n📌 Git vá khẩn cấp lỗ hổng CVE-2026-111760 cho phép thực thi mã khi clone đệ quy.\n📌 Cảnh báo lỗ hổng bypass xác thực VSA-2026-062 trên Xen Orchestra đang bị khai thác thực tế.\n📌 SAP khắc phục các lỗi nghiêm trọng ICM2SHELL và ProxyGate.\n📌 Tấn công chuỗi cung ứng nhắm vào Qubole khiến hơn một tá tổ chức bị ảnh hưởng.\n\nChi tiết xem tại bản tin bên dưới! 👇",
+      "hashtags": [
+        "#AnNinhMang",
+        "#Microsoft",
+        "#Git",
+        "#SAP",
+        "#CyberSecurity"
+      ],
+      "cited_article_ids": [
+        "56e8f28d1062a8e8",
+        "98e4d72a559c644f",
+        "452012a5ab466238",
+        "bc8d0735c275e458",
+        "b27ae4ae529c7401"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Điểm tin an ninh mạng mới nhất:\n\n1. Microsoft phát hành bản vá cho gần 1.100 lỗ hổng, xử lý 63 lỗi nghiêm trọng bao gồm zero-day trong Microsoft Outlook.\n2. Lỗ hổng CVE-2026-111760 trên Git cho phép kẻ tấn công thực thi mã thông qua các repository độc hại khi clone đệ quy.\n3. Vates VMS cảnh báo lỗ hổng qua mặt xác thực VSA-2026-062 trên Xen Orchestra đang bị khai thác tích cực.\n4. SAP phát hành 42 khuyến cáo bảo mật, xử lý các lỗ hổng nguy hiểm như ICM2SHELL và ProxyGate.\n5. Tấn công chuỗi cung ứng thông qua tài khoản IAM của Qubole làm ảnh hưởng tới hơn một tá tổ chức.",
+      "hashtags": [
+        "#SecurityNews",
+        "#PatchTuesday",
+        "#Vulnerability",
+        "#CyberSecurity"
+      ],
+      "cited_article_ids": [
+        "56e8f28d1062a8e8",
+        "98e4d72a559c644f",
+        "452012a5ab466238",
+        "bc8d0735c275e458",
+        "b27ae4ae529c7401"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Điểm tin an toàn thông tin: Microsoft vá gần 1.100 lỗi; Git cập nhật sửa lỗi CVE-2026-111760; Xen Orchestra bị khai thác lỗ hổng xác thực; SAP cập nhật 42 khuyến cáo bảo mật; Qubole bị tấn công chuỗi cung ứng.",
+      "hashtags": [
+        "#TinCongNghe",
+        "#AnToanThongTin",
+        "#CyberSecurity"
+      ],
+      "cited_article_ids": [
+        "56e8f28d1062a8e8",
+        "98e4d72a559c644f",
+        "452012a5ab466238",
+        "bc8d0735c275e458",
+        "b27ae4ae529c7401"
+      ]
+    }
+  ]
+}
