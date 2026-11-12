@@ -1,0 +1,82 @@
+{
+  "run_id": "run-20261112T023021Z-c4b3ba8d",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "2ce74e3f29c2a3a9",
+        "source_name": "SecurityWeek",
+        "title": "Critical Xen Orchestra Flaws Exploited in Attacks",
+        "url": "https://securityweek.com/critical-xen-orchestra-flaws-exploited-in-attacks",
+        "published_at": "2026-11-11T15:42:47Z",
+        "summary": "A critical authentication bypass allows attackers to execute arbitrary code as admin and take over XCP-ng nodes. The post Critical Xen Orchestra Flaws Exploited in Attacks appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-12T02:30:18.586279Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Các lỗ hổng nghiêm trọng trong Xen Orchestra đang bị khai thác thực tế, cho phép kẻ tấn công thực thi mã từ xa với quyền admin và chiếm quyền kiểm soát các nút XCP-ng."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "fad867ab038ab03c",
+        "source_name": "Help Net Security",
+        "title": "Git fixes six vulnerabilities, including code execution during recursive clones",
+        "url": "https://helpnetsecurity.com/2026/11/11/git-project-security-updates",
+        "published_at": "2026-11-11T14:26:12Z",
+        "summary": "The Git project has released security updates addressing six vulnerabilities that could allow attackers to execute code, write to unintended files or cause memory corruption when Git processes malicious repositories or other specially prepared input. Code execution during cloning A vulnerability tracked as CVE-2026-111760 stems from an integer truncation in Git’s handling of its index. An extremely long file path can pass Git’s safety checks under one name and then be written under a shorter … More → The post Git fixes six vulnerabilities, including code execution during recursive clones appeared first on Help Net Security .",
+        "fetched_at": "2026-11-12T02:30:18.871099Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Dự án Git đã phát hành các bản cập nhật khắc phục 6 lỗ hổng bảo mật, bao gồm rủi ro thực thi mã nguy hiểm khi thực hiện lệnh clone đệ quy các kho lưu trữ."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "4cd892fc52b8a7b3",
+        "source_name": "SecurityWeek",
+        "title": "Fortinet Patches Nearly 100 Vulnerabilities",
+        "url": "https://securityweek.com/fortinet-patches-nearly-100-vulnerabilities",
+        "published_at": "2026-11-11T12:10:14Z",
+        "summary": "The massive drop comes after the company integrated frontier AI models into its product security testing. The post Fortinet Patches Nearly 100 Vulnerabilities appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-12T02:30:18.586279Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Fortinet phát hành đợt cập nhật quy mô lớn để vá gần 100 lỗ hổng bảo mật sau khi áp dụng các mô hình AI tiên tiến vào quy trình kiểm thử sản phẩm."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "95bc7c63c87673bf",
+        "source_name": "The Hacker News",
+        "title": "Critical Zoom Workplace Flaw Could Allow Unauthenticated Remote Privilege Escalation",
+        "url": "https://thehackernews.com/2026/11/critical-zoom-workplace-flaw-could.html",
+        "published_at": "2026-11-11T16:12:46Z",
+        "summary": "Zoom has released software updates to address two security flaws impacting Zoom Workplace for Windows, including a critical bug that could result in privilege escalation on affected systems. The vulnerabilities are listed below - CVE-2026-108186 (CVSS score: 9.6) - An improper input validation vulnerability that could allow an unauthenticated user to conduct an escalation of privilege via",
+        "fetched_at": "2026-11-12T02:30:18.169028Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Zoom phát hành bản cập nhật khắc phục lỗ hổng nghiêm trọng có điểm CVSS 9.6 trên Zoom Workplace dành cho Windows, cho phép nâng cao quyền hạn mà không cần xác thực."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "8eeaa5e81881cd50",
+        "source_name": "The Hacker News",
+        "title": "Over 35,000 Grok-Built Apps Exposed Online, Some Leaking Confidential Data and Passwords",
+        "url": "https://thehackernews.com/2026/11/over-35000-grok-built-apps-exposed.html",
+        "published_at": "2026-11-11T12:19:40Z",
+        "summary": "Of the 37,571 Grok-built apps that security company Claroc found online, 35,578 were open to anyone without a sign-in, the researchers said yesterday. They included 24 apps built by staff at the social network X and at SpaceXSI, the company that makes the Grok AI assistant. Most of the open apps were games, landing pages, and calculators, but about 1 in 10 contained internal business or",
+        "fetched_at": "2026-11-12T02:30:18.169028Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Nghiên cứu phát hiện hơn 35.000 ứng dụng được tạo bởi AI Grok công khai trên mạng mà không cần đăng nhập, gây rò rỉ dữ liệu bảo mật và mật khẩu."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=0"
+}

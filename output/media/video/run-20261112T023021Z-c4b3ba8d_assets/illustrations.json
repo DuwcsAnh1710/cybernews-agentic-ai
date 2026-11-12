@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "style": "hallmark-gouache",
+  "beats": {
+    "seg01_b1": {
+      "file": "seg01_b1.jpg",
+      "prompt": "a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern",
+      "text": "Chào Minh và các bạn. Đầu tiên là thông tin cực kỳ nóng về Xen Orchestra. Các lỗ hổng nghiêm trọng tại đây đang bị khai thác trong thực tế.",
+      "text_hash": "015d14c97302",
+      "provider": "pollinations"
+    },
+    "seg05_b2": {
+      "file": "seg05_b2.jpg",
+      "prompt": "a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines; in the background, a craftsman carefully stitching a patch onto a worn canvas shaped like a shield. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines; in the background, a craftsman carefully stitching a patch onto a worn canvas shaped like a shield",
+      "text": "Việc phát hiện hàng loạt này là nhờ Fortinet tích hợp các mô hình AI tiên tiến vào quy trình kiểm thử bảo mật sản phẩm.",
+      "text_hash": "cebf7045d85e",
+      "provider": "pollinations"
+    }
+  }
+}

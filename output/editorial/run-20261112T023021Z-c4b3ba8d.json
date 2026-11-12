@@ -1,0 +1,312 @@
+{
+  "run_id": "run-20261112T023021Z-c4b3ba8d",
+  "language": "vi",
+  "digest": {
+    "title": "Bản tin An ninh mạng: Các lỗ hổng nghiêm trọng trên Xen Orchestra, Git, Fortinet, Zoom và rủi ro từ ứng dụng tạo bởi Grok",
+    "intro": "Bản tin an ninh mạng hôm nay cập nhật các thông tin quan trọng về lỗ hổng bảo mật bị khai thác thực tế và các bản vá khẩn cấp. Nội dung bao gồm các lỗi nghiêm trọng trên Xen Orchestra, hệ thống Git, sản phẩm Fortinet, ứng dụng Zoom Workplace cũng như nguy cơ rò rỉ dữ liệu từ các ứng dụng được phát triển bằng AI.",
+    "sections": [
+      {
+        "heading": "Lỗ hổng nghiêm trọng trên Xen Orchestra bị khai thác thực tế",
+        "body": {
+          "text": "Các cuộc tấn công đang khai thác lỗ hổng nghiêm trọng trên Xen Orchestra. Lỗi bỏ qua xác thực (authentication bypass - cơ chế cho phép truy cập mà không cần xác minh danh tính) này cho phép kẻ tấn công thực thi mã tùy ý dưới quyền quản trị viên (admin) và chiếm quyền kiểm soát các nút XCP-ng.",
+          "cited_article_ids": [
+            "2ce74e3f29c2a3a9"
+          ]
+        }
+      },
+      {
+        "heading": "Git phát hành bản vá cho 6 lỗ hổng bảo mật",
+        "body": {
+          "text": "Dự án Git đã phát hành các bản cập nhật an ninh để xử lý 6 lỗ hổng có thể cho phép kẻ tấn công thực thi mã, ghi vào các tệp không mong muốn hoặc gây hỏng bộ nhớ khi xử lý mã nguồn độc hại. Trong đó, lỗ hổng CVE-2026-111760 xuất phát từ lỗi cắt ngắn số nguyên (integer truncation) khi xử lý chỉ số, khiến đường dẫn tệp cực dài bị ghi dưới dạng đường dẫn ngắn hơn.",
+          "cited_article_ids": [
+            "fad867ab038ab03c"
+          ]
+        }
+      },
+      {
+        "heading": "Fortinet vá gần 100 lỗ hổng bảo mật",
+        "body": {
+          "text": "Tập đoàn Fortinet vừa phát hành bản vá cho gần 100 lỗ hổng bảo mật trong các sản phẩm của mình. Đợt cập nhật quy mô lớn này diễn ra sau khi công ty tích hợp các mô hình AI tiên tiến (frontier AI models) vào quá trình thử nghiệm an ninh sản phẩm.",
+          "cited_article_ids": [
+            "4cd892fc52b8a7b3"
+          ]
+        }
+      },
+      {
+        "heading": "Zoom Workplace cho Windows gặp lỗ hổng nâng quyền từ xa",
+        "body": {
+          "text": "Zoom đã phát hành bản cập nhật phần mềm để khắc phục hai lỗ hổng bảo mật trên Zoom Workplace cho Windows. Trong đó có lỗi nghiêm trọng CVE-2026-108186 (điểm CVSS 9.6) liên quan đến việc xác thực dữ liệu đầu vào không đúng cách, cho phép người dùng chưa xác thực thực hiện nâng quyền (privilege escalation) trên hệ thống.",
+          "cited_article_ids": [
+            "95bc7c63c87673bf"
+          ]
+        }
+      },
+      {
+        "heading": "Hơn 35.000 ứng dụng tạo bởi Grok bị lộ công khai",
+        "body": {
+          "text": "Công ty an ninh Claroc phát hiện 35.578 trong tổng số 37,571 ứng dụng được tạo bởi Grok bị công khai trên mạng mà không yêu cầu đăng nhập. Các ứng dụng này bao gồm 24 ứng dụng do nhân viên của mạng xã hội X và SpaceXSI phát triển. Khoảng 1/10 trong số các ứng dụng mở này chứa dữ liệu nội bộ và mật khẩu.",
+          "cited_article_ids": [
+            "8eeaa5e81881cd50"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm tin An ninh mạng: Từ lỗ hổng Xen Orchestra, Git đến hàng ngàn ứng dụng Grok lộ dữ liệu",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Xin chào các bạn nghe đài, chào mừng quay trở lại với bản tin an ninh mạng. Hôm nay chúng ta sẽ cùng điểm qua các lỗ hổng nghiêm trọng vừa được phát hiện trên Xen Orchestra, Git, Fortinet, Zoom Workplace cũng như rủi ro bảo mật từ các ứng dụng do AI Grok tạo ra.",
+          "cited_article_ids": [
+            "2ce74e3f29c2a3a9",
+            "fad867ab038ab03c",
+            "4cd892fc52b8a7b3",
+            "95bc7c63c87673bf",
+            "8eeaa5e81881cd50"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào Minh và các bạn. Đầu tiên là thông tin cực kỳ nóng về Xen Orchestra. Các lỗ hổng nghiêm trọng tại đây đang bị khai thác trong thực tế. Kẻ tấn công có thể qua mặt cơ chế xác thực, thực thi mã tùy ý với quyền quản trị viên và chiếm quyền kiểm soát các node XCP-ng.",
+          "cited_article_ids": [
+            "2ce74e3f29c2a3a9"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Rất nguy hiểm cho các hệ thống ảo hóa! Tiếp theo, dự án Git cũng vừa phát hành bản cập nhật sửa 6 lỗ hổng bảo mật. Đáng chú ý là lỗ hổng CVE-2026-111760 cho phép thực thi mã từ xa trong quá trình nhân bản repository có cấu trúc lặp lại.",
+          "cited_article_ids": [
+            "fad867ab038ab03c"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Nguyên nhân do đâu vậy Minh?",
+          "cited_article_ids": [
+            "fad867ab038ab03c"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Do lỗi cắt ngắn số nguyên khi xử lý chỉ mục index của Git. Một đường dẫn tệp cực dài có thể vượt qua kiểm tra an toàn dưới một tên rồi lại được ghi dưới dạng tên ngắn hơn, gây ra ghi tệp ngoài ý muốn hoặc hỏng bộ nhớ.",
+          "cited_article_ids": [
+            "fad867ab038ab03c"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Lập trình viên cần cập nhật Git ngay lập tức. Chuyển sang tin tức từ Fortinet, hãng vừa tung ra đợt vá lỗi khổng lồ cho gần 100 lỗ hổng bảo mật. Việc phát hiện hàng loạt này là nhờ Fortinet tích hợp các mô hình AI tiên tiến vào quy trình kiểm thử bảo mật sản phẩm.",
+          "cited_article_ids": [
+            "4cd892fc52b8a7b3"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Ứng dụng AI vào kiểm thử mang lại hiệu quả rất ấn tượng. Còn Zoom thì sao Lan? Tôi nghe nói ứng dụng Zoom Workplace cho Windows cũng có lỗ hổng nghiêm trọng?",
+          "cited_article_ids": [
+            "95bc7c63c87673bf"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Đúng vậy, Zoom đã phát hành bản cập nhật cho 2 lỗ hổng trên Zoom Workplace cho Windows. Đáng chú ý nhất là CVE-2026-108186 với điểm CVSS lên tới 9.6. Lỗi xác thực đầu vào không đúng này cho phép người dùng chưa xác thực có thể leo thang đặc quyền từ xa.",
+          "cited_article_ids": [
+            "95bc7c63c87673bf"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Cuối cùng là một nghiên cứu từ công ty Claroc về các ứng dụng được tạo bởi AI Grok. Trong số 37.571 ứng dụng Grok công khai trên mạng, có tới 35.578 ứng dụng hoàn toàn không yêu cầu đăng nhập.",
+          "cited_article_ids": [
+            "8eeaa5e81881cd50"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Đáng lo ngại là danh sách này bao gồm cả 24 ứng dụng do nhân viên mạng xã hội X và SpaceXSI tạo ra. Dù phần lớn là game hay máy tính, nhưng khoảng 10% trong số đó lại chứa dữ liệu nội bộ và mật khẩu bảo mật.",
+          "cited_article_ids": [
+            "8eeaa5e81881cd50"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Bài học lớn về quản trị dữ liệu khi dùng AI! Hãy luôn cập nhật bản vá cho Xen Orchestra, Git, sản phẩm Fortinet, Zoom Workplace và cẩn trọng khi đưa ứng dụng tạo bởi AI lên mạng nhé. Cảm ơn Lan và hẹn gặp lại các bạn!",
+          "cited_article_ids": [
+            "2ce74e3f29c2a3a9",
+            "fad867ab038ab03c",
+            "4cd892fc52b8a7b3",
+            "95bc7c63c87673bf",
+            "8eeaa5e81881cd50"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Cảnh báo an ninh mạng: Lỗ hổng nguy hiểm và lộ dữ liệu AI",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "CẢNH BÁO AN NINH MẠNG HOT!",
+        "narration": {
+          "text": "Cập nhật ngay các lỗ hổng bảo mật nghiêm trọng vừa được phát hiện!",
+          "cited_article_ids": [
+            "2ce74e3f29c2a3a9",
+            "fad867ab038ab03c",
+            "4cd892fc52b8a7b3",
+            "95bc7c63c87673bf",
+            "8eeaa5e81881cd50"
+          ]
+        },
+        "duration_sec": 5.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "Xen Orchestra bị tấn công!",
+        "narration": {
+          "text": "Xen Orchestra bị khai thác lỗ hổng qua mặt xác thực, cho phép chiếm quyền quản trị node XCP-ng.",
+          "cited_article_ids": [
+            "2ce74e3f29c2a3a9"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "Git vá 6 lỗ hổng mã độc",
+        "narration": {
+          "text": "Git sửa 6 lỗ hổng, bao gồm CVE-2026-111760 cho phép thực thi mã khi clone repository độc hại.",
+          "cited_article_ids": [
+            "fad867ab038ab03c"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Fortinet vá gần 100 lỗ hổng",
+        "narration": {
+          "text": "Fortinet phát hành bản vá gần 100 lỗ hổng nhờ áp dụng mô hình AI vào kiểm thử sản phẩm.",
+          "cited_article_ids": [
+            "4cd892fc52b8a7b3"
+          ]
+        },
+        "duration_sec": 10.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "Zoom Workplace: Lỗi CVSS 9.6",
+        "narration": {
+          "text": "Zoom sửa lỗ hổng CVE-2026-108186 trên Windows giúp ngăn chặn leo thang đặc quyền từ xa.",
+          "cited_article_ids": [
+            "95bc7c63c87673bf"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "35.000+ app Grok lộ dữ liệu",
+        "narration": {
+          "text": "Hơn 35.000 ứng dụng do AI Grok tạo bị mở công khai, rò rỉ dữ liệu nội bộ và mật khẩu.",
+          "cited_article_ids": [
+            "8eeaa5e81881cd50"
+          ]
+        },
+        "duration_sec": 15.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "Cập nhật bản vá ngay hôm nay!",
+        "narration": {
+          "text": "Hãy cập nhật phần mềm ngay để bảo vệ hệ thống của bạn!",
+          "cited_article_ids": [
+            "2ce74e3f29c2a3a9",
+            "fad867ab038ab03c",
+            "4cd892fc52b8a7b3",
+            "95bc7c63c87673bf",
+            "8eeaa5e81881cd50"
+          ]
+        },
+        "duration_sec": 5.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "Điểm tin An ninh mạng nổi bật:\n- Xen Orchestra bị khai thác lỗ hổng nghiêm trọng cho phép chiếm quyền kiểm soát XCP-ng nodes [A1].\n- Git cập nhật vá 6 lỗ hổng, bao gồm thực thi mã từ xa khi clone mã nguồn [A2].\n- Fortinet phát hành bản vá cho gần 100 lỗ hổng nhờ ứng dụng mô hình AI [A3].\n- Zoom vá lỗ hổng nghiêm trọng CVE-2026-108186 cho phép nâng quyền không cần xác thực [A4].\n- Hơn 35.000 ứng dụng được tạo bởi Grok bị lộ công khai trên internet, rò rỉ dữ liệu và mật khẩu [A5].",
+      "hashtags": [
+        "#AnNinhMang",
+        "#CyberSecurity",
+        "#BaoMat",
+        "#Git",
+        "#Zoom",
+        "#Fortinet"
+      ],
+      "cited_article_ids": [
+        "2ce74e3f29c2a3a9",
+        "fad867ab038ab03c",
+        "4cd892fc52b8a7b3",
+        "95bc7c63c87673bf",
+        "8eeaa5e81881cd50"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Tổng hợp tin tức an ninh mạng mới nhất:\n- Lỗ hổng Xen Orchestra bị khai thác thực tế [A1]\n- Git vá 6 lỗ hổng thực thi mã [A2]\n- Fortinet vá gần 100 lỗ hổng nhờ AI [A3]\n- Lỗ hổng nâng quyền nghiêm trọng trên Zoom Workplace [A4]\n- Hơn 35.000 ứng dụng Grok rò rỉ dữ liệu trực tuyến [A5]\n\nHãy theo dõi kênh để cập nhật các thông tin an ninh mạng và khuyến cáo bảo mật mới nhất!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#TinTucCongNghe",
+        "#Vulnerabilities",
+        "#SecurityNews"
+      ],
+      "cited_article_ids": [
+        "2ce74e3f29c2a3a9",
+        "fad867ab038ab03c",
+        "4cd892fc52b8a7b3",
+        "95bc7c63c87673bf",
+        "8eeaa5e81881cd50"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Cập nhật an ninh mạng: Xen Orchestra bị tấn công [A1], Git vá 6 lỗ hổng [A2], Fortinet xử lý gần 100 lỗi [A3], Zoom vá lỗi nâng quyền CVE-2026-108186 [A4] và hơn 35.000 ứng dụng Grok rò rỉ mật khẩu [A5]!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#CongNghe",
+        "#HackerNews",
+        "#BaoMat"
+      ],
+      "cited_article_ids": [
+        "2ce74e3f29c2a3a9",
+        "fad867ab038ab03c",
+        "4cd892fc52b8a7b3",
+        "95bc7c63c87673bf",
+        "8eeaa5e81881cd50"
+      ]
+    }
+  ]
+}

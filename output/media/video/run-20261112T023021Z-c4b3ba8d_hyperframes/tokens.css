@@ -1,0 +1,46 @@
+/* Hallmark · v2.0.0 · genre: editorial · theme: specimen (custom editorial press) · signature: tactile print plate & podcast transcript */
+/* critique: hierarchy carried by Source Serif 4 display heads over Hanken Grotesk body on warm oat paper; zero HUD chrome. */
+:root {
+  --color-paper: oklch(96.2% 0.014 82);
+  --color-paper-well: oklch(93.0% 0.018 80);
+  --color-paper-mat: oklch(98.2% 0.008 84);
+  --color-ink: oklch(17.5% 0.012 60);
+  --color-ink-body: oklch(28.0% 0.014 60);
+  --color-muted: oklch(48.5% 0.014 65);
+  --color-rule: oklch(81.0% 0.018 75);
+  --color-rule-dark: oklch(66.0% 0.020 72);
+  --color-accent: oklch(48.0% 0.175 28);
+  --color-accent-ink: oklch(97.5% 0.010 82);
+  --color-focus: oklch(48.0% 0.175 28);
+  --color-upcoming: oklch(62.0% 0.016 70);
+  --color-highlight: oklch(86.0% 0.060 40);
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --rule-hair: 1px;
+  --rule-double: 3px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

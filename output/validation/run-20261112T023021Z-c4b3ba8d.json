@@ -1,0 +1,28 @@
+{
+  "run_id": "run-20261112T023021Z-c4b3ba8d",
+  "passed": true,
+  "errors": [],
+  "warnings": [
+    {
+      "code": "W_SECTION_LENGTH",
+      "severity": "warning",
+      "path": "digest.sections[2].body.text",
+      "message": "Section body word count (54) outside allowed range [60, 120]",
+      "evidence": "54 words"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "podcast.segments[6].line.text",
+      "message": "Term 'AI' not found in cited source text and not allowlisted",
+      "evidence": "AI"
+    }
+  ],
+  "checks_run": [
+    "layer1_structural",
+    "layer2_source_consistency",
+    "layer3_llm_claim_review (findings=0, dropped=0)"
+  ],
+  "llm_review": "done",
+  "scope_note": "Structural and source-consistency checks against RSS title/summary only. Facts are NOT independently verified."
+}

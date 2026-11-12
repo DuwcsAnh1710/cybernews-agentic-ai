@@ -1,0 +1,147 @@
+1
+00:00:00,000 --> 00:00:04,726
+[Minh] Xin chào các bạn nghe đài, chào mừng quay trở lại với bản tin an ninh mạng.
+
+2
+00:00:04,726 --> 00:00:09,893
+Hôm nay chúng ta sẽ cùng điểm qua các lỗ hổng nghiêm trọng vừa được phát hiện trên
+
+3
+00:00:09,893 --> 00:00:11,720
+Xen Orchestra, Git, Fortinet,
+
+4
+00:00:11,720 --> 00:00:16,320
+Zoom Workplace cũng như rủi ro bảo mật từ các ứng dụng do AI Grok tạo ra.
+
+5
+00:00:16,670 --> 00:00:21,634
+[Lan] Chào Minh và các bạn. Đầu tiên là thông tin cực kỳ nóng về Xen Orchestra.
+
+6
+00:00:21,634 --> 00:00:26,054
+Các lỗ hổng nghiêm trọng tại đây đang bị khai thác trong thực tế.
+
+7
+00:00:26,054 --> 00:00:28,978
+Kẻ tấn công có thể qua mặt cơ chế xác thực,
+
+8
+00:00:28,978 --> 00:00:34,622
+thực thi mã tùy ý với quyền quản trị viên và chiếm quyền kiểm soát các node XCP-ng.
+
+9
+00:00:34,972 --> 00:00:37,825
+[Minh] Rất nguy hiểm cho các hệ thống ảo hóa!
+
+10
+00:00:37,825 --> 00:00:43,457
+Tiếp theo, dự án Git cũng vừa phát hành bản cập nhật sửa 6 lỗ hổng bảo mật.
+
+11
+00:00:43,457 --> 00:00:49,464
+Đáng chú ý là lỗ hổng CVE-2026-111760 cho phép thực thi mã từ xa trong quá trình
+
+12
+00:00:49,464 --> 00:00:52,468
+nhân bản repository có cấu trúc lặp lại.
+
+13
+00:00:52,818 --> 00:00:55,266
+[Lan] Nguyên nhân do đâu vậy Minh?
+
+14
+00:00:55,616 --> 00:00:59,229
+[Minh] Do lỗi cắt ngắn số nguyên khi xử lý chỉ mục index của Git.
+
+15
+00:00:59,229 --> 00:01:04,461
+Một đường dẫn tệp cực dài có thể vượt qua kiểm tra an toàn dưới một tên rồi lại được
+
+16
+00:01:04,461 --> 00:01:09,008
+ghi dưới dạng tên ngắn hơn, gây ra ghi tệp ngoài ý muốn hoặc hỏng bộ nhớ.
+
+17
+00:01:09,358 --> 00:01:14,106
+[Lan] Lập trình viên cần cập nhật Git ngay lập tức. Chuyển sang tin tức từ Fortinet,
+
+18
+00:01:14,106 --> 00:01:18,063
+hãng vừa tung ra đợt vá lỗi khổng lồ cho gần 100 lỗ hổng bảo mật.
+
+19
+00:01:18,063 --> 00:01:23,055
+Việc phát hiện hàng loạt này là nhờ Fortinet tích hợp các mô hình AI tiên tiến vào
+
+20
+00:01:23,055 --> 00:01:25,246
+quy trình kiểm thử bảo mật sản phẩm.
+
+21
+00:01:25,596 --> 00:01:31,152
+[Minh] Ứng dụng AI vào kiểm thử mang lại hiệu quả rất ấn tượng. Còn Zoom thì sao Lan?
+
+22
+00:01:31,152 --> 00:01:36,708
+Tôi nghe nói ứng dụng Zoom Workplace cho Windows cũng có lỗ hổng nghiêm trọng?
+
+23
+00:01:37,058 --> 00:01:37,748
+[Lan] Đúng vậy,
+
+24
+00:01:37,748 --> 00:01:43,648
+Zoom đã phát hành bản cập nhật cho 2 lỗ hổng trên Zoom Workplace cho Windows.
+
+25
+00:01:43,648 --> 00:01:48,322
+Đáng chú ý nhất là CVE-2026-108186 với điểm CVSS lên tới 9.6.
+
+26
+00:01:48,322 --> 00:01:54,452
+Lỗi xác thực đầu vào không đúng này cho phép người dùng chưa xác thực có thể leo
+
+27
+00:01:54,452 --> 00:01:56,138
+thang đặc quyền từ xa.
+
+28
+00:01:56,488 --> 00:02:02,820
+[Minh] Cuối cùng là một nghiên cứu từ công ty Claroc về các ứng dụng được tạo bởi AI Grok.
+
+29
+00:02:02,820 --> 00:02:06,635
+Trong số 37.571 ứng dụng Grok công khai trên mạng,
+
+30
+00:02:06,635 --> 00:02:10,984
+có tới 35.578 ứng dụng hoàn toàn không yêu cầu đăng nhập.
+
+31
+00:02:11,334 --> 00:02:16,691
+[Lan] Đáng lo ngại là danh sách này bao gồm cả 24 ứng dụng do nhân viên mạng xã hội X và
+
+32
+00:02:16,691 --> 00:02:19,957
+SpaceXSI tạo ra. Dù phần lớn là game hay máy tính,
+
+33
+00:02:19,957 --> 00:02:24,726
+nhưng khoảng 10% trong số đó lại chứa dữ liệu nội bộ và mật khẩu bảo mật.
+
+34
+00:02:25,076 --> 00:02:28,244
+[Minh] Bài học lớn về quản trị dữ liệu khi dùng AI!
+
+35
+00:02:28,244 --> 00:02:33,068
+Hãy luôn cập nhật bản vá cho Xen Orchestra, Git, sản phẩm Fortinet,
+
+36
+00:02:33,068 --> 00:02:38,036
+Zoom Workplace và cẩn trọng khi đưa ứng dụng tạo bởi AI lên mạng nhé.
+
+37
+00:02:38,036 --> 00:02:40,484
+Cảm ơn Lan và hẹn gặp lại các bạn!
