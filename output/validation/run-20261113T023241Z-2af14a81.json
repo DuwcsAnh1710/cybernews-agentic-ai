@@ -1,0 +1,35 @@
+{
+  "run_id": "run-20261113T023241Z-2af14a81",
+  "passed": true,
+  "errors": [],
+  "warnings": [
+    {
+      "code": "W_SECTION_LENGTH",
+      "severity": "warning",
+      "path": "digest.sections[4].body.text",
+      "message": "Section body word count (48) outside allowed range [60, 120]",
+      "evidence": "48 words"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "digest.sections[1].body.text",
+      "message": "Term 'PoC' not found in cited source text and not allowlisted",
+      "evidence": "PoC"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "captions[0].text",
+      "message": "Term 'NINH' not found in cited source text and not allowlisted",
+      "evidence": "NINH"
+    }
+  ],
+  "checks_run": [
+    "layer1_structural",
+    "layer2_source_consistency",
+    "layer3_llm_claim_review (findings=0, dropped=0)"
+  ],
+  "llm_review": "done",
+  "scope_note": "Structural and source-consistency checks against RSS title/summary only. Facts are NOT independently verified."
+}

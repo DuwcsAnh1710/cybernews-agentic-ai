@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "style": "hallmark-gouache",
+  "beats": {
+    "seg01_b1": {
+      "file": "seg01_b1.jpg",
+      "prompt": "a craftsman carefully stitching a patch onto a worn canvas shaped like a shield; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "a craftsman carefully stitching a patch onto a worn canvas shaped like a shield; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern",
+      "text": "Chào Minh và chào các bạn nghe đài. Hôm nay có rất nhiều thông tin đáng chú ý, đặc biệt là liên quan đến các hệ thống máy chủ và trình duyệt phổ biến.",
+      "text_hash": "3bd7bdf824f5",
+      "provider": "pollinations"
+    }
+  }
+}

@@ -1,0 +1,167 @@
+1
+00:00:00,000 --> 00:00:04,550
+[Minh] Chào mừng các bạn quay trở lại với kênh podcast an ninh mạng. Mình là Minh,
+
+2
+00:00:04,550 --> 00:00:09,464
+và hôm nay chúng ta sẽ điểm qua những tin tức bảo mật rất quan trọng vừa được cập
+
+3
+00:00:09,464 --> 00:00:09,768
+nhật.
+
+4
+00:00:10,118 --> 00:00:15,005
+[Lan] Chào Minh và chào các bạn nghe đài. Hôm nay có rất nhiều thông tin đáng chú ý,
+
+5
+00:00:15,005 --> 00:00:19,454
+đặc biệt là liên quan đến các hệ thống máy chủ và trình duyệt phổ biến.
+
+6
+00:00:19,804 --> 00:00:22,183
+[Minh] Đầu tiên là thông tin từ Apache.
+
+7
+00:00:22,183 --> 00:00:28,278
+Apache đã vá một lỗ hổng thực thi mã từ xa RCE rất nghiêm trọng được phát hiện bởi
+
+8
+00:00:28,278 --> 00:00:29,764
+Anthropic và Google.
+
+9
+00:00:30,114 --> 00:00:35,975
+[Lan] Đó là lỗ hổng race condition trong mod_http2 với mã CVE-2026-119618.
+
+10
+00:00:35,975 --> 00:00:43,129
+Nó cho phép kẻ tấn công chưa xác thực thực thi mã trên các máy chủ có bật tính năng
+
+11
+00:00:43,129 --> 00:00:48,474
+HTTP/2. Đây là mối đe dọa rất lớn cho các máy chủ chạy Apache.
+
+12
+00:00:48,824 --> 00:00:54,079
+[Minh] Tiếp theo là về hệ điều hành Windows với mã khai thác SignDrop vừa được công bố.
+
+13
+00:00:54,079 --> 00:00:59,399
+Kẻ tấn công cục bộ có thể nâng quyền lên SYSTEM thông qua trình điều khiển Common
+
+14
+00:00:59,399 --> 00:01:01,304
+Log File System hay clfs.sys.
+
+15
+00:01:01,654 --> 00:01:02,187
+[Lan] Đúng vậy,
+
+16
+00:01:02,187 --> 00:01:06,924
+bài khai thác SignDrop này nhắm vào tính năng xác thực nhật ký được thêm vào năm
+
+17
+00:01:06,924 --> 00:01:07,279
+ngoái.
+
+18
+00:01:07,279 --> 00:01:12,016
+Nó lạm dụng cơ chế clfs.sys tạo các tệp đồng hành khi một tiến trình có quyền mở
+
+19
+00:01:12,016 --> 00:01:16,990
+nhật ký đã chuẩn bị sẵn, dùng việc chuyển hướng đường dẫn để chiếm quyền điều khiển.
+
+20
+00:01:17,340 --> 00:01:18,124
+[Minh] Không chỉ vậy,
+
+21
+00:01:18,124 --> 00:01:22,772
+Red Hat Quay cũng gặp phải một lỗ hổng nghiêm trọng cho phép kẻ tấn công đọc và ghi
+
+22
+00:01:22,772 --> 00:01:26,412
+đè lên toàn bộ các container image riêng tư trong mọi repository.
+
+23
+00:01:26,762 --> 00:01:31,751
+[Lan] Kẻ tấn công không cần tài khoản nếu tính năng truy cập ẩn danh được bật theo mặc
+
+24
+00:01:31,751 --> 00:01:34,183
+định. Ngay cả khi tắt truy cập ẩn danh,
+
+25
+00:01:34,183 --> 00:01:37,737
+người dùng có tài khoản hợp lệ vẫn có thể khai thác được.
+
+26
+00:01:37,737 --> 00:01:41,042
+Red Hat đã phát hành các bản vá cho 8 phiên bản Quay.
+
+27
+00:01:41,392 --> 00:01:43,233
+[Minh] Về phía cơ sở dữ liệu,
+
+28
+00:01:43,233 --> 00:01:49,927
+PostgreSQL Global Development Group vừa phát hành bản cập nhật cho các phiên bản
+
+29
+00:01:49,927 --> 00:01:53,776
+PostgreSQL 18.7, 17.12, 16.16, 15.20 và 14.25,
+
+30
+00:01:53,776 --> 00:01:58,211
+sửa tổng cộng 52 lỗ hổng bảo mật và hơn 140 lỗi khác.
+
+31
+00:01:58,211 --> 00:02:02,896
+Đồng thời họ cũng chính thức ngừng hỗ trợ PostgreSQL 14.
+
+32
+00:02:03,246 --> 00:02:09,250
+[Lan] Hầu hết các lỗi thực thi mã là lỗi bộ nhớ hoặc nhầm lẫn kiểu dữ liệu type confusion
+
+33
+00:02:09,250 --> 00:02:15,254
+xuất hiện ở PL/Perl, PL/Tcl, hàm tìm kiếm văn bản ts_rank_cd(), truy vấn song song,
+
+34
+00:02:15,254 --> 00:02:18,510
+logical replication, dblink và nhập thống kê.
+
+35
+00:02:18,860 --> 00:02:22,181
+[Minh] Cuối cùng là thông tin dành cho người dùng cuối.
+
+36
+00:02:22,181 --> 00:02:27,993
+Cả Chrome và Firefox đều vừa tung ra các bản cập nhật lớn để vá tổng cộng hơn 180 lỗ
+
+37
+00:02:27,993 --> 00:02:28,892
+hổng bảo mật.
+
+38
+00:02:29,242 --> 00:02:33,818
+[Lan] Cụ thể, Google đã khắc phục 83 lỗi trong bản Chrome 157 mới,
+
+39
+00:02:33,818 --> 00:02:37,708
+còn Mozilla đã giải quyết 99 lỗi trong Firefox 160.
+
+40
+00:02:37,708 --> 00:02:41,674
+Mọi người nên cập nhật trình duyệt ngay lập tức nhé.
+
+41
+00:02:42,024 --> 00:02:46,621
+[Minh] Cảm ơn Lan. Hãy kiểm tra và vá các hệ thống của bạn ngay hôm nay.
+
+42
+00:02:46,621 --> 00:02:51,360
+Cảm ơn các bạn đã lắng nghe và hẹn gặp lại trong các tập tiếp theo!
