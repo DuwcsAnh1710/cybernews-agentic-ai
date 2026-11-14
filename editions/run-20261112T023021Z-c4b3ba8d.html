@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bản tin An ninh mạng: Các lỗ hổng nghiêm trọng trên Xen Orchestra, Git, Fortinet, Zoom và rủi ro từ ứng dụng tạo bởi Grok · Chuyên san Phân tích và Tình báo An ninh Mạng CyberPulse AI.">
+  <title>Bản tin An ninh mạng: Các lỗ hổng nghiêm trọng trên Xen Orchestra, Git, Fortinet, Zoom và rủi ro từ ứng dụng tạo bởi Grok · CyberPulse AI Reader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div id="reading-progress" class="reading-progress-bar"></div>
+  <div id="toast-notify" class="toast-notification">Đã sao chép liên kết vào bộ nhớ tạm!</div>
+  <header class="site-header">
+  <div class="container">
+    <div class="header-top">
+      <a href="../index.html" class="brand">
+        <div class="brand-icon"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>shield</span></div>
+        <div class="brand-text">
+          <h1>CyberPulse AI</h1>
+          <p><span class="brand-live-dot" role="status"></span> Chuyên san Phân tích &amp; Tình báo An ninh Mạng</p>
+        </div>
+      </a>
+      <div class="header-actions">
+        <div class="search-box">
+          <span class="search-icon-pos"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>search</span></span>
+          <input type="text" id="search-input" class="search-input" placeholder="Tìm kiếm tin bảo mật, CVE…" aria-label="Tìm kiếm">
+        </div>
+        <a href="https://github.com/DuwcsAnh1710/cybernews-agentic-ai" target="_blank" rel="noopener noreferrer" class="github-header-btn" title="Xem chi tiết &amp; mã nguồn trên GitHub">
+          <svg class="github-svg-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          <span class="github-btn-text">GitHub</span>
+          <span class="material-symbols-outlined icon-github-ext" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>open_in_new</span>
+        </a>
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Chuyển chế độ sáng/tối" title="Chuyển chế độ giao diện">
+          <span class="material-symbols-outlined icon-dark-mode" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"></path></svg>dark_mode</span>
+          <span class="material-symbols-outlined icon-light-mode" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>light_mode</span>
+        </button>
+      </div>
+    </div>
+    <div class="filter-taskbar">
+  <div class="filter-pills">
+    <button class="filter-pill active" data-filter="all">Tất cả (5)</button>
+    <button class="filter-pill" data-filter="critical"><span class="status-dot dot-critical" role="status"></span> Khẩn cấp (0)</button>
+    <button class="filter-pill" data-filter="warning"><span class="status-dot dot-warning" role="status"></span> Cảnh báo cao (1)</button>
+    <button class="filter-pill" data-filter="patch"><span class="status-dot dot-patch" role="status"></span> Bản vá (3)</button>
+  </div>
+  <a href="#podcast-radio-box" class="podcast-quick-btn">
+    <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"></path></svg>podcasts</span> <span>Nghe Podcast số này</span>
+  </a>
+</div>
+  </div>
+</header>
+  <div class="edition-strip-wrap">
+  <div class="container edition-strip-inner">
+    <span class="strip-label"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><circle cx="8" cy="14" r="1" fill="currentColor"></circle><circle cx="12" cy="14" r="1" fill="currentColor"></circle><circle cx="16" cy="14" r="1" fill="currentColor"></circle><circle cx="8" cy="18" r="1" fill="currentColor"></circle><circle cx="12" cy="18" r="1" fill="currentColor"></circle></svg>calendar_month</span> Chọn ngày xem tin:</span>
+    <div class="strip-dates">
+      <a href="../editions/run-20261114T004235Z-26324a58.html" class="strip-date-pill">14/11/2026 (Mới nhất)</a>
+        <a href="../editions/run-20261113T023241Z-2af14a81.html" class="strip-date-pill">13/11/2026</a>
+        <a href="../editions/run-20261112T023021Z-c4b3ba8d.html" class="strip-date-pill active" aria-current="page">12/11/2026</a>
+        <a href="../editions/run-20261111T023715Z-dba823d6.html" class="strip-date-pill">11/11/2026</a>
+        <a href="../editions/run-20261110T023732Z-bdd2cb3a.html" class="strip-date-pill">10/11/2026</a>
+      <a href="../archive.html" class="strip-date-all"><div class="strip-date-all-inner">Tất cả các ngày &rarr;</div></a>
+    </div>
+  </div>
+</div>
+  <main class="main-content">
+    <div class="container">
+      <div class="portal-grid">
+  <div class="portal-main">
+  <div class="edition-top-bar">
+  <a href="../index.html" class="nav-link edition-top-link">
+    <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>arrow_back</span> Về trang chủ
+  </a>
+  <a href="../archive.html" class="nav-link edition-top-link">
+    <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>calendar_today</span> Bản tin theo ngày
+  </a>
+</div>
+  <div class="hero-card" data-run-id="run-20261112T023021Z-c4b3ba8d">
+    <div class="hero-meta">
+      <span class="meta-item"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15 15"></polyline></svg>schedule</span> 12/11/2026 09:30 (UTC+7)</span>
+      <span class="meta-item views-counter"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>visibility</span> <span id="edition-views-count">8,136</span> lượt xem</span>
+      <span class="meta-item">Mã phiên: <code>run-20261112T023021Z-c4b3ba8d</code></span>
+    </div>
+    <h1 class="hero-title">Bản tin An ninh mạng: Các lỗ hổng nghiêm trọng trên Xen Orchestra, Git, Fortinet, Zoom và rủi ro từ ứng dụng tạo bởi Grok</h1>
+    <p class="hero-lead">Bản tin an ninh mạng hôm nay cập nhật các thông tin quan trọng về lỗ hổng bảo mật bị khai thác thực tế và các bản vá khẩn cấp. Nội dung bao gồm các lỗi nghiêm trọng trên Xen Orchestra, hệ thống Git, sản phẩm Fortinet, ứng dụng Zoom Workplace cũng như nguy cơ rò rỉ dữ liệu từ các ứng dụng được phát triển bằng AI.</p>
+  </div>
+  <div class="stories-stream">
+    <article class="story-card filterable-card threat-card" data-severity="warning">
+  <div class="story-header">
+    <span class="badge badge-warning">[Cảnh báo cao]</span>
+    <div class="vendor-tags"></div>
+  </div>
+  <h3 class="story-title"><a href="../articles/2ce74e3f29c2a3a9.html">Lỗ hổng nghiêm trọng trên Xen Orchestra bị khai thác thực tế</a></h3>
+  <p class="story-body">Các cuộc tấn công đang khai thác lỗ hổng nghiêm trọng trên Xen Orchestra. Lỗi bỏ qua xác thực (authentication bypass - cơ chế cho phép truy cập mà không cần xác minh danh tính) này cho phép kẻ tấn công thực thi mã tùy ý dưới quyền quản trị viên (admin) và chiếm quyền kiểm soát các nút XCP-ng.</p>
+  <div class="story-footer">
+    <div class="story-footer-meta">
+      <span class="meta-item"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15 15"></polyline></svg>schedule</span> Mục #1 · 12/11/2026 09:30</span>
+      <span class="meta-item"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"></circle><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="13" x2="15" y2="15"></line><line x1="9" y1="2" x2="15" y2="2"></line></svg>timer</span> 2 phút đọc</span>
+      <span class="meta-item"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>person</span> Ban Biên tập CyberPulse</span>
+    </div>
+    <a href="../articles/2ce74e3f29c2a3a9.html" class="story-read-link">
+      <span>Đọc tiếp</span>
+      <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>arrow_forward</span>
+    </a>
+  </div>
+</article><article class="story-card filterable-card threat-card" data-severity="patch">
+  <div class="story-header">
+    <span class="badge badge-patch">[Bản vá]</span>
+    <div class="vendor-tags"></div>
+  </div>
+  <h3 class="story-title"><a href="../articles/fad867ab038ab03c.html">Git phát hành bản vá cho 6 lỗ hổng bảo mật</a></h3>
+  <p class="story-body">Dự án Git đã phát hành các bản cập nhật an ninh để xử lý 6 lỗ hổng có thể cho phép kẻ tấn công thực thi mã, ghi vào các tệp không mong muốn hoặc gây hỏng bộ nhớ khi xử lý mã nguồn độc hại. Trong đó, lỗ hổng CVE-2026-111760 xuất phát từ lỗi cắt ngắn số nguyên (integer truncation) khi xử lý chỉ số, khiến đường dẫn tệp cực dài bị ghi dưới dạng đường dẫn ngắn hơn.</p>
+  <div class="story-footer">
+    <div class="story-footer-meta">
+      <span class="meta-item"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15 15"></polyline></svg>schedule</span> Mục #2 · 12/11/2026 09:30</span>
+      <span class="meta-item"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"></circle><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="13" x2="15" y2="15"></line><line x1="9" y1="2" x2="15" y2="2"></line></svg>timer</span> 2 phút đọc</span>
+      <span class="meta-item"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>person</span> Ban Biên tập CyberPulse</span>
+    </div>
+    <a href="../articles/fad867ab038ab03c.html" class="story-read-link">
+      <span>Đọc tiếp</span>
+      <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>arrow_forward</span>
+    </a>
+  </div>
+</article><article class="story-card filterable-card threat-card" data-severity="patch">
+  <div class="story-header">
+    <span class="badge badge-patch">[Bản vá]</span>
+    <div class="vendor-tags"><span class="vendor-tag">Fortinet</span></div>
+  </div>
+  <h3 class="story-title"><a href="../articles/4cd892fc52b8a7b3.html">Fortinet vá gần 100 lỗ hổng bảo mật</a></h3>
+  <p class="story-body">Tập đoàn Fortinet vừa phát hành bản vá cho gần 100 lỗ hổng bảo mật trong các sản phẩm của mình. Đợt cập nhật quy mô lớn này diễn ra sau khi công ty tích hợp các mô hình AI tiên tiến (frontier AI models) vào quá trình thử nghiệm an ninh sản phẩm.</p>
+  <div class="story-footer">
+    <div class="story-footer-meta">
+      <span class="meta-item"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15 15"></polyline></svg>schedule</span> Mục #3 · 12/11/2026 09:30</span>
+      <span class="meta-item"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"></circle><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="13" x2="15" y2="15"></line><line x1="9" y1="2" x2="15" y2="2"></line></svg>timer</span> 2 phút đọc</span>
+      <span class="meta-item"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>person</span> Ban Biên tập CyberPulse</span>
+    </div>
+    <a href="../articles/4cd892fc52b8a7b3.html" class="story-read-link">
+      <span>Đọc tiếp</span>
+      <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>arrow_forward</span>
+    </a>
+  </div>
+</article><article class="story-card filterable-card threat-card" data-severity="patch">
+  <div class="story-header">
+    <span class="badge badge-patch">[Bản vá]</span>
+    <div class="vendor-tags"><span class="vendor-tag">Windows</span></div>
+  </div>
+  <h3 class="story-title"><a href="../articles/95bc7c63c87673bf.html">Zoom Workplace cho Windows gặp lỗ hổng nâng quyền từ xa</a></h3>
+  <p class="story-body">Zoom đã phát hành bản cập nhật phần mềm để khắc phục hai lỗ hổng bảo mật trên Zoom Workplace cho Windows. Trong đó có lỗi nghiêm trọng CVE-2026-108186 (điểm CVSS 9.6) liên quan đến việc xác thực dữ liệu đầu vào không đúng cách, cho phép người dùng chưa xác thực thực hiện nâng quyền (privilege escalation) trên hệ thống.</p>
+  <div class="story-footer">
+    <div class="story-footer-meta">
+      <span class="meta-item"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15 15"></polyline></svg>schedule</span> Mục #4 · 12/11/2026 09:30</span>
+      <span class="meta-item"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"></circle><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="13" x2="15" y2="15"></line><line x1="9" y1="2" x2="15" y2="2"></line></svg>timer</span> 2 phút đọc</span>
+      <span class="meta-item"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>person</span> Ban Biên tập CyberPulse</span>
+    </div>
+    <a href="../articles/95bc7c63c87673bf.html" class="story-read-link">
+      <span>Đọc tiếp</span>
+      <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>arrow_forward</span>
+    </a>
+  </div>
+</article><article class="story-card filterable-card threat-card" data-severity="info">
+  <div class="story-header">
+    <span class="badge badge-info">[Thông tin]</span>
+    <div class="vendor-tags"></div>
+  </div>
+  <h3 class="story-title"><a href="../articles/8eeaa5e81881cd50.html">Hơn 35.000 ứng dụng tạo bởi Grok bị lộ công khai</a></h3>
+  <p class="story-body">Công ty an ninh Claroc phát hiện 35.578 trong tổng số 37,571 ứng dụng được tạo bởi Grok bị công khai trên mạng mà không yêu cầu đăng nhập. Các ứng dụng này bao gồm 24 ứng dụng do nhân viên của mạng xã hội X và SpaceXSI phát triển. Khoảng 1/10 trong số các ứng dụng mở này chứa dữ liệu nội bộ và mật khẩu.</p>
+  <div class="story-footer">
+    <div class="story-footer-meta">
+      <span class="meta-item"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15 15"></polyline></svg>schedule</span> Mục #5 · 12/11/2026 09:30</span>
+      <span class="meta-item"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"></circle><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="13" x2="15" y2="15"></line><line x1="9" y1="2" x2="15" y2="2"></line></svg>timer</span> 2 phút đọc</span>
+      <span class="meta-item"><span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>person</span> Ban Biên tập CyberPulse</span>
+    </div>
+    <a href="../articles/8eeaa5e81881cd50.html" class="story-read-link">
+      <span>Đọc tiếp</span>
+      <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>arrow_forward</span>
+    </a>
+  </div>
+</article>
+  </div>
+</div>
+  <aside class="portal-sidebar">
+  <div id="podcast-radio-box" class="podcast-radio-box sidebar-widget">
+  <div class="widget-title">
+    <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"></path></svg>podcasts</span>
+    <span>Podcast Radio Box</span>
+    <div class="waveform-bars">
+      <span class="waveform-bar"></span>
+      <span class="waveform-bar"></span>
+      <span class="waveform-bar"></span>
+      <span class="waveform-bar"></span>
+      <span class="waveform-bar"></span>
+    </div>
+  </div>
+  <div class="podcast-badge-wrap">
+    <div class="podcast-badge">Bản tin AI Voiceover</div>
+    <span class="cdn-stream-badge">[CDN GITHUB PAGES]</span>
+  </div>
+  <audio id="podcast-audio" preload="metadata" src="https://duwcsanh1710.github.io/cybernews-agentic-ai/media/run-20261112T023021Z-c4b3ba8d.mp3"></audio>
+  <div class="podcast-controls">
+    <button id="podcast-play-btn" class="podcast-play-btn" aria-label="Phát bản tin">
+      <span class="material-symbols-outlined btn-play" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"></path></svg>play_circle</span>
+      <span class="material-symbols-outlined btn-pause" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"></path></svg>pause_circle</span>
+    </button>
+    <div class="podcast-scrubber-wrap">
+      <input type="range" id="podcast-scrubber" class="podcast-scrubber" min="0" value="0" step="1">
+      <div class="podcast-time">
+        <span id="podcast-time-cur">00:00</span>
+        <span id="podcast-time-dur">--:--</span>
+      </div>
+    </div>
+    <button id="podcast-speed-btn" class="speed-toggle-btn" title="Tốc độ phát">1.0x</button>
+  </div>
+</div>
+  <div id="video-brief-box" class="video-brief-box sidebar-widget">
+  <div class="widget-title">
+    <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-10 12.5v-9l6 4.5-6 4.5z"></path></svg>smart_display</span>
+    <span>Video Brief 9:16</span>
+    <span class="video-badge-live">HD STREAM</span>
+  </div>
+  <div class="video-container">
+    <video id="edition-video" controls preload="metadata" playsinline src="https://duwcsanh1710.github.io/cybernews-agentic-ai/media/run-20261112T023021Z-c4b3ba8d.mp4" poster="https://duwcsanh1710.github.io/cybernews-agentic-ai/media/run-20261112T023021Z-c4b3ba8d_cover.png" class="edition-video-player">
+      Trình duyệt không hỗ trợ thẻ video HTML5.
+    </video>
+  </div>
+  <div class="video-caption">
+    <span class="video-source-badge">[CDN: GITHUB PAGES]</span>
+    <p>Bản tin tóm tắt an ninh mạng định dạng video ngắn 9:16.</p>
+  </div>
+</div>
+  <div class="sidebar-widget">
+  <div class="widget-title">
+    <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>trending_up</span>
+    <span>Tin đọc nhiều / Trending</span>
+  </div>
+  <div class="trending-list">
+    <a href="../articles/2ce74e3f29c2a3a9.html" class="trending-item">
+  <div class="trending-num">01</div>
+  <div class="trending-content">
+    <h4>Lỗ hổng nghiêm trọng trên Xen Orchestra bị khai thác thực tế</h4>
+    <p>Chuyên mục #1 · Cảnh báo cao</p>
+  </div>
+</a><a href="../articles/fad867ab038ab03c.html" class="trending-item">
+  <div class="trending-num">02</div>
+  <div class="trending-content">
+    <h4>Git phát hành bản vá cho 6 lỗ hổng bảo mật</h4>
+    <p>Chuyên mục #2 · Bản vá</p>
+  </div>
+</a><a href="../articles/4cd892fc52b8a7b3.html" class="trending-item">
+  <div class="trending-num">03</div>
+  <div class="trending-content">
+    <h4>Fortinet vá gần 100 lỗ hổng bảo mật</h4>
+    <p>Chuyên mục #3 · Bản vá</p>
+  </div>
+</a><a href="../articles/95bc7c63c87673bf.html" class="trending-item">
+  <div class="trending-num">04</div>
+  <div class="trending-content">
+    <h4>Zoom Workplace cho Windows gặp lỗ hổng nâng quyền từ xa</h4>
+    <p>Chuyên mục #4 · Bản vá</p>
+  </div>
+</a><a href="../articles/8eeaa5e81881cd50.html" class="trending-item">
+  <div class="trending-num">05</div>
+  <div class="trending-content">
+    <h4>Hơn 35.000 ứng dụng tạo bởi Grok bị lộ công khai</h4>
+    <p>Chuyên mục #5 · Thông tin</p>
+  </div>
+</a>
+  </div>
+</div>
+  <div class="sidebar-widget threat-radar-box">
+  <div class="widget-title">
+    <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5c-.49 0-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z"></path></svg>bug_report</span>
+    <span>Threat Radar / CVE Tracker</span>
+  </div>
+  <div>
+    <div class="radar-sublabel">Lỗ hổng đang theo dõi:</div>
+    <div class="cve-pill-list"><span class="cve-pill">CVE-2026-111760</span><span class="cve-pill">CVE-2026-108186</span></div>
+  </div>
+  <div>
+    <div class="radar-sublabel">Công nghệ bị ảnh hưởng:</div>
+    <div class="tech-list"><span class="vendor-tag">Fortinet</span><span class="vendor-tag">Windows</span></div>
+  </div>
+</div>
+  <div class="sidebar-widget">
+  <div class="widget-title">
+    <span class="material-symbols-outlined" style="font-size: 24px; width: 24px; height: 24px;" aria-hidden="true"><svg class="icon-fallback" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>calendar_today</span>
+    <span>Ấn bản gần đây (Archive)</span>
+  </div>
+  <div class="archive-mini-list">
+    <a href="../editions/run-20261114T004235Z-26324a58.html" class="archive-mini-item"><span>14/11/2026</span><code>26324a58</code></a><a href="../editions/run-20261113T023241Z-2af14a81.html" class="archive-mini-item"><span>13/11/2026</span><code>2af14a81</code></a><a href="../editions/run-20261112T023021Z-c4b3ba8d.html" class="archive-mini-item"><span>12/11/2026</span><code>c4b3ba8d</code></a><a href="../editions/run-20261111T023715Z-dba823d6.html" class="archive-mini-item"><span>11/11/2026</span><code>dba823d6</code></a><a href="../editions/run-20261110T023732Z-bdd2cb3a.html" class="archive-mini-item"><span>10/11/2026</span><code>bdd2cb3a</code></a>
+  </div>
+</div>
+</aside>
+</div>
+    </div>
+  </main>
+  <footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <p>&copy; 2026 CyberPulse AI. Tạp chí An ninh Mạng Tổng hợp Tự động bởi CyberPulse Agentic AI.</p>
+    </div>
+    <div class="footer-links">
+      <a href="../index.html" class="footer-link">Trang chủ</a>
+      <a href="../archive.html" class="footer-link">Kho lưu trữ</a>
+      <a href="http://duwcsanhnews.wuaze.com/" target="_blank" rel="noopener noreferrer" class="footer-link">Trực tuyến (duwcsanhnews.wuaze.com)</a>
+      <a href="https://github.com/DuwcsAnh1710/cybernews-agentic-ai" target="_blank" rel="noopener noreferrer" class="footer-link">Mã nguồn GitHub</a>
+      <a href="https://duwcsanh1710.github.io/cybernews-agentic-ai/" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub Pages CDN</a>
+    </div>
+  </div>
+</footer>
+  <script src="../assets/app.js"></script>
+</body>
+</html>
