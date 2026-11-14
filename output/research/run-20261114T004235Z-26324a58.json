@@ -1,0 +1,78 @@
+{
+  "run_id": "run-20261114T004235Z-26324a58",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "d8cc2172e29e81d0",
+        "source_name": "The Hacker News",
+        "title": "PostgreSQL Patches 52 Flaws, Including 22-Year-Old Bug Enabling Authenticated RCE",
+        "url": "https://thehackernews.com/2026/11/postgresql-patches-52-flaws-including.html",
+        "published_at": "2026-11-13T16:53:08Z",
+        "summary": "A type confusion flaw in PostgreSQL lets a database user who can create objects run code on the server. Updates released yesterday fix it, along with 51 other security flaws. Full protection from this flaw also requires rebuilding any C-language extensions installed on the server. The flaw, tracked as CVE-2026-6460, has a CVSS score of 8.8. Any code run this way has the rights of the operating",
+        "fetched_at": "2026-11-14T00:42:32.098780Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "PostgreSQL đã phát hành bản vá cho 52 lỗ hổng bảo mật, bao gồm một lỗi tồn tại 22 năm cho phép thực thi mã từ xa (RCE) có xác thực trên máy chủ."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "aafd1efa2d73de1e",
+        "source_name": "SecurityWeek",
+        "title": "Nightmare Eclipse Drops Windows Zero-Day Exploit ‘SignDrop’",
+        "url": "https://securityweek.com/nightmare-eclipse-drops-windows-zero-day-exploit-signdrop",
+        "published_at": "2026-11-13T08:50:36Z",
+        "summary": "It abuses CLFS and Windows Defender to trigger arbitrary file creation in the context of the antimalware process. The post Nightmare Eclipse Drops Windows Zero-Day Exploit ‘SignDrop’ appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-14T00:42:32.665061Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Nhóm khai thác Nightmare Eclipse vừa tung ra mã khai thác zero-day 'SignDrop' trên Windows, lạm dụng CLFS và Windows Defender để tạo tệp tùy ý."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "b5df476c43800959",
+        "source_name": "SecurityWeek",
+        "title": "Citrix Patches 10 Critical NetScaler Vulnerabilities",
+        "url": "https://securityweek.com/citrix-patches-10-critical-netscaler-vulnerabilities",
+        "published_at": "2026-11-13T09:36:56Z",
+        "summary": "Successful exploitation could lead to unexpected behavior or denial-of-service (DoS) conditions. The post Citrix Patches 10 Critical NetScaler Vulnerabilities appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-14T00:42:32.665061Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Citrix đã phát hành bản vá cho 10 lỗ hổng nghiêm trọng trên dòng sản phẩm NetScaler có thể dẫn đến từ chối dịch vụ hoặc hành vi bất thường."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "d93f5e12f3c1794f",
+        "source_name": "The Hacker News",
+        "title": "New Mior and Skyfall Attacks Let Rogue Cloud Hosts Steal Secrets From AMD SEV-SNP VMs",
+        "url": "https://thehackernews.com/2026/11/new-mior-and-skyfall-attacks-let-rogue.html",
+        "published_at": "2026-11-13T15:27:05Z",
+        "summary": "Two attacks made public this week allow a malicious host to read data inside AMD SEV-SNP-protected virtual machines (VMs), which are built to keep the server's operator out. One of them, Mior, can also modify a VM's memory and fake the signed report confirming which software it runs. Both need control of the server's hypervisor, and Mior also needs control of the server's BIOS. Researchers",
+        "fetched_at": "2026-11-14T00:42:32.098780Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Hai phương thức tấn công mới Mior và Skyfall cho phép các máy chủ đám mây độc hại đánh cắp dữ liệu bí mật và can thiệp bộ nhớ của máy ảo bảo vệ bởi AMD SEV-SNP."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "637417af94c9052c",
+        "source_name": "The Record",
+        "title": "FBI flash alert says Artex tool automating cyberattacks at ‘machine speed’",
+        "url": "https://therecord.media/artex-ai-tool-fbi-flash-alert",
+        "published_at": "2026-11-13T21:32:00Z",
+        "summary": "Open source hacking tool Artex \"significantly reduces the time required to chain attack techniques, with some intrusions progressing from initial targeting to privileged access in under three hours,\" the FBI said.",
+        "fetched_at": "2026-11-14T00:42:32.321223Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "FBI phát bản tin cảnh báo về công cụ mã nguồn mở Artex giúp tự động hóa các cuộc tấn công mạng với tốc độ cực nhanh, rút ngắn thời gian xâm nhập xuống dưới 3 giờ."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=2"
+}

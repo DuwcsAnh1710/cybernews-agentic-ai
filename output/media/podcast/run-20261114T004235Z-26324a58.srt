@@ -1,0 +1,115 @@
+1
+00:00:00,000 --> 00:00:04,412
+[Minh] Chào mừng các bạn đến với bản tin an ninh mạng tuần này. Tôi là Minh,
+
+2
+00:00:04,412 --> 00:00:09,528
+và hôm nay chúng ta sẽ cập nhật các lỗ hổng bảo mật đáng chú ý vừa được công bố.
+
+3
+00:00:09,878 --> 00:00:15,006
+[Lan] Chào Minh và các bạn. Thông tin đầu tiên liên quan đến PostgreSQL,
+
+4
+00:00:15,006 --> 00:00:18,580
+một hệ quản trị cơ sở dữ liệu cực kỳ phổ biến.
+
+5
+00:00:18,580 --> 00:00:23,942
+Họ vừa vá tới 52 lỗ hổng, trong đó có một lỗ hổng tồn tại tận 22 năm!
+
+6
+00:00:24,292 --> 00:00:29,614
+[Minh] Đó là lỗ hổng type confusion có mã CVE-2026-6460 với điểm CVSS 8.8.
+
+7
+00:00:29,614 --> 00:00:35,730
+Nó cho phép người dùng có quyền tạo đối tượng thực thi mã từ xa trên máy chủ.
+
+8
+00:00:35,730 --> 00:00:37,557
+Để khắc phục hoàn toàn,
+
+9
+00:00:37,557 --> 00:00:43,276
+quản trị viên ngoài cập nhật còn phải rebuild các extension viết bằng C.
+
+10
+00:00:43,626 --> 00:00:46,798
+[Lan] Tiếp theo là thông tin về nhóm Nightmare Eclipse.
+
+11
+00:00:46,798 --> 00:00:50,488
+Họ đang khai thác lỗ hổng zero-day SignDrop trên Windows,
+
+12
+00:00:50,488 --> 00:00:55,797
+lạm dụng CLFS và Windows Defender để tạo file tùy ý với quyền của tiến trình chống
+
+13
+00:00:55,797 --> 00:00:56,250
+mã độc.
+
+14
+00:00:56,600 --> 00:01:01,364
+[Minh] Citrix cũng vừa phát hành bản vá cho 10 lỗ hổng nghiêm trọng trên các sản phẩm
+
+15
+00:01:01,364 --> 00:01:03,746
+NetScaler. Nếu bị khai thác thành công,
+
+16
+00:01:03,746 --> 00:01:08,144
+những lỗi này có thể gây ra hành vi bất thường hoặc từ chối dịch vụ DoS.
+
+17
+00:01:08,494 --> 00:01:10,848
+[Lan] Trong môi trường điện toán đám mây,
+
+18
+00:01:10,848 --> 00:01:16,362
+các nhà nghiên cứu vừa công khai hai cuộc tấn công mới là Mior và Skyfall nhằm vào
+
+19
+00:01:16,362 --> 00:01:18,379
+máy ảo bảo vệ bởi AMD SEV-SNP.
+
+20
+00:01:18,379 --> 00:01:22,414
+Máy chủ đám mây độc hại có thể đọc dữ liệu bên trong máy ảo.
+
+21
+00:01:22,764 --> 00:01:23,423
+[Minh] Đặc biệt,
+
+22
+00:01:23,423 --> 00:01:29,205
+đòn tấn công Mior còn có thể sửa đổi bộ nhớ máy ảo và giả mạo báo cáo xác thực.
+
+23
+00:01:29,205 --> 00:01:33,157
+Mior yêu cầu kiểm soát hypervisor và BIOS của máy chủ,
+
+24
+00:01:33,157 --> 00:01:36,012
+trong khi Skyfall cần quyền hypervisor.
+
+25
+00:01:36,362 --> 00:01:40,410
+[Lan] Cuối cùng, FBI vừa phát cảnh báo về công cụ Artex mã nguồn mở.
+
+26
+00:01:40,410 --> 00:01:43,870
+Nó tự động hóa các cuộc tấn công mạng với tốc độ máy,
+
+27
+00:01:43,870 --> 00:01:48,962
+rút ngắn thời gian từ nhắm mục tiêu đến chiếm quyền quản trị xuống dưới 3 giờ.
+
+28
+00:01:49,312 --> 00:01:54,352
+[Minh] Những thông tin trên cho thấy nguy cơ tấn công tự động hóa và lỗ hổng phần mềm luôn
+
+29
+00:01:54,352 --> 00:01:58,360
+rình rấp. Cảm ơn Lan và hẹn gặp lại mọi người trong tập tiếp theo!

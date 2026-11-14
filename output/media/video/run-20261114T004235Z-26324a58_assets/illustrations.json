@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "style": "hallmark-gouache",
+  "beats": {
+    "seg00_b1": {
+      "file": "seg00_b1.jpg",
+      "prompt": "a craftsman carefully stitching a patch onto a worn canvas shaped like a shield; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "a craftsman carefully stitching a patch onto a worn canvas shaped like a shield; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern",
+      "text": "Chào mừng các bạn đến với bản tin an ninh mạng tuần này. Tôi là Minh, và hôm nay chúng ta sẽ cập nhật các lỗ hổng bảo mật đáng chú ý vừa được công bố.",
+      "text_hash": "1729eb159800",
+      "provider": "pollinations"
+    },
+    "seg05_b2": {
+      "file": "seg05_b2.jpg",
+      "prompt": "paper records slipping out of a cracked archive box onto a desk, a magnifying glass nearby. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "paper records slipping out of a cracked archive box onto a desk, a magnifying glass nearby",
+      "text": "Máy chủ đám mây độc hại có thể đọc dữ liệu bên trong máy ảo.",
+      "text_hash": "716379c1e689",
+      "provider": "pollinations"
+    }
+  }
+}

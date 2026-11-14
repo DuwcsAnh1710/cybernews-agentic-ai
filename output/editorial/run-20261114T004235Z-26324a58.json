@@ -1,0 +1,293 @@
+{
+  "run_id": "run-20261114T004235Z-26324a58",
+  "language": "vi",
+  "digest": {
+    "title": "Tóm tắt An ninh mạng: Các lỗ hổng bảo mật nghiêm trọng và công cụ tấn công mới",
+    "intro": "Bản tin an ninh mạng hôm nay cập nhật thông tin về bản vá lỗi nghiêm trọng trên PostgreSQL và Citrix NetScaler. Bên cạnh đó, các nhà nghiên cứu cũng cảnh báo về kỹ thuật khai thác zero-day mới trên Windows, các cuộc tấn công nhắm vào máy ảo AMD SEV-SNP và công cụ tấn công tự động Artex.",
+    "sections": [
+      {
+        "heading": "PostgreSQL khắc phục lỗ hổng RCE tồn tại 22 năm",
+        "body": {
+          "text": "PostgreSQL đã phát hành các bản cập nhật để khắc phục 52 lỗ hổng an ninh mạng, bao gồm lỗ hổng type confusion (nhầm lẫn kiểu dữ liệu) nghiêm trọng mã hiệu CVE-2026-6460 với điểm CVSS 8.8. Lỗ hổng này cho phép người dùng cơ sở dữ liệu có quyền tạo đối tượng thực thi mã từ xa (RCE - Remote Code Execution) trên máy chủ với quyền của hệ điều hành. Để khắc phục hoàn toàn, quản trị viên cần cập nhật hệ thống và xây dựng lại các tiện ích mở rộng ngôn ngữ C đã cài đặt.",
+          "cited_article_ids": [
+            "d8cc2172e29e81d0"
+          ]
+        }
+      },
+      {
+        "heading": "Kỹ thuật khai thác zero-day 'SignDrop' trên Windows",
+        "body": {
+          "text": "Nhóm Nightmare Eclipse đã phát tán mã khai thác zero-day (lỗ hổng chưa có bản vá) có tên 'SignDrop' trên hệ điều hành Windows. Kỹ thuật này lạm dụng Common Log File System (CLFS) và Windows Defender để kích hoạt hành vi tạo tệp tùy ý dưới ngữ cảnh của tiến trình chống mã độc (antimalware).",
+          "cited_article_ids": [
+            "aafd1efa2d73de1e"
+          ]
+        }
+      },
+      {
+        "heading": "Citrix khắc phục 10 lỗ hổng nghiêm trọng trên NetScaler",
+        "body": {
+          "text": "Citrix đã phát hành các bản vá cho 10 lỗ hổng bảo mật nghiêm trọng ảnh hưởng đến dòng sản phẩm NetScaler. Việc khai thác thành công các lỗ hổng này có thể dẫn đến các hành vi không mong muốn trên hệ thống hoặc gây ra tình trạng từ chối dịch vụ (DoS - Denial of Service).",
+          "cited_article_ids": [
+            "b5df476c43800959"
+          ]
+        }
+      },
+      {
+        "heading": "Các đợt tấn công Mior và Skyfall nhắm vào máy ảo AMD SEV-SNP",
+        "body": {
+          "text": "Hai kỹ thuật tấn công mới có tên Mior và Skyfall vừa được công bố, cho phép máy chủ đám mây độc hại đánh cắp dữ liệu bên trong các máy ảo (VM) được bảo vệ bởi AMD SEV-SNP. Cuộc tấn công Mior còn có thể sửa đổi bộ nhớ máy ảo và giả mạo báo cáo xác thực. Để thực hiện, kẻ tấn công cần kiểm soát hypervisor (trình quản lý máy ảo) của máy chủ, và Mior đòi hỏi thêm quyền kiểm soát BIOS.",
+          "cited_article_ids": [
+            "d93f5e12f3c1794f"
+          ]
+        }
+      },
+      {
+        "heading": "FBI cảnh báo về công cụ tấn công tự động Artex",
+        "body": {
+          "text": "Cơ quan FBI đã phát hành cảnh báo nhanh về Artex, một công cụ tấn công mạng nguồn mở có khả năng tự động hóa các đợt xâm nhập với tốc độ máy móc. Artex làm giảm đáng kể thời gian chuỗi tấn công, cho phép kẻ đe dọa tiến từ giai đoạn nhắm mục tiêu ban đầu đến khi chiếm được quyền truy cập đặc quyền trong chưa đầy ba giờ.",
+          "cited_article_ids": [
+            "637417af94c9052c"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: Lỗ Hổng 22 Năm Trong PostgreSQL Và Các Mối Đe Dọa Mới",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin an ninh mạng tuần này. Tôi là Minh, và hôm nay chúng ta sẽ cập nhật các lỗ hổng bảo mật đáng chú ý vừa được công bố.",
+          "cited_article_ids": [
+            "d8cc2172e29e81d0",
+            "aafd1efa2d73de1e",
+            "b5df476c43800959",
+            "d93f5e12f3c1794f",
+            "637417af94c9052c"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào Minh và các bạn. Thông tin đầu tiên liên quan đến PostgreSQL, một hệ quản trị cơ sở dữ liệu cực kỳ phổ biến. Họ vừa vá tới 52 lỗ hổng, trong đó có một lỗ hổng tồn tại tận 22 năm!",
+          "cited_article_ids": [
+            "d8cc2172e29e81d0"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đó là lỗ hổng type confusion có mã CVE-2026-6460 với điểm CVSS 8.8. Nó cho phép người dùng có quyền tạo đối tượng thực thi mã từ xa trên máy chủ. Để khắc phục hoàn toàn, quản trị viên ngoài cập nhật còn phải rebuild các extension viết bằng C.",
+          "cited_article_ids": [
+            "d8cc2172e29e81d0"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Tiếp theo là thông tin về nhóm Nightmare Eclipse. Họ đang khai thác lỗ hổng zero-day SignDrop trên Windows, lạm dụng CLFS và Windows Defender để tạo file tùy ý với quyền của tiến trình chống mã độc.",
+          "cited_article_ids": [
+            "aafd1efa2d73de1e"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Citrix cũng vừa phát hành bản vá cho 10 lỗ hổng nghiêm trọng trên các sản phẩm NetScaler. Nếu bị khai thác thành công, những lỗi này có thể gây ra hành vi bất thường hoặc từ chối dịch vụ DoS.",
+          "cited_article_ids": [
+            "b5df476c43800959"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Trong môi trường điện toán đám mây, các nhà nghiên cứu vừa công khai hai cuộc tấn công mới là Mior và Skyfall nhằm vào máy ảo bảo vệ bởi AMD SEV-SNP. Máy chủ đám mây độc hại có thể đọc dữ liệu bên trong máy ảo.",
+          "cited_article_ids": [
+            "d93f5e12f3c1794f"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đặc biệt, đòn tấn công Mior còn có thể sửa đổi bộ nhớ máy ảo và giả mạo báo cáo xác thực. Mior yêu cầu kiểm soát hypervisor và BIOS của máy chủ, trong khi Skyfall cần quyền hypervisor.",
+          "cited_article_ids": [
+            "d93f5e12f3c1794f"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cuối cùng, FBI vừa phát cảnh báo về công cụ Artex mã nguồn mở. Nó tự động hóa các cuộc tấn công mạng với tốc độ máy, rút ngắn thời gian từ nhắm mục tiêu đến chiếm quyền quản trị xuống dưới 3 giờ.",
+          "cited_article_ids": [
+            "637417af94c9052c"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Những thông tin trên cho thấy nguy cơ tấn công tự động hóa và lỗ hổng phần mềm luôn rình rấp. Cảm ơn Lan và hẹn gặp lại mọi người trong tập tiếp theo!",
+          "cited_article_ids": [
+            "d8cc2172e29e81d0",
+            "aafd1efa2d73de1e",
+            "b5df476c43800959",
+            "d93f5e12f3c1794f",
+            "637417af94c9052c"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Cảnh Báo Bảo Mật: PostgreSQL Vá Lỗi 22 Năm Và Mã Độc Tự Động Artex",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "Cảnh báo an ninh mạng tuần này!",
+        "narration": {
+          "text": "Điểm qua những thông tin an ninh mạng nóng nhất tuần này bạn không thể bỏ qua!",
+          "cited_article_ids": [
+            "d8cc2172e29e81d0",
+            "aafd1efa2d73de1e",
+            "b5df476c43800959",
+            "d93f5e12f3c1794f",
+            "637417af94c9052c"
+          ]
+        },
+        "duration_sec": 8.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "PostgreSQL vá lỗ hổng 22 năm",
+        "narration": {
+          "text": "PostgreSQL cập nhật vá 52 lỗi, gồm lỗ hổng CVE-2026-6460 tồn tại 22 năm cho phép thực thi mã từ xa.",
+          "cited_article_ids": [
+            "d8cc2172e29e81d0"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "Zero-day SignDrop tấn công Windows",
+        "narration": {
+          "text": "Nightmare Eclipse tung ra khai thác zero-day SignDrop lạm dụng CLFS và Windows Defender để tạo file bất hợp pháp.",
+          "cited_article_ids": [
+            "aafd1efa2d73de1e"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Citrix vá 10 lỗi NetScaler",
+        "narration": {
+          "text": "Citrix vá 10 lỗ hổng nghiêm trọng trên NetScaler có nguy cơ gây lỗi DoS hoặc hành vi bất thường.",
+          "cited_article_ids": [
+            "b5df476c43800959"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "Tấn công Mior & Skyfall trên AMD SEV-SNP",
+        "narration": {
+          "text": "Hai đòn tấn công Mior và Skyfall cho phép máy chủ đám mây độc hại đánh cắp bí mật từ máy ảo AMD SEV-SNP.",
+          "cited_article_ids": [
+            "d93f5e12f3c1794f"
+          ]
+        },
+        "duration_sec": 15.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "Công cụ Artex tấn công dưới 3 giờ",
+        "narration": {
+          "text": "FBI cảnh báo công cụ mã nguồn mở Artex tự động hóa tấn công, chiếm quyền quản trị dưới 3 giờ.",
+          "cited_article_ids": [
+            "637417af94c9052c"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "Cập nhật bản vá ngay hôm nay!",
+        "narration": {
+          "text": "Hãy luôn cập nhật hệ thống và nâng cao cảnh giác an toàn thông tin!",
+          "cited_article_ids": [
+            "d8cc2172e29e81d0",
+            "aafd1efa2d73de1e",
+            "b5df476c43800959",
+            "d93f5e12f3c1794f",
+            "637417af94c9052c"
+          ]
+        },
+        "duration_sec": 8.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "Điểm tin an ninh mạng mới nhất: PostgreSQL khắc phục lỗ hổng RCE tồn tại 22 năm, Citrix vá 10 lỗ hổng nghiêm trọng trên NetScaler. Trong khi đó, xuất hiện khai thác zero-day SignDrop trên Windows, phương thức tấn công Mior/Skyfall nhắm vào máy ảo AMD SEV-SNP và công cụ Artex giúp tin tặc chiếm quyền truy cập trong chưa đầy 3 giờ.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#PostgreSQL",
+        "#Citrix",
+        "#ZeroDay",
+        "#CyberSecurity"
+      ],
+      "cited_article_ids": [
+        "d8cc2172e29e81d0",
+        "aafd1efa2d73de1e",
+        "b5df476c43800959",
+        "d93f5e12f3c1794f",
+        "637417af94c9052c"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Cập nhật tin tức an ninh mạng hôm nay:\n- PostgreSQL phát hành bản vá cho 52 lỗ hổng, bao gồm lỗ hổng RCE CVE-2026-6460 tồn tại 22 năm.\n- Mã khai thác zero-day SignDrop lạm dụng CLFS và Windows Defender trên Windows.\n- Citrix vá 10 lỗ hổng nghiêm trọng có thể gây từ chối dịch vụ (DoS) trên NetScaler.\n- Tấn công Mior và Skyfall can thiệp dữ liệu máy ảo AMD SEV-SNP từ hypervisor và BIOS.\n- FBI cảnh báo công cụ nguồn mở Artex tự động hóa đợt tấn công chiếm quyền truy cập dưới 3 giờ.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#TinTucCongNghe",
+        "#BaoMat",
+        "#Hacking",
+        "#CyberAttack"
+      ],
+      "cited_article_ids": [
+        "d8cc2172e29e81d0",
+        "aafd1efa2d73de1e",
+        "b5df476c43800959",
+        "d93f5e12f3c1794f",
+        "637417af94c9052c"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Cảnh báo an ninh mạng: PostgreSQL vá lỗ hổng RCE 22 năm tuổi, zero-day SignDrop tấn công Windows, Citrix vá NetScaler và FBI cảnh báo công cụ tự động Artex đánh chiếm hệ thống dưới 3 giờ!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#BaoMat",
+        "#CongNghe",
+        "#Hackers"
+      ],
+      "cited_article_ids": [
+        "d8cc2172e29e81d0",
+        "aafd1efa2d73de1e",
+        "b5df476c43800959",
+        "637417af94c9052c"
+      ]
+    }
+  ]
+}
