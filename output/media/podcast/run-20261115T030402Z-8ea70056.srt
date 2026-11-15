@@ -1,0 +1,131 @@
+1
+00:00:00,000 --> 00:00:03,562
+[Minh] Chào mừng các bạn đến với bản tin an ninh mạng hôm nay!
+
+2
+00:00:03,562 --> 00:00:06,800
+Tôi là Minh, và cùng đồng hành với tôi là chị Lan.
+
+3
+00:00:06,800 --> 00:00:11,916
+Hôm nay chúng ta sẽ điểm qua những tin tức bảo mật quan trọng nhất vừa được ghi
+
+4
+00:00:11,916 --> 00:00:12,240
+nhận.
+
+5
+00:00:12,590 --> 00:00:14,731
+[Lan] Chào Minh và chào quý độc giả.
+
+6
+00:00:14,731 --> 00:00:20,584
+Đầu tiên là thông tin từ CISA khi cơ quan này vừa đưa lỗ hổng CVE-2026-114713 trên
+
+7
+00:00:20,584 --> 00:00:25,652
+server UnrealIRCd vào danh mục KEV do ghi nhận các vụ tấn công thực tế.
+
+8
+00:00:25,652 --> 00:00:27,793
+Lỗ hổng này đạt điểm CVSS 8.6,
+
+9
+00:00:27,793 --> 00:00:32,075
+liên quan đến lỗi trung hòa ký tự phân cách không đúng cách,
+
+10
+00:00:32,075 --> 00:00:34,502
+dẫn đến thực thi lệnh cấp máy chủ.
+
+11
+00:00:34,852 --> 00:00:40,540
+[Minh] Đáng chú ý tiếp theo là cơ sở dữ liệu PostgreSQL vừa phát hành bản vá cho 52 lỗ
+
+12
+00:00:40,540 --> 00:00:44,140
+hổng, trong đó có CVE-2026-6460 với điểm CVSS 8.8.
+
+13
+00:00:44,140 --> 00:00:46,948
+Lỗi ép kiểu sai này tồn tại đến 22 năm,
+
+14
+00:00:46,948 --> 00:00:52,852
+cho phép người dùng có quyền tạo đối tượng thực thi mã từ xa RCE trên máy chủ dưới
+
+15
+00:00:52,852 --> 00:00:54,508
+quyền của hệ điều hành.
+
+16
+00:00:54,508 --> 00:01:00,484
+Các hệ thống cần làm mới lại các tiện ích mở rộng ngôn ngữ C để khắc phục triệt để.
+
+17
+00:01:00,834 --> 00:01:02,235
+[Lan] Ở mảng thiết bị hạ tầng,
+
+18
+00:01:02,235 --> 00:01:06,787
+Citrix cũng vừa tiến hành khắc phục 10 lỗ hổng nghiêm trọng trên dòng sản phẩm
+
+19
+00:01:06,787 --> 00:01:09,063
+NetScaler. Nếu bị khai thác thành công,
+
+20
+00:01:09,063 --> 00:01:13,849
+các lỗ hổng này có thể gây ra hiện tượng hoạt động bất thường hoặc từ chối dịch vụ
+
+21
+00:01:13,849 --> 00:01:14,082
+DoS.
+
+22
+00:01:14,432 --> 00:01:16,613
+[Minh] Chuyển sang tin tức tại khu vực châu Á,
+
+23
+00:01:16,613 --> 00:01:21,031
+thành phố Osaka của Nhật Bản vừa đưa ra cảnh báo về rò rỉ dữ liệu ảnh hưởng tới
+
+24
+00:01:21,031 --> 00:01:22,205
+khoảng 1 triệu người.
+
+25
+00:01:22,205 --> 00:01:26,791
+Chính quyền thành phố Osaka với 2,8 triệu dân khuyên người dân nên cẩn trọng trước
+
+26
+00:01:26,791 --> 00:01:31,433
+các email giả mạo chính quyền địa phương trong bối cảnh Nhật Bản ghi nhận hàng loạt
+
+27
+00:01:31,433 --> 00:01:32,048
+sự cố mạng.
+
+28
+00:01:32,398 --> 00:01:35,768
+[Lan] Cuối cùng là thông tin về sự cố hạ tầng lớn của Microsoft.
+
+29
+00:01:35,768 --> 00:01:40,648
+Gã khổng lồ công nghệ này đang nỗ lực khắc phục sự cố gián đoạn dịch vụ email và các
+
+30
+00:01:40,648 --> 00:01:42,681
+dịch vụ khác trên phạm vi toàn cầu,
+
+31
+00:01:42,681 --> 00:01:47,038
+áp dụng giải pháp thận trọng để xác định nguyên nhân và khôi phục hệ thống.
+
+32
+00:01:47,388 --> 00:01:51,003
+[Minh] Đó là những thông tin an ninh mạng đáng chú ý trong ngày.
+
+33
+00:01:51,003 --> 00:01:55,188
+Cảm ơn chị Lan và hẹn gặp lại các bạn trong các bản tin tiếp theo!

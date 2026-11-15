@@ -1,0 +1,83 @@
+{
+  "run_id": "run-20261115T030402Z-8ea70056",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "e577b898eca3316f",
+        "source_name": "The Hacker News",
+        "title": "Attackers Exploit UnrealIRCd Flaw That Enables Server-Level Command Injection",
+        "url": "https://thehackernews.com/2026/11/attackers-exploit-unrealircd-flaw-that.html",
+        "published_at": "2026-11-14T12:38:35Z",
+        "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) on Friday added a high-severity security flaw impacting UnrealIRCd, an open-source Internet Relay Chat (IRC) server, to its Known Exploited Vulnerabilities (KEV) catalog, following reports of active exploitation. The vulnerability, tracked as CVE-2026-114713 (CVSS score: 8.6), is a case of improper neutralization of delimiters",
+        "fetched_at": "2026-11-15T03:03:59.274066Z",
+        "topics_matched": [
+          "cybersecurity",
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Cơ quan CISA bổ sung lỗ hổng tiêm lệnh cấp máy chủ nghiêm trọng trên UnrealIRCd vào danh mục KEV do đang bị khai thác thực tế."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "d8cc2172e29e81d0",
+        "source_name": "The Hacker News",
+        "title": "PostgreSQL Patches 52 Flaws, Including 22-Year-Old Bug Enabling Authenticated RCE",
+        "url": "https://thehackernews.com/2026/11/postgresql-patches-52-flaws-including.html",
+        "published_at": "2026-11-13T16:53:08Z",
+        "summary": "A type confusion flaw in PostgreSQL lets a database user who can create objects run code on the server. Updates released yesterday fix it, along with 51 other security flaws. Full protection from this flaw also requires rebuilding any C-language extensions installed on the server. The flaw, tracked as CVE-2026-6460, has a CVSS score of 8.8. Any code run this way has the rights of the operating",
+        "fetched_at": "2026-11-15T03:03:59.274066Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "PostgreSQL đã phát hành bản vá cho 52 lỗ hổng bảo mật, bao gồm một lỗi tồn tại 22 năm cho phép thực thi mã từ xa (RCE)."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "b5df476c43800959",
+        "source_name": "SecurityWeek",
+        "title": "Citrix Patches 10 Critical NetScaler Vulnerabilities",
+        "url": "https://securityweek.com/citrix-patches-10-critical-netscaler-vulnerabilities",
+        "published_at": "2026-11-13T09:36:56Z",
+        "summary": "Successful exploitation could lead to unexpected behavior or denial-of-service (DoS) conditions. The post Citrix Patches 10 Critical NetScaler Vulnerabilities appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-15T03:03:59.872177Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Citrix khắc phục 10 lỗ hổng bảo mật nghiêm trọng trên NetScaler có thể gây ra hiện tượng từ chối dịch vụ hoặc hành vi bất thường."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "72ccdc87f4b54891",
+        "source_name": "The Record",
+        "title": "City of Osaka warns of data breach impacting 1 million as Japan reels from dozens of cyber incidents",
+        "url": "https://therecord.media/city-of-osaka-japan-email-data-breach",
+        "published_at": "2026-11-13T19:43:00Z",
+        "summary": "Osaka, Japan's third-largest city, told its 2.8 million residents to be wary of suspicious emails purporting to come from the local government.",
+        "fetched_at": "2026-11-15T03:03:59.505794Z",
+        "topics_matched": [
+          "data breach"
+        ]
+      },
+      "relevance_reason": "Thành phố Osaka cảnh báo về sự cố rò rỉ dữ liệu ảnh hưởng đến khoảng 1 triệu người dân trong bối cảnh làn sóng tấn công mạng tại Nhật Bản."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "71d6f3c4bea9a711",
+        "source_name": "SecurityWeek",
+        "title": "Microsoft Struggles to Restore Email and Other Services in a Global Outage",
+        "url": "https://securityweek.com/microsoft-struggles-to-restore-email-and-other-services-in-a-global-outage",
+        "published_at": "2026-11-13T13:47:42Z",
+        "summary": "Microsoft is trying different ways to identify the cause of the problem and get its servers back online, using “a measured approach to identify and repair affected infrastructure.” The post Microsoft Struggles to Restore Email and Other Services in a Global Outage appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-15T03:03:59.872177Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Microsoft nỗ lực khắc phục sự cố gián đoạn dịch vụ toàn cầu ảnh hưởng đến Outlook và Microsoft 365."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=5"
+}

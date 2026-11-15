@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "style": "hallmark-gouache",
+  "beats": {
+    "seg01_b1": {
+      "file": "seg01_b1.jpg",
+      "prompt": "a government bulletin board with pinned paper warning notices and a red ribbon, an analyst reading one closely; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "a government bulletin board with pinned paper warning notices and a red ribbon, an analyst reading one closely; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern",
+      "text": "Chào Minh và chào quý độc giả. Đầu tiên là thông tin từ CISA khi cơ quan này vừa đưa lỗ hổng CVE-2026-114713 trên server UnrealIRCd vào danh mục KEV do ghi nhận các vụ tấn công thực tế.",
+      "text_hash": "5ea93e597665",
+      "provider": "pollinations"
+    }
+  }
+}

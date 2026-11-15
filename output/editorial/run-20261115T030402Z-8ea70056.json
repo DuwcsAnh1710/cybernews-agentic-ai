@@ -1,0 +1,276 @@
+{
+  "run_id": "run-20261115T030402Z-8ea70056",
+  "language": "vi",
+  "digest": {
+    "title": "Điểm tin an ninh mạng: Lỗ hổng bảo mật UnrealIRCd, PostgreSQL và sự cố toàn cầu của Microsoft",
+    "intro": "Bản tin an ninh mạng hôm nay cập nhật thông tin về các lỗ hổng nghiêm trọng đã và đang bị khai thác trên UnrealIRCd và PostgreSQL, cùng các bản vá mới từ Citrix. Bên cạnh đó là cảnh báo về sự cố rò rỉ dữ liệu tại Nhật Bản và sự cố gián đoạn dịch vụ toàn cầu của Microsoft.",
+    "sections": [
+      {
+        "heading": "CISA cảnh báo lỗ hổng chèn lệnh cấp máy chủ trên UnrealIRCd",
+        "body": {
+          "text": "Cơ quan An ninh Cơ sở hạ tầng và An ninh mạng Mỹ (CISA) đã thêm lỗ hổng bảo mật nghiêm trọng CVE-2026-114713 (điểm CVSS: 8.6) ảnh hưởng đến UnrealIRCd vào danh mục KEV do ghi nhận các vụ khai thác thực tế. Đây là lỗ hổng chèn lệnh (command injection - kỹ thuật chèn mã độc để thực thi lệnh trái phép trên máy chủ) xuất phát từ việc xử lý phân tách không đúng cách, cho phép kẻ tấn công can thiệp vào máy chủ IRC.",
+          "cited_article_ids": [
+            "e577b898eca3316f"
+          ]
+        }
+      },
+      {
+        "heading": "PostgreSQL vá 52 lỗ hổng, bao gồm lỗi RCE có lịch sử 22 năm",
+        "body": {
+          "text": "PostgreSQL đã phát hành bản cập nhật khắc phục 52 lỗ hổng an ninh mạng, trong đó có CVE-2026-6460 (điểm CVSS: 8.8). Đây là lỗi nhầm lẫn kiểu dữ liệu (type confusion) tồn tại 22 năm, cho phép người dùng cơ sở dữ liệu có quyền tạo đối tượng thực thi mã từ xa (RCE - Remote Code Execution) trên máy chủ với quyền của hệ điều hành. Việc khắc phục triệt để yêu cầu xây dựng lại các tiện ích mở rộng ngôn ngữ C trên máy chủ.",
+          "cited_article_ids": [
+            "d8cc2172e29e81d0"
+          ]
+        }
+      },
+      {
+        "heading": "Citrix phát hành bản vá cho 10 lỗ hổng nghiêm trọng trên NetScaler",
+        "body": {
+          "text": "Citrix đã phát hành các bản vá để khắc phục 10 lỗ hổng nghiêm trọng trong NetScaler. Nếu bị khai thác thành công, những lỗ hổng này có thể dẫn đến các hành vi bất thường trên hệ thống hoặc gây ra sự cố từ chối dịch vụ (DoS - Denial of Service, làm gián đoạn khả năng phục vụ hệ thống).",
+          "cited_article_ids": [
+            "b5df476c43800959"
+          ]
+        }
+      },
+      {
+        "heading": "Thành phố Osaka cảnh báo rò rỉ dữ liệu ảnh hưởng 1 triệu người",
+        "body": {
+          "text": "Thành phố Osaka, đô thị lớn thứ ba của Nhật Bản, đã đưa ra cảnh báo tới 2,8 triệu dân về việc cẩn trọng trước các email nghi vấn mạo danh chính quyền địa phương. Cảnh báo này đưa ra sau sự cố rò rỉ dữ liệu ảnh hưởng đến khoảng 1 triệu người, trong bối cảnh Nhật Bản đang ghi nhận hàng loạt sự cố an ninh mạng.",
+          "cited_article_ids": [
+            "72ccdc87f4b54891"
+          ]
+        }
+      },
+      {
+        "heading": "Microsoft nỗ lực khắc phục sự cố gián đoạn dịch vụ email toàn cầu",
+        "body": {
+          "text": "Microsoft đang nỗ lực khôi phục dịch vụ email và các dịch vụ khác sau một sự cố gián đoạn quy mô toàn cầu. Đơn vị này đang áp dụng phương pháp có đo lường để xác định nguyên nhân sự cố, sửa chữa cơ sở hạ tầng bị ảnh hưởng và đưa các máy chủ trở lại hoạt động trực tuyến.",
+          "cited_article_ids": [
+            "71d6f3c4bea9a711"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm tin Bảo mật Security Roundup: Lỗ hổng lâu năm và Các sự cố toàn cầu",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin an ninh mạng hôm nay! Tôi là Minh, và cùng đồng hành với tôi là chị Lan. Hôm nay chúng ta sẽ điểm qua những tin tức bảo mật quan trọng nhất vừa được ghi nhận.",
+          "cited_article_ids": [
+            "e577b898eca3316f",
+            "d8cc2172e29e81d0",
+            "b5df476c43800959",
+            "72ccdc87f4b54891",
+            "71d6f3c4bea9a711"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào Minh và chào quý độc giả. Đầu tiên là thông tin từ CISA khi cơ quan này vừa đưa lỗ hổng CVE-2026-114713 trên server UnrealIRCd vào danh mục KEV do ghi nhận các vụ tấn công thực tế. Lỗ hổng này đạt điểm CVSS 8.6, liên quan đến lỗi trung hòa ký tự phân cách không đúng cách, dẫn đến thực thi lệnh cấp máy chủ.",
+          "cited_article_ids": [
+            "e577b898eca3316f"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đáng chú ý tiếp theo là cơ sở dữ liệu PostgreSQL vừa phát hành bản vá cho 52 lỗ hổng, trong đó có CVE-2026-6460 với điểm CVSS 8.8. Lỗi ép kiểu sai này tồn tại đến 22 năm, cho phép người dùng có quyền tạo đối tượng thực thi mã từ xa RCE trên máy chủ dưới quyền của hệ điều hành. Các hệ thống cần làm mới lại các tiện ích mở rộng ngôn ngữ C để khắc phục triệt để.",
+          "cited_article_ids": [
+            "d8cc2172e29e81d0"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Ở mảng thiết bị hạ tầng, Citrix cũng vừa tiến hành khắc phục 10 lỗ hổng nghiêm trọng trên dòng sản phẩm NetScaler. Nếu bị khai thác thành công, các lỗ hổng này có thể gây ra hiện tượng hoạt động bất thường hoặc từ chối dịch vụ DoS.",
+          "cited_article_ids": [
+            "b5df476c43800959"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chuyển sang tin tức tại khu vực châu Á, thành phố Osaka của Nhật Bản vừa đưa ra cảnh báo về rò rỉ dữ liệu ảnh hưởng tới khoảng 1 triệu người. Chính quyền thành phố Osaka với 2,8 triệu dân khuyên người dân nên cẩn trọng trước các email giả mạo chính quyền địa phương trong bối cảnh Nhật Bản ghi nhận hàng loạt sự cố mạng.",
+          "cited_article_ids": [
+            "72ccdc87f4b54891"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cuối cùng là thông tin về sự cố hạ tầng lớn của Microsoft. Gã khổng lồ công nghệ này đang nỗ lực khắc phục sự cố gián đoạn dịch vụ email và các dịch vụ khác trên phạm vi toàn cầu, áp dụng giải pháp thận trọng để xác định nguyên nhân và khôi phục hệ thống.",
+          "cited_article_ids": [
+            "71d6f3c4bea9a711"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đó là những thông tin an ninh mạng đáng chú ý trong ngày. Cảm ơn chị Lan và hẹn gặp lại các bạn trong các bản tin tiếp theo!",
+          "cited_article_ids": [
+            "e577b898eca3316f",
+            "d8cc2172e29e81d0",
+            "b5df476c43800959",
+            "72ccdc87f4b54891",
+            "71d6f3c4bea9a711"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Điểm Tin Bảo Mật Nóng Trong Ngày",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "CẢNH BÁO BẢO MẬT NÓNG!",
+        "narration": {
+          "text": "Điểm nhanh các tin tức bảo mật và sự cố an ninh mạng quan trọng nhất trong ngày!",
+          "cited_article_ids": [
+            "e577b898eca3316f",
+            "d8cc2172e29e81d0",
+            "b5df476c43800959",
+            "72ccdc87f4b54891",
+            "71d6f3c4bea9a711"
+          ]
+        },
+        "duration_sec": 5.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "Lỗ hổng UnrealIRCd bị khai thác",
+        "narration": {
+          "text": "CISA cảnh báo lỗ hổng CVE-2026-114713 trên UnrealIRCd cho phép chèn lệnh cấp máy chủ đang bị tấn công.",
+          "cited_article_ids": [
+            "e577b898eca3316f"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "PostgreSQL vá lỗi 22 năm",
+        "narration": {
+          "text": "PostgreSQL vá 52 lỗ hổng, bao gồm lỗi CVE-2026-6460 tồn tại 22 năm cho phép thực thi mã từ xa RCE.",
+          "cited_article_ids": [
+            "d8cc2172e29e81d0"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Citrix vá 10 lỗ hổng NetScaler",
+        "narration": {
+          "text": "Citrix khắc phục 10 lỗ hổng nghiêm trọng trên NetScaler nhằm ngăn chặn nguy cơ từ chối dịch vụ DoS.",
+          "cited_article_ids": [
+            "b5df476c43800959"
+          ]
+        },
+        "duration_sec": 10.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "Osaka lộ dữ liệu 1 triệu dân",
+        "narration": {
+          "text": "Thành phố Osaka cảnh báo rò rỉ dữ liệu ảnh hưởng 1 triệu người và nhắc nhở người dân cảnh giác email giả mạo.",
+          "cited_article_ids": [
+            "72ccdc87f4b54891"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "Microsoft gặp sự cố toàn cầu",
+        "narration": {
+          "text": "Microsoft nỗ lực khôi phục dịch vụ email và các hệ thống khác bị gián đoạn trên toàn thế giới.",
+          "cited_article_ids": [
+            "71d6f3c4bea9a711"
+          ]
+        },
+        "duration_sec": 10.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "Theo dõi để cập nhật tin tức!",
+        "narration": {
+          "text": "Hãy theo dõi chúng tôi để cập nhật những thông tin an ninh mạng mới nhất!",
+          "cited_article_ids": [
+            "e577b898eca3316f",
+            "d8cc2172e29e81d0",
+            "b5df476c43800959",
+            "72ccdc87f4b54891",
+            "71d6f3c4bea9a711"
+          ]
+        },
+        "duration_sec": 5.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "🔴 CẬP NHẬT AN NINH MẠNG MỚI NHẤT\n\n- UnrealIRCd bị khai thác lỗ hổng chèn lệnh CVE-2026-114713 (CVSS 8.6), CISA đã đưa vào danh mục KEV.\n- PostgreSQL khắc phục 52 lỗ hổng, bao gồm lỗi RCE CVE-2026-6460 (CVSS 8.8) tồn tại suốt 22 năm.\n- Citrix phát hành bản vá cho 10 lỗ hổng nghiêm trọng trên NetScaler.\n- Thành phố Osaka cảnh báo rò rỉ dữ liệu tác động tới 1 triệu người.\n- Microsoft đang nỗ lực xử lý sự cố gián đoạn email và dịch vụ toàn cầu.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#PostgreSQL",
+        "#UnrealIRCd",
+        "#Citrix",
+        "#MicrosoftOutage"
+      ],
+      "cited_article_ids": [
+        "e577b898eca3316f",
+        "d8cc2172e29e81d0",
+        "b5df476c43800959",
+        "72ccdc87f4b54891",
+        "71d6f3c4bea9a711"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Điểm tin an ninh mạng hôm nay mang đến những thông tin quan trọng dành cho các chuyên gia công nghệ và sinh viên IT:\n\n1. CISA bổ sung lỗ hổng CVE-2026-114713 trên UnrealIRCd vào danh mục bị khai thác thực tế.\n2. PostgreSQL vá 52 lỗi an toàn thông tin, bao gồm CVE-2026-6460 cho phép thực thi mã từ xa (RCE).\n3. Citrix xử lý 10 lỗ hổng nghiêm trọng trên NetScaler có nguy cơ gây từ chối dịch vụ (DoS).\n4. Sự cố rò rỉ dữ liệu tại Osaka (Nhật Bản) ảnh hưởng tới 1 triệu người dùng.\n5. Microsoft nỗ lực khôi phục dịch vụ email sau sự cố ngừng hoạt động trên phạm vi toàn cầu.\n\nHãy đảm bảo cập nhật phần mềm và kiểm tra hệ thống của bạn kịp thời!",
+      "hashtags": [
+        "#TinTucAnNinhMang",
+        "#BaoMatThongTin",
+        "#CyberSecurity",
+        "#PostgreSQL",
+        "#CISA"
+      ],
+      "cited_article_ids": [
+        "e577b898eca3316f",
+        "d8cc2172e29e81d0",
+        "b5df476c43800959",
+        "72ccdc87f4b54891",
+        "71d6f3c4bea9a711"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Tin an ninh mạng nóng: CISA cảnh báo lỗ hổng UnrealIRCd; PostgreSQL vá 52 lỗi gồm lỗ hổng RCE 22 năm tuổi; Citrix vá 10 lỗi NetScaler; Osaka cảnh báo rò rỉ dữ liệu 1 triệu người và Microsoft gặp sự cố toàn cầu!",
+      "hashtags": [
+        "#TinCongNghe",
+        "#AnNinhMang",
+        "#CyberSecurity",
+        "#Microsoft"
+      ],
+      "cited_article_ids": [
+        "e577b898eca3316f",
+        "d8cc2172e29e81d0",
+        "b5df476c43800959",
+        "72ccdc87f4b54891",
+        "71d6f3c4bea9a711"
+      ]
+    }
+  ]
+}
