@@ -1,0 +1,304 @@
+{
+  "run_id": "run-20261116T023522Z-f9a7e2fb",
+  "language": "vi",
+  "digest": {
+    "title": "Điểm tin An ninh mạng: Lỗ hổng UnrealIRCd bị khai thác và các sự cố bảo mật công nghệ mới",
+    "intro": "Bản tin an ninh mạng hôm nay tổng hợp các sự cố bảo mật đáng chú ý gần đây. Nội dung bao gồm cảnh báo về lỗ hổng UnrealIRCd bị khai thác thực tế, các sự cố liên quan đến tiện ích Claude Code và cấu trúc bảo vệ quyền riêng tư của Apple.",
+    "sections": [
+      {
+        "heading": "CISA bổ sung lỗ hổng UnrealIRCd vào danh mục KEV do bị khai thác tích cực",
+        "body": {
+          "text": "Cơ quan An ninh Cơ sở hạ tầng và An ninh mạng Mỹ (CISA) đã thêm lỗ hổng nghiêm trọng CVE-2026-114713 (điểm CVSS: 8.6) liên quan đến UnrealIRCd vào danh mục KEV (Known Exploited Vulnerabilities - Các lỗ hổng đã bị khai thác). Đây là máy chủ IRC (Internet Relay Chat) mã nguồn mở bị ảnh hưởng bởi lỗi trung hòa ranh giới không đúng cách, cho phép thực thi lệnh ở cấp độ máy chủ.",
+          "cited_article_ids": [
+            "e577b898eca3316f"
+          ]
+        }
+      },
+      {
+        "heading": "Lộ khóa truy cập Fireworks AI dẫn đến sự cố tiện ích Claude Code bị chèn mã độc",
+        "body": {
+          "text": "Cursor thông báo sự cố tiện ích chính thức Claude Code của Anthropic trên chợ ứng dụng Cursor bị can thiệp xuất phát từ việc khóa truy cập (access key) bị mất cắp qua vụ rò rỉ của Fireworks AI. Kẻ tấn công đã dùng khóa này để sao chép dữ liệu từ giao diện đọc.",
+          "cited_article_ids": [
+            "d5585df40181d87d"
+          ]
+        }
+      },
+      {
+        "heading": "Apple công bố kiến trúc Secure Exclaves bảo vệ dữ liệu camera và micro",
+        "body": {
+          "text": "Apple đã chi tiết hóa kiến trúc Secure Exclaves nhằm cách ly dữ liệu từ các cảm biến môi trường khỏi hệ điều hành chính (OS) trên thiết bị HomeView và các dòng iPhone mới, góp phần gia tăng độ an toàn cho dữ liệu nhạy cảm.",
+          "cited_article_ids": [
+            "da1f3ca5fe15e3f7"
+          ]
+        }
+      },
+      {
+        "heading": "Điểm tin tuần: Tiện ích Claude Code biến thành công cụ điều khiển từ xa và rò rỉ thông tin đăng nhập",
+        "body": {
+          "text": "Tổng hợp tuần qua đề cập đến mã độc đánh cắp thông tin bí mật nhắm vào các kho lưu trữ GitHub và việc tiện ích Claude Code bị biến thành công cụ điều khiển từ xa. Đồng thời, phỏng vấn đại diện GitGuardian nhấn mạnh rủi ro từ khóa truy cập bị lộ và trách nhiệm pháp lý của lãnh đạo an toàn thông tin.",
+          "cited_article_ids": [
+            "16223b06882cf0be"
+          ]
+        }
+      },
+      {
+        "heading": "Chưa có dấu hiệu tấn công mạng trong sự cố dừng chuyến bay của FAA",
+        "body": {
+          "text": "Giới chức trách xác nhận chưa phát hiện bằng chứng tấn công mạng (cyberattack) trong sự cố gián đoạn bay toàn quốc của FAA. Nguyên nhân sự cố hiện đang được điều tra và có thể bắt nguồn từ một bản cập nhật phần mềm.",
+          "cited_article_ids": [
+            "1eb0a3260c79bd68"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm tin Bảo mật Công nghệ: Từ lỗ hổng UnrealIRCd đến Kiến trúc Secure Exclaves của Apple",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin an toàn thông tin tuần này! Tôi là Minh, và hôm nay chúng ta sẽ cùng cô bạn đồng hành Lan điểm qua những tin tức bảo mật nóng hổi nhất vừa qua.",
+          "cited_article_ids": [
+            "e577b898eca3316f",
+            "d5585df40181d87d",
+            "da1f3ca5fe15e3f7",
+            "16223b06882cf0be",
+            "1eb0a3260c79bd68"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào anh Minh và chào tất cả các bạn. Hôm nay chúng ta có rất nhiều tin tức đáng chú ý, từ các lỗ hổng bị khai thác thực tế cho đến sự cố hệ thống hàng không.",
+          "cited_article_ids": [
+            "e577b898eca3316f",
+            "d5585df40181d87d",
+            "da1f3ca5fe15e3f7",
+            "16223b06882cf0be",
+            "1eb0a3260c79bd68"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đầu tiên là tin từ CISA. Họ vừa thêm lỗ hổng nghiêm trọng CVE-2026-114713 trên máy chủ IRC mã nguồn mở UnrealIRCd vào danh mục KEV do đang bị khai thác tích cực. Lỗ hổng này có điểm CVSS 8.6, liên quan đến lỗi trung hòa ký tự phân cách không đúng cách, cho phép chèn lệnh ở cấp máy chủ.",
+          "cited_article_ids": [
+            "e577b898eca3316f"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Thật nguy hiểm khi kẻ tấn công có thể chèn lệnh trực tiếp. Tiếp theo là sự cố liên quan đến Cursor và Claude Code extension. Cursor xác nhận việc tiện ích mở rộng Claude Code chính thức của Anthropic trên thị trường Cursor bị tấn công là do khóa truy cập Fireworks AI bị đánh cắp.",
+          "cited_article_ids": [
+            "d5585df40181d87d"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đúng vậy, kẻ tấn công đã thu được khóa truy cập do Cursor cấp cho Fireworks sau một vụ vi phạm nhằm vào Fireworks AI. Khóa này bị lộ và kẻ tấn công đã dùng nó để sao chép dữ liệu từ một nguồn chỉ đọc.",
+          "cited_article_ids": [
+            "d5585df40181d87d"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Ở một khía cạnh khác, Apple đã công bố chi tiết về kiến trúc Secure Exclaves. Kiến trúc này được thiết kế để cô lập dữ liệu cảm biến môi trường như camera và micro khỏi hệ điều hành chính trên HomeView và các dòng iPhone mới.",
+          "cited_article_ids": [
+            "da1f3ca5fe15e3f7"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đây là bước tiến lớn giúp bảo vệ riêng tư dữ liệu cảm biến. Bên cạnh đó, theo Help Net Security, tuần qua cũng ghi nhận tin tức về phần mềm đánh cắp bí mật tấn công các kho lưu trữ GitHub và Claude Code bị biến thành công cụ điều khiển từ xa. Eric Fourrier, CEO của GitGuardian, cũng chia sẻ về rủi ro lộ thông tin xác thực.",
+          "cited_article_ids": [
+            "16223b06882cf0be"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Ông Fourrier giải thích rằng tâm lý sợ bị khiển trách khiến các sai lầm bị giấu đi, đồng thời tư vấn những điều lãnh đạo an ninh cần báo cáo cho CEO khi lộ khóa bí mật.",
+          "cited_article_ids": [
+            "16223b06882cf0be"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Cuối cùng là sự cố dừng bay của FAA. Quan chức khẳng định không có dấu hiệu cho thấy cuộc tấn công mạng gây ra sự cố gián đoạn hàng không toàn quốc này, mà nguyên nhân có thể xuất phát từ một bản cập nhật phần mềm đang được FBI điều tra.",
+          "cited_article_ids": [
+            "1eb0a3260c79bd68"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cảm ơn anh Minh. Những sự cố tuần qua cho thấy việc quản lý khóa bảo mật và cập nhật phần mềm là vô cùng quan trọng đối với mọi tổ chức.",
+          "cited_article_ids": [
+            "e577b898eca3316f",
+            "d5585df40181d87d",
+            "da1f3ca5fe15e3f7",
+            "16223b06882cf0be",
+            "1eb0a3260c79bd68"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Điểm Nóng Bảo Mật Tuần Qua: Những Sự Cố & Công Nghệ Mới",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "CẬP NHẬT BẢO MẬT NÓNG HỔI TUẦN NÀY",
+        "narration": {
+          "text": "Cùng điểm qua những tin tức bảo mật quan trọng nhất tuần này nhé!",
+          "cited_article_ids": [
+            "e577b898eca3316f",
+            "d5585df40181d87d",
+            "da1f3ca5fe15e3f7",
+            "16223b06882cf0be",
+            "1eb0a3260c79bd68"
+          ]
+        },
+        "duration_sec": 8.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "UnrealIRCd bị khai thác: CVE-2026-114713",
+        "narration": {
+          "text": "CISA cảnh báo lỗ hổng UnrealIRCd cho phép chèn lệnh cấp máy chủ đang bị khai thác thực tế.",
+          "cited_article_ids": [
+            "e577b898eca3316f"
+          ]
+        },
+        "duration_sec": 13.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "Lộ khóa Fireworks AI ảnh hưởng Cursor",
+        "narration": {
+          "text": "Khóa truy cập bị rò rỉ từ Fireworks AI khiến tiện ích Claude Code trên Cursor bị can thiệp.",
+          "cited_article_ids": [
+            "d5585df40181d87d"
+          ]
+        },
+        "duration_sec": 13.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Apple Secure Exclaves bảo vệ Camera & Mic",
+        "narration": {
+          "text": "Apple tiết lộ kiến trúc Secure Exclaves giúp cô lập dữ liệu camera và micro khỏi OS chính.",
+          "cited_article_ids": [
+            "da1f3ca5fe15e3f7"
+          ]
+        },
+        "duration_sec": 13.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "GitHub bị tấn công & Rủi ro rò rỉ Key",
+        "narration": {
+          "text": "Mã độc đánh cắp bí mật nhắm vào GitHub, trong khi CEO GitGuardian chia sẻ giải pháp xử lý lộ credential.",
+          "cited_article_ids": [
+            "16223b06882cf0be"
+          ]
+        },
+        "duration_sec": 15.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "Sự cố FAA: Do Cập nhật phần mềm?",
+        "narration": {
+          "text": "Không có dấu hiệu tấn công mạng trong sự cố FAA, nghi do lỗi cập nhật phần mềm.",
+          "cited_article_ids": [
+            "1eb0a3260c79bd68"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "Theo dõi kênh để cập nhật tin an ninh mạng!",
+        "narration": {
+          "text": "Hãy nhấn theo dõi để không bỏ lỡ các tin tức an toàn thông tin mới nhất!",
+          "cited_article_ids": [
+            "e577b898eca3316f",
+            "d5585df40181d87d",
+            "da1f3ca5fe15e3f7",
+            "16223b06882cf0be",
+            "1eb0a3260c79bd68"
+          ]
+        },
+        "duration_sec": 10.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "Cập nhật an ninh mạng mới nhất:\n- CISA cảnh báo lỗ hổng CVE-2026-114713 trên UnrealIRCd đang bị khai thác.\n- Cursor công bố sự cố lộ khóa Fireworks AI ảnh hưởng tiện ích Claude Code.\n- Apple chia sẻ về giải pháp Secure Exclaves bảo vệ camera và micro.\n- Giới chức làm rõ sự cố dừng bay của FAA không có dấu hiệu tấn công mạng.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#CyberSecurity",
+        "#UnrealIRCd",
+        "#Apple",
+        "#CISA"
+      ],
+      "cited_article_ids": [
+        "e577b898eca3316f",
+        "d5585df40181d87d",
+        "da1f3ca5fe15e3f7",
+        "1eb0a3260c79bd68"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Tổng hợp tin tức an ninh mạng nổi bật:\n1. CISA thêm lỗ hổng UnrealIRCd (CVE-2026-114713) vào danh mục KEV do bị khai thác thực tế.\n2. Lộ khóa truy cập từ Fireworks AI khiến tiện ích Claude Code trên Cursor bị chèn mã độc.\n3. Apple công bố kiến trúc Secure Exclaves nhằm cách ly dữ liệu camera và micro khỏi hệ điều hành chính.\n4. Sự cố gián đoạn chuyến bay của FAA được xác định không do tấn công mạng mà có thể xuất phát từ cập nhật phần mềm.",
+      "hashtags": [
+        "#TinTucCongNghe",
+        "#AnNinhMang",
+        "#CISA",
+        "#AppleExclaves",
+        "#FAA"
+      ],
+      "cited_article_ids": [
+        "e577b898eca3316f",
+        "d5585df40181d87d",
+        "da1f3ca5fe15e3f7",
+        "1eb0a3260c79bd68"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Tin an ninh mạng nổi bật: Lỗ hổng UnrealIRCd bị khai thác; Rò rỉ khóa Fireworks AI ảnh hưởng Claude Code; Apple giới thiệu Secure Exclaves bảo vệ camera/micro; Sự cố FAA không do hack.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#BaoMat",
+        "#CongNghe",
+        "#TechNews"
+      ],
+      "cited_article_ids": [
+        "e577b898eca3316f",
+        "d5585df40181d87d",
+        "da1f3ca5fe15e3f7",
+        "1eb0a3260c79bd68"
+      ]
+    }
+  ]
+}

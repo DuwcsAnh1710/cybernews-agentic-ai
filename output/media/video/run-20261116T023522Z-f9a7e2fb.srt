@@ -1,0 +1,119 @@
+1
+00:00:00,300 --> 00:00:01,697
+Minh: Chào mừng các bạn đến với bản
+
+2
+00:00:01,697 --> 00:00:03,110
+tin an toàn thông tin tuần này!
+
+3
+00:00:04,180 --> 00:00:04,640
+Tôi là Minh,
+
+4
+00:00:04,970 --> 00:00:06,344
+và hôm nay chúng ta sẽ cùng
+
+5
+00:00:06,344 --> 00:00:07,751
+cô bạn đồng hành Lan điểm qua
+
+6
+00:00:07,751 --> 00:00:09,175
+những tin tức bảo mật nóng hổi
+
+7
+00:00:09,175 --> 00:00:09,780
+nhất vừa qua.
+
+8
+00:00:11,096 --> 00:00:12,562
+Lan: Thật nguy hiểm khi kẻ tấn công
+
+9
+00:00:12,562 --> 00:00:13,826
+có thể chèn lệnh trực tiếp.
+
+10
+00:00:14,776 --> 00:00:16,391
+Tiếp theo là sự cố liên quan
+
+11
+00:00:16,391 --> 00:00:17,986
+đến Cursor và Claude Code extension.
+
+12
+00:00:18,106 --> 00:00:20,101
+Cursor xác nhận việc tiện ích mở
+
+13
+00:00:20,101 --> 00:00:22,295
+rộng Claude Code chính thức của Anthropic
+
+14
+00:00:22,295 --> 00:00:24,334
+trên thị trường Cursor bị tấn công
+
+15
+00:00:24,334 --> 00:00:26,329
+là do khóa truy cập Fireworks AI
+
+16
+00:00:26,329 --> 00:00:27,136
+bị đánh cắp.
+
+17
+00:00:28,410 --> 00:00:29,390
+Lan: Ở một khía cạnh khác,
+
+18
+00:00:29,720 --> 00:00:31,540
+Apple đã công bố chi tiết về
+
+19
+00:00:31,540 --> 00:00:32,780
+kiến trúc Secure Exclaves.
+
+20
+00:00:33,760 --> 00:00:35,384
+Kiến trúc này được thiết kế để
+
+21
+00:00:35,384 --> 00:00:36,952
+cô lập dữ liệu cảm biến môi
+
+22
+00:00:36,952 --> 00:00:38,649
+trường như camera và micro khỏi hệ
+
+23
+00:00:38,649 --> 00:00:40,384
+điều hành chính trên HomeView và các
+
+24
+00:00:40,384 --> 00:00:41,130
+dòng iPhone mới.
+
+25
+00:00:42,384 --> 00:00:43,891
+Lan: Ông Fourrier giải thích rằng tâm lý
+
+26
+00:00:43,891 --> 00:00:45,333
+sợ bị khiển trách khiến các sai
+
+27
+00:00:45,333 --> 00:00:46,104
+lầm bị giấu đi,
+
+28
+00:00:46,494 --> 00:00:47,996
+đồng thời tư vấn những điều lãnh
+
+29
+00:00:47,996 --> 00:00:49,415
+đạo an ninh cần báo cáo cho
+
+30
+00:00:49,415 --> 00:00:50,614
+CEO khi lộ khóa bí mật.

@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "style": "hallmark-gouache",
+  "beats": {
+    "seg05_b2": {
+      "file": "seg05_b2.jpg",
+      "prompt": "a smartphone and a laptop on a wooden desk, a red wax warning seal stamped on a paper folder beside them; in the background, paper records slipping out of a cracked archive box onto a desk, a magnifying glass nearby. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "a smartphone and a laptop on a wooden desk, a red wax warning seal stamped on a paper folder beside them; in the background, paper records slipping out of a cracked archive box onto a desk, a magnifying glass nearby",
+      "text": "Kiến trúc này được thiết kế để cô lập dữ liệu cảm biến môi trường như camera và micro khỏi hệ điều hành chính trên HomeView và các dòng iPhone mới.",
+      "text_hash": "a1561ec7ae75",
+      "provider": "pollinations"
+    }
+  }
+}

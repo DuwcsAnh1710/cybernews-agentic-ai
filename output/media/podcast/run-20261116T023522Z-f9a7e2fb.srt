@@ -1,0 +1,147 @@
+1
+00:00:00,000 --> 00:00:04,496
+[Minh] Chào mừng các bạn đến với bản tin an toàn thông tin tuần này! Tôi là Minh,
+
+2
+00:00:04,496 --> 00:00:09,599
+và hôm nay chúng ta sẽ cùng cô bạn đồng hành Lan điểm qua những tin tức bảo mật nóng
+
+3
+00:00:09,599 --> 00:00:10,632
+hổi nhất vừa qua.
+
+4
+00:00:10,982 --> 00:00:13,373
+[Lan] Chào anh Minh và chào tất cả các bạn.
+
+5
+00:00:13,373 --> 00:00:16,539
+Hôm nay chúng ta có rất nhiều tin tức đáng chú ý,
+
+6
+00:00:16,539 --> 00:00:21,062
+từ các lỗ hổng bị khai thác thực tế cho đến sự cố hệ thống hàng không.
+
+7
+00:00:21,412 --> 00:00:23,273
+[Minh] Đầu tiên là tin từ CISA.
+
+8
+00:00:23,273 --> 00:00:29,244
+Họ vừa thêm lỗ hổng nghiêm trọng CVE-2026-114713 trên máy chủ IRC mã nguồn mở
+
+9
+00:00:29,244 --> 00:00:33,742
+UnrealIRCd vào danh mục KEV do đang bị khai thác tích cực.
+
+10
+00:00:33,742 --> 00:00:35,991
+Lỗ hổng này có điểm CVSS 8.6,
+
+11
+00:00:35,991 --> 00:00:40,644
+liên quan đến lỗi trung hòa ký tự phân cách không đúng cách,
+
+12
+00:00:40,644 --> 00:00:43,204
+cho phép chèn lệnh ở cấp máy chủ.
+
+13
+00:00:43,554 --> 00:00:47,127
+[Lan] Thật nguy hiểm khi kẻ tấn công có thể chèn lệnh trực tiếp.
+
+14
+00:00:47,127 --> 00:00:51,131
+Tiếp theo là sự cố liên quan đến Cursor và Claude Code extension.
+
+15
+00:00:51,131 --> 00:00:56,244
+Cursor xác nhận việc tiện ích mở rộng Claude Code chính thức của Anthropic trên thị
+
+16
+00:00:56,244 --> 00:01:00,618
+trường Cursor bị tấn công là do khóa truy cập Fireworks AI bị đánh cắp.
+
+17
+00:01:00,968 --> 00:01:01,525
+[Minh] Đúng vậy,
+
+18
+00:01:01,525 --> 00:01:06,724
+kẻ tấn công đã thu được khóa truy cập do Cursor cấp cho Fireworks sau một vụ vi phạm
+
+19
+00:01:06,724 --> 00:01:08,086
+nhằm vào Fireworks AI.
+
+20
+00:01:08,086 --> 00:01:13,160
+Khóa này bị lộ và kẻ tấn công đã dùng nó để sao chép dữ liệu từ một nguồn chỉ đọc.
+
+21
+00:01:13,510 --> 00:01:18,242
+[Lan] Ở một khía cạnh khác, Apple đã công bố chi tiết về kiến trúc Secure Exclaves.
+
+22
+00:01:18,242 --> 00:01:23,097
+Kiến trúc này được thiết kế để cô lập dữ liệu cảm biến môi trường như camera và
+
+23
+00:01:23,097 --> 00:01:27,214
+micro khỏi hệ điều hành chính trên HomeView và các dòng iPhone mới.
+
+24
+00:01:27,564 --> 00:01:32,111
+[Minh] Đây là bước tiến lớn giúp bảo vệ riêng tư dữ liệu cảm biến. Bên cạnh đó,
+
+25
+00:01:32,111 --> 00:01:33,563
+theo Help Net Security,
+
+26
+00:01:33,563 --> 00:01:38,804
+tuần qua cũng ghi nhận tin tức về phần mềm đánh cắp bí mật tấn công các kho lưu trữ
+
+27
+00:01:38,804 --> 00:01:42,656
+GitHub và Claude Code bị biến thành công cụ điều khiển từ xa.
+
+28
+00:01:42,656 --> 00:01:47,772
+Eric Fourrier, CEO của GitGuardian, cũng chia sẻ về rủi ro lộ thông tin xác thực.
+
+29
+00:01:48,122 --> 00:01:52,714
+[Lan] Ông Fourrier giải thích rằng tâm lý sợ bị khiển trách khiến các sai lầm bị giấu đi,
+
+30
+00:01:52,714 --> 00:01:57,362
+đồng thời tư vấn những điều lãnh đạo an ninh cần báo cáo cho CEO khi lộ khóa bí mật.
+
+31
+00:01:57,712 --> 00:01:59,813
+[Minh] Cuối cùng là sự cố dừng bay của FAA.
+
+32
+00:01:59,813 --> 00:02:04,715
+Quan chức khẳng định không có dấu hiệu cho thấy cuộc tấn công mạng gây ra sự cố gián
+
+33
+00:02:04,715 --> 00:02:06,466
+đoạn hàng không toàn quốc này,
+
+34
+00:02:06,466 --> 00:02:11,368
+mà nguyên nhân có thể xuất phát từ một bản cập nhật phần mềm đang được FBI điều tra.
+
+35
+00:02:11,718 --> 00:02:12,755
+[Lan] Cảm ơn anh Minh.
+
+36
+00:02:12,755 --> 00:02:18,072
+Những sự cố tuần qua cho thấy việc quản lý khóa bảo mật và cập nhật phần mềm là vô
+
+37
+00:02:18,072 --> 00:02:20,406
+cùng quan trọng đối với mọi tổ chức.

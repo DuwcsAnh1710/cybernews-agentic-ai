@@ -1,0 +1,81 @@
+{
+  "run_id": "run-20261116T023522Z-f9a7e2fb",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "e577b898eca3316f",
+        "source_name": "The Hacker News",
+        "title": "Attackers Exploit UnrealIRCd Flaw That Enables Server-Level Command Injection",
+        "url": "https://thehackernews.com/2026/11/attackers-exploit-unrealircd-flaw-that.html",
+        "published_at": "2026-11-14T12:38:35Z",
+        "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) on Friday added a high-severity security flaw impacting UnrealIRCd, an open-source Internet Relay Chat (IRC) server, to its Known Exploited Vulnerabilities (KEV) catalog, following reports of active exploitation. The vulnerability, tracked as CVE-2026-114713 (CVSS score: 8.6), is a case of improper neutralization of delimiters",
+        "fetched_at": "2026-11-16T02:35:19.343829Z",
+        "topics_matched": [
+          "cybersecurity",
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Cơ quan CISA bổ sung lỗ hổng tiêm lệnh nghiêm trọng trong UnrealIRCd vào danh sách đang bị khai thác thực tế."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "d5585df40181d87d",
+        "source_name": "The Hacker News",
+        "title": "Cursor Says Stolen Fireworks AI Key Led to Trojanized Claude Code Extension Incident",
+        "url": "https://thehackernews.com/2026/11/stolen-fireworks-ai-key-led-to-cursor.html",
+        "published_at": "2026-11-15T08:22:04Z",
+        "summary": "The compromise of Anthropic's official Claude Code extension on Cursor's extension marketplace was the result of the theft of an access key that was exposed in the wake of a breach targeting Fireworks AI. \"An attacker obtained an access key we had issued to Fireworks,\" Cursor said in a Friday update. \"The key was exposed by Fireworks, and the attacker used it to copy data from a read-only",
+        "fetched_at": "2026-11-16T02:35:19.343829Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Sự cố đánh cắp khóa truy cập Fireworks AI đã dẫn đến việc tiện ích Claude Code trên chợ ứng dụng Cursor bị cài mã độc."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "da1f3ca5fe15e3f7",
+        "source_name": "SecurityWeek",
+        "title": "Apple Reveals How Secure Exclaves Shield Camera and Microphone Data",
+        "url": "https://securityweek.com/apple-reveals-how-secure-exclaves-shield-camera-and-microphone-data",
+        "published_at": "2026-11-14T11:00:00Z",
+        "summary": "The tech giant has detailed the architecture designed to isolate ambient sensor data from the main OS on HomeView and new iPhones. The post Apple Reveals How Secure Exclaves Shield Camera and Microphone Data appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-16T02:35:20.048429Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Apple chia sẻ chi tiết về kiến trúc Secure Exclaves giúp bảo vệ dữ liệu camera và micro khỏi hệ điều hành chính trên các thiết bị mới."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "16223b06882cf0be",
+        "source_name": "Help Net Security",
+        "title": "Week in review: Secret stealer hits GitHub repos, Claude Code turned into remote-controlled implant",
+        "url": "https://helpnetsecurity.com/2026/11/15/week-in-review-secret-stealer-hits-github-repos-claude-code-turned-into-remote-controlled-implant",
+        "published_at": "2026-11-15T09:00:37Z",
+        "summary": "Here’s an overview of some of last week’s most interesting news, articles, interviews and videos: What a security leader should tell the CEO about leaked credentials In this Help Net Security interview, Eric Fourrier, CEO of GitGuardian, talks about leaked credentials and personal liability for security leaders and boards. He explains how fear of blame pushes mistakes out of sight, and what a security leader should be ready to tell a CEO about exposed keys. … More → The post Week in review: Secret stealer hits GitHub repos, Claude Code turned into remote-controlled implant appeared first on Help Net Security .",
+        "fetched_at": "2026-11-16T02:35:20.383541Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Tổng hợp tin tức an ninh mạng nổi bật tuần qua với các vụ tấn công lấy trộm mã thông báo trên GitHub và biến đổi tiện ích Claude Code."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "1eb0a3260c79bd68",
+        "source_name": "SecurityWeek",
+        "title": "No Signs of Hacking in FAA Ground Stop as FBI Reportedly Probes Software Update",
+        "url": "https://securityweek.com/no-signs-of-hacking-in-faa-ground-stop-as-fbi-reportedly-probes-software-update",
+        "published_at": "2026-11-14T08:40:22Z",
+        "summary": "Officials say there is no evidence of a cyberattack behind the nationwide FAA outage, which may have been caused by a software update. The post No Signs of Hacking in FAA Ground Stop as FBI Reportedly Probes Software Update appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-16T02:35:20.048429Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Cục Hàng không Liên bang Mỹ (FAA) gặp sự cố gián đoạn diện rộng do cập nhật phần mềm và FBI đang tiến hành điều tra."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=9; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=1"
+}

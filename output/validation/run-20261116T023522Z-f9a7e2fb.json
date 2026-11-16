@@ -1,0 +1,35 @@
+{
+  "run_id": "run-20261116T023522Z-f9a7e2fb",
+  "passed": true,
+  "errors": [],
+  "warnings": [
+    {
+      "code": "W_SECTION_LENGTH",
+      "severity": "warning",
+      "path": "digest.sections[1].body.text",
+      "message": "Section body word count (56) outside allowed range [60, 120]",
+      "evidence": "56 words"
+    },
+    {
+      "code": "W_SECTION_LENGTH",
+      "severity": "warning",
+      "path": "digest.sections[2].body.text",
+      "message": "Section body word count (47) outside allowed range [60, 120]",
+      "evidence": "47 words"
+    },
+    {
+      "code": "W_SECTION_LENGTH",
+      "severity": "warning",
+      "path": "digest.sections[4].body.text",
+      "message": "Section body word count (45) outside allowed range [60, 120]",
+      "evidence": "45 words"
+    }
+  ],
+  "checks_run": [
+    "layer1_structural",
+    "layer2_source_consistency",
+    "layer3_llm_claim_review (findings=0, dropped=0)"
+  ],
+  "llm_review": "done",
+  "scope_note": "Structural and source-consistency checks against RSS title/summary only. Facts are NOT independently verified."
+}
