@@ -1,0 +1,123 @@
+1
+00:00:00,000 --> 00:00:03,725
+[Minh] Chào mừng các bạn đến với bản tin an ninh mạng tuần này!
+
+2
+00:00:03,725 --> 00:00:07,117
+Tôi là Minh, đồng hành cùng cô bạn đồng nghiệp Lan.
+
+3
+00:00:07,117 --> 00:00:12,504
+Hôm nay chúng ta sẽ cùng điểm qua 5 sự cố an toàn thông tin nổi bật nhất vừa qua.
+
+4
+00:00:12,854 --> 00:00:17,441
+[Lan] Chào anh Minh và các khán giả. Đầu tiên là thông tin về Telegram.
+
+5
+00:00:17,441 --> 00:00:20,969
+Ngay sau khi Telegram ra mắt tính năng widget mới,
+
+6
+00:00:20,969 --> 00:00:26,261
+Kaspersky nghi ngờ tính năng này đã bị khai thác để phát tán mã độc WebRAT.
+
+7
+00:00:26,261 --> 00:00:30,636
+Nhiều nhà nghiên cứu đã demo khả năng thực thi mã từ xa (RCE),
+
+8
+00:00:30,636 --> 00:00:34,094
+mặc dù ông Pavel Durov phủ nhận các cáo buộc này.
+
+9
+00:00:34,444 --> 00:00:37,881
+[Minh] Tiếp theo là cuộc tấn công chuỗi cung ứng nhắm vào Cursor.
+
+10
+00:00:37,881 --> 00:00:41,081
+Kẻ tấn công đã đánh cắp khóa truy cập từ Fireworks AI,
+
+11
+00:00:41,081 --> 00:00:45,821
+sau đó trích xuất thông tin xác thực để phát tán các bản sao độc hại của phần mở
+
+12
+00:00:45,821 --> 00:00:46,828
+rộng Claude Code.
+
+13
+00:00:47,178 --> 00:00:53,000
+[Lan] Một phát hiện đáng chú ý từ Google cho thấy các tin tặc đang sử dụng các framework
+
+14
+00:00:53,000 --> 00:00:56,763
+AI tự chế như ARTEX, CAIRN, CyberStrikeAI và PentAGI.
+
+15
+00:00:56,763 --> 00:01:02,585
+Chúng sử dụng các agent AI tự động để tạo và chạy bản khai thác từ các bản vá phần
+
+16
+00:01:02,585 --> 00:01:04,218
+mềm với tốc độ rất cao.
+
+17
+00:01:04,568 --> 00:01:06,374
+[Minh] Về thiết bị IoT công nghiệp,
+
+18
+00:01:06,374 --> 00:01:11,727
+công ty Midnight Blue cảnh báo 6 lỗ hổng chưa có bản vá trên bộ điều khiển làm lạnh
+
+19
+00:01:11,727 --> 00:01:12,888
+Danfoss AK-SM800A.
+
+20
+00:01:12,888 --> 00:01:17,467
+Kẻ tấn công từ xa có thể chiếm quyền điều khiển mà không cần đăng nhập.
+
+21
+00:01:17,467 --> 00:01:21,272
+Phiên bản firmware mới nhất 5.4.0 vẫn chưa sửa các lỗi này,
+
+22
+00:01:21,272 --> 00:01:26,432
+khiến các cơ quan an ninh mạng tại Bỉ, Ireland và Đức phải đưa ra cảnh báo khẩn.
+
+23
+00:01:26,782 --> 00:01:27,396
+[Lan] Cuối cùng,
+
+24
+00:01:27,396 --> 00:01:32,308
+Huntress cảnh báo kẻ tấn công đã lợi dụng phần mềm quản lý camera GeoVision chưa
+
+25
+00:01:32,308 --> 00:01:37,343
+được vá lỗi để xâm nhập máy tính Windows tại 13 tổ chức và cài cắm mã độc đào tiền
+
+26
+00:01:37,343 --> 00:01:37,834
+điện tử.
+
+27
+00:01:37,834 --> 00:01:42,869
+Hầu hết các vụ xâm nhập diễn ra trong khoảng thời gian từ ngày 8 đến ngày 10 tháng
+
+28
+00:01:42,869 --> 00:01:43,054
+11.
+
+29
+00:01:43,404 --> 00:01:46,887
+[Minh] Đó là những thông tin an ninh mạng đáng chú ý nhất.
+
+30
+00:01:46,887 --> 00:01:51,668
+Hãy theo dõi các kênh cập nhật bản vá và bảo vệ hệ thống của mình nhé.
+
+31
+00:01:51,668 --> 00:01:53,580
+Cảm ơn các bạn đã lắng nghe!

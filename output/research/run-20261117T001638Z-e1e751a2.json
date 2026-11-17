@@ -1,0 +1,80 @@
+{
+  "run_id": "run-20261117T001638Z-e1e751a2",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "a9fae18393a4908b",
+        "source_name": "SecurityWeek",
+        "title": "Telegram Widgets Hit by RCE Demos, Malware Warning Days After Launch",
+        "url": "https://securityweek.com/telegram-widgets-hit-by-rce-demos-malware-warning-days-after-launch",
+        "published_at": "2026-11-16T12:48:03Z",
+        "summary": "Kaspersky suspects exploitation of Telegram’s new widgets to deliver WebRAT, as researchers demo RCE and Pavel Durov disputes the claims. The post Telegram Widgets Hit by RCE Demos, Malware Warning Days After Launch appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-17T00:16:36.003680Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Các chuyên gia vừa đưa ra cảnh báo về khả năng thực thi mã từ xa (RCE) và phát tán mã độc WebRAT thông qua tính năng widget mới ra mắt của Telegram."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "48b1c90614550530",
+        "source_name": "SecurityWeek",
+        "title": "Cursor Supply Chain Attack Started at Fireworks AI",
+        "url": "https://securityweek.com/cursor-supply-chain-attack-started-at-fireworks",
+        "published_at": "2026-11-16T15:45:43Z",
+        "summary": "The attacker stole an access key from Fireworks and used it to exfiltrate credentials that enabled them to push malicious Claude Code extension copies. The post Cursor Supply Chain Attack Started at Fireworks AI appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-17T00:16:36.003680Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Vụ tấn công chuỗi cung ứng bắt nguồn từ Fireworks AI đã dẫn đến việc rò rỉ khóa truy cập và đẩy các tiện ích mở rộng Claude Code giả mạo chứa mã độc đến người dùng."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "a863217f46213f94",
+        "source_name": "The Hacker News",
+        "title": "Google Finds Hackers Using AI Agents to Build and Run Exploits From Software Patches",
+        "url": "https://thehackernews.com/2026/11/google-finds-hackers-using-ai-agents-to.html",
+        "published_at": "2026-11-16T14:00:00Z",
+        "summary": "Google on Monday revealed that adversarial use of artificial intelligence (AI) by threat actors has gone beyond manual prompting to deploying autonomous multi-agent offensive frameworks like ARTEX, CAIRN, CyberStrikeAI, and PentAGI to execute multi-stage intrusions at greater operational velocity. In tandem, threat actors are leveraging the power and capabilities of large language models (LLMs)",
+        "fetched_at": "2026-11-17T00:16:35.457383Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Google phát hiện các tin tặc đang sử dụng các khung agent AI tự động như ARTEX để phân tích bản vá phần mềm và tạo ra các mã khai thác lỗ hổng với tốc độ cao."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "a989c64e51ebb71d",
+        "source_name": "The Hacker News",
+        "title": "Six Unpatched Danfoss Refrigeration Controller Flaws Could Allow Remote Takeover Without Login",
+        "url": "https://thehackernews.com/2026/11/six-unpatched-danfoss-refrigeration.html",
+        "published_at": "2026-11-16T12:34:21Z",
+        "summary": "Six flaws in Danfoss AK-SM800A refrigeration controllers could let a remote attacker take over a controller without logging in, Dutch security consultancy Midnight Blue said earlier this week. No patch is available, and the researchers say the newest firmware, version 5.4.0, does not fix the flaws. Government cybersecurity agencies in Belgium, Ireland and Germany told operators this week to",
+        "fetched_at": "2026-11-17T00:16:35.457383Z",
+        "topics_matched": [
+          "cybersecurity"
+        ]
+      },
+      "relevance_reason": "Sáu lỗ hổng chưa có bản vá trong bộ điều khiển làm lạnh Danfoss AK-SM800A cho phép kẻ tấn công từ xa chiếm quyền kiểm soát thiết bị mà không cần đăng nhập."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "4137a95a9b604d0d",
+        "source_name": "Help Net Security",
+        "title": "Unpatched GeoVision camera software gave cryptojackers a side door into 13 organizations",
+        "url": "https://helpnetsecurity.com/2026/11/16/geovision-camera-software-vulnerabilities",
+        "published_at": "2026-11-16T10:07:57Z",
+        "summary": "Attackers used GeoVision camera management software to break into Windows machines at 13 organizations and turn them into cryptocurrency miners, Huntress warned in a threat advisory. GeoVision is a Taiwanese surveillance and access control company with customers in 110 countries. The victims work in various industries, and most of the intrusions happened between November 8 and 10. Every time, the activity started with a service that belongs to GeoVision’s software, and a Shodan search of … More → The post Unpatched GeoVision camera software gave cryptojackers a side door into 13 organizations appeared first on Help Net Security .",
+        "fetched_at": "2026-11-17T00:16:36.371447Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Lỗ hổng chưa được vá trong phần mềm quản lý camera GeoVision đã bị kẻ tấn công lợi dụng để xâm nhập vào hệ thống Windows của 13 tổ chức nhằm khai thác tiền điện tử."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=2"
+}

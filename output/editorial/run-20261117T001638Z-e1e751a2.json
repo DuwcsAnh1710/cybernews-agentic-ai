@@ -1,0 +1,275 @@
+{
+  "run_id": "run-20261117T001638Z-e1e751a2",
+  "language": "vi",
+  "digest": {
+    "title": "Điểm tin an ninh mạng: Cảnh báo lỗ hổng phần mềm, tấn công chuỗi cung ứng và AI độc hại",
+    "intro": "Bản tin an ninh mạng cập nhật các sự cố an toàn thông tin mới nhất. Nội dung bao gồm việc khai thác tính năng mới, tấn công chuỗi cung ứng mã nguồn và mối đe dọa từ các công cụ AI tự động. Ngoài ra, nhiều thiết bị công nghiệp và hệ thống giám sát cũng đang đứng trước rủi ro từ các lỗ hổng chưa có bản vá.",
+    "sections": [
+      {
+        "heading": "Cảnh báo mã độc và lỗ hổng RCE trên tiện ích Telegram",
+        "body": {
+          "text": "Kaspersky nghi ngờ kẻ tấn công đang khai thác các widget (tiện ích nhỏ) mới của Telegram để phát tán mã độc WebRAT. Sự việc diễn ra chỉ vài ngày sau khi tính năng này ra mắt, trong bối cảnh các nhà nghiên cứu đã trình diễn khả năng thực thi mã từ xa (RCE - kỹ thuật cho phép kẻ tấn công chạy lệnh trái phép trên thiết bị mục tiêu). Mặc dù vậy, Pavel Durov đã phủ nhận các tuyên bố này.",
+          "cited_article_ids": [
+            "a9fae18393a4908b"
+          ]
+        }
+      },
+      {
+        "heading": "Tấn công chuỗi cung ứng tại Fireworks AI ảnh hưởng đến Cursor",
+        "body": {
+          "text": "Kẻ tấn công đã đánh cắp khóa truy cập từ Fireworks AI và sử dụng nó để trích xuất thông tin xác thực. Sự cố tấn công chuỗi cung ứng (supply chain attack - hình thức xâm nhập thông qua nhà cung cấp bên thứ ba) này đã cho phép kẻ thủ ác phát tán các bản sao độc hại của tiện ích mở rộng Claude Code.",
+          "cited_article_ids": [
+            "48b1c90614550530"
+          ]
+        }
+      },
+      {
+        "heading": "Kẻ tấn công sử dụng đại lý AI tự động để xây dựng và thực thi mã khai thác",
+        "body": {
+          "text": "Google tiết lộ các nhóm đe dọa đã nâng cấp việc sử dụng trí tuệ nhân tạo (AI), không chỉ dừng lại ở việc nhập câu lệnh thủ công. Hiện tại, họ đang triển khai các khung tấn công đa đại lý tự động (multi-agent framework - hệ thống gồm nhiều tác tử AI phối hợp) như ARTEX, CAIRN, CyberStrikeAI và PentAGI để thực hiện các cuộc xâm nhập đa giai đoạn với tốc độ vận hành nhanh hơn.",
+          "cited_article_ids": [
+            "a863217f46213f94"
+          ]
+        }
+      },
+      {
+        "heading": "Sáu lỗ hổng chưa có bản vá trên thiết bị điều khiển Danfoss",
+        "body": {
+          "text": "Công ty tư vấn an ninh Midnight Blue cảnh báo 6 lỗ hổng trong bộ điều khiển làm lạnh Danfoss AK-SM800A cho phép kẻ tấn công từ xa chiếm quyền điều khiển mà không cần đăng nhập. Hiện chưa có bản vá cho các lỗ hổng này, bao gồm cả phiên bản firmware 5.4.0 mới nhất. Các cơ quan an ninh mạng tại Bỉ, Ireland và Đức đã đưa ra cảnh báo tới các đơn vị vận hành.",
+          "cited_article_ids": [
+            "a989c64e51ebb71d"
+          ]
+        }
+      },
+      {
+        "heading": "Phần mềm máy ảnh GeoVision bị khai thác để đào tiền điện tử",
+        "body": {
+          "text": "Huntress cảnh báo kẻ tấn công đã lợi dụng phần mềm quản lý máy ảnh của GeoVision để xâm nhập vào máy tính Windows tại 13 tổ chức, biến chúng thành công cụ đào tiền điện tử (cryptojacking). Hầu hết các cuộc xâm nhập diễn ra từ ngày November 8 đến November 10, bắt đầu từ một dịch vụ thuộc phần mềm GeoVision chưa được vá lỗi.",
+          "cited_article_ids": [
+            "4137a95a9b604d0d"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: Widget Telegram, Tấn Công Chuỗi Cung Ứng Và AI Độc Hại",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin an ninh mạng tuần này! Tôi là Minh, đồng hành cùng cô bạn đồng nghiệp Lan. Hôm nay chúng ta sẽ cùng điểm qua 5 sự cố an toàn thông tin nổi bật nhất vừa qua.",
+          "cited_article_ids": [
+            "a9fae18393a4908b",
+            "48b1c90614550530",
+            "a863217f46213f94",
+            "a989c64e51ebb71d",
+            "4137a95a9b604d0d"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào anh Minh và các khán giả. Đầu tiên là thông tin về Telegram. Ngay sau khi Telegram ra mắt tính năng widget mới, Kaspersky nghi ngờ tính năng này đã bị khai thác để phát tán mã độc WebRAT. Nhiều nhà nghiên cứu đã demo khả năng thực thi mã từ xa (RCE), mặc dù ông Pavel Durov phủ nhận các cáo buộc này.",
+          "cited_article_ids": [
+            "a9fae18393a4908b"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Tiếp theo là cuộc tấn công chuỗi cung ứng nhắm vào Cursor. Kẻ tấn công đã đánh cắp khóa truy cập từ Fireworks AI, sau đó trích xuất thông tin xác thực để phát tán các bản sao độc hại của phần mở rộng Claude Code.",
+          "cited_article_ids": [
+            "48b1c90614550530"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Một phát hiện đáng chú ý từ Google cho thấy các tin tặc đang sử dụng các framework AI tự chế như ARTEX, CAIRN, CyberStrikeAI và PentAGI. Chúng sử dụng các agent AI tự động để tạo và chạy bản khai thác từ các bản vá phần mềm với tốc độ rất cao.",
+          "cited_article_ids": [
+            "a863217f46213f94"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Về thiết bị IoT công nghiệp, công ty Midnight Blue cảnh báo 6 lỗ hổng chưa có bản vá trên bộ điều khiển làm lạnh Danfoss AK-SM800A. Kẻ tấn công từ xa có thể chiếm quyền điều khiển mà không cần đăng nhập. Phiên bản firmware mới nhất 5.4.0 vẫn chưa sửa các lỗi này, khiến các cơ quan an ninh mạng tại Bỉ, Ireland và Đức phải đưa ra cảnh báo khẩn.",
+          "cited_article_ids": [
+            "a989c64e51ebb71d"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cuối cùng, Huntress cảnh báo kẻ tấn công đã lợi dụng phần mềm quản lý camera GeoVision chưa được vá lỗi để xâm nhập máy tính Windows tại 13 tổ chức và cài cắm mã độc đào tiền điện tử. Hầu hết các vụ xâm nhập diễn ra trong khoảng thời gian từ ngày 8 đến ngày 10 tháng 11.",
+          "cited_article_ids": [
+            "4137a95a9b604d0d"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đó là những thông tin an ninh mạng đáng chú ý nhất. Hãy theo dõi các kênh cập nhật bản vá và bảo vệ hệ thống của mình nhé. Cảm ơn các bạn đã lắng nghe!",
+          "cited_article_ids": [
+            "a9fae18393a4908b",
+            "48b1c90614550530",
+            "a863217f46213f94",
+            "a989c64e51ebb71d",
+            "4137a95a9b604d0d"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Cảnh Báo An Ninh Mạng: Lỗ Hổng Widget, AI Độc Hại Và IoT",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "Cảnh Báo An Ninh Mạng Mới Nhất",
+        "narration": {
+          "text": "Điểm nhanh 5 sự cố an ninh mạng nóng hổi nhất tuần này!",
+          "cited_article_ids": [
+            "a9fae18393a4908b",
+            "48b1c90614550530",
+            "a863217f46213f94",
+            "a989c64e51ebb71d",
+            "4137a95a9b604d0d"
+          ]
+        },
+        "duration_sec": 5.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "Telegram Widget bị nghi chứa RCE",
+        "narration": {
+          "text": "Telegram vừa ra mắt widget đã bị nghi khai thác để phát tán WebRAT và thực thi mã từ xa.",
+          "cited_article_ids": [
+            "a9fae18393a4908b"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "Tấn công chuỗi cung ứng Cursor",
+        "narration": {
+          "text": "Hacker lấy cắp khóa truy cập từ Fireworks AI để đẩy extension Claude Code giả mạo.",
+          "cited_article_ids": [
+            "48b1c90614550530"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Hacker dùng AI Agent tự động",
+        "narration": {
+          "text": "Google phát hiện hacker dùng các framework AI tự động để tạo exploit từ bản vá.",
+          "cited_article_ids": [
+            "a863217f46213f94"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "6 lỗ hổng nghiêm trọng ở Danfoss",
+        "narration": {
+          "text": "Bộ điều khiển làm lạnh Danfoss bị phát hiện 6 lỗ hổng chưa có bản vá, dễ bị chiếm quyền từ xa.",
+          "cited_article_ids": [
+            "a989c64e51ebb71d"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "Phần mềm Camera GeoVision bị khai thác",
+        "narration": {
+          "text": "13 tổ chức bị xâm nhập qua phần mềm camera GeoVision để biến máy tính thành máy đào tiền ảo.",
+          "cited_article_ids": [
+            "4137a95a9b604d0d"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "Hãy Cập Nhật Bản Vá Ngay!",
+        "narration": {
+          "text": "Hãy luôn cảnh giác và cập nhật bảo mật thường xuyên cho hệ thống của bạn!",
+          "cited_article_ids": [
+            "a9fae18393a4908b",
+            "48b1c90614550530",
+            "a863217f46213f94",
+            "a989c64e51ebb71d",
+            "4137a95a9b604d0d"
+          ]
+        },
+        "duration_sec": 8.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "CẬP NHẬT AN NINH MẠNG MỚI NHẤT\n\n📌 Tiện ích Telegram mới ra mắt đối mặt với nguy cơ RCE và mã độc WebRAT.\n📌 Sự cố tấn công chuỗi cung ứng tại Fireworks AI ảnh hưởng tới tiện ích Claude Code.\n📌 Google phát hiện kẻ tấn công dùng hệ thống AI tự động để khai thác lỗ hổng.\n📌 6 lỗ hổng chưa có bản vá trên bộ điều khiển làm lạnh Danfoss AK-SM800A.\n📌 Phần mềm GeoVision chưa vá lỗi bị lợi dụng để cài mã độc đào tiền điện tử tại 13 tổ chức.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#TinTucCongNghe",
+        "#BaoMat",
+        "#CyberSecurity"
+      ],
+      "cited_article_ids": [
+        "a9fae18393a4908b",
+        "48b1c90614550530",
+        "a863217f46213f94",
+        "a989c64e51ebb71d",
+        "4137a95a9b604d0d"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Điểm tin an ninh mạng hôm nay mang đến những thông tin quan trọng về các lỗ hổng bảo mật và diễn biến tấn công mạng gần đây:\n\n1. Telegram Widgets vướng nghi vấn lỗ hổng RCE và phát tán WebRAT ngay sau khi ra mắt.\n2. Chuỗi cung ứng Cursor bị tấn công xuất phát từ việc Fireworks AI bị lộ khóa truy cập.\n3. Nhóm tấn công mạng sử dụng các khung đa đại lý AI tự động để thực hiện xâm nhập tốc độ cao.\n4. Cảnh báo 6 lỗ hổng chưa có bản vá trên bộ điều khiển Danfoss AK-SM800A cho phép chiếm quyền điều khiển từ xa.\n5. Phần mềm GeoVision bị khai thác để biến máy tính của 13 tổ chức thành máy đào tiền điện tử.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#CyberSecurity",
+        "#TinBaoMat",
+        "#CongNghe",
+        "#LoiHongBaoMat"
+      ],
+      "cited_article_ids": [
+        "a9fae18393a4908b",
+        "48b1c90614550530",
+        "a863217f46213f94",
+        "a989c64e51ebb71d",
+        "4137a95a9b604d0d"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Cập nhật an ninh mạng: Telegram bị cảnh báo RCE, Fireworks AI lộ access key làm ảnh hưởng tiện ích Claude Code, AI tự động bị kẻ xấu lợi dụng để tấn công mạng, lỗ hổng Danfoss và GeoVision chưa có bản vá!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#TikTokCongNghe",
+        "#BaoMat",
+        "#TinTuc"
+      ],
+      "cited_article_ids": [
+        "a9fae18393a4908b",
+        "48b1c90614550530",
+        "a863217f46213f94",
+        "a989c64e51ebb71d",
+        "4137a95a9b604d0d"
+      ]
+    }
+  ]
+}

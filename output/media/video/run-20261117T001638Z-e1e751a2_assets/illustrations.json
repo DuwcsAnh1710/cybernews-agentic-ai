@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "style": "hallmark-gouache",
+  "beats": {
+    "seg00_b1": {
+      "file": "seg00_b1.jpg",
+      "prompt": "a government bulletin board with pinned paper warning notices and a red ribbon, an analyst reading one closely; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "a government bulletin board with pinned paper warning notices and a red ribbon, an analyst reading one closely; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern",
+      "text": "Chào mừng các bạn đến với bản tin an ninh mạng tuần này! Tôi là Minh, đồng hành cùng cô bạn đồng nghiệp Lan.",
+      "text_hash": "1471617ada78",
+      "provider": "pollinations"
+    },
+    "seg05_b2": {
+      "file": "seg05_b2.jpg",
+      "prompt": "a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern",
+      "text": "Hầu hết các vụ xâm nhập diễn ra trong khoảng thời gian từ ngày 8 đến ngày 10 tháng 11.",
+      "text_hash": "905ab043399f",
+      "provider": "pollinations"
+    }
+  }
+}

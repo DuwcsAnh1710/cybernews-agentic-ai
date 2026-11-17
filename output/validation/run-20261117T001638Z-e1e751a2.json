@@ -1,0 +1,50 @@
+{
+  "run_id": "run-20261117T001638Z-e1e751a2",
+  "passed": false,
+  "errors": [
+    {
+      "code": "E_NUMBER_UNSUPPORTED",
+      "severity": "error",
+      "path": "podcast.segments[5].line.text",
+      "message": "Number '11' not found in cited source text",
+      "evidence": "11"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "W_PODCAST_LENGTH",
+      "severity": "warning",
+      "path": "podcast.segments",
+      "message": "Total podcast words (377) outside target range [480, 720] (target 600 ± 20%)",
+      "evidence": "377 words (expected 480-720)"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "podcast.segments[4].line.text",
+      "message": "Term 'IoT' not found in cited source text and not allowlisted",
+      "evidence": "IoT"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "video.title",
+      "message": "Term 'IoT' not found in cited source text and not allowlisted",
+      "evidence": "IoT"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "captions[0].text",
+      "message": "Term 'NINH' not found in cited source text and not allowlisted",
+      "evidence": "NINH"
+    }
+  ],
+  "checks_run": [
+    "layer1_structural",
+    "layer2_source_consistency",
+    "layer3_llm_claim_review (skipped)"
+  ],
+  "llm_review": "skipped",
+  "scope_note": "Structural and source-consistency checks against RSS title/summary only. Facts are NOT independently verified."
+}
