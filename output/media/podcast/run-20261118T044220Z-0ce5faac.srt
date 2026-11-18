@@ -1,0 +1,115 @@
+1
+00:00:00,000 --> 00:00:03,848
+[Minh] Chào mừng các bạn đến với bản tin an ninh mạng hôm nay.
+
+2
+00:00:03,848 --> 00:00:06,856
+Tôi là Minh, và đi cùng tôi hôm nay là Lan.
+
+3
+00:00:06,856 --> 00:00:11,544
+Chúng ta sẽ điểm qua những sự kiện bảo mật đáng chú ý nhất gần đây.
+
+4
+00:00:11,894 --> 00:00:14,571
+[Lan] Chào anh Minh và các bạn. Đầu tiên,
+
+5
+00:00:14,571 --> 00:00:20,842
+một sự cố nghiêm trọng vừa xảy ra khi kẻ tấn công lợi dụng dịch vụ A/B testing của
+
+6
+00:00:20,842 --> 00:00:26,731
+Optimizely để phát tán mã độc trên hơn 178 website lớn như BBC, CNN, Equifax,
+
+7
+00:00:26,731 --> 00:00:27,878
+Ledger và Zoom.
+
+8
+00:00:28,228 --> 00:00:28,787
+[Minh] Đúng vậy,
+
+9
+00:00:28,787 --> 00:00:34,003
+sự cố này trở nên tồi tệ hơn do các website phổ biến hiếm khi áp dụng quy tắc nghiêm
+
+10
+00:00:34,003 --> 00:00:36,238
+ngặt đối với nội dung từ bên thứ ba.
+
+11
+00:00:36,238 --> 00:00:39,964
+Mã độc lấy cắp dữ liệu đã bị chèn âm thầm vào các trang này.
+
+12
+00:00:40,314 --> 00:00:42,590
+[Lan] Chuyển sang tin tức về Java,
+
+13
+00:00:42,590 --> 00:00:47,629
+Oracle chuẩn bị phát hành bản vá cho 11 lỗ hổng trong Java SE.
+
+14
+00:00:47,629 --> 00:00:52,424
+Tất cả đều có thể bị khai thác từ xa mà không cần xác thực,
+
+15
+00:00:52,424 --> 00:00:55,025
+với điểm CVSS 3.1 tối đa là 8.1.
+
+16
+00:00:55,025 --> 00:01:01,770
+Ngoài ra còn có cảnh báo về lỗ hổng RCE nghiêm trọng CVE-2026-114938 trong OpenJDK.
+
+17
+00:01:02,120 --> 00:01:03,506
+[Minh] Trên nền tảng di động,
+
+18
+00:01:03,506 --> 00:01:08,799
+các nhà nghiên cứu từ NebuSec vừa tuyên bố có 2 mã khai thác RCE vượt qua bộ lọc bảo
+
+19
+00:01:08,799 --> 00:01:11,509
+mật mới của ứng dụng Telegram trên Android.
+
+20
+00:01:11,509 --> 00:01:16,424
+Kẻ tấn công dùng widget chứa JavaScript độc hại để thực thi mã ngoài ứng dụng.
+
+21
+00:01:16,774 --> 00:01:18,308
+[Lan] Về phía trí tuệ nhân tạo,
+
+22
+00:01:18,308 --> 00:01:23,461
+báo cáo AI Threat Tracker của Google cảnh báo các nhóm tấn công Trung Quốc đang phát
+
+23
+00:01:23,461 --> 00:01:26,406
+triển công cụ tấn công tự động như Artex, CAIRN,
+
+24
+00:01:26,406 --> 00:01:31,006
+CyberStrikeAI và PentAGI để thực hiện xâm nhập đa giai đoạn với tốc độ cao.
+
+25
+00:01:31,356 --> 00:01:32,020
+[Minh] Cuối cùng,
+
+26
+00:01:32,020 --> 00:01:37,463
+N-able đã vô hiệu hóa các API cũ và phát hành bản vá cho 17 lỗ hổng zero-day trong
+
+27
+00:01:37,463 --> 00:01:41,844
+N-central, bao gồm cả những lỗ hổng đã bị khai thác trong thực tế.
+
+28
+00:01:42,194 --> 00:01:45,896
+[Lan] Đó là những thông tin an toàn thông tin quan trọng nhất.
+
+29
+00:01:45,896 --> 00:01:49,994
+Cảm ơn các bạn đã lắng nghe và hẹn gặp lại trong số tiếp theo!

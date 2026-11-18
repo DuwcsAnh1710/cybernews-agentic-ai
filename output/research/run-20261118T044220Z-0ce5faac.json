@@ -1,0 +1,80 @@
+{
+  "run_id": "run-20261118T044220Z-0ce5faac",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "572b7212343397c3",
+        "source_name": "Krebs on Security",
+        "title": "Attackers Used Optimizely to A/B Test Malware on Top Websites",
+        "url": "https://krebsonsecurity.com/2026/11/attackers-used-optimizely-to-a-b-test-malware-on-top-websites",
+        "published_at": "2026-11-18T02:52:04Z",
+        "summary": "At least 178 top web destinations unwittingly served a variety of malware exploits against visitors over the past 24 hours thanks to a security vulnerability involving Optimizely, a company that helps websites customize user experiences and test out new features. Experts say the incident, which saw data-stealing malicious software silently injected into sites like the BBC, CNN, Equifax, Ledger and Zoom, was exacerbated by the reality that few popular websites enforce strict rules on the sources of third-party content.",
+        "fetched_at": "2026-11-18T04:42:17.571546Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Kẻ tấn công đã khai thác lỗ hổng trên nền tảng Optimizely để chèn mã độc vào ít nhất 178 trang web lớn nhằm phục vụ mục đích A/B testing mã độc."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "e5492f9867506c17",
+        "source_name": "The Hacker News",
+        "title": "Oracle to Patch 11 Java Flaws Today as Critical OpenJDK RCE (CVE-2026-114938) Report Emerges",
+        "url": "https://thehackernews.com/2026/11/oracle-to-patch-11-java-flaws-today-as.html",
+        "published_at": "2026-11-17T15:17:36Z",
+        "summary": "Oracle is preparing to release security patches for 11 vulnerabilities in Java SE on Tuesday, November 17, 2026, all of which may be exploited remotely without authentication, as separate reports warn of a potentially critical remote code execution (RCE) flaw affecting OpenJDK. The 11 vulnerabilities carry a maximum CVSS 3.1 severity score of 8.1, according to Oracle's advance security notice.",
+        "fetched_at": "2026-11-18T04:42:17.199718Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Oracle sắp phát hành bản vá cho 11 lỗ hổng bảo mật trong Java SE có thể bị khai thác từ xa mà không cần xác thực, cùng với cảnh báo về lỗ hổng RCE nghiêm trọng trên OpenJDK."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "6bab39afba048d48",
+        "source_name": "The Hacker News",
+        "title": "Researchers Claim Two RCE Exploits That Bypass Telegram’s New Android Defenses",
+        "url": "https://thehackernews.com/2026/11/researchers-claim-two-rce-exploits-that.html",
+        "published_at": "2026-11-17T19:34:20Z",
+        "summary": "A malicious widget can bypass the security filter that Telegram added to its Android app last week and run code outside it, according to NebuSec, a security company. Widgets are small interactive blocks that bots send inside chat messages, and their JavaScript runs on the user's phone. The researchers ran their demonstration on a Telegram test server, because only approved bots can send",
+        "fetched_at": "2026-11-18T04:42:17.199718Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Các nhà nghiên cứu phát hiện hai lỗ hổng RCE cho phép widget độc hại vượt qua cơ chế bảo vệ mới của Telegram trên Android để thực thi mã ngoài ứng dụng."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "31fa1641a8c31572",
+        "source_name": "The Record",
+        "title": "Chinese state group developing automated attack tool for cyber espionage, Google says",
+        "url": "https://therecord.media/chinese-state-group-developing-automated-attack-tool-espionage",
+        "published_at": "2026-11-17T18:50:00Z",
+        "summary": "Google released its latest AI Threat Tracker report on Monday, writing that threat actors are rapidly evolving their use of artificial intelligence in attacks — now leaning more heavily on autonomous multi-agent offensive frameworks like Artex, CAIRN, CyberStrikeAI and PentAGI to execute multi-stage intrusions at greater operational velocity.",
+        "fetched_at": "2026-11-18T04:42:17.384255Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Google cảnh báo các nhóm tấn công tin cậy đang phát triển các khung tấn công tự động dựa trên trí tuệ nhân tạo (AI) để thực hiện các chiến dịch gián điệp mạng phức tạp."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "e0eeccae847ccecd",
+        "source_name": "SecurityWeek",
+        "title": "N-able Kills Legacy APIs, Patches 17 N-central Zero-Days",
+        "url": "https://securityweek.com/n-able-kills-legacy-apis-patches-17-n-central-zero-days",
+        "published_at": "2026-11-17T12:28:45Z",
+        "summary": "The patches target recently disclosed zero-days, as well as vulnerabilities already exploited in the wild. The post N-able Kills Legacy APIs, Patches 17 N-central Zero-Days appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-18T04:42:17.703653Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "N-able đã phát hành bản vá cho 17 lỗ hổng zero-day trong N-central, bao gồm cả các lỗi đang bị khai thác thực tế trong các cuộc tấn công."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=0"
+}

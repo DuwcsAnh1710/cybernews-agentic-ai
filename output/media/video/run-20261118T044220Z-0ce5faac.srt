@@ -1,0 +1,95 @@
+1
+00:00:00,180 --> 00:00:01,680
+Lan: Chào anh Minh và các bạn.
+
+2
+00:00:02,600 --> 00:00:04,972
+Đầu tiên, một sự cố nghiêm trọng
+
+3
+00:00:04,972 --> 00:00:06,979
+vừa xảy ra khi kẻ tấn công
+
+4
+00:00:06,979 --> 00:00:09,106
+lợi dụng dịch vụ A/B testing của
+
+5
+00:00:09,106 --> 00:00:11,304
+Optimizely để phát tán mã độc trên
+
+6
+00:00:11,304 --> 00:00:13,250
+hơn 178 website lớn như BBC,
+
+7
+00:00:13,570 --> 00:00:15,140
+CNN, Equifax, Ledger và Zoom.
+
+8
+00:00:16,434 --> 00:00:17,864
+Lan: Chuyển sang tin tức về Java,
+
+9
+00:00:18,204 --> 00:00:20,108
+Oracle chuẩn bị phát hành bản vá
+
+10
+00:00:20,108 --> 00:00:22,024
+cho 11 lỗ hổng trong Java SE.
+
+11
+00:00:22,974 --> 00:00:25,219
+Tất cả đều có thể bị khai
+
+12
+00:00:25,219 --> 00:00:27,518
+thác từ xa mà không cần xác
+
+13
+00:00:27,518 --> 00:00:30,126
+thực, với điểm CVSS 3.1 tối đa
+
+14
+00:00:30,126 --> 00:00:32,927
+là 8.1. Ngoài ra còn có cảnh
+
+15
+00:00:32,927 --> 00:00:35,242
+báo về lỗ hổng RCE nghiêm trọng
+
+16
+00:00:35,242 --> 00:00:36,844
+CVE-2026-114938 trong OpenJDK.
+
+17
+00:00:38,260 --> 00:00:39,170
+Minh: Trên nền tảng di động,
+
+18
+00:00:39,470 --> 00:00:41,189
+các nhà nghiên cứu từ NebuSec vừa
+
+19
+00:00:41,189 --> 00:00:42,861
+tuyên bố có 2 mã khai thác
+
+20
+00:00:42,861 --> 00:00:44,466
+RCE vượt qua bộ lọc bảo mật
+
+21
+00:00:44,466 --> 00:00:46,280
+mới của ứng dụng Telegram trên Android.
+
+22
+00:00:47,280 --> 00:00:49,213
+Kẻ tấn công dùng widget chứa JavaScript
+
+23
+00:00:49,213 --> 00:00:50,926
+độc hại để thực thi mã ngoài
+
+24
+00:00:50,926 --> 00:00:51,430
+ứng dụng.

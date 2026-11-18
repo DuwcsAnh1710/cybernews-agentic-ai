@@ -1,0 +1,280 @@
+{
+  "run_id": "run-20261118T044220Z-0ce5faac",
+  "language": "vi",
+  "digest": {
+    "title": "Điểm tin an ninh mạng: Lỗ hổng Optimizely, bản vá Java và các mối đe dọa mới",
+    "intro": "Tổng hợp các sự kiện an ninh mạng đáng chú ý: từ việc khai thác lỗ hổng Optimizely để chèn mã độc trên nhiều trang web lớn,Oracle phát hành bản vá cho các lỗ hổng Java, đến các nghiên cứu về Telegram và công cụ tấn công tự động từ nhóm Trung Quốc.",
+    "sections": [
+      {
+        "heading": "Kẻ tấn công khai thác Optimizely để chèn mã độc trên các trang web lớn",
+        "body": {
+          "text": "Ít nhất 178 trang web hàng đầu đã vô tình phát tán các mã độc (malware - phần mềm độc hại) đánh cắp dữ liệu đến người truy cập do một lỗ hổng an ninh liên quan đến Optimizely, nền tảng hỗ trợ tùy chỉnh trải nghiệm người dùng. Các trang web lớn như BBC, CNN, Equifax, Ledger và Zoom đã bị ảnh hưởng. Sự cố trở nên nghiêm trọng do ít trang web áp dụng quy tắc nghiêm ngặt đối với nguồn nội dung từ bên thứ ba.",
+          "cited_article_ids": [
+            "572b7212343397c3"
+          ]
+        }
+      },
+      {
+        "heading": "Oracle chuẩn bị vá 11 lỗ hổng trong Java SE và cảnh báo về OpenJDK",
+        "body": {
+          "text": "Oracle chuẩn bị phát hành bản vá an ninh cho 11 lỗ hổng trong Java SE, tất cả đều có thể bị khai thác từ xa (remote code execution - thực thi mã từ xa) mà không cần xác thực. Điểm CVSS 3.1 tối đa của các lỗ hổng này đạt 8.1. Ngoài ra, các báo cáo riêng biệt cảnh báo về một lỗ hổng RCE tiềm ẩn mức độ nghiêm trọng (CVE-2026-114938) ảnh hưởng đến OpenJDK.",
+          "cited_article_ids": [
+            "e5492f9867506c17"
+          ]
+        }
+      },
+      {
+        "heading": "Nghiên cứu chỉ ra hai lỗ hổng RCE vượt qua cơ chế bảo vệ của Telegram trên Android",
+        "body": {
+          "text": "Theo công ty an ninh mạng NebuSec, một widget (tiện ích tương tác) độc hại có thể vượt qua bộ lọc an ninh mà Telegram vừa thêm vào ứng dụng Android để thực thi mã ngoài ứng dụng. Mã JavaScript của các widget này chạy trực tiếp trên điện thoại người dùng. Nghiên cứu sinh được thử nghiệm trên máy chủ kiểm thử của Telegram do chỉ các bot được duyệt mới có thể gửi widget.",
+          "cited_article_ids": [
+            "6bab39afba048d48"
+          ]
+        }
+      },
+      {
+        "heading": "Nhóm tấn công mạng phát triển công cụ tấn công tự động sử dụng AI",
+        "body": {
+          "text": "Báo cáo AI Threat Tracker mới nhất từ Google chỉ ra rằng các nhóm đe doạ đang gia tăng sử dụng trí tuệ nhân tạo (AI) trong các cuộc tấn công. Đáng chú ý, các nhóm đe doạ đang phụ thuộc nhiều hơn vào các khung tấn công đa tác tử tự động (autonomous multi-agent offensive frameworks) như Artex, CAIRN, CyberStrikeAI và PentAGI để thực hiện xâm nhập nhiều giai đoạn với tốc độ cao.",
+          "cited_article_ids": [
+            "31fa1641a8c31572"
+          ]
+        }
+      },
+      {
+        "heading": "N-able loại bỏ API cũ và vá 17 lỗ hổng zero-day trong N-central",
+        "body": {
+          "text": "N-able đã tiến hành xử lý các API cũ (legacy APIs) và phát hành bản vá cho 17 lỗ hổng zero-day trong N-central. Các bản vá này tập trung giải quyết các lỗ hổng mới được công bố cũng như các điểm yếu đã bị khai thác thực tế trong các cuộc tấn công.",
+          "cited_article_ids": [
+            "e0eeccae847ccecd"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: Lỗ Hổng Optimizely, Java SE Vẫn Chưa Hết Hot và Công Cụ AI Tấn Công Tự Động",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin an ninh mạng hôm nay. Tôi là Minh, và đi cùng tôi hôm nay là Lan. Chúng ta sẽ điểm qua những sự kiện bảo mật đáng chú ý nhất gần đây.",
+          "cited_article_ids": [
+            "572b7212343397c3",
+            "e5492f9867506c17",
+            "6bab39afba048d48",
+            "31fa1641a8c31572",
+            "e0eeccae847ccecd"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào anh Minh và các bạn. Đầu tiên, một sự cố nghiêm trọng vừa xảy ra khi kẻ tấn công lợi dụng dịch vụ A/B testing của Optimizely để phát tán mã độc trên hơn 178 website lớn như BBC, CNN, Equifax, Ledger và Zoom.",
+          "cited_article_ids": [
+            "572b7212343397c3"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đúng vậy, sự cố này trở nên tồi tệ hơn do các website phổ biến hiếm khi áp dụng quy tắc nghiêm ngặt đối với nội dung từ bên thứ ba. Mã độc lấy cắp dữ liệu đã bị chèn âm thầm vào các trang này.",
+          "cited_article_ids": [
+            "572b7212343397c3"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chuyển sang tin tức về Java, Oracle chuẩn bị phát hành bản vá cho 11 lỗ hổng trong Java SE. Tất cả đều có thể bị khai thác từ xa mà không cần xác thực, với điểm CVSS 3.1 tối đa là 8.1. Ngoài ra còn có cảnh báo về lỗ hổng RCE nghiêm trọng CVE-2026-114938 trong OpenJDK.",
+          "cited_article_ids": [
+            "e5492f9867506c17"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Trên nền tảng di động, các nhà nghiên cứu từ NebuSec vừa tuyên bố có 2 mã khai thác RCE vượt qua bộ lọc bảo mật mới của ứng dụng Telegram trên Android. Kẻ tấn công dùng widget chứa JavaScript độc hại để thực thi mã ngoài ứng dụng.",
+          "cited_article_ids": [
+            "6bab39afba048d48"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Về phía trí tuệ nhân tạo, báo cáo AI Threat Tracker của Google cảnh báo các nhóm tấn công Trung Quốc đang phát triển công cụ tấn công tự động như Artex, CAIRN, CyberStrikeAI và PentAGI để thực hiện xâm nhập đa giai đoạn với tốc độ cao.",
+          "cited_article_ids": [
+            "31fa1641a8c31572"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Cuối cùng, N-able đã vô hiệu hóa các API cũ và phát hành bản vá cho 17 lỗ hổng zero-day trong N-central, bao gồm cả những lỗ hổng đã bị khai thác trong thực tế.",
+          "cited_article_ids": [
+            "e0eeccae847ccecd"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Đó là những thông tin an toàn thông tin quan trọng nhất. Cảm ơn các bạn đã lắng nghe và hẹn gặp lại trong số tiếp theo!",
+          "cited_article_ids": [
+            "572b7212343397c3",
+            "e5492f9867506c17",
+            "6bab39afba048d48",
+            "31fa1641a8c31572",
+            "e0eeccae847ccecd"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Cảnh Báo An Ninh Mạng: Lỗ Hổng Ứng Dụng & Công Cụ Tấn Công AI",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "CẢNH BÁO AN NINH MẠNG MỚI NHẤT",
+        "narration": {
+          "text": "Điểm nhanh những sự cố bảo mật cực nóng vừa được phát hiện!",
+          "cited_article_ids": [
+            "572b7212343397c3",
+            "e5492f9867506c17",
+            "6bab39afba048d48",
+            "31fa1641a8c31572",
+            "e0eeccae847ccecd"
+          ]
+        },
+        "duration_sec": 8.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "Optimizely Bị Lợi Dụng Chèn Mã Độc",
+        "narration": {
+          "text": "Hơn 178 website lớn bị lợi dụng qua lỗ hổng Optimizely để chèn mã độc đánh cắp dữ liệu.",
+          "cited_article_ids": [
+            "572b7212343397c3"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "Oracle Vá 11 Lỗ Hổng Java SE",
+        "narration": {
+          "text": "Oracle phát hành bản vá cho 11 lỗ hổng Java SE và cảnh báo RCE nguy hiểm trên OpenJDK.",
+          "cited_article_ids": [
+            "e5492f9867506c17"
+          ]
+        },
+        "duration_sec": 13.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Telegram Android Bị Vượt Rào Bảo Mật",
+        "narration": {
+          "text": "NebuSec phát hiện widget Telegram trên Android có thể bị vượt rào bảo mật để chạy mã từ xa.",
+          "cited_article_ids": [
+            "6bab39afba048d48"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "Hacker Dùng AI Tấn Công Tự Động",
+        "narration": {
+          "text": "Google cảnh báo kẻ tấn công dùng các khung AI tự động để gia tăng tốc độ xâm nhập hệ thống.",
+          "cited_article_ids": [
+            "31fa1641a8c31572"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "N-able Vá 17 Lỗ Hổng Zero-Day",
+        "narration": {
+          "text": "N-able xóa bỏ API cũ và khắc phục 17 lỗ hổng zero-day trong N-central.",
+          "cited_article_ids": [
+            "e0eeccae847ccecd"
+          ]
+        },
+        "duration_sec": 13.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "CẬP NHẬT BẢN VÁ NGAY HÔM NAY!",
+        "narration": {
+          "text": "Hãy luôn cập nhật bản vá bảo mật mới nhất để bảo vệ hệ thống của bạn!",
+          "cited_article_ids": [
+            "572b7212343397c3",
+            "e5492f9867506c17",
+            "6bab39afba048d48",
+            "31fa1641a8c31572",
+            "e0eeccae847ccecd"
+          ]
+        },
+        "duration_sec": 10.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "Điểm tin an ninh mạng mới nhất: Lỗ hổng trên Optimizely khiến ít nhất 178 trang web lớn bị chèn mã độc. Oracle ra mắt bản vá cho 11 lỗ hổng Java SE, trong khi nghiên cứu mới cảnh báo cơ chế bảo vệ Telegram Android bị vượt qua. Ngoài ra, Google báo cáo sự gia tăng của các khung tấn công tự động bằng AI.",
+      "hashtags": [
+        "#AnNinhMangfrictionFrameworks",
+        "#TinTucCongNghe",
+        "#BaoMat",
+        "#LoiHong"
+      ],
+      "cited_article_ids": [
+        "572b7212343397c3",
+        "e5492f9867506c17",
+        "6bab39afba048d48",
+        "31fa1641a8c31572"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Trong bản tin an ninh mạng hôm nay, chúng ta cập nhật những thông tin quan trọng:\n1. Hơn 178 trang web lớn vô tình phát tán mã độc do lỗ hổng từ công cụ Optimizely.\n2. Oracle chuẩn bị vá 11 lỗ hổng Java SE cho phép thực thi mã từ xa.\n3. Các nhà nghiên cứu phát hiện cách vượt qua bộ lọc an ninh Telegram trên Android.\n4. Báo cáo từ Google chỉ ra các nhóm đe dọa đang dùng AI để tự động hóa tấn công.\n5. N-able phát hành bản vá cho 17 lỗ hổng zero-day trên N-central.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#CyberSecurity",
+        "#Java",
+        "#Telegram",
+        "#AI"
+      ],
+      "cited_article_ids": [
+        "572b7212343397c3",
+        "e5492f9867506c17",
+        "6bab39afba048d48",
+        "31fa1641a8c31572",
+        "e0eeccae847ccecd"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Cập nhật an ninh mạng: Mã độc chèn qua Optimizely ảnh hưởng 178 trang web lớn, Oracle vá 11 lỗ hổng Java, và Telegram bị phát hiện lỗ hổng RCE mới trên Android!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#TinCongNghe",
+        "#BaoMat"
+      ],
+      "cited_article_ids": [
+        "572b7212343397c3",
+        "e5492f9867506c17",
+        "6bab39afba048d48"
+      ]
+    }
+  ]
+}
