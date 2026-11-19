@@ -1,0 +1,333 @@
+{
+  "run_id": "run-20261119T042925Z-179e6482",
+  "language": "vi",
+  "digest": {
+    "title": "Bản tin An toàn thông tin: Các lỗ hổng RCE nghiêm trọng và nguy cơ lộ dữ liệu đám mây",
+    "intro": "Điểm tin an ninh mạng hôm nay tập trung vào các lỗ hổng thực thi mã từ xa (RCE) nghiêm trọng trên nền tảng Apache Roller và các ứng dụng Java phổ biến. Bên cạnh đó là các cảnh báo về mã độc đánh cắp thông tin xác thực trên PyPI, bản cập nhật Chrome 158 và chiến dịch tấn công gián điệp mạng tận dụng dữ liệu đám mây bị cướp.",
+    "sections": [
+      {
+        "heading": "Lỗ hổng RCE nghiêm trọng trong Apache Roller đang bị khai thác tích cực",
+        "body": {
+          "text": "Apache Software Foundation (ASF) vừa phát cảnh báo về lỗ hổng bảo mật nghiêm trọng CVE-2026-129448 (điểm CVSS: 9.8) trong Apache Roller, một nền tảng viết blog mã nguồn mở bằng Java. Lỗi này xuất phát từ quá trình giải chuỗi không an toàn (unauthenticated deserialization - chuyển đổi dữ liệu thành đối tượng) tại điểm cuối XML-RPC, cho phép kẻ tấn công thực thi mã từ xa (Remote Code Execution - RCE) mà không cần xác thực. Hiện tại lỗ hổng này đang bị khai thác tích cực trong thực tế.",
+          "cited_article_ids": [
+            "6ec0dce548ff06fe"
+          ]
+        }
+      },
+      {
+        "heading": "Lỗ hổng Java4Shell cho phép thực thi mã không cần xác thực trên Jira, Jenkins và Keycloak",
+        "body": {
+          "text": "Công ty nghiên cứu an ninh mạng Calif đã công bố lỗ hổng Java4Shell (CVE-2026-114938) cho phép kẻ tấn công không có tài khoản chạy mã từ xa trên Jira, Jenkins, Keycloak và ba ứng dụng phổ biến khác. Sự cố xuất hiện từ phiên bản Java 17.0.6 trở về sau và chỉ ảnh hưởng đến mã nguồn chạy trên các dòng chip x86-64 của Intel và AMD có hỗ trợ tính năng AVX-512 VBMI.",
+          "cited_article_ids": [
+            "5966ac56e61b79d5"
+          ]
+        }
+      },
+      {
+        "heading": "Các bản phát hành Microsoft Agent Framework trên PyPI bị chèn mã độc đánh cắp thông tin",
+        "body": {
+          "text": "Các phiên bản 1.26.1 và 1.26.2 của gói agent-framework đăng tải trên kho lưu trữ PyPI đã bị đầu độc. Khi ứng dụng Python khởi chạy, gói này sẽ tự động đánh cắp thông tin xác thực (credential stealer) của Azure, Azure DevOps và GitHub Actions từ hệ thống của nạn nhân.",
+          "cited_article_ids": [
+            "f3185c52953727c4"
+          ]
+        }
+      },
+      {
+        "heading": "Google phát hành Chrome 158 vá 204 lỗ hổng bảo mật",
+        "body": {
+          "text": "Google đã phát hành phiên bản Chrome 158 nhằm khắc phục tổng cộng 204 lỗ hổng bảo mật. Trong số đó, hãng đã trao thưởng 11.000 USD cho 5 lỗi được báo cáo từ các nhà nghiên cứu bên ngoài, đồng thời đang xác định mức tiền thưởng cho 36 lỗi bảo mật khác.",
+          "cited_article_ids": [
+            "ac3a17fa6736da98"
+          ]
+        }
+      },
+      {
+        "heading": "Nhóm gián điệp mạng Nga dùng dữ liệu đám mây bị trộm để tấn công giả mạo",
+        "body": {
+          "text": "Theo nghiên cứu mới nhất từ Google, các tin tặc được chính phủ Nga chống lưng đang tận dụng thông tin đánh cắp từ các tài khoản đám mây để giả dạng những người liên hệ tin cậy. Từ đó, chúng thực hiện các chiến dịch gián điệp mạng mới nhắm vào những cá nhân nằm trong mạng lưới công việc của nạn nhân.",
+          "cited_article_ids": [
+            "b7d3842da950c310"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: Lỗ Hổng Java Nghiêm Trọng Và Nguy Cơ Từ Chuỗi Cung Ứng",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin an ninh mạng hôm nay! Tôi là Minh, và hôm nay chúng ta sẽ cùng chuyên gia Lan cập nhật những lỗ hổng bảo mật nghiêm trọng vừa được phát hiện.",
+          "cited_article_ids": [
+            "6ec0dce548ff06fe",
+            "5966ac56e61b79d5",
+            "f3185c52953727c4",
+            "ac3a17fa6736da98",
+            "b7d3842da950c310"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào Minh và chào các khán giả. Hôm nay chúng ta có rất nhiều thông tin quan trọng liên quan đến các lỗ hổng RCE và mối đe dọa chuỗi cung ứng mã nguồn mở.",
+          "cited_article_ids": [
+            "6ec0dce548ff06fe",
+            "5966ac56e61b79d5",
+            "f3185c52953727c4",
+            "ac3a17fa6736da98",
+            "b7d3842da950c310"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đầu tiên, Apache Software Foundation vừa cảnh báo về lỗ hổng CVE-2026-129448 trên nền tảng blogging Apache Roller. Lỗ hổng này đạt điểm CVSS lên tới 9.8 đúng không Lan?",
+          "cited_article_ids": [
+            "6ec0dce548ff06fe"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chính xác. Đây là lỗi giải mã dữ liệu không an toàn (untrusted deserialization) ở điểm cuối XML-RPC. Tin tặc không cần xác thực vẫn có thể thực thi mã từ xa (RCE) và hiện tại lỗ hổng này đang bị khai thác thực tế.",
+          "cited_article_ids": [
+            "6ec0dce548ff06fe"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Thật nguy hiểm. Bên cạnh đó, công ty Calif vừa công bố một lỗ hổng Java mới có tên là Java4Shell, mã hiệu CVE-2026-114938. Lỗ hổng này ảnh hưởng đến hàng loạt ứng dụng phổ biến đúng không?",
+          "cited_article_ids": [
+            "5966ac56e61b79d5"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Đúng vậy, Java4Shell cho phép thực thi mã từ xa trước xác thực trên Jira, Jenkins, Keycloak và ba ứng dụng khác. Lỗi xuất hiện từ Java 17.0.6 trở đi, nhưng chỉ chạy trên chip x86-64 của Intel và AMD có hỗ trợ tính năng AVX-512 VBMI.",
+          "cited_article_ids": [
+            "5966ac56e61b79d5"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Cơ sở hạ tầng phát triển phần mềm đang là mục tiêu hàng đầu. Mới đây trên PyPI, gói agent-framework cũng vừa bị phát hiện chứa mã độc.",
+          "cited_article_ids": [
+            "f3185c52953727c4"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Vâng, các phiên bản 1.26.1 và 1.26.2 của agent-framework trên PyPI đã bị cấy mã độc. Khi Python khởi chạy, nó sẽ tự động đánh cắp thông tin đăng nhập của Azure, Azure DevOps và GitHub Actions.",
+          "cited_article_ids": [
+            "f3185c52953727c4"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Các nhà phát triển cần kiểm tra ngay dependency của mình! Chuyển sang tin tức về trình duyệt, Google vừa phát hành Chrome 158 với lượng lớn bản vá bảo mật.",
+          "cited_article_ids": [
+            "ac3a17fa6736da98"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Đúng vậy, Chrome 158 đã vá tới 204 lỗ hổng. Google đã thưởng 11,000 USD cho 5 lỗi báo cáo từ bên ngoài và đang xem xét tiền thưởng cho 36 lỗi khác.",
+          "cited_article_ids": [
+            "ac3a17fa6736da98"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Cuối cùng là thông tin từ nghiên cứu của Google về các nhóm gián điệp mạng do nhà nước Nga chống lưng.",
+          "cited_article_ids": [
+            "b7d3842da950c310"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Google cho biết nhóm này sử dụng dữ liệu đánh cắp từ các tài khoản đám mây để giả mạo danh tính những người liên hệ đáng tin cậy. Từ đó, chúng thực hiện các cuộc tấn công gián điệp tiếp theo nhắm vào mạng lưới đồng nghiệp của nạn nhân.",
+          "cited_article_ids": [
+            "b7d3842da950c310"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Cảm ơn Lan vì những chia sẻ rất giá trị. Hãy luôn cập nhật phần mềm và kiểm tra kỹ các thư viện mã nguồn mở nhé. Xin chào và hẹn gặp lại các bạn!",
+          "cited_article_ids": [
+            "6ec0dce548ff06fe",
+            "5966ac56e61b79d5",
+            "f3185c52953727c4",
+            "ac3a17fa6736da98",
+            "b7d3842da950c310"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Cảnh Báo An Ninh Mạng: Lỗ Hổng RCE Và Mã Độc Chuỗi Cung Ứng",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "CẢNH BÁO BẢO MẬT BÁCH KHOA IT",
+        "narration": {
+          "text": "Cảnh báo an ninh mạng hot nhất hôm nay dành cho các lập trình viên và quản trị viên hệ thống!",
+          "cited_article_ids": [
+            "6ec0dce548ff06fe",
+            "5966ac56e61b79d5",
+            "f3185c52953727c4",
+            "ac3a17fa6736da98",
+            "b7d3842da950c310"
+          ]
+        },
+        "duration_sec": 8.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "Apache Roller: Lỗi RCE CVSS 9.8",
+        "narration": {
+          "text": "Lỗ hổng CVE-2026-129448 trên Apache Roller đang bị khai thác thực tế, cho phép thực thi mã từ xa không cần đăng nhập.",
+          "cited_article_ids": [
+            "6ec0dce548ff06fe"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "Java4Shell: Nguy cơ trên Jira & Jenkins",
+        "narration": {
+          "text": "Lỗ hổng Java4Shell ảnh hưởng từ Java 17.0.6 trở đi trên chip x86-64, cho phép RCE trên Jira, Jenkins và Keycloak.",
+          "cited_article_ids": [
+            "5966ac56e61b79d5"
+          ]
+        },
+        "duration_sec": 13.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "PyPI agent-framework bị cấy mã độc",
+        "narration": {
+          "text": "Thư viện agent-framework bản 1.26.1 và 1.26.2 trên PyPI bị phát hiện đánh cắp credential Azure và GitHub Actions.",
+          "cited_article_ids": [
+            "f3185c52953727c4"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "Chrome 158 vá 204 lỗ hổng",
+        "narration": {
+          "text": "Google ra mắt Chrome 158 giải quyết 204 lỗ hổng bảo mật, trao thưởng 11,000 USD cho 5 lỗi từ bên ngoài.",
+          "cited_article_ids": [
+            "ac3a17fa6736da98"
+          ]
+        },
+        "duration_sec": 10.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "Cảnh báo tấn công giả mạo Đám Mây",
+        "narration": {
+          "text": "Hacker dùng dữ liệu đám mây chiếm đoạt để giả mạo người quen và tấn công gián điệp diện rộng.",
+          "cited_article_ids": [
+            "b7d3842da950c310"
+          ]
+        },
+        "duration_sec": 10.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "CẬP NHẬT NGAY HỆ THỐNG CỦA BẠN!",
+        "narration": {
+          "text": "Hãy kiểm tra và vá hệ thống của bạn ngay hôm nay. Bấm theo dõi để nhận tin an ninh mạng mới nhất!",
+          "cited_article_ids": [
+            "6ec0dce548ff06fe",
+            "5966ac56e61b79d5",
+            "f3185c52953727c4",
+            "ac3a17fa6736da98",
+            "b7d3842da950c310"
+          ]
+        },
+        "duration_sec": 10.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "🚨 BẢN TIN AN NINH MẠNG NỔI BẬT\n\n- Apache Roller dính lỗi RCE nghiêm trọng (CVE-2026-129448) không cần xác thực đang bị khai thác.\n- Lỗ hổng Java4Shell (CVE-2026-114938) đe dọa Jira, Jenkins, Keycloak trên chip x86-64.\n- Gói agent-framework 1.26.1/1.26.2 trên PyPI bị chèn mã độc cướp token Azure và GitHub.\n- Chrome 158 vá 204 lỗ hổng bảo mật.\n- Google cảnh báo gián điệp mạng dùng dữ liệu đám mây bị trộm để giả mạo người quen.\n\nChi tiết xem tại bản tin!",
+      "hashtags": [
+        "#CyberSecurity",
+        "#AnNinhMang",
+        "#Vulnerability",
+        "#Java4Shell",
+        "#ApacheRoller"
+      ],
+      "cited_article_ids": [
+        "6ec0dce548ff06fe",
+        "5966ac56e61b79d5",
+        "f3185c52953727c4",
+        "ac3a17fa6736da98",
+        "b7d3842da950c310"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Điểm tin an ninh mạng mới nhất:\n- Lỗ hổng nghiêm trọng CVE-2026-129448 trong Apache Roller bị khai thác thực tế, cho phép RCE không cần xác thực.\n- Calif công bố lỗ hổng Java4Shell (CVE-2026-114938) ảnh hưởng tới Jira, Jenkins, Keycloak trên hệ thống chạy chip x86-64 hỗ trợ AVX-512 VBMI.\n- Mã độc đánh cắp thông tin xác thực Azure và GitHub Actions xuất hiện trong agent-framework v1.26.1 và v1.26.2 trên PyPI.\n- Chrome 158 ra mắt để cập nhật vá 204 lỗ hổng.\n- Nghiên cứu từ Google chỉ ra tin tặc Nga dùng dữ liệu đám mây bị đánh cắp để mạo danh tấn công các mạng lưới chuyên nghiệp.",
+      "hashtags": [
+        "#CyberSecurityNews",
+        "#RCE",
+        "#Chrome158",
+        "#PyPI",
+        "#CloudSecurity"
+      ],
+      "cited_article_ids": [
+        "6ec0dce548ff06fe",
+        "5966ac56e61b79d5",
+        "f3185c52953727c4",
+        "ac3a17fa6736da98",
+        "b7d3842da950c310"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "⚠️ Cảnh báo an ninh mạng: Lỗ hổng Apache Roller & Java4Shell gây nguy cơ RCE nghiêm trọng; Gói agent-framework trên PyPI bị dính mã độc đánh cắp credential; Chrome 158 vá 204 lỗ hổng!",
+      "hashtags": [
+        "#AnToanThongTin",
+        "#CongNghe",
+        "#HackerNews",
+        "#BaoMat"
+      ],
+      "cited_article_ids": [
+        "6ec0dce548ff06fe",
+        "5966ac56e61b79d5",
+        "f3185c52953727c4",
+        "ac3a17fa6736da98"
+      ]
+    }
+  ]
+}

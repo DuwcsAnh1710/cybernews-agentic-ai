@@ -1,0 +1,80 @@
+{
+  "run_id": "run-20261119T042925Z-179e6482",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "6ec0dce548ff06fe",
+        "source_name": "The Hacker News",
+        "title": "Critical Apache Roller RCE Flaw Under Active Exploitation, No Authentication Required",
+        "url": "https://thehackernews.com/2026/11/critical-apache-roller-rce-flaw-under.html",
+        "published_at": "2026-11-18T17:10:45Z",
+        "summary": "A critical security flaw in Apache Roller, an open-source, Java-based blogging platform, has come under active exploitation in the wild, according to the Apache Software Foundation (ASF) The vulnerability, tracked as CVE-2026-129448 (CVSS score: 9.8), is a case of unauthenticated deserialization in the XML-RPC endpoint that could lead to remote code execution. \"Deserialization of Untrusted",
+        "fetched_at": "2026-11-19T04:29:22.381090Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Lỗ hổng nghiêm trọng CVE-2026-129448 trong Apache Roller đang bị khai thác thực tế mà không cần xác thực."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "5966ac56e61b79d5",
+        "source_name": "The Hacker News",
+        "title": "Java4Shell Flaw (CVE-2026-114938) Enables Pre-Auth RCE in Jira, Jenkins, Keycloak and More",
+        "url": "https://thehackernews.com/2026/11/java4shell-cve-2026-114938-enables-pre.html",
+        "published_at": "2026-11-18T11:55:49Z",
+        "summary": "A Java flaw called Java4Shell can let attackers without an account run their own code on Jira, Jenkins, Keycloak, and three other widely used applications, says Calif, the security research firm that disclosed it this week. The flaw is present in Java 17.0.6 and later, and the vulnerable code runs only on x86-64 Intel and AMD chips that support the AVX-512 VBMI feature. Tracked as",
+        "fetched_at": "2026-11-19T04:29:22.381090Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Lỗ hổng Java4Shell cho phép tấn công thực thi mã từ xa không cần xác thực trên các ứng dụng phổ biến như Jira, Jenkins và Keycloak."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "f3185c52953727c4",
+        "source_name": "SecurityWeek",
+        "title": "Microsoft Agent Framework Releases Poisoned With Credential Stealer",
+        "url": "https://securityweek.com/microsoft-agent-framework-releases-poisoned-with-credential-stealer",
+        "published_at": "2026-11-18T11:05:39Z",
+        "summary": "Versions 1.26.1 and 1.26.2 of agent-framework on PyPI steal Azure, Azure DevOps, and GitHub Actions credentials when Python starts. The post Microsoft Agent Framework Releases Poisoned With Credential Stealer appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-19T04:29:23.013205Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Các phiên bản của thư viện agent-framework trên PyPI bị cài cắm mã độc để đánh cắp thông tin đăng nhập Azure, Azure DevOps và GitHub Actions."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "ac3a17fa6736da98",
+        "source_name": "SecurityWeek",
+        "title": "Chrome 158 Patches 204 Vulnerabilities",
+        "url": "https://securityweek.com/chrome-158-patches-204-vulnerabilities",
+        "published_at": "2026-11-18T11:43:22Z",
+        "summary": "Google handed out $11,000 for five externally reported flaws but has yet to determine the amounts to be paid for 36 bugs. The post Chrome 158 Patches 204 Vulnerabilities appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-19T04:29:23.013205Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Google Chrome phiên bản 158 phát hành bản vá xử lý 204 lỗ hổng bảo mật."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "b7d3842da950c310",
+        "source_name": "The Record",
+        "title": "Russian cyber-espionage group used stolen cloud data to hack into organizations, Google says",
+        "url": "https://therecord.media/russia-cyber-espionage-google",
+        "published_at": "2026-11-18T15:15:00Z",
+        "summary": "Russian state-backed hackers are using information stolen from cloud accounts to impersonate trusted contacts and launch new espionage attacks against people in their victims' professional networks, according to new research.",
+        "fetched_at": "2026-11-19T04:29:22.645045Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Hacker thân Nga bị phát hiện sử dụng dữ liệu đánh cắp từ tài khoản đám mây để mạo danh đồng nghiệp và thực hiện các cuộc tấn công gián điệp tiếp theo."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=3; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=3"
+}

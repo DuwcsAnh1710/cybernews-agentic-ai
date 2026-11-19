@@ -1,0 +1,163 @@
+1
+00:00:00,000 --> 00:00:04,019
+[Minh] Chào mừng các bạn đến với bản tin an ninh mạng hôm nay! Tôi là Minh,
+
+2
+00:00:04,019 --> 00:00:08,747
+và hôm nay chúng ta sẽ cùng chuyên gia Lan cập nhật những lỗ hổng bảo mật nghiêm
+
+3
+00:00:08,747 --> 00:00:10,224
+trọng vừa được phát hiện.
+
+4
+00:00:10,574 --> 00:00:12,615
+[Lan] Chào Minh và chào các khán giả.
+
+5
+00:00:12,615 --> 00:00:18,080
+Hôm nay chúng ta có rất nhiều thông tin quan trọng liên quan đến các lỗ hổng RCE và
+
+6
+00:00:18,080 --> 00:00:20,582
+mối đe dọa chuỗi cung ứng mã nguồn mở.
+
+7
+00:00:20,932 --> 00:00:21,743
+[Minh] Đầu tiên,
+
+8
+00:00:21,743 --> 00:00:28,949
+Apache Software Foundation vừa cảnh báo về lỗ hổng CVE-2026-129448 trên nền tảng
+
+9
+00:00:28,949 --> 00:00:35,884
+blogging Apache Roller. Lỗ hổng này đạt điểm CVSS lên tới 9.8 đúng không Lan?
+
+10
+00:00:36,234 --> 00:00:37,010
+[Lan] Chính xác.
+
+11
+00:00:37,010 --> 00:00:43,220
+Đây là lỗi giải mã dữ liệu không an toàn (untrusted deserialization) ở điểm cuối
+
+12
+00:00:43,220 --> 00:00:43,841
+XML-RPC.
+
+13
+00:00:43,841 --> 00:00:50,129
+Tin tặc không cần xác thực vẫn có thể thực thi mã từ xa (RCE) và hiện tại lỗ hổng
+
+14
+00:00:50,129 --> 00:00:52,458
+này đang bị khai thác thực tế.
+
+15
+00:00:52,808 --> 00:00:55,155
+[Minh] Thật nguy hiểm. Bên cạnh đó,
+
+16
+00:00:55,155 --> 00:01:00,854
+công ty Calif vừa công bố một lỗ hổng Java mới có tên là Java4Shell,
+
+17
+00:01:00,854 --> 00:01:02,865
+mã hiệu CVE-2026-114938.
+
+18
+00:01:02,865 --> 00:01:08,312
+Lỗ hổng này ảnh hưởng đến hàng loạt ứng dụng phổ biến đúng không?
+
+19
+00:01:08,662 --> 00:01:15,379
+[Lan] Đúng vậy, Java4Shell cho phép thực thi mã từ xa trước xác thực trên Jira, Jenkins,
+
+20
+00:01:15,379 --> 00:01:20,785
+Keycloak và ba ứng dụng khác. Lỗi xuất hiện từ Java 17.0.6 trở đi,
+
+21
+00:01:20,785 --> 00:01:27,502
+nhưng chỉ chạy trên chip x86-64 của Intel và AMD có hỗ trợ tính năng AVX-512 VBMI.
+
+22
+00:01:27,852 --> 00:01:32,085
+[Minh] Cơ sở hạ tầng phát triển phần mềm đang là mục tiêu hàng đầu.
+
+23
+00:01:32,085 --> 00:01:37,236
+Mới đây trên PyPI, gói agent-framework cũng vừa bị phát hiện chứa mã độc.
+
+24
+00:01:37,586 --> 00:01:44,111
+[Lan] Vâng, các phiên bản 1.26.1 và 1.26.2 của agent-framework trên PyPI đã bị cấy mã độc.
+
+25
+00:01:44,111 --> 00:01:49,937
+Khi Python khởi chạy, nó sẽ tự động đánh cắp thông tin đăng nhập của Azure,
+
+26
+00:01:49,937 --> 00:01:52,346
+Azure DevOps và GitHub Actions.
+
+27
+00:01:52,696 --> 00:01:56,568
+[Minh] Các nhà phát triển cần kiểm tra ngay dependency của mình!
+
+28
+00:01:56,568 --> 00:01:58,945
+Chuyển sang tin tức về trình duyệt,
+
+29
+00:01:58,945 --> 00:02:03,088
+Google vừa phát hành Chrome 158 với lượng lớn bản vá bảo mật.
+
+30
+00:02:03,438 --> 00:02:07,153
+[Lan] Đúng vậy, Chrome 158 đã vá tới 204 lỗ hổng.
+
+31
+00:02:07,153 --> 00:02:13,979
+Google đã thưởng 11,000 USD cho 5 lỗi báo cáo từ bên ngoài và đang xem xét tiền
+
+32
+00:02:13,979 --> 00:02:15,966
+thưởng cho 36 lỗi khác.
+
+33
+00:02:16,316 --> 00:02:21,012
+[Minh] Cuối cùng là thông tin từ nghiên cứu của Google về các nhóm gián điệp mạng do nhà
+
+34
+00:02:21,012 --> 00:02:22,172
+nước Nga chống lưng.
+
+35
+00:02:22,522 --> 00:02:26,988
+[Lan] Google cho biết nhóm này sử dụng dữ liệu đánh cắp từ các tài khoản đám mây để giả
+
+36
+00:02:26,988 --> 00:02:29,965
+mạo danh tính những người liên hệ đáng tin cậy. Từ đó,
+
+37
+00:02:29,965 --> 00:02:34,597
+chúng thực hiện các cuộc tấn công gián điệp tiếp theo nhắm vào mạng lưới đồng nghiệp
+
+38
+00:02:34,597 --> 00:02:35,314
+của nạn nhân.
+
+39
+00:02:35,664 --> 00:02:38,504
+[Minh] Cảm ơn Lan vì những chia sẻ rất giá trị.
+
+40
+00:02:38,504 --> 00:02:43,545
+Hãy luôn cập nhật phần mềm và kiểm tra kỹ các thư viện mã nguồn mở nhé.
+
+41
+00:02:43,545 --> 00:02:45,816
+Xin chào và hẹn gặp lại các bạn!
