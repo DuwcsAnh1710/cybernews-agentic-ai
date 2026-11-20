@@ -1,0 +1,127 @@
+1
+00:00:00,000 --> 00:00:03,818
+[Minh] Chào mừng các bạn đến với bản tin an ninh mạng hôm nay.
+
+2
+00:00:03,818 --> 00:00:06,317
+Tôi là Minh, đồng hành cùng chị Lan.
+
+3
+00:00:06,317 --> 00:00:11,523
+Hôm nay chúng ta sẽ cập nhật các lỗ hổng bảo mật mới nhất từ VMware, NGINX,
+
+4
+00:00:11,523 --> 00:00:16,728
+Puppet Enterprise, Cisco Expressway và vụ tấn công mạng vào Ủy ban Châu Âu.
+
+5
+00:00:17,078 --> 00:00:18,853
+[Lan] Chào Minh và các bạn. Đầu tiên,
+
+6
+00:00:18,853 --> 00:00:23,662
+Google vừa báo cáo rằng một nhóm tình báo có liên kết với Trung Quốc đã khai thác lỗ
+
+7
+00:00:23,662 --> 00:00:28,357
+hổng bypass xác thực nghiêm trọng trên VMware vCenter dưới dạng zero-day trước khi
+
+8
+00:00:28,357 --> 00:00:29,846
+Broadcom phát hành bản vá.
+
+9
+00:00:30,196 --> 00:00:33,983
+[Minh] Đó là mối đe dọa rất lớn với hạ tầng ảo hóa! Tiếp theo,
+
+10
+00:00:33,983 --> 00:00:38,252
+F5 đã phát hành bản vá cho 5 lỗ hổng nghiêm trọng trong NGINX,
+
+11
+00:00:38,252 --> 00:00:42,521
+bộ lỗ hổng này được các nhà nghiên cứu Xint gọi là NGINX2Root.
+
+12
+00:00:42,521 --> 00:00:47,548
+Chúng có thể cho phép thực thi mã từ xa trong một số điều kiện nhất định.
+
+13
+00:00:47,898 --> 00:00:54,805
+[Lan] Đáng chú ý là hai lỗ hổng CVE-2026-123633 và CVE-2026-123007 được nhiều bên nghiên
+
+14
+00:00:54,805 --> 00:00:56,658
+cứu độc lập phát hiện.
+
+15
+00:00:56,658 --> 00:01:03,565
+Hiện chưa có bằng chứng cho thấy NGINX2Root bị khai thác thực tế và chưa nằm trong
+
+16
+00:01:03,565 --> 00:01:05,418
+danh mục KEV của CISA.
+
+17
+00:01:05,768 --> 00:01:06,495
+[Minh] Trái lại,
+
+18
+00:01:06,495 --> 00:01:13,115
+lỗ hổng CVE-2026-115731 trên Perforce Puppet Enterprise thì đang bị khai thác thực
+
+19
+00:01:13,115 --> 00:01:19,008
+tế. Đây là lỗ hổng RCE trên giải pháp quản lý cấu hình thiết bị đầu cuối.
+
+20
+00:01:19,008 --> 00:01:25,466
+CISA đã đưa nó vào danh mục KEV và yêu cầu các cơ quan dân sự liên bang Mỹ xử lý
+
+21
+00:01:25,466 --> 00:01:27,968
+trước ngày 1 tháng 12 năm 2026.
+
+22
+00:01:28,318 --> 00:01:29,261
+[Lan] Về thiết bị mạng,
+
+23
+00:01:29,261 --> 00:01:33,920
+các kẻ tấn công đã xâm nhập hệ thống cụm Cisco Expressway tại một tổ chức ở Nga ngay
+
+24
+00:01:33,920 --> 00:01:36,638
+sau khi mã khai thác thử nghiệm PoC được công bố,
+
+25
+00:01:36,638 --> 00:01:39,190
+đồng thời chuẩn bị công cụ để di chuyển ngang.
+
+26
+00:01:39,540 --> 00:01:42,390
+[Minh] Cuối cùng là thông tin từ Ủy ban Châu Âu.
+
+27
+00:01:42,390 --> 00:01:48,020
+Họ đã xác nhận một vụ tấn công mạng mà kẻ tấn công sử dụng công cụ AI mã nguồn mở
+
+28
+00:01:48,020 --> 00:01:49,063
+mang tên ARTEX.
+
+29
+00:01:49,063 --> 00:01:54,763
+CERT-EU và FBI trước đó đã cảnh báo công cụ này đang bị các nhóm tội phạm và chính
+
+30
+00:01:54,763 --> 00:01:55,596
+hại sử dụng.
+
+31
+00:01:55,946 --> 00:02:01,038
+[Lan] Những thông tin trên nhắc nhở chúng ta phải cập nhật bản vá ngay khi có thể.
+
+32
+00:02:01,038 --> 00:02:03,986
+Cảm ơn các bạn đã lắng nghe bản tin hôm nay!

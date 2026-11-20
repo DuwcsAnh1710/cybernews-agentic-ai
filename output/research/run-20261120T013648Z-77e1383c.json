@@ -1,0 +1,83 @@
+{
+  "run_id": "run-20261120T013648Z-77e1383c",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "43f9b3509b46f663",
+        "source_name": "SecurityWeek",
+        "title": "Newly Patched VMware vCenter Flaw Exploited as Zero-Day by Chinese APT",
+        "url": "https://securityweek.com/newly-patched-vmware-vcenter-flaw-exploited-as-zero-day-by-chinese-apt",
+        "published_at": "2026-11-19T19:21:06Z",
+        "summary": "Google says a China-linked espionage group exploited a critical VMware vCenter authentication bypass before Broadcom released a patch. The post Newly Patched VMware vCenter Flaw Exploited as Zero-Day by Chinese APT appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-20T01:36:45.628153Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Lỗ hổng nghiêm trọng trong VMware vCenter đã bị nhóm tấn công mạng thân Trung Quốc khai thác dưới dạng zero-day trước khi có bản vá."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "853630cfa180220e",
+        "source_name": "Help Net Security",
+        "title": "NGINX2Root: F5 patches five critical NGINX vulnerabilities",
+        "url": "https://helpnetsecurity.com/2026/11/19/nginx2root-nginx-vulnerabilities",
+        "published_at": "2026-11-19T18:25:50Z",
+        "summary": "F5 has patched five critical vulnerabilities in NGINX, the world’s most widely used open-source web server, that can allow remote code execution under certain conditions. Dubbed “NGINX2Root” by Xint researchers, two of the bunch (CVE-2026-123633 and CVE-2026-123007) were also independently unearthed and reported by Rapid7, Wiz, Ikotas Labs, Palo Alto Networks and Metnir researchers. There’s no evidence that any of them has been exploited in the wild, and none were on CISA’s Known Exploited Vulnerabilities … More → The post NGINX2Root: F5 patches five critical NGINX vulnerabilities appeared first on Help Net Security .",
+        "fetched_at": "2026-11-20T01:36:46.086687Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "F5 đã phát hành bản vá cho 5 lỗ hổng nghiêm trọng trong máy chủ web phổ biến NGINX cho phép thực thi mã từ xa."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "0be9b6b542aec535",
+        "source_name": "Help Net Security",
+        "title": "Exploited Puppet flaw puts the server that configures your endpoint fleet at risk (CVE-2026-115731)",
+        "url": "https://helpnetsecurity.com/2026/11/19/puppet-enterprise-vulnerability-cve-2026-115731-exploited",
+        "published_at": "2026-11-19T13:07:41Z",
+        "summary": "Attackers are exploiting CVE-2026-115731, a critical remote code execution vulnerability in Perforce Puppet Enterprise, an enterprise solution used by IT teams to centralize and automatize endpoint management. Details about the in-the-wild attacks have yet to be made public, but the US Cybersecurity and Infrastructure Security Agency (CISA) added the flaw to its Known Exploited Vulnerabilities catalog on Tuesday and ordered US federal civilian agencies to address it by December 1, 2026. Perforce Puppet explained Perforce … More → The post Exploited Puppet flaw puts the server that configures your endpoint fleet at risk (CVE-2026-115731) appeared first on Help Net Security .",
+        "fetched_at": "2026-11-20T01:36:46.086687Z",
+        "topics_matched": [
+          "cybersecurity",
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Lỗ hổng thực thi mã từ xa nghiêm trọng trên Perforce Puppet Enterprise đang bị các nhóm tấn công chủ động khai thác thực tế."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "4484dbc145650e7c",
+        "source_name": "SecurityWeek",
+        "title": "Hackers Exploit Cisco Expressway Vulnerability Soon After PoC Release",
+        "url": "https://securityweek.com/hackers-exploit-cisco-expressway-vulnerability-soon-after-poc-release",
+        "published_at": "2026-11-19T13:12:20Z",
+        "summary": "Attackers hacked clustered Cisco Expressway devices at a Russian organization and prepared tooling for lateral movement. The post Hackers Exploit Cisco Expressway Vulnerability Soon After PoC Release appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-20T01:36:45.628153Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Hacker đã bắt đầu khai thác lỗ hổng trên thiết bị Cisco Expressway ngay sau khi mã khai thác thử nghiệm được công bố."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "aa1a53ab0b9722f7",
+        "source_name": "The Record",
+        "title": "European Commission confirms cyberattack, says hackers used AI tool",
+        "url": "https://therecord.media/european-commission-confirms-cyberattack-using-ai",
+        "published_at": "2026-11-19T15:15:00Z",
+        "summary": "POLITICO had reported CERT-EU had identified the attackers’ use of ARTEX, an open-source AI hacking platform that the FBI last week warned was being used both by criminals and state-sponsored groups.",
+        "fetched_at": "2026-11-20T01:36:45.279189Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Ủy ban Châu Âu xác nhận bị tấn công mạng bởi chiến dịch sử dụng công cụ trí tuệ nhân tạo công khai ARTEX."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=3"
+}

@@ -1,0 +1,91 @@
+1
+00:00:00,300 --> 00:00:01,658
+Minh: Chào mừng các bạn đến với bản
+
+2
+00:00:01,658 --> 00:00:02,810
+tin an ninh mạng hôm nay.
+
+3
+00:00:03,860 --> 00:00:04,380
+Tôi là Minh,
+
+4
+00:00:04,720 --> 00:00:05,880
+đồng hành cùng chị Lan.
+
+5
+00:00:06,930 --> 00:00:08,791
+Hôm nay chúng ta sẽ cập nhật
+
+6
+00:00:08,791 --> 00:00:10,651
+các lỗ hổng bảo mật mới nhất
+
+7
+00:00:10,651 --> 00:00:11,680
+từ VMware, NGINX,
+
+8
+00:00:11,800 --> 00:00:14,240
+Puppet Enterprise, Cisco Expressway và vụ tấn
+
+9
+00:00:14,240 --> 00:00:15,890
+công mạng vào Ủy ban Châu Âu.
+
+10
+00:00:17,172 --> 00:00:18,432
+Lan: Chào Minh và các bạn.
+
+11
+00:00:19,362 --> 00:00:21,331
+Đầu tiên, Google vừa báo cáo rằng
+
+12
+00:00:21,331 --> 00:00:22,836
+một nhóm tình báo có liên kết
+
+13
+00:00:22,836 --> 00:00:24,357
+với Trung Quốc đã khai thác lỗ
+
+14
+00:00:24,357 --> 00:00:26,018
+hổng bypass xác thực nghiêm trọng trên
+
+15
+00:00:26,018 --> 00:00:27,748
+VMware vCenter dưới dạng zero-day trước khi
+
+16
+00:00:27,748 --> 00:00:28,902
+Broadcom phát hành bản vá.
+
+17
+00:00:30,200 --> 00:00:32,753
+Lan: Đáng chú ý là hai lỗ hổng
+
+18
+00:00:32,753 --> 00:00:36,701
+CVE-2026-123633 và CVE-2026-123007 được nhiều bên nghiên
+
+19
+00:00:36,701 --> 00:00:38,630
+cứu độc lập phát hiện.
+
+20
+00:00:38,760 --> 00:00:41,226
+Hiện chưa có bằng chứng cho thấy
+
+21
+00:00:41,226 --> 00:00:43,872
+NGINX2Root bị khai thác thực tế và
+
+22
+00:00:43,872 --> 00:00:46,310
+chưa nằm trong danh mục KEV của
+
+23
+00:00:46,310 --> 00:00:46,670
+CISA.

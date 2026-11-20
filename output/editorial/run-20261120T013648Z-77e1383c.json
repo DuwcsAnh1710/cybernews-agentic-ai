@@ -1,0 +1,284 @@
+{
+  "run_id": "run-20261120T013648Z-77e1383c",
+  "language": "vi",
+  "digest": {
+    "title": "Tóm tắt an ninh mạng: Lỗ hổng zero-day VMware, NGINX, Puppet và các đợt tấn công mới",
+    "intro": "Điểm tin an ninh mạng nổi bật với các lỗ hổng nghiêm trọng được vá trên VMware vCenter, NGINX và Puppet Enterprise. Ngoài ra, ghi nhận các hoạt động khai thác thực tế nhắm vào thiết bị Cisco Expressway và sự cố tấn công mạng sử dụng công cụ AI tại Ủy ban Châu Âu.",
+    "sections": [
+      {
+        "heading": "Nhóm APT Trung Quốc khai thác lỗ hổng zero-day trên VMware vCenter",
+        "body": {
+          "text": "Theo Google, một nhóm tình báo có liên hệ với Trung Quốc đã khai thác một lỗ hổng qua mặt xác thực (authentication bypass - cơ chế cho phép vượt qua các bước kiểm tra danh tính) nghiêm trọng trên VMware vCenter dưới dạng zero-day (lỗ hổng chưa có bản vá). Hành vi khai thác này diễn ra trước khi Broadcom phát hành bản vá chính thức cho người dùng.",
+          "cited_article_ids": [
+            "43f9b3509b46f663"
+          ]
+        }
+      },
+      {
+        "heading": "F5 vá 5 lỗ hổng nghiêm trọng NGINX2Root trên NGINX",
+        "body": {
+          "text": "F5 đã phát hành bản vá cho 5 lỗ hổng nghiêm trọng trên máy chủ web nguồn mở NGINX, được các nhà nghiên cứu đặt tên là NGINX2Root. Các lỗ hổng này cho phép thực thi mã từ xa (remote code execution - khả năng chạy mã độc hại từ xa) trong một số điều kiện nhất định. Trong đó, CVE-2026-123633 và CVE-2026-123007 được nhiều đơn vị nghiên cứu độc lập báo cáo. Hiện chưa có bằng chứng các lỗ hổng này bị khai thác trong thực tế.",
+          "cited_article_ids": [
+            "853630cfa180220e"
+          ]
+        }
+      },
+      {
+        "heading": "Lỗ hổng CVE-2026-115731 trên Puppet Enterprise bị khai thác thực tế",
+        "body": {
+          "text": "Các kẻ tấn công đang khai thác lỗ hổng thực thi mã từ xa CVE-2026-115731 trong giải pháp quản lý hạ tầng Perforce Puppet Enterprise. Cơ quan An ninh mạng và Hạ tầng Mỹ (CISA) đã đưa lỗ hổng này vào danh mục KEV (Known Exploited Vulnerabilities - các lỗ hổng đã bị khai thác) và yêu cầu các cơ quan dân sự liên bang xử lý trước ngày December 1, 2026.",
+          "cited_article_ids": [
+            "0be9b6b542aec535"
+          ]
+        }
+      },
+      {
+        "heading": "Lỗ hổng Cisco Expressway bị khai thác ngay sau khi công bố PoC",
+        "body": {
+          "text": "Kẻ tấn công đã xâm nhập các thiết bị Cisco Expressway dạng cụm tại một tổ chức ở Nga ngay sau khi mã khai thác thử nghiệm (PoC - Proof of Concept) được phát hành. Sau khi xâm nhập, đối tượng tấn công đã chuẩn bị các công cụ phục vụ cho quá trình di chuyển ngang (lateral movement - kỹ thuật di chuyển sâu hơn vào bên trong hệ thống mạng).",
+          "cited_article_ids": [
+            "4484dbc145650e7c"
+          ]
+        }
+      },
+      {
+        "heading": "Ủy ban Châu Âu xác nhận bị tấn công mạng sử dụng công cụ AI",
+        "body": {
+          "text": "Ủy ban Châu Âu đã xác nhận một vụ tấn công mạng xảy ra đối với cơ quan này. Theo thông tin từ CERT-EU, kẻ tấn công đã sử dụng ARTEX - một nền tảng tấn công mạng nguồn mở dựa trên trí tuệ nhân tạo (AI). Cảnh báo gần đây từ FBI cho biết ARTEX đang được cả tội phạm mạng và các nhóm hacker do chính phủ tài trợ sử dụng.",
+          "cited_article_ids": [
+            "aa1a53ab0b9722f7"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: Lỗ Hổng VMware, NGINX Và Công Cụ AI ARTEX",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin an ninh mạng hôm nay. Tôi là Minh, đồng hành cùng chị Lan. Hôm nay chúng ta sẽ cập nhật các lỗ hổng bảo mật mới nhất từ VMware, NGINX, Puppet Enterprise, Cisco Expressway và vụ tấn công mạng vào Ủy ban Châu Âu.",
+          "cited_article_ids": [
+            "43f9b3509b46f663",
+            "853630cfa180220e",
+            "0be9b6b542aec535",
+            "4484dbc145650e7c",
+            "aa1a53ab0b9722f7"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào Minh và các bạn. Đầu tiên, Google vừa báo cáo rằng một nhóm tình báo có liên kết với Trung Quốc đã khai thác lỗ hổng bypass xác thực nghiêm trọng trên VMware vCenter dưới dạng zero-day trước khi Broadcom phát hành bản vá.",
+          "cited_article_ids": [
+            "43f9b3509b46f663"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đó là mối đe dọa rất lớn với hạ tầng ảo hóa! Tiếp theo, F5 đã phát hành bản vá cho 5 lỗ hổng nghiêm trọng trong NGINX, bộ lỗ hổng này được các nhà nghiên cứu Xint gọi là NGINX2Root. Chúng có thể cho phép thực thi mã từ xa trong một số điều kiện nhất định.",
+          "cited_article_ids": [
+            "853630cfa180220e"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Đáng chú ý là hai lỗ hổng CVE-2026-123633 và CVE-2026-123007 được nhiều bên nghiên cứu độc lập phát hiện. Hiện chưa có bằng chứng cho thấy NGINX2Root bị khai thác thực tế và chưa nằm trong danh mục KEV của CISA.",
+          "cited_article_ids": [
+            "853630cfa180220e"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Trái lại, lỗ hổng CVE-2026-115731 trên Perforce Puppet Enterprise thì đang bị khai thác thực tế. Đây là lỗ hổng RCE trên giải pháp quản lý cấu hình thiết bị đầu cuối. CISA đã đưa nó vào danh mục KEV và yêu cầu các cơ quan dân sự liên bang Mỹ xử lý trước ngày 1 tháng 12 năm 2026.",
+          "cited_article_ids": [
+            "0be9b6b542aec535"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Về thiết bị mạng, các kẻ tấn công đã xâm nhập hệ thống cụm Cisco Expressway tại một tổ chức ở Nga ngay sau khi mã khai thác thử nghiệm PoC được công bố, đồng thời chuẩn bị công cụ để di chuyển ngang.",
+          "cited_article_ids": [
+            "4484dbc145650e7c"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Cuối cùng là thông tin từ Ủy ban Châu Âu. Họ đã xác nhận một vụ tấn công mạng mà kẻ tấn công sử dụng công cụ AI mã nguồn mở mang tên ARTEX. CERT-EU và FBI trước đó đã cảnh báo công cụ này đang bị các nhóm tội phạm và chính hại sử dụng.",
+          "cited_article_ids": [
+            "aa1a53ab0b9722f7"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Những thông tin trên nhắc nhở chúng ta phải cập nhật bản vá ngay khi có thể. Cảm ơn các bạn đã lắng nghe bản tin hôm nay!",
+          "cited_article_ids": [
+            "43f9b3509b46f663",
+            "853630cfa180220e",
+            "0be9b6b542aec535",
+            "4484dbc145650e7c",
+            "aa1a53ab0b9722f7"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Tổng Hợp Lỗ Hổng Bảo Mật Nổi Bật Tần Này",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "CẢNH BÁO AN NINH MẠNG NGHIÊM TRỌNG",
+        "narration": {
+          "text": "Cập nhật ngay 5 tin tức bảo mật quan trọng nhất bạn không thể bỏ qua hôm nay!",
+          "cited_article_ids": [
+            "43f9b3509b46f663",
+            "853630cfa180220e",
+            "0be9b6b542aec535",
+            "4484dbc145650e7c",
+            "aa1a53ab0b9722f7"
+          ]
+        },
+        "duration_sec": 8.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "VMware vCenter bị khai thác Zero-Day",
+        "narration": {
+          "text": "VMware vCenter bị nhóm APT Trung Quốc khai thác lỗ hổng bypass xác thực trước khi có bản vá.",
+          "cited_article_ids": [
+            "43f9b3509b46f663"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "NGINX2Root: 5 Lỗ hổng RCE mới",
+        "narration": {
+          "text": "F5 vá 5 lỗ hổng nghiêm trọng NGINX2Root cho phép thực thi mã từ xa trên NGINX.",
+          "cited_article_ids": [
+            "853630cfa180220e"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Puppet Enterprise bị khai thác thực tế",
+        "narration": {
+          "text": "CISA đưa lỗ hổng CVE-2026-115731 của Puppet Enterprise vào danh mục KEV do bị tấn công.",
+          "cited_article_ids": [
+            "0be9b6b542aec535"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "Cisco Expressway bị hack qua PoC",
+        "narration": {
+          "text": "Hacker tấn công thiết bị Cisco Expressway ngay sau khi mã PoC được phát hành công khai.",
+          "cited_article_ids": [
+            "4484dbc145650e7c"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "Ủy ban Châu Âu bị tấn công bằng AI",
+        "narration": {
+          "text": "Ủy ban Châu Âu xác nhận bị tấn công mạng bằng nền tảng AI mã nguồn mở ARTEX.",
+          "cited_article_ids": [
+            "aa1a53ab0b9722f7"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "Hãy cập nhật bản vá bảo mật ngay!",
+        "narration": {
+          "text": "Hãy kiểm tra và cập nhật bản vá hệ thống của bạn ngay lập tức!",
+          "cited_article_ids": [
+            "43f9b3509b46f663",
+            "853630cfa180220e",
+            "0be9b6b542aec535",
+            "4484dbc145650e7c",
+            "aa1a53ab0b9722f7"
+          ]
+        },
+        "duration_sec": 8.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "Điểm tin an toàn thông tin đáng chú ý:\n- VMware vCenter bị nhóm APT Trung Quốc khai thác lỗ hổng zero-day trước khi có bản vá.\n- F5 phát hành bản vá cho 5 lỗ hổng NGINX2Root trên NGINX.\n- Lỗ hổng CVE-2026-115731 trên Perforce Puppet Enterprise bị khai thác thực tế, CISA đưa vào danh mục KEV.\n- Thiết bị Cisco Expressway tại Nga bị tấn công ngay sau khi mã PoC ra mắt.\n- Ủy ban Châu Âu xác nhận vụ tấn công mạng có sự tham gia của công cụ AI ARTEX.",
+      "hashtags": [
+        "#AnNinhManh",
+        "#VMware",
+        "#NGINX",
+        "#Cisco",
+        "#CyberSecurity"
+      ],
+      "cited_article_ids": [
+        "43f9b3509b46f663",
+        "853630cfa180220e",
+        "0be9b6b542aec535",
+        "4484dbc145650e7c",
+        "aa1a53ab0b9722f7"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Tổng hợp tin tức an ninh mạng mới nhất:\n\n1. Lỗ hổng Zero-day VMware vCenter: Nhóm tình báo liên kết với Trung Quốc đã khai thác lỗ hổng qua mặt xác thực trước khi Broadcom tung bản vá.\n2. Cảnh báo NGINX2Root: F5 xử lý 5 lỗ hổng nghiêm trọng cho phép thực thi mã từ xa trên NGINX.\n3. Khai thác Puppet Enterprise: Lỗ hổng CVE-2026-115731 bị khai thác trong thực tế, CISA yêu cầu xử lý khẩn.\n4. Tấn công Cisco Expressway: Kẻ tấn công can thiệp hệ thống tại Nga ngay sau khi mã PoC được chia sẻ.\n5. AI trong tấn công mạng: Ủy ban Châu Âu xác nhận bị tấn công bởi công cụ AI ARTEX.",
+      "hashtags": [
+        "#TinAnNinhMang",
+        "#LoiHongChiMang",
+        "#SecNews",
+        "#AI"
+      ],
+      "cited_article_ids": [
+        "43f9b3509b46f663",
+        "853630cfa180220e",
+        "0be9b6b542aec535",
+        "4484dbc145650e7c",
+        "aa1a53ab0b9722f7"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Cập nhật an ninh mạng: VMware vCenter bị khai thác Zero-day; F5 vá 5 lỗ hổng NGINX2Root; Puppet Enterprise bị tấn công thực tế; Cisco Expressway bị xâm nhập qua PoC; Ủy ban Châu Âu bị tấn công bằng công cụ AI ARTEX.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#TinTuc",
+        "#CongNghe",
+        "#Hacker"
+      ],
+      "cited_article_ids": [
+        "43f9b3509b46f663",
+        "853630cfa180220e",
+        "0be9b6b542aec535",
+        "4484dbc145650e7c",
+        "aa1a53ab0b9722f7"
+      ]
+    }
+  ]
+}

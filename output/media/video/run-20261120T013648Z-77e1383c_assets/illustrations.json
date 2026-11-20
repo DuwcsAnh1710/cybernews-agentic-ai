@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "style": "hallmark-gouache",
+  "beats": {
+    "seg00_b1": {
+      "file": "seg00_b1.jpg",
+      "prompt": "parcels travelling on a conveyor belt between two buildings while a shadowy hand swaps one parcel midway; in the background, a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "parcels travelling on a conveyor belt between two buildings while a shadowy hand swaps one parcel midway; in the background, a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines",
+      "text": "Chào mừng các bạn đến với bản tin an ninh mạng hôm nay. Tôi là Minh, đồng hành cùng chị Lan.",
+      "text_hash": "d3aee2931132",
+      "provider": "pollinations"
+    }
+  }
+}
