@@ -1,0 +1,87 @@
+{
+  "run_id": "run-20261121T041621Z-5d995951",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "22161ecac8bf8405",
+        "source_name": "Help Net Security",
+        "title": "VMware vCenter zero-day exploited for months before patch (CVE-2026-123890)",
+        "url": "https://helpnetsecurity.com/2026/11/20/vmware-vcenter-zero-day-cve-2026-123890-exploited",
+        "published_at": "2026-11-20T12:30:19Z",
+        "summary": "A suspected China-nexus espionage group tracked as Armory Castle (formerly UNC5221) has been exploiting a VMware vCenter zero-day since at least early September, more than two months before Broadcom released a fix, Google Threat Intelligence Group (GTIG) revealed. The vulnerability (CVE-2026-123890) carries a CVSS score of 9.8 and allows a remote, unauthenticated attacker to obtain an administrator session on vCenter Server, which organizations use to manage their VMware servers and virtual machines. Broadcom fixed it … More → The post VMware vCenter zero-day exploited for months before patch (CVE-2026-123890) appeared first on Help Net Security .",
+        "fetched_at": "2026-11-21T04:16:19.797919Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Lỗ hổng zero-day trong VMware vCenter (CVE-2026-123890) đã bị các nhóm tấn công có liên kết với Trung Quốc khai thác suốt nhiều tháng trước khi có bản vá."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "c7b209f2aed89407",
+        "source_name": "The Hacker News",
+        "title": "Linux KVM Flaw CVE-2026-99312 Lets Guest VMs Access Host Memory on AMD Hosts",
+        "url": "https://thehackernews.com/2026/11/new-linux-kvm-flaw-cve-2026-99312-lets.html",
+        "published_at": "2026-11-20T12:20:00Z",
+        "summary": "A flaw in KVM, the hypervisor built into the Linux kernel, let researchers read about 127 GB of a cloud server's memory from inside a virtual machine of their own on DigitalOcean. On a shared server, that memory can include other customers' virtual machines. The flaw, tracked as CVE-2026-99312, affects only hosts with AMD processors and nested virtualization enabled. Fixed kernels shipped",
+        "fetched_at": "2026-11-21T04:16:19.258588Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Lỗ hổng CVE-2026-99312 trong Linux KVM cho phép máy ảo máy khách truy cập bộ nhớ của máy host trên nền tảng AMD, đe dọa nghiêm trọng hạ tầng đám mây."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "c99f552cbbef77a0",
+        "source_name": "The Hacker News",
+        "title": "Hackers Exploit Critical Cisco Expressway Flaw, Breach Four Devices and Reach Internal Network",
+        "url": "https://thehackernews.com/2026/11/hackers-exploit-critical-cisco.html",
+        "published_at": "2026-11-20T10:32:50Z",
+        "summary": "Threat actors have been observed exploiting a recently disclosed critical security flaw in Cisco Expressway to breach a Russian organization shortly after the public release of a proof-of-concept (PoC) exploit. The activity involves the exploitation of CVE-2026-76466 (CVSS score: 9.8), a vulnerability that could allow an unauthenticated, remote attacker with network access to a Cisco Expressway",
+        "fetched_at": "2026-11-21T04:16:19.258588Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Kẻ tấn công đang tích cực khai thác lỗ hổng nghiêm trọng trên Cisco Expressway (CVE-2026-76466) ngay sau khi mã khai thác PoC được công bố."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "8423da4aad4dc596",
+        "source_name": "SecurityWeek",
+        "title": "Ruby Patches Ruby2Shell Vulnerability That Could Lead to RCE",
+        "url": "https://securityweek.com/ruby-patches-ruby2shell-vulnerability-that-could-lead-to-rce",
+        "published_at": "2026-11-20T10:34:10Z",
+        "summary": "Tracked as CVE-2026-132825, the bug is a heap-based buffer overflow that could lead to remote code execution (RCE). The post Ruby Patches Ruby2Shell Vulnerability That Could Lead to RCE appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-21T04:16:19.526688Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Ngôn ngữ lập trình Ruby đã phát hành bản vá cho lỗ hổng Ruby2Shell (CVE-2026-132825) có thể dẫn đến thực thi mã từ xa."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "f89f436ea86ac43d",
+        "source_name": "Infosecurity Magazine",
+        "title": "JPMorgan Confirms Customer Data Breach Following Third-Party Compromise",
+        "url": "https://infosecurity-magazine.com/news/jpmorgan-data-breach-third-party",
+        "published_at": "2026-11-20T16:15:00Z",
+        "summary": "Ransomware actor N0n has claimed attacks on JPMorgan, Visa and Mastercard, reportedly leaking customer data on its dark web site",
+        "fetched_at": "2026-11-21T04:16:19.711764Z",
+        "topics_matched": [
+          "data breach",
+          "ransomware"
+        ]
+      },
+      "relevance_reason": "JPMorgan, Visa và Mastercard xác nhận sự cố rò rỉ dữ liệu khách hàng xuất phát từ bên thứ ba sau khi nhóm tống tiền N0n công bố dữ liệu."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=0"
+}

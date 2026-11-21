@@ -1,0 +1,290 @@
+{
+  "run_id": "run-20261121T041621Z-5d995951",
+  "language": "vi",
+  "digest": {
+    "title": "Bản tin An ninh mạng: Các lỗ hổng nghiêm trọng trên VMware, Linux KVM, Cisco và Ruby",
+    "intro": "Tổng hợp các tin tức an ninh mạng mới nhất về các lỗ hổng bảo mật nghiêm trọng đang bị khai thác và sự cố rò rỉ dữ liệu. Các nội dung bao gồm lỗ hổng zero-day trên VMware vCenter, sự cố Linux KVM trên máy chủ AMD, cuộc tấn công vào Cisco Expressway, lỗ hổng trong ngôn ngữ Ruby và vụ rò rỉ dữ liệu tại JPMorgan.",
+    "sections": [
+      {
+        "heading": "Lỗ hổng Zero-day trên VMware vCenter bị khai thác nhiều tháng trước khi có bản vá",
+        "body": {
+          "text": "Theo Google Threat Intelligence Group (GTIG), nhóm tấn công Armory Castle (trước đây là UNC5221) đã khai thác một lỗ hổng zero-day (lỗ hổng chưa có bản vá) trên VMware vCenter từ đầu tháng 9. Lỗ hổng này được theo dõi dưới mã CVE-2026-123890 với điểm CVSS 9.8. Sự cố cho phép kẻ tấn công từ xa, không cần xác thực có thể chiếm được phiên làm việc của quản trị viên trên vCenter Server, hệ thống được các tổ chức sử dụng để quản lý máy chủ VMware và máy ảo. Broadcom sau đó đã phát hành bản sửa lỗi cho lỗ hổng này.",
+          "cited_article_ids": [
+            "22161ecac8bf8405"
+          ]
+        }
+      },
+      {
+        "heading": "Lỗ hổng Linux KVM cho phép máy ảo truy cập bộ nhớ máy chủ trên hệ thống AMD",
+        "body": {
+          "text": "Các nhà nghiên cứu phát hiện lỗ hổng CVE-2026-99312 trong KVM (trình quản lý máy ảo - hypervisor tích hợp trong nhân Linux). Lỗ hổng này cho phép đọc khoảng 127 GB bộ nhớ máy chủ đám mây từ bên trong máy ảo trên DigitalOcean. Trên máy chủ dùng chung, bộ nhớ này có thể chứa dữ liệu của các máy ảo thuộc về khách hàng khác. Sự cố chỉ ảnh hưởng đến các máy chủ sử dụng bộ xử lý AMD có bật tính năng ảo hóa lồng nhau (nested virtualization). Các bản nhân Linux đã sửa lỗi đã được phát hành.",
+          "cited_article_ids": [
+            "c7b209f2aed89407"
+          ]
+        }
+      },
+      {
+        "heading": "Kẻ tấn công khai thác lỗ hổng nghiêm trọng trên Cisco Expressway",
+        "body": {
+          "text": "Tin tặc đã bị phát hiện khai thác lỗ hổng bảo mật nghiêm trọng CVE-2026-76466 (điểm CVSS 9.8) trên Cisco Expressway để xâm nhập một tổ chức tại Nga. Cuộc tấn công diễn ra ngay sau khi mã khai thác thử nghiệm (PoC) được công bố công khai. Lỗ hổng này có thể cho phép kẻ tấn công từ xa không cần xác thực có quyền truy cập mạng vào thiết bị Cisco Expressway để thực hiện hành vi xâm nhập.",
+          "cited_article_ids": [
+            "c99f552cbbef77a0"
+          ]
+        }
+      },
+      {
+        "heading": "Ruby vá lỗ hổng Ruby2Shell có nguy cơ thực thi mã từ xa",
+        "body": {
+          "text": "Dự án Ruby đã phát hành bản vá cho lỗ hổng bảo mật nghiêm trọng có tên Ruby2Shell, được theo dõi dưới mã CVE-2026-132825. Đây là lỗi tràn bộ đệm trên vùng nhớ Heap (heap-based buffer overflow). Lỗ hổng này nếu bị khai thác thành công có thể dẫn đến rủi ro thực thi mã từ xa (RCE - Remote Code Execution) trên hệ thống ảnh hưởng.",
+          "cited_article_ids": [
+            "8423da4aad4dc596"
+          ]
+        }
+      },
+      {
+        "heading": "JPMorgan xác nhận sự cố rò rỉ dữ liệu khách hàng từ bên thứ ba",
+        "body": {
+          "text": "JPMorgan đã xác nhận một sự cố rò rỉ dữ liệu khách hàng sau khi bên thứ ba bị xâm nhập. Nhóm mã độc tống tiền (ransomware) có tên N0n đã tuyên bố thực hiện các cuộc tấn công nhắm vào JPMorgan, Visa và Mastercard, đồng thời đăng tải dữ liệu khách hàng bị rò rỉ lên trang web tối (dark web) của nhóm này.",
+          "cited_article_ids": [
+            "f89f436ea86ac43d"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: Lỗ Hổng Zero-Day VMware, Linux KVM Và Sự Cố JPMorgan",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin an ninh mạng hôm nay. Tôi là Minh, cùng đồng hành với cô Lan để cập nhật những sự cố bảo mật mới nhất vừa qua.",
+          "cited_article_ids": [
+            "22161ecac8bf8405",
+            "c7b209f2aed89407",
+            "c99f552cbbef77a0",
+            "8423da4aad4dc596",
+            "f89f436ea86ac43d"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào Minh và chào các bạn. Hôm nay chúng ta có nhiều thông tin quan trọng về các lỗ hổng nghiêm trọng trên VMware vCenter, Linux KVM, Cisco Expressway, ngôn ngữ Ruby và một vụ rò rỉ dữ liệu lớn.",
+          "cited_article_ids": [
+            "22161ecac8bf8405",
+            "c7b209f2aed89407",
+            "c99f552cbbef77a0",
+            "8423da4aad4dc596",
+            "f89f436ea86ac43d"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đầu tiên là lỗ hổng zero-day CVE-2026-123890 trên VMware vCenter với điểm CVSS 9.8. Theo Google Threat Intelligence Group, nhóm Armory Castle đã khai thác nó từ tháng 9, trước khi Broadcom tung bản vá tới hơn 2 tháng. Lỗi này cho phép kẻ tấn công từ xa chưa xác thực lấy được phiên quản trị trên vCenter Server.",
+          "cited_article_ids": [
+            "22161ecac8bf8405"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Đúng vậy Minh. Ngay sau đó là thông tin về lỗ hổng CVE-2026-99312 trên Linux KVM. Các nhà nghiên cứu đã đọc được 127 GB bộ nhớ máy chủ từ một máy ảo trên DigitalOcean. Lỗi này xảy ra trên các máy chủ dùng chip AMD có bật nested virtualization, làm lộ bộ nhớ của các máy ảo khác dùng chung máy chủ.",
+          "cited_article_ids": [
+            "c7b209f2aed89407"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Tiếp theo là thiết bị Cisco Expressway. Ngay sau khi mã khai thác PoC công khai, tin tặc đã khai thác lỗ hổng CVE-2026-76466 (điểm CVSS 9.8) để xâm nhập một tổ chức ở Nga, truy cập vào 4 thiết bị và tiến sâu vào mạng nội bộ.",
+          "cited_article_ids": [
+            "c99f552cbbef77a0"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Về mảng phát triển phần mềm, ngôn ngữ Ruby vừa cập nhật bản vá cho lỗ hổng Ruby2Shell mã CVE-2026-132825. Đây là lỗi tràn bộ đệm trên bộ nhớ heap (heap-based buffer overflow) có thể dẫn đến thực thi mã từ xa (RCE). Các lập trình viên cần nâng cấp ngay.",
+          "cited_article_ids": [
+            "8423da4aad4dc596"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Cuối cùng là sự cố rò rỉ dữ liệu tại JPMorgan do bên thứ ba bị tấn công. Nhóm tống tiền N0n đã nhận trách nhiệm tấn công JPMorgan, Visa và Mastercard, đồng thời công bố dữ liệu khách hàng lên website dark web của chúng.",
+          "cited_article_ids": [
+            "f89f436ea86ac43d"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Những sự cố này nhắc nhở các tổ chức cần chủ động cập nhật bản vá hệ thống và quản lý rủi ro từ các đối tác bên thứ ba. Cảm ơn các bạn đã lắng nghe bản tin hôm nay!",
+          "cited_article_ids": [
+            "22161ecac8bf8405",
+            "c7b209f2aed89407",
+            "c99f552cbbef77a0",
+            "8423da4aad4dc596",
+            "f89f436ea86ac43d"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Cảnh Báo An Ninh Mạng: Lỗ Hổng Zero-Day Và Rò Rỉ Dữ Liệu Lớn",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "Cảnh báo an ninh mạng tuần này!",
+        "narration": {
+          "text": "Điểm qua những sự cố an ninh mạng nghiêm trọng nhất vừa phát hiện!",
+          "cited_article_ids": [
+            "22161ecac8bf8405",
+            "c7b209f2aed89407",
+            "c99f552cbbef77a0",
+            "8423da4aad4dc596",
+            "f89f436ea86ac43d"
+          ]
+        },
+        "duration_sec": 6.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "VMware vCenter Zero-Day CVE-2026-123890",
+        "narration": {
+          "text": "VMware vCenter dính zero-day CVE-2026-123890 điểm CVSS 9.8, bị khai thác hơn 2 tháng trước khi có bản vá.",
+          "cited_article_ids": [
+            "22161ecac8bf8405"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "Linux KVM Lỗ Hổng CVE-2026-99312",
+        "narration": {
+          "text": "Lỗi CVE-2026-99312 trên Linux KVM chip AMD cho phép đọc 127 GB bộ nhớ máy chủ từ máy ảo.",
+          "cited_article_ids": [
+            "c7b209f2aed89407"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Cisco Expressway CVE-2026-76466 Khai Thác",
+        "narration": {
+          "text": "Tin tặc dùng PoC lỗ hổng Cisco Expressway CVE-2026-76466 xâm nhập hệ thống tại Nga.",
+          "cited_article_ids": [
+            "c99f552cbbef77a0"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "Ruby Vá Lỗ Hổng Ruby2Shell RCE",
+        "narration": {
+          "text": "Ruby cập nhật vá lỗi Ruby2Shell CVE-2026-132825 tràn bộ đệm heap gây thực thi mã từ xa.",
+          "cited_article_ids": [
+            "8423da4aad4dc596"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "JPMorgan Rò Rỉ Dữ Liệu Khách Hàng",
+        "narration": {
+          "text": "JPMorgan xác nhận rò rỉ dữ liệu sau khi bên thứ ba bị nhóm tống tiền N0n tấn công.",
+          "cited_article_ids": [
+            "f89f436ea86ac43d"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "Hãy Cập Nhật Bản Vá Ngay Hôm Nay!",
+        "narration": {
+          "text": "Hãy luôn chủ động cập nhật bản vá bảo mật để bảo vệ hệ thống của bạn!",
+          "cited_article_ids": [
+            "22161ecac8bf8405",
+            "c7b209f2aed89407",
+            "c99f552cbbef77a0",
+            "8423da4aad4dc596",
+            "f89f436ea86ac43d"
+          ]
+        },
+        "duration_sec": 10.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "Cập nhật an ninh mạng mới nhất: Lỗ hổng zero-day CVE-2026-123890 trên VMware vCenter bị khai thác suốt nhiều tháng. Lỗ hổng Linux KVM (CVE-2026-99312) ảnh hưởng máy chủ AMD cho phép máy ảo đọc bộ nhớ host. Cisco Expressway bị tấn công sau khi mã PoC ra mắt. Ruby phát hành bản vá lỗi Ruby2Shell (CVE-2026-132825). Trong khi đó, JPMorgan xác nhận rò rỉ dữ liệu do sự cố từ bên thứ ba.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#BaoMat",
+        "#VMware",
+        "#Linux",
+        "#Cisco",
+        "#Ransomware"
+      ],
+      "cited_article_ids": [
+        "22161ecac8bf8405",
+        "c7b209f2aed89407",
+        "c99f552cbbef77a0",
+        "8423da4aad4dc596",
+        "f89f436ea86ac43d"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Điểm tin an ninh mạng hôm nay gồm các thông tin quan trọng:\n- Lỗ hổng VMware vCenter (CVE-2026-123890) bị nhóm Armory Castle khai thác trước khi Broadcom tung bản vá.\n- Lỗi Linux KVM CVE-2026-99312 trên chip AMD cho phép truy cập bộ nhớ máy chủ đám mây.\n- Lỗ hổng CVE-2026-76466 trên Cisco Expressway bị khai thác thực tế.\n- Ruby sửa lỗi tràn bộ đệm Ruby2Shell (CVE-2026-132825) chống nguy cơ RCE.\n- JPMorgan xác nhận vụ rò rỉ dữ liệu khách hàng do bên thứ ba bị xâm nhập, liên quan nhóm tống tiền N0n.",
+      "hashtags": [
+        "#TinTucAnNinhMang",
+        "#LoiBaoMat",
+        "#CyberSecurity",
+        "#VMware",
+        "#Cisco"
+      ],
+      "cited_article_ids": [
+        "22161ecac8bf8405",
+        "c7b209f2aed89407",
+        "c99f552cbbef77a0",
+        "8423da4aad4dc596",
+        "f89f436ea86ac43d"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Cảnh báo an ninh mạng: VMware vCenter bị khai thác zero-day CVE-2026-123890. Lỗi Linux KVM rò rỉ bộ nhớ trên chip AMD. Cisco Expressway bị tấn công qua CVE-2026-76466. Ruby vá lỗi Ruby2Shell và JPMorgan rò rỉ dữ liệu khách hàng.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#BaoMatThôngTin",
+        "#CyberSecurity",
+        "#CongNghe"
+      ],
+      "cited_article_ids": [
+        "22161ecac8bf8405",
+        "c7b209f2aed89407",
+        "c99f552cbbef77a0",
+        "8423da4aad4dc596",
+        "f89f436ea86ac43d"
+      ]
+    }
+  ]
+}

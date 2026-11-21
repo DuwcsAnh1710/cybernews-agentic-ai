@@ -1,0 +1,115 @@
+1
+00:00:00,000 --> 00:00:04,371
+[Minh] Chào mừng các bạn đến với bản tin an ninh mạng hôm nay. Tôi là Minh,
+
+2
+00:00:04,371 --> 00:00:09,192
+cùng đồng hành với cô Lan để cập nhật những sự cố bảo mật mới nhất vừa qua.
+
+3
+00:00:09,542 --> 00:00:11,345
+[Lan] Chào Minh và chào các bạn.
+
+4
+00:00:11,345 --> 00:00:16,825
+Hôm nay chúng ta có nhiều thông tin quan trọng về các lỗ hổng nghiêm trọng trên
+
+5
+00:00:16,825 --> 00:00:19,877
+VMware vCenter, Linux KVM, Cisco Expressway,
+
+6
+00:00:19,877 --> 00:00:22,790
+ngôn ngữ Ruby và một vụ rò rỉ dữ liệu lớn.
+
+7
+00:00:23,140 --> 00:00:29,246
+[Minh] Đầu tiên là lỗ hổng zero-day CVE-2026-123890 trên VMware vCenter với điểm CVSS 9.8.
+
+8
+00:00:29,246 --> 00:00:32,042
+Theo Google Threat Intelligence Group,
+
+9
+00:00:32,042 --> 00:00:35,426
+nhóm Armory Castle đã khai thác nó từ tháng 9,
+
+10
+00:00:35,426 --> 00:00:38,884
+trước khi Broadcom tung bản vá tới hơn 2 tháng.
+
+11
+00:00:38,884 --> 00:00:44,549
+Lỗi này cho phép kẻ tấn công từ xa chưa xác thực lấy được phiên quản trị trên
+
+12
+00:00:44,549 --> 00:00:45,652
+vCenter Server.
+
+13
+00:00:46,002 --> 00:00:52,345
+[Lan] Đúng vậy Minh. Ngay sau đó là thông tin về lỗ hổng CVE-2026-99312 trên Linux KVM.
+
+14
+00:00:52,345 --> 00:00:57,905
+Các nhà nghiên cứu đã đọc được 127 GB bộ nhớ máy chủ từ một máy ảo trên
+
+15
+00:00:57,905 --> 00:00:58,923
+DigitalOcean.
+
+16
+00:00:58,923 --> 00:01:04,796
+Lỗi này xảy ra trên các máy chủ dùng chip AMD có bật nested virtualization,
+
+17
+00:01:04,796 --> 00:01:08,946
+làm lộ bộ nhớ của các máy ảo khác dùng chung máy chủ.
+
+18
+00:01:09,296 --> 00:01:15,471
+[Minh] Tiếp theo là thiết bị Cisco Expressway. Ngay sau khi mã khai thác PoC công khai,
+
+19
+00:01:15,471 --> 00:01:21,878
+tin tặc đã khai thác lỗ hổng CVE-2026-76466 (điểm CVSS 9.8) để xâm nhập một tổ chức
+
+20
+00:01:21,878 --> 00:01:26,432
+ở Nga, truy cập vào 4 thiết bị và tiến sâu vào mạng nội bộ.
+
+21
+00:01:26,782 --> 00:01:28,979
+[Lan] Về mảng phát triển phần mềm,
+
+22
+00:01:28,979 --> 00:01:34,942
+ngôn ngữ Ruby vừa cập nhật bản vá cho lỗ hổng Ruby2Shell mã CVE-2026-132825.
+
+23
+00:01:34,942 --> 00:01:41,454
+Đây là lỗi tràn bộ đệm trên bộ nhớ heap (heap-based buffer overflow) có thể dẫn đến
+
+24
+00:01:41,454 --> 00:01:46,318
+thực thi mã từ xa (RCE). Các lập trình viên cần nâng cấp ngay.
+
+25
+00:01:46,668 --> 00:01:51,605
+[Minh] Cuối cùng là sự cố rò rỉ dữ liệu tại JPMorgan do bên thứ ba bị tấn công.
+
+26
+00:01:51,605 --> 00:01:56,885
+Nhóm tống tiền N0n đã nhận trách nhiệm tấn công JPMorgan, Visa và Mastercard,
+
+27
+00:01:56,885 --> 00:02:01,548
+đồng thời công bố dữ liệu khách hàng lên website dark web của chúng.
+
+28
+00:02:01,898 --> 00:02:07,198
+[Lan] Những sự cố này nhắc nhở các tổ chức cần chủ động cập nhật bản vá hệ thống và quản
+
+29
+00:02:07,198 --> 00:02:12,434
+lý rủi ro từ các đối tác bên thứ ba. Cảm ơn các bạn đã lắng nghe bản tin hôm nay!
