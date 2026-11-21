@@ -82,7 +82,7 @@ Initialize database:
 cyberpulse init-db
 ```
 Or with custom settings path:
-```powershell
+```powershell.
 cyberpulse init-db --settings path/to/settings.toml
 ```
 
