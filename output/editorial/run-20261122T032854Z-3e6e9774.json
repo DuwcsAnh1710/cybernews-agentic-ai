@@ -1,0 +1,276 @@
+{
+  "run_id": "run-20261122T032854Z-3e6e9774",
+  "language": "vi",
+  "digest": {
+    "title": "Bản tin An ninh mạng: Các lỗ hổng zero-day nguy hiểm và hoạt động khai thác thực tế",
+    "intro": "Điểm tin an toàn thông tin với các cảnh báo quan trọng về lỗ hổng bảo mật zero-day trên các nền tảng VMware vCenter, KVM Linux, Ruby và phầm mềm y tế. Ngoài ra, cơ quan CISA cũng đã cập nhật các lỗ hổng mới vào danh sách bị khai thác tích cực.",
+    "sections": [
+      {
+        "heading": "Lỗ hổng zero-day trên VMware vCenter bị khai thác nhiều tháng trước khi phát hành bản vá",
+        "body": {
+          "text": "Nhóm gián điệp mạng Armory Castle (trước đây là UNC5221) bị nghi ngờ liên quan đến Trung Quốc đã khai thác lỗ hổng zero-day (lỗ hổng chưa có bản vá) CVE-2026-123890 trên VMware vCenter từ đầu tháng 9. Lỗ hổng này có điểm CVSS 9.8, cho phép kẻ tấn công từ xa không cần xác thực lấy được phiên quản trị viên trên vCenter Server. Sự việc được Google Threat Intelligence Group (GTIG) tiết lộ trước khi Broadcom tung ra bản vá.",
+          "cited_article_ids": [
+            "22161ecac8bf8405"
+          ]
+        }
+      },
+      {
+        "heading": "CISA bổ sung các lỗ hổng của VMware, Cisco, Apache và SAP vào danh mục KEV",
+        "body": {
+          "text": "Cơ quan An ninh mạng và Hạ tầng Mỹ (CISA) đã thêm bốn lỗ hổng ảnh hưởng đến Apache Roller, Cisco Expressway, SAP NetWeaver và Broadcom VMware vCenter vào danh mục Lỗ hổng bị khai thác đã biết (KEV). Các lỗ hổng này bao gồm CVE-2026-129448 với điểm CVSS 9.8 liên quan đến lỗi giải chuỗi dữ liệu không tin cậy (deserialization of untrusted data), hiện ghi nhận các hoạt động khai thác thực tế.",
+          "cited_article_ids": [
+            "552b60cb29a0722a"
+          ]
+        }
+      },
+      {
+        "heading": "Kẻ tấn công sử dụng AI Agent để khai thác lỗ hổng zero-day trong phần mềm y tế",
+        "body": {
+          "text": "Theo báo cáo từ Amazon, một nhóm tấn công có liên quan đến Trung Quốc đã sử dụng các tác tử AI tự trị (autonomous AI agents) Cairn AI để phát hiện và khai thác một lỗ hổng nghiêm trọng trên MONAI Label - một phần mềm ứng dụng trong lĩnh vực y tế.",
+          "cited_article_ids": [
+            "53abcb6f4704464b"
+          ]
+        }
+      },
+      {
+        "heading": "Lỗ hổng CVE-2026-99312 trên Linux KVM cho phép truy cập bộ nhớ của Host",
+        "body": {
+          "text": "Lỗ hổng CVE-2026-99312 nằm trong KVM (trình quản lý ảo hóa tích hợp trong nhân Linux) cho phép máy khách (guest VM) đọc bộ nhớ của máy chủ (host). Các nghiên cứu trên DigitalOcean đã đọc được 127 GB bộ nhớ, có thể bao gồm dữ liệu của máy ảo khác. Lỗi này chỉ ảnh hưởng đến máy chủ dùng vi xử lý AMD bật tính năng ảo hóa lồng nhau (nested virtualization) và hiện đã có bản vá.",
+          "cited_article_ids": [
+            "c7b209f2aed89407"
+          ]
+        }
+      },
+      {
+        "heading": "Ruby vá lỗ hổng Ruby2Shell có nguy cơ dẫn đến RCE",
+        "body": {
+          "text": "Ruby đã phát hành bản vá cho lỗ hổng Ruby2Shell (mã hiệu CVE-2026-132825). Đây là lỗi tràn bộ nhớ đệm vùng nhớ Heap (heap-based buffer overflow), có thể dẫn đến việc thực thi mã từ xa (RCE - Remote Code Execution).",
+          "cited_article_ids": [
+            "8423da4aad4dc596"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm tin An ninh mạng: Các lỗ hổng Zero-day và Tác động nguy hiểm",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin An ninh mạng hôm nay. Tôi là Minh, và cùng đồng hành với tôi là Lan. Hôm nay chúng ta sẽ thảo luận về hàng loạt lỗ hổng bảo mật nghiêm trọng vừa được phát hiện và khai thác.",
+          "cited_article_ids": [
+            "22161ecac8bf8405",
+            "552b60cb29a0722a",
+            "53abcb6f4704464b",
+            "c7b209f2aed89407",
+            "8423da4aad4dc596"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào anh Minh và các bạn. Đầu tiên là thông tin từ Google Threat Intelligence Group về lỗ hổng zero-day CVE-2026-123890 trên VMware vCenter. Nhóm tình báo mạng Armory Castle đã khai thác nó từ tháng 9, hơn hai tháng trước khi Broadcom phát hành bản vá.",
+          "cited_article_ids": [
+            "22161ecac8bf8405"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đáng chú ý là lỗ hổng này có điểm CVSS lên tới 9.8, cho phép kẻ tấn công từ xa không cần xác thực lấy được phiên quản trị viên trên vCenter Server. Bên cạnh đó, CISA cũng đã thêm bốn lỗ hổng vào danh sách KEV, bao gồm Apache Roller, Cisco Expressway, SAP NetWeaver và VMware vCenter, trong đó có CVE-2026-129448 với CVSS 9.8 do giải mã dữ liệu không an toàn.",
+          "cited_article_ids": [
+            "22161ecac8bf8405",
+            "552b60cb29a0722a"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Không chỉ dừng lại ở đó, Amazon vừa công bố tin tức đáng lo ngại: các hacker liên quan đến Trung Quốc đã sử dụng tác tử AI tự quản Cairn để tìm kiếm và khai thác lỗ hổng nghiêm trọng trên phần mềm y tế MONAI Label.",
+          "cited_article_ids": [
+            "53abcb6f4704464b"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Thật sự nguy hiểm! Ngoài ra, thế giới ảo hóa cũng chịu ảnh hưởng bởi lỗ hổng CVE-2026-99312 trên Linux KVM. Lỗ hổng này cho phép máy ảo khách đọc tới 127 GB bộ nhớ host trên các máy chủ trang bị vi xử lý AMD có bật nested virtualization, làm rò rỉ dữ liệu của các máy ảo khác trên cùng máy chủ.",
+          "cited_article_ids": [
+            "c7b209f2aed89407"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cuối cùng, ngôn ngữ lập trình Ruby vừa phát hành bản vá cho lỗ hổng Ruby2Shell mã hiệu CVE-2026-132825. Đây là lỗi tràn bộ đệm trên bộ nhớ Heap có thể dẫn đến thực thi mã từ xa RCE.",
+          "cited_article_ids": [
+            "8423da4aad4dc596"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Những thông tin trên cho thấy tầm quan trọng của việc cập nhật bản vá kịp thời. Cảm ơn Lan và hẹn gặp lại các bạn trong số tiếp theo!",
+          "cited_article_ids": [
+            "22161ecac8bf8405",
+            "552b60cb29a0722a",
+            "53abcb6f4704464b",
+            "c7b209f2aed89407",
+            "8423da4aad4dc596"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Cảnh Báo: 5 Lỗ Hổng Bảo Mật Nóng Nhất",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "Cảnh báo An ninh mạng nóng!",
+        "narration": {
+          "text": "Cùng điểm qua các lỗ hổng bảo mật nghiêm trọng vừa được phát hiện!",
+          "cited_article_ids": [
+            "22161ecac8bf8405",
+            "552b60cb29a0722a",
+            "53abcb6f4704464b",
+            "c7b209f2aed89407",
+            "8423da4aad4dc596"
+          ]
+        },
+        "duration_sec": 6.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "VMware vCenter Zero-Day (CVE-2026-123890)",
+        "narration": {
+          "text": "Lỗ hổng VMware vCenter CVSS 9.8 bị Armory Castle khai thác suốt 2 tháng trước khi có bản vá.",
+          "cited_article_ids": [
+            "22161ecac8bf8405"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "CISA thêm 4 lỗ hổng vào KEV",
+        "narration": {
+          "text": "CISA bổ sung 4 lỗ hổng bị khai thác thực tế gồm Cisco, Apache, SAP và VMware CVE-2026-129448.",
+          "cited_article_ids": [
+            "552b60cb29a0722a"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "AI Cairn tấn công phần mềm y tế",
+        "narration": {
+          "text": "Hacker dùng agent AI Cairn tìm và khai thác lỗ hổng phần mềm y tế MONAI Label.",
+          "cited_article_ids": [
+            "53abcb6f4704464b"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "Lỗi Linux KVM trên CPU AMD (CVE-2026-99312)",
+        "narration": {
+          "text": "Lỗ hổng Linux KVM cho phép máy ảo đọc 127 GB bộ nhớ host trên chip AMD.",
+          "cited_article_ids": [
+            "c7b209f2aed89407"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "Ruby vá lỗi Ruby2Shell (CVE-2026-132825)",
+        "narration": {
+          "text": "Ruby phát hành bản vá cho lỗ hổng tràn bộ đệm Heap có thể gây thực thi mã từ xa.",
+          "cited_article_ids": [
+            "8423da4aad4dc596"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "Cập nhật bản vá ngay!",
+        "narration": {
+          "text": "Hãy kiểm tra và cập nhật hệ thống của bạn ngay hôm nay để giữ an toàn!",
+          "cited_article_ids": [
+            "22161ecac8bf8405",
+            "552b60cb29a0722a",
+            "53abcb6f4704464b",
+            "c7b209f2aed89407",
+            "8423da4aad4dc596"
+          ]
+        },
+        "duration_sec": 8.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "CẬP NHẬT AN NINH MẠNG VÀ BẢO MẬT\n\n- VMware vCenter bị khai thác zero-day (CVE-2026-123890, CVSS 9.8) trước khi có bản vá [A1].\n- CISA bổ sung 4 lỗ hổng nghiêm trọng của VMware, Cisco, Apache và SAP vào danh mục KEV [A2].\n- Kẻ tấn công sử dụng tác tử AI Cairn AI để khai thác lỗ hổng y tế MONAI Label [A3].\n- Lỗi Linux KVM (CVE-2026-99312) trên chip AMD cho phép VM đọc bộ nhớ host [A4].\n- Ruby vá lỗ hổng tràn bộ nhớ đệm Ruby2Shell (CVE-2026-132825) [A5].",
+      "hashtags": [
+        "#AnNinhMang",
+        "#BaoMat",
+        "#CyberSecurity",
+        "#Vulnerability",
+        "#ZeroDay"
+      ],
+      "cited_article_ids": [
+        "22161ecac8bf8405",
+        "552b60cb29a0722a",
+        "53abcb6f4704464b",
+        "c7b209f2aed89407",
+        "8423da4aad4dc596"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "TỔNG HỢP AN NINH MẠNG MỚI NHẤT\n\nNội dung video điểm qua các sự kiện bảo mật nổi bật:\n- Lỗ hổng zero-day nghiêm trọng CVE-2026-123890 trên VMware vCenter bị nhóm Armory Castle khai thác [A1].\n- CISA cảnh báo và bổ sung các lỗ hổng của Cisco, Apache, SAP và VMware vào danh sách KEV [A2].\n- Nhóm tấn công liên quan Trung Quốc dùng AI Agent khai thác phần mềm MONAI Label [A3].\n- Nghiên cứu lỗi CVE-2026-99312 trên Linux KVM ảnh hưởng đến máy chủ AMD [A4].\n- Lỗ hổng Ruby2Shell (CVE-2026-132825) đe dọa thực thi mã từ xa trên Ruby [A5].",
+      "hashtags": [
+        "#TinTucAnNinhMang",
+        "#VMware",
+        "#LinuxKVM",
+        "#Ruby2Shell",
+        "#CISA"
+      ],
+      "cited_article_ids": [
+        "22161ecac8bf8405",
+        "552b60cb29a0722a",
+        "53abcb6f4704464b",
+        "c7b209f2aed89407",
+        "8423da4aad4dc596"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Cảnh báo lỗ hổng bảo mật hot nhất: VMware vCenter bị khai thác zero-day [A1], CISA cập nhật danh sách KEV khẩn cấp [A2], tác tử AI bị dùng để tấn công phần mềm y tế [A3] và lỗi Linux KVM lộ bộ nhớ host [A4]!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#CongNghe",
+        "#BaoMat",
+        "#Hacker"
+      ],
+      "cited_article_ids": [
+        "22161ecac8bf8405",
+        "552b60cb29a0722a",
+        "53abcb6f4704464b",
+        "c7b209f2aed89407"
+      ]
+    }
+  ]
+}

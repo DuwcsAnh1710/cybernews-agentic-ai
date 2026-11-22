@@ -1,0 +1,56 @@
+{
+  "run_id": "run-20261122T032854Z-3e6e9774",
+  "passed": true,
+  "errors": [],
+  "warnings": [
+    {
+      "code": "W_PODCAST_LENGTH",
+      "severity": "warning",
+      "path": "podcast.segments",
+      "message": "Total podcast words (348) outside target range [480, 720] (target 600 ± 20%)",
+      "evidence": "348 words (expected 480-720)"
+    },
+    {
+      "code": "W_SECTION_LENGTH",
+      "severity": "warning",
+      "path": "digest.sections[2].body.text",
+      "message": "Section body word count (54) outside allowed range [60, 120]",
+      "evidence": "54 words"
+    },
+    {
+      "code": "W_SECTION_LENGTH",
+      "severity": "warning",
+      "path": "digest.sections[4].body.text",
+      "message": "Section body word count (41) outside allowed range [60, 120]",
+      "evidence": "41 words"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "captions[0].text",
+      "message": "Term 'NINH' not found in cited source text and not allowlisted",
+      "evidence": "NINH"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "captions[0].text",
+      "message": "Term 'VM' not found in cited source text and not allowlisted",
+      "evidence": "VM"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "captions[1].text",
+      "message": "Term 'NINH' not found in cited source text and not allowlisted",
+      "evidence": "NINH"
+    }
+  ],
+  "checks_run": [
+    "layer1_structural",
+    "layer2_source_consistency",
+    "layer3_llm_claim_review (findings=0, dropped=0)"
+  ],
+  "llm_review": "done",
+  "scope_note": "Structural and source-consistency checks against RSS title/summary only. Facts are NOT independently verified."
+}

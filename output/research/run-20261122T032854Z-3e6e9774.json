@@ -1,0 +1,87 @@
+{
+  "run_id": "run-20261122T032854Z-3e6e9774",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "22161ecac8bf8405",
+        "source_name": "Help Net Security",
+        "title": "VMware vCenter zero-day exploited for months before patch (CVE-2026-123890)",
+        "url": "https://helpnetsecurity.com/2026/11/20/vmware-vcenter-zero-day-cve-2026-123890-exploited",
+        "published_at": "2026-11-20T12:30:19Z",
+        "summary": "A suspected China-nexus espionage group tracked as Armory Castle (formerly UNC5221) has been exploiting a VMware vCenter zero-day since at least early September, more than two months before Broadcom released a fix, Google Threat Intelligence Group (GTIG) revealed. The vulnerability (CVE-2026-123890) carries a CVSS score of 9.8 and allows a remote, unauthenticated attacker to obtain an administrator session on vCenter Server, which organizations use to manage their VMware servers and virtual machines. Broadcom fixed it … More → The post VMware vCenter zero-day exploited for months before patch (CVE-2026-123890) appeared first on Help Net Security .",
+        "fetched_at": "2026-11-22T03:28:52.372533Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Nhóm tấn công mạng liên quan đến Trung Quốc đã khai thác lỗ hổng zero-day trong VMware vCenter suốt nhiều tháng trước khi có bản vá."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "552b60cb29a0722a",
+        "source_name": "The Hacker News",
+        "title": "Hackers Exploit Critical VMware, Cisco, and Apache Flaws as Espionage Attacks Emerge",
+        "url": "https://thehackernews.com/2026/11/hackers-exploit-critical-vmware-cisco.html",
+        "published_at": "2026-11-21T08:49:13Z",
+        "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) on Friday added four flaws impacting Apache Roller, Cisco Expressway, SAP NetWeaver, and Broadcom VMware vCenter to its Known Exploited Vulnerabilities (KEV), citing evidence of active exploitation. The vulnerabilities are listed below - CVE-2026-129448 (CVSS score: 9.8) - A deserialization of untrusted data vulnerability in",
+        "fetched_at": "2026-11-22T03:28:51.514247Z",
+        "topics_matched": [
+          "cybersecurity",
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "CISA bổ sung 4 lỗ hổng nghiêm trọng trong VMware, Cisco, Apache và SAP vào danh sách cảnh báo do đang bị khai thác thực tế."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "53abcb6f4704464b",
+        "source_name": "SecurityWeek",
+        "title": "Amazon: China-Linked Hackers’ AI Agents Exploited Medical Software Zero-Day",
+        "url": "https://securityweek.com/amazon-china-linked-hackers-ai-agents-exploited-medical-software-zero-day",
+        "published_at": "2026-11-21T12:08:50Z",
+        "summary": "A threat actor used autonomous Cairn AI agents to discover and exploit a critical MONAI Label vulnerability. The post Amazon: China-Linked Hackers’ AI Agents Exploited Medical Software Zero-Day appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-22T03:28:52.030553Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Tác nhân đe dọa đã sử dụng các tác tử AI tự trị để phát hiện và khai thác lỗ hổng zero-day trong phần mềm y tế MONAI Label."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "c7b209f2aed89407",
+        "source_name": "The Hacker News",
+        "title": "Linux KVM Flaw CVE-2026-99312 Lets Guest VMs Access Host Memory on AMD Hosts",
+        "url": "https://thehackernews.com/2026/11/new-linux-kvm-flaw-cve-2026-99312-lets.html",
+        "published_at": "2026-11-20T12:20:00Z",
+        "summary": "A flaw in KVM, the hypervisor built into the Linux kernel, let researchers read about 127 GB of a cloud server's memory from inside a virtual machine of their own on DigitalOcean. On a shared server, that memory can include other customers' virtual machines. The flaw, tracked as CVE-2026-99312, affects only hosts with AMD processors and nested virtualization enabled. Fixed kernels shipped",
+        "fetched_at": "2026-11-22T03:28:51.514247Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Lỗ hổng CVE-2026-99312 trong Linux KVM cho phép máy ảo của khách truy cập vào bộ nhớ máy chủ trên các hệ thống dùng CPU AMD."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "8423da4aad4dc596",
+        "source_name": "SecurityWeek",
+        "title": "Ruby Patches Ruby2Shell Vulnerability That Could Lead to RCE",
+        "url": "https://securityweek.com/ruby-patches-ruby2shell-vulnerability-that-could-lead-to-rce",
+        "published_at": "2026-11-20T10:34:10Z",
+        "summary": "Tracked as CVE-2026-132825, the bug is a heap-based buffer overflow that could lead to remote code execution (RCE). The post Ruby Patches Ruby2Shell Vulnerability That Could Lead to RCE appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-22T03:28:52.030553Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Ngôn ngữ Ruby phát hành bản vá cho lỗ hổng Ruby2Shell có nguy cơ dẫn đến thực thi mã từ xa (RCE)."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=1"
+}
