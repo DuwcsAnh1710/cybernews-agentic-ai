@@ -1,0 +1,103 @@
+1
+00:00:00,310 --> 00:00:01,691
+Minh: Chào mừng các bạn đến với bản
+
+2
+00:00:01,691 --> 00:00:02,880
+tin an ninh mạng tuần này!
+
+3
+00:00:03,940 --> 00:00:04,410
+Tôi là Minh,
+
+4
+00:00:04,730 --> 00:00:06,102
+và hôm nay chúng ta sẽ cùng
+
+5
+00:00:06,102 --> 00:00:07,506
+cô bạn đồng hành Lan điểm qua
+
+6
+00:00:07,506 --> 00:00:08,926
+những tin tức bảo mật nóng hổi
+
+7
+00:00:08,926 --> 00:00:09,530
+nhất vừa qua.
+
+8
+00:00:10,812 --> 00:00:12,424
+Lan: Chào Minh và chào tất cả các
+
+9
+00:00:12,424 --> 00:00:14,823
+bạn. Mở đầu hôm nay là một
+
+10
+00:00:14,823 --> 00:00:16,324
+thông tin rất đáng chú ý từ
+
+11
+00:00:16,324 --> 00:00:18,588
+Amazon: hacker liên quan đến Trung Quốc
+
+12
+00:00:18,588 --> 00:00:20,275
+đã sử dụng các agent AI tự
+
+13
+00:00:20,275 --> 00:00:22,024
+quản mang tên Cairn AI để tìm
+
+14
+00:00:22,024 --> 00:00:23,853
+kiếm và khai thác lỗ hổng zero-day
+
+15
+00:00:23,853 --> 00:00:25,642
+trong phần mềm y tế MONAI Label.
+
+16
+00:00:26,966 --> 00:00:28,206
+Lan: Cuối cùng là hai thông tin quan
+
+17
+00:00:28,206 --> 00:00:30,516
+trọng khác: Kẻ tấn công đã khai
+
+18
+00:00:30,516 --> 00:00:32,968
+thác lỗ hổng trong nền tảng Optimizely
+
+19
+00:00:32,968 --> 00:00:35,369
+để cài mã độc JavaScript lên website
+
+20
+00:00:35,369 --> 00:00:37,656
+của 178 tổ chức lớn như BBC,
+
+21
+00:00:38,596 --> 00:00:39,186
+CNN và Zoom.
+
+22
+00:00:39,486 --> 00:00:40,344
+Cùng lúc đó,
+
+23
+00:00:40,516 --> 00:00:43,291
+lỗ hổng Java4Shell CVE-2026-114938 trong bộ giải
+
+24
+00:00:43,291 --> 00:00:45,590
+mã Base64 của OpenJDK được ghi nhận
+
+25
+00:00:45,590 --> 00:00:47,592
+là khá khó khai thác vì phụ
+
+26
+00:00:47,592 --> 00:00:49,356
+thuộc vào dòng CPU cụ thể.

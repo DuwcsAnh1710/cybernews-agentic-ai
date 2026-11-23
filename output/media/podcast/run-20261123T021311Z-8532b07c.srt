@@ -1,0 +1,119 @@
+1
+00:00:00,000 --> 00:00:04,208
+[Minh] Chào mừng các bạn đến với bản tin an ninh mạng tuần này! Tôi là Minh,
+
+2
+00:00:04,208 --> 00:00:09,331
+và hôm nay chúng ta sẽ cùng cô bạn đồng hành Lan điểm qua những tin tức bảo mật nóng
+
+3
+00:00:09,331 --> 00:00:10,368
+hổi nhất vừa qua.
+
+4
+00:00:10,718 --> 00:00:12,855
+[Lan] Chào Minh và chào tất cả các bạn.
+
+5
+00:00:12,855 --> 00:00:16,546
+Mở đầu hôm nay là một thông tin rất đáng chú ý từ Amazon:
+
+6
+00:00:16,546 --> 00:00:21,985
+hacker liên quan đến Trung Quốc đã sử dụng các agent AI tự quản mang tên Cairn AI để
+
+7
+00:00:21,985 --> 00:00:26,582
+tìm kiếm và khai thác lỗ hổng zero-day trong phần mềm y tế MONAI Label.
+
+8
+00:00:26,932 --> 00:00:32,753
+[Minh] Việc ứng dụng AI agent tự động để dò tìm lỗ hổng thật sự là một bước tiến mới đáng
+
+9
+00:00:32,753 --> 00:00:36,302
+quan ngại trong chiến thuật tấn công. Bên cạnh đó,
+
+10
+00:00:36,302 --> 00:00:42,265
+CISA vừa thêm 4 lỗ hổng nghiêm trọng vào danh sách KEV vì có bằng chứng bị khai thác
+
+11
+00:00:42,265 --> 00:00:47,802
+thực tế, bao gồm các thiết bị và hệ thống của Apache Roller, Cisco Expressway,
+
+12
+00:00:47,802 --> 00:00:50,783
+SAP NetWeaver, và Broadcom VMware vCenter.
+
+13
+00:00:50,783 --> 00:00:56,107
+Đặc biệt có lỗ hổng CVE-2026-129448 với điểm CVSS đạt tới 9.8 liên quan đến
+
+14
+00:00:56,107 --> 00:00:58,804
+deserialization dữ liệu không tin cậy.
+
+15
+00:00:59,154 --> 00:01:02,230
+[Lan] Tiếp theo là một vụ việc liên quan đến cơ quan hành pháp:
+
+16
+00:01:02,230 --> 00:01:06,709
+FBI đang tiến hành điều tra một vụ nghi vấn tấn công mạng nhắm vào cơ sở dữ liệu tư
+
+17
+00:01:06,709 --> 00:01:09,570
+pháp hình sự quốc gia quan trọng do chính họ quản lý.
+
+18
+00:01:09,920 --> 00:01:10,543
+[Minh] Ngoài ra,
+
+19
+00:01:10,543 --> 00:01:16,222
+các nhà nghiên cứu từ công ty bảo mật pwn.ai vừa demo một lỗ hổng đã được vá trong
+
+20
+00:01:16,222 --> 00:01:17,053
+Ghostscript.
+
+21
+00:01:17,053 --> 00:01:22,732
+Lỗi này cho phép tệp tin được tạo đặc biệt vượt qua sandbox bảo mật và thực thi mã
+
+22
+00:01:22,732 --> 00:01:26,402
+từ xa (RCE) trên máy chủ Linux khi xử lý các tệp PDF,
+
+23
+00:01:26,402 --> 00:01:28,688
+PostScript hoặc hình ảnh tải lên.
+
+24
+00:01:29,038 --> 00:01:32,087
+[Lan] Cuối cùng là hai thông tin quan trọng khác:
+
+25
+00:01:32,087 --> 00:01:37,972
+Kẻ tấn công đã khai thác lỗ hổng trong nền tảng Optimizely để cài mã độc JavaScript
+
+26
+00:01:37,972 --> 00:01:42,652
+lên website của 178 tổ chức lớn như BBC, CNN và Zoom. Cùng lúc đó,
+
+27
+00:01:42,652 --> 00:01:48,608
+lỗ hổng Java4Shell CVE-2026-114938 trong bộ giải mã Base64 của OpenJDK được ghi nhận
+
+28
+00:01:48,608 --> 00:01:52,438
+là khá khó khai thác vì phụ thuộc vào dòng CPU cụ thể.
+
+29
+00:01:52,788 --> 00:01:57,057
+[Minh] Những thông tin này cho thấy bối cảnh an ninh mạng ngày càng phức tạp.
+
+30
+00:01:57,057 --> 00:02:00,900
+Cảm ơn Lan và hẹn gặp lại các bạn trong số phát sóng tiếp theo!

@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "style": "hallmark-gouache",
+  "beats": {
+    "seg00_b1": {
+      "file": "seg00_b1.jpg",
+      "prompt": "a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines; in the background, a crack running through a stone wall, a small figure inspecting it with a lantern",
+      "text": "Chào mừng các bạn đến với bản tin an ninh mạng tuần này! Tôi là Minh, và hôm nay chúng ta sẽ cùng cô bạn đồng hành Lan điểm qua những tin tức bảo mật nóng hổi nhất vừa qua.",
+      "text_hash": "c70fae58ec0a",
+      "provider": "pollinations"
+    }
+  }
+}

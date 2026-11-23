@@ -1,0 +1,85 @@
+{
+  "run_id": "run-20261123T021311Z-8532b07c",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "53abcb6f4704464b",
+        "source_name": "SecurityWeek",
+        "title": "Amazon: China-Linked Hackers’ AI Agents Exploited Medical Software Zero-Day",
+        "url": "https://securityweek.com/amazon-china-linked-hackers-ai-agents-exploited-medical-software-zero-day",
+        "published_at": "2026-11-21T12:08:50Z",
+        "summary": "A threat actor used autonomous Cairn AI agents to discover and exploit a critical MONAI Label vulnerability. The post Amazon: China-Linked Hackers’ AI Agents Exploited Medical Software Zero-Day appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-23T02:13:09.136754Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Kẻ tấn công liên quan đến Trung Quốc đã sử dụng các agent AI tự động để khai thác lỗ hổng zero-day nghiêm trọng trong phần mềm y tế MONAI Label."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "552b60cb29a0722a",
+        "source_name": "The Hacker News",
+        "title": "Hackers Exploit Critical VMware, Cisco, and Apache Flaws as Espionage Attacks Emerge",
+        "url": "https://thehackernews.com/2026/11/hackers-exploit-critical-vmware-cisco.html",
+        "published_at": "2026-11-21T08:49:13Z",
+        "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) on Friday added four flaws impacting Apache Roller, Cisco Expressway, SAP NetWeaver, and Broadcom VMware vCenter to its Known Exploited Vulnerabilities (KEV), citing evidence of active exploitation. The vulnerabilities are listed below - CVE-2026-129448 (CVSS score: 9.8) - A deserialization of untrusted data vulnerability in",
+        "fetched_at": "2026-11-23T02:13:08.640937Z",
+        "topics_matched": [
+          "cybersecurity",
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "CISA cảnh báo các lỗ hổng nghiêm trọng trong VMware, Cisco, Apache và SAP đang bị khai thác tích cực trong thực tế."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "3f5ee645257dd6e2",
+        "source_name": "SecurityWeek",
+        "title": "FBI Investigating Apparent Hack of Its Key National Criminal Justice Database, AP Source Says",
+        "url": "https://securityweek.com/fbi-investigating-apparent-hack-of-its-key-national-criminal-justice-database-ap-source-says",
+        "published_at": "2026-11-22T00:53:02Z",
+        "summary": "The FBI is investigating an apparent hack of a national law enforcement database that it maintains. The post FBI Investigating Apparent Hack of Its Key National Criminal Justice Database, AP Source Says appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-23T02:13:09.136754Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "FBI đang điều tra sự cố nghi ngờ bị xâm nhập vào cơ sở dữ liệu tư pháp hình sự quốc gia của Mỹ."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "a3c63e958cb92eef",
+        "source_name": "The Hacker News",
+        "title": "Researchers Demonstrate Ghostscript Sandbox-Escape RCE via Crafted File Uploads in Popular Apps",
+        "url": "https://thehackernews.com/2026/11/researchers-demonstrate-ghostscript.html",
+        "published_at": "2026-11-22T05:03:41Z",
+        "summary": "A now-patched flaw in Ghostscript allows a crafted file to escape the program's security sandbox and run commands on the server that processes it. Ghostscript is the interpreter that many Linux servers use to convert uploaded PDFs, PostScript files, and images into other formats, often without the application calling it directly. Security firm pwn.ai showed this week that ordinary upload,",
+        "fetched_at": "2026-11-23T02:13:08.640937Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Lỗ hổng thoát khỏi sandbox trong Ghostscript cho phép thực thi mã từ xa thông qua các tệp tải lên được cấu trúc đặc biệt."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "71ed4d7cab268422",
+        "source_name": "Help Net Security",
+        "title": "Week in review: Java4Shell proves tricky to exploit, malware planted via Optimizely hits 178 orgs",
+        "url": "https://helpnetsecurity.com/2026/11/22/week-in-review-java4shell-proves-tricky-to-exploit-malware-planted-via-optimizely-hits-178-orgs",
+        "published_at": "2026-11-22T09:00:25Z",
+        "summary": "Here’s an overview of some of last week’s most interesting news, articles, interviews and videos: Malware spread through Optimizely hits 178 organizations, including BBC, CNN and Zoom An attacker exploited a vulnerability in Optimizely’s web experimentation platform to plant malicious JavaScript on its customers’ websites, the company has confirmed. Java4Shell OpenJDK flaw: Exploitation is tricky and hinges on specific CPUs (CVE-2026-114938) CVE-2026-114938, a memory corruption flaw in Open Java Development Kit’s Base64 decoder, can allow … More → The post Week in review: Java4Shell proves tricky to exploit, malware planted via Optimizely hits 178 orgs appeared first on Help Net Security .",
+        "fetched_at": "2026-11-23T02:13:09.500429Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Mã độc phát tán qua nền tảng Optimizely đã ảnh hưởng đến 178 tổ chức lớn bao gồm BBC, CNN và Zoom."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=13; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=3"
+}

@@ -1,0 +1,277 @@
+{
+  "run_id": "run-20261123T021311Z-8532b07c",
+  "language": "vi",
+  "digest": {
+    "title": "Bản tin An ninh mạng: Tin tặc dùng Agent AI khai thác lỗ hổng và các đe dọa mới",
+    "intro": "Bản tin an ninh mạng hôm nay cập nhật các sự cố nghiêm trọng, từ việc tin tặc liên quan đến Trung Quốc sử dụng agent AI để khai thác lỗ hổng zero-day trong phần mềm y tế, đến các lỗ hổng bị khai thác thực tế trên nhiều nền tảng phổ biến. Đồng thời, FBI đang tiến hành điều tra sự cố tấn công vào cơ sở dữ liệu tư pháp hình sự quốc gia.",
+    "sections": [
+      {
+        "heading": "Tin tặc dùng Agent AI khai thác lỗ hổng Zero-Day trong phần mềm y tế",
+        "body": {
+          "text": "Theo báo cáo từ Amazon, một nhóm tác nhân đe dọa (threat actor) có liên kết với Trung Quốc đã sử dụng các agent AI (tác nhân trí tuệ nhân tạo tự vận hành) mang tên Cairn AI để tự động phát hiện và khai thác một lỗ hổng zero-day (lỗ hổng chưa có bản vá) nghiêm trọng trong phần mềm y tế MONAI Label.",
+          "cited_article_ids": [
+            "53abcb6f4704464b"
+          ]
+        }
+      },
+      {
+        "heading": "CISA bổ sung 4 lỗ hổng nghiêm trọng của VMware, Cisco, SAP và Apache vào danh mục KEV",
+        "body": {
+          "text": "Cơ quan An ninh Cơ sở hạ tầng và An ninh mạng Mỹ (CISA) đã bổ sung 4 lỗ hổng ảnh hưởng đến Apache Roller, Cisco Expressway, SAP NetWeaver và Broadcom VMware vCenter vào danh mục Lỗ hổng bị khai thác phổ biến (KEV). Trong đó bao gồm lỗ hổng CVE-2026-129448 với điểm CVSS 9.8 liên quan đến lỗi giải chuỗi dữ liệu không đáng tin cậy (deserialization of untrusted data), hiện đang bị tấn công thực tế.",
+          "cited_article_ids": [
+            "552b60cb29a0722a"
+          ]
+        }
+      },
+      {
+        "heading": "FBI điều tra sự cố tấn công vào cơ sở dữ liệu tư pháp hình sự quốc gia",
+        "body": {
+          "text": "Cục Điều tra Liên bang Mỹ (FBI) đang tiến hành điều tra một nghi vấn tấn công mạng nhằm vào cơ sở dữ liệu tư pháp hình sự quốc gia do cơ quan này quản lý và duy trì, theo các nguồn tin từ AP.",
+          "cited_article_ids": [
+            "3f5ee645257dd6e2"
+          ]
+        }
+      },
+      {
+        "heading": "Lỗ hổng thoát khỏi môi trường cô lập RCE trong Ghostscript qua tệp tin tải lên",
+        "body": {
+          "text": "Các nhà nghiên cứu từ công ty an ninh mạng pwn.ai đã trình diễn một lỗ hổng (hiện đã được vá) trong Ghostscript cho phép tệp tin được tạo mã độc thoát khỏi môi trường cô lập an toàn (sandbox) và thực thi mã từ xa (RCE - Remote Code Execution). Ghostscript là trình thông dịch được nhiều máy chủ Linux sử dụng để chuyển đổi PDF, PostScript và hình ảnh.",
+          "cited_article_ids": [
+            "a3c63e958cb92eef"
+          ]
+        }
+      },
+      {
+        "heading": "Mã độc qua Optimizely ảnh hưởng 178 tổ chức và diễn biến lỗ hổng Java4Shell",
+        "body": {
+          "text": "Một cuộc tấn công khai thác lỗ hổng trên nền tảng thử nghiệm web Optimizely đã chèn JavaScript độc hại vào trang web của khách hàng, ảnh hưởng đến 178 tổ chức bao gồm BBC, CNN và Zoom. Ngoài ra, lỗ hổng Java4Shell (CVE-2026-114938) trong bộ giải mã Base64 của OpenJDK gây lỗi hỏng bộ nhớ được đánh giá là khó khai thác và phụ thuộc vào từng loại CPU cụ thể.",
+          "cited_article_ids": [
+            "71ed4d7cab268422"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: AI Agent Exploits, Lỗ Hổng KEV Và Mã Độc Trên Optimizely",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin an ninh mạng tuần này! Tôi là Minh, và hôm nay chúng ta sẽ cùng cô bạn đồng hành Lan điểm qua những tin tức bảo mật nóng hổi nhất vừa qua.",
+          "cited_article_ids": [
+            "53abcb6f4704464b",
+            "552b60cb29a0722a",
+            "3f5ee645257dd6e2",
+            "a3c63e958cb92eef",
+            "71ed4d7cab268422"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào Minh và chào tất cả các bạn. Mở đầu hôm nay là một thông tin rất đáng chú ý từ Amazon: hacker liên quan đến Trung Quốc đã sử dụng các agent AI tự quản mang tên Cairn AI để tìm kiếm và khai thác lỗ hổng zero-day trong phần mềm y tế MONAI Label.",
+          "cited_article_ids": [
+            "53abcb6f4704464b"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Việc ứng dụng AI agent tự động để dò tìm lỗ hổng thật sự là một bước tiến mới đáng quan ngại trong chiến thuật tấn công. Bên cạnh đó, CISA vừa thêm 4 lỗ hổng nghiêm trọng vào danh sách KEV vì có bằng chứng bị khai thác thực tế, bao gồm các thiết bị và hệ thống của Apache Roller, Cisco Expressway, SAP NetWeaver, và Broadcom VMware vCenter. Đặc biệt có lỗ hổng CVE-2026-129448 với điểm CVSS đạt tới 9.8 liên quan đến deserialization dữ liệu không tin cậy.",
+          "cited_article_ids": [
+            "552b60cb29a0722a"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Tiếp theo là một vụ việc liên quan đến cơ quan hành pháp: FBI đang tiến hành điều tra một vụ nghi vấn tấn công mạng nhắm vào cơ sở dữ liệu tư pháp hình sự quốc gia quan trọng do chính họ quản lý.",
+          "cited_article_ids": [
+            "3f5ee645257dd6e2"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Ngoài ra, các nhà nghiên cứu từ công ty bảo mật pwn.ai vừa demo một lỗ hổng đã được vá trong Ghostscript. Lỗi này cho phép tệp tin được tạo đặc biệt vượt qua sandbox bảo mật và thực thi mã từ xa (RCE) trên máy chủ Linux khi xử lý các tệp PDF, PostScript hoặc hình ảnh tải lên.",
+          "cited_article_ids": [
+            "a3c63e958cb92eef"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cuối cùng là hai thông tin quan trọng khác: Kẻ tấn công đã khai thác lỗ hổng trong nền tảng Optimizely để cài mã độc JavaScript lên website của 178 tổ chức lớn như BBC, CNN và Zoom. Cùng lúc đó, lỗ hổng Java4Shell CVE-2026-114938 trong bộ giải mã Base64 của OpenJDK được ghi nhận là khá khó khai thác vì phụ thuộc vào dòng CPU cụ thể.",
+          "cited_article_ids": [
+            "71ed4d7cab268422"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Những thông tin này cho thấy bối cảnh an ninh mạng ngày càng phức tạp. Cảm ơn Lan và hẹn gặp lại các bạn trong số phát sóng tiếp theo!",
+          "cited_article_ids": [
+            "53abcb6f4704464b",
+            "552b60cb29a0722a",
+            "3f5ee645257dd6e2",
+            "a3c63e958cb92eef",
+            "71ed4d7cab268422"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Cập Nhật Hàng Tuần: Tấn Công AI Và Lỗ Hổng Bảo Mật Nóng Hổi",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "CẢNH BÁO AN NINH MẠNG TUẦN NÀY!",
+        "narration": {
+          "text": "Cùng điểm qua những sự cố bảo mật an ninh mạng nổi bật nhất tuần qua!",
+          "cited_article_ids": [
+            "53abcb6f4704464b",
+            "552b60cb29a0722a",
+            "3f5ee645257dd6e2",
+            "a3c63e958cb92eef",
+            "71ed4d7cab268422"
+          ]
+        },
+        "duration_sec": 6.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "AI AGENT KHAI THÁC LỖ HỔNG Y TẾ",
+        "narration": {
+          "text": "Amazon cảnh báo hacker dùng Cairn AI agent tìm và khai thác lỗ hổng zero-day trong MONAI Label.",
+          "cited_article_ids": [
+            "53abcb6f4704464b"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "CISA THÊM 4 LỖ HỔNG VÀO KEV (CVSS 9.8)",
+        "narration": {
+          "text": "CISA thêm lỗ hổng Apache Roller, Cisco, SAP và VMware vCenter vào KEV, trong đó CVE-2026-129448 đạt 9.8 điểm.",
+          "cited_article_ids": [
+            "552b60cb29a0722a"
+          ]
+        },
+        "duration_sec": 15.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "FBI ĐIỀU TRA VỤ HACK CƠ SỞ DỮ LIỆU",
+        "narration": {
+          "text": "FBI đang điều tra nghi vấn cơ sở dữ liệu tư pháp hình sự quốc gia bị tấn công mạng.",
+          "cited_article_ids": [
+            "3f5ee645257dd6e2"
+          ]
+        },
+        "duration_sec": 10.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "GHOSTSCRIPT VƯỢT SANDBOX THỰC THI MÃ",
+        "narration": {
+          "text": "Các nhà nghiên cứu phát hiện lỗ hổng Ghostscript cho phép tệp tải lên thoát khỏi sandbox để chạy lệnh.",
+          "cited_article_ids": [
+            "a3c63e958cb92eef"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "MÃ ĐỘC OPTIMIZELY VÀ JAVA4SHELL",
+        "narration": {
+          "text": "Optimizely bị cài mã độc ảnh hưởng 178 tổ chức; lỗ hổng Java4Shell CVE-2026-114938 khá khó khai thác.",
+          "cited_article_ids": [
+            "71ed4d7cab268422"
+          ]
+        },
+        "duration_sec": 15.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "CẬP NHẬT VÁ LỖ HỔNG NGAY!",
+        "narration": {
+          "text": "Hãy luôn cập nhật bản vá bảo mật mới nhất để bảo vệ hệ thống của bạn!",
+          "cited_article_ids": [
+            "53abcb6f4704464b",
+            "552b60cb29a0722a",
+            "3f5ee645257dd6e2",
+            "a3c63e958cb92eef",
+            "71ed4d7cab268422"
+          ]
+        },
+        "duration_sec": 8.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "Điểm tin An ninh mạng nổi bật:\n- Tin tặc sử dụng agent AI Cairn AI khai thác lỗ hổng zero-day trong phần mềm y tế MONAI Label.\n- CISA cảnh báo khai thác thực tế các lỗ hổng trên VMware vCenter, Cisco Expressway, SAP NetWeaver và Apache Roller.\n- FBI điều tra sự cố xâm nhập cơ sở dữ liệu tư pháp hình sự quốc gia.\n- Lỗ hổng thoát sandbox trên Ghostscript cho phép thực thi mã từ xa.\n- Nền tảng Optimizely bị chèn mã độc ảnh hưởng 178 tổ chức; diễn biến mới về lỗ hổng Java4Shell (CVE-2026-114938).",
+      "hashtags": [
+        "#AnNinhMang",
+        "#CyberSecurity",
+        "#CISA",
+        "#AI",
+        "#Malware",
+        "#Vulnerability"
+      ],
+      "cited_article_ids": [
+        "53abcb6f4704464b",
+        "552b60cb29a0722a",
+        "3f5ee645257dd6e2",
+        "a3c63e958cb92eef",
+        "71ed4d7cab268422"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Tổng hợp tin tức an ninh mạng mới nhất:\n\n1. Agent AI Cairn AI bị nhóm tin tặc liên quan đến Trung Quốc ứng dụng để tìm và khai thác lỗ hổng zero-day trong MONAI Label.\n2. CISA bổ sung 4 lỗ hổng nghiêm trọng (bao gồm CVE-2026-129448) của VMware, Cisco, SAP và Apache vào danh sách KEV.\n3. FBI điều tra vụ tấn công nghi vấn vào cơ sở dữ liệu tư pháp hình sự quốc gia.\n4. Nghiên cứu mới về lỗ hổng thoát sandbox RCE trong công cụ Ghostscript trên Linux.\n5. Mã độc phát tán qua Optimizely tác động đến 178 doanh nghiệp lớn; thông tin kỹ thuật về lỗ hổng Java4Shell (CVE-2026-114938) trong OpenJDK.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#TinTucTinHoc",
+        "#BaoMat",
+        "#CyberSecurityNews",
+        "#Vulnerability"
+      ],
+      "cited_article_ids": [
+        "53abcb6f4704464b",
+        "552b60cb29a0722a",
+        "3f5ee645257dd6e2",
+        "a3c63e958cb92eef",
+        "71ed4d7cab268422"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Tin an ninh mạng nổi bật: Agent AI khai thác lỗ hổng phần mềm y tế; CISA cảnh báo lỗ hổng VMware và Cisco; FBI điều tra vụ hack cơ sở dữ liệu; Lỗ hổng Ghostscript RCE; 178 tổ chức bị chèn mã độc qua Optimizely.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#BaoMat",
+        "#TinCongNghe",
+        "#CyberSecurity"
+      ],
+      "cited_article_ids": [
+        "53abcb6f4704464b",
+        "552b60cb29a0722a",
+        "3f5ee645257dd6e2",
+        "a3c63e958cb92eef",
+        "71ed4d7cab268422"
+      ]
+    }
+  ]
+}
