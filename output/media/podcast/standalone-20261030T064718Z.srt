@@ -1,0 +1,159 @@
+1
+00:00:00,000 --> 00:00:03,736
+[Minh] Chào mừng các bạn đến với bản tin an ninh mạng hôm nay!
+
+2
+00:00:03,736 --> 00:00:06,861
+Tôi là Minh, và cùng đồng hành với tôi là Lan.
+
+3
+00:00:06,861 --> 00:00:12,432
+Hôm nay chúng ta sẽ cùng điểm qua 4 sự kiện an ninh mạng cực kỳ chú ý vừa diễn ra.
+
+4
+00:00:12,782 --> 00:00:17,399
+[Lan] Đúng vậy Minh. Đầu tiên là thông tin chấn động từ thị trường tiền mã hóa:
+
+5
+00:00:17,399 --> 00:00:22,649
+sàn Binance vừa xác nhận một sự cố an ninh nghiêm trọng ảnh hưởng đến khoảng 6,3 tỷ
+
+6
+00:00:22,649 --> 00:00:23,534
+đô la tài sản.
+
+7
+00:00:23,884 --> 00:00:26,200
+[Minh] Một con số khổng lồ! Tuy nhiên,
+
+8
+00:00:26,200 --> 00:00:32,252
+Binance cho biết gần 3 tỷ đô la trong số tài sản đó đã được đóng băng trên chuỗi.
+
+9
+00:00:32,252 --> 00:00:33,149
+Bên cạnh đó,
+
+10
+00:00:33,149 --> 00:00:39,350
+Tether đã đóng băng hơn 1,567 tỷ USDT và Circle đóng băng 800 triệu đô la liên quan
+
+11
+00:00:39,350 --> 00:00:40,396
+đến sự cố này.
+
+12
+00:00:40,746 --> 00:00:45,706
+[Lan] Sự phối hợp đóng băng nhanh chóng đó giúp hạn chế phần nào thiệt hại.
+
+13
+00:00:45,706 --> 00:00:48,581
+Chuyển sang tin tức về hạ tầng hệ thống,
+
+14
+00:00:48,581 --> 00:00:54,475
+một lỗ hổng trong mã TCP của Linux Kernel mang mã CVE-2026-98432 đang gây báo động
+
+15
+00:00:54,475 --> 00:00:54,762
+lớn.
+
+16
+00:00:55,112 --> 00:00:57,560
+[Minh] Lỗ hổng này ảnh hưởng đến Ubuntu,
+
+17
+00:00:57,560 --> 00:01:01,640
+Red Hat Enterprise Linux và nhiều phân phối Linux khác.
+
+18
+00:01:01,640 --> 00:01:07,649
+Nhóm CVE của chính Linux Kernel đã đánh giá lỗ hổng này đạt điểm nghiêm trọng 9.8
+
+19
+00:01:07,649 --> 00:01:08,984
+trên 10 điểm CVSS.
+
+20
+00:01:09,334 --> 00:01:10,380
+[Lan] Đáng lo ngại hơn,
+
+21
+00:01:10,380 --> 00:01:15,423
+Anthropic cho biết vào ngày 27 tháng 10 rằng mô hình AI của họ đã tự viết một khai
+
+22
+00:01:15,423 --> 00:01:17,022
+thác lợi dụng lỗ hổng này.
+
+23
+00:01:17,022 --> 00:01:21,942
+Nó cho phép kẻ tấn công từ xa không cần xác thực có thể chạy lệnh với quyền root
+
+24
+00:01:21,942 --> 00:01:23,110
+trên máy chủ Linux.
+
+25
+00:01:23,460 --> 00:01:27,089
+[Minh] Thật sự nguy hiểm cho các quản trị viên hệ thống!
+
+26
+00:01:27,089 --> 00:01:30,792
+Tiếp theo là một vụ rò rỉ dữ liệu y tế quy mô lớn.
+
+27
+00:01:30,792 --> 00:01:36,864
+Hồ sơ nộp lên HHS cho thấy vụ rò rỉ dữ liệu của iRhythm đã ảnh hưởng đến 8,2 triệu
+
+28
+00:01:36,864 --> 00:01:37,308
+người.
+
+29
+00:01:37,658 --> 00:01:42,573
+[Lan] Kẻ tấn công đã đánh cắp thông tin cá nhân cùng dữ liệu tài khoản và thiết bị iRhythm
+
+30
+00:01:42,573 --> 00:01:45,557
+từ các ứng dụng doanh nghiệp do bên thứ ba lưu trữ.
+
+31
+00:01:45,557 --> 00:01:49,946
+Việc rò rỉ dữ liệu thiết bị y tế ảnh hưởng rất lớn đến riêng tư người dùng.
+
+32
+00:01:50,296 --> 00:01:55,788
+[Minh] Cuối cùng là vụ tấn công vào nhà cung cấp dịch vụ Internet So-net thuộc Sony tại
+
+33
+00:01:55,788 --> 00:01:56,406
+Nhật Bản.
+
+34
+00:01:56,406 --> 00:02:01,624
+Hacker đã đánh cắp 2,6 triệu bản ghi dữ liệu của khách hàng So-net và Plala.
+
+35
+00:02:01,974 --> 00:02:03,753
+[Lan] Trong số dữ liệu bị rò rỉ,
+
+36
+00:02:03,753 --> 00:02:09,362
+có đến 54.401 mật khẩu tài khoản email và 16 bản ghi tài khoản ngân hàng của khách
+
+37
+00:02:09,362 --> 00:02:14,766
+hàng đã bị lộ. Các vụ vi phạm dữ liệu liên tiếp cho thấy nguy cơ luôn rình rập.
+
+38
+00:02:15,116 --> 00:02:18,149
+[Minh] Đó là toàn bộ điểm tin an ninh mạng hôm nay.
+
+39
+00:02:18,149 --> 00:02:23,043
+Đừng quên cập nhật bản vá hệ thống và bảo vệ thông tin cá nhân của bạn.
+
+40
+00:02:23,043 --> 00:02:26,420
+Cảm ơn và hẹn gặp lại các bạn trong số tiếp theo!

@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "style": "hallmark-gouache",
+  "beats": {
+    "seg00_b1": {
+      "file": "seg00_b1.jpg",
+      "prompt": "a quiet newsroom desk with printed security reports, a cup of tea and a desk lamp. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "a quiet newsroom desk with printed security reports, a cup of tea and a desk lamp",
+      "text": "Chào mừng các bạn đến với bản tin an ninh mạng hôm nay! Tôi là Minh, và cùng đồng hành với tôi là Lan. Hôm nay chúng ta sẽ cùng điểm qua 4 sự kiện an ninh mạng cực kỳ chú ý vừa diễn ra.",
+      "text_hash": "a30bf1c5b85b",
+      "provider": "pollinations"
+    },
+    "seg07_b1": {
+      "file": "seg07_b1.jpg",
+      "prompt": "paper records slipping out of a cracked archive box onto a desk, a magnifying glass nearby; in the background, dozens of small household devices linked by red thread to a single puppeteer's hand. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "paper records slipping out of a cracked archive box onto a desk, a magnifying glass nearby; in the background, dozens of small household devices linked by red thread to a single puppeteer's hand",
+      "text": "Kẻ tấn công đã đánh cắp thông tin cá nhân cùng dữ liệu tài khoản và thiết bị iRhythm từ các ứng dụng doanh nghiệp do bên thứ ba lưu trữ. Việc rò rỉ dữ liệu thiết bị y tế ảnh hưởng rất lớn đến riêng tư người dùng.",
+      "text_hash": "b314566f7768",
+      "provider": "pollinations"
+    }
+  }
+}
