@@ -1,0 +1,81 @@
+{
+  "run_id": "run-20261124T072413Z-49c198ae",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "d70285cdacc0c3a7",
+        "source_name": "The Hacker News",
+        "title": "Hackers Exploit N-able MailAssure Flaw While AI Agents Exploit MONAI Label Zero-Day",
+        "url": "https://thehackernews.com/2026/11/hackers-exploit-n-able-mailassure-flaw.html",
+        "published_at": "2026-11-24T06:02:45Z",
+        "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) on Monday added two flaws impacting N-able MailAssure and MONAI Label to its Known Exploited Vulnerabilities (KEV) catalog, citing evidence of active exploitation. The critical vulnerabilities are listed below - CVE-2026-134624 (CVSS score: 9.3) - A server-side request forgery (SSRF) vulnerability in N-able MailAssure's LDAP",
+        "fetched_at": "2026-11-24T07:05:58.424517Z",
+        "topics_matched": [
+          "cybersecurity",
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "CISA đã đưa hai lỗ hổng bảo mật nghiêm trọng trong N-able MailAssure và MONAI Label đang bị khai thác thực tế vào danh mục KEV."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "2da724996ccb9ddb",
+        "source_name": "The Hacker News",
+        "title": "Hackers Exploit Critical ScreenConnect Flaw to Hijack MSP Technician PCs Without Warning",
+        "url": "https://thehackernews.com/2026/11/hackers-exploit-critical-screenconnect.html",
+        "published_at": "2026-11-23T12:41:04Z",
+        "summary": "Threat actors are exploiting a now-patched security flaw in ConnectWise ScreenConnect to target managed service provider (MSP) servers. The activity revolves around CVE-2026-84869 (CVSS score: 9.9), a critical ScreenConnect client flaw that allows a guest to transfer and execute a malicious payload on a connecting technician's host. \"On November 12, 2026, we observed one managed service",
+        "fetched_at": "2026-11-24T07:05:58.424517Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Kẻ tấn công đang khai thác lỗ hổng nghiêm trọng CVE-2026-84869 trong ConnectWise ScreenConnect để chiếm quyền điều khiển máy tính của kỹ thuật viên MSP."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "45ba490a7eb6781e",
+        "source_name": "SecurityWeek",
+        "title": "Azure Flaw Exploited to Target Secrets at Norwegian Energy Firms",
+        "url": "https://securityweek.com/azure-flaw-exploited-to-target-secrets-at-norwegian-energy-firms",
+        "published_at": "2026-11-23T15:47:40Z",
+        "summary": "Microsoft closed an Azure API Management flaw exploited to target secrets at Norwegian energy companies, with other sectors also affected. The post Azure Flaw Exploited to Target Secrets at Norwegian Energy Firms appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-24T07:05:58.759458Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Lỗ hổng API Management trên Microsoft Azure đã bị kẻ gian khai thác nhằm đánh cắp dữ liệu nhạy cảm của các công ty năng lượng Na Uy."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "2e33163a4515c14e",
+        "source_name": "Help Net Security",
+        "title": "GL.iNet cloud compromise hits routers and KVMs, older backdoors also found",
+        "url": "https://helpnetsecurity.com/2026/11/23/gl-inet-cloud-compromise-malware-backdoors",
+        "published_at": "2026-11-23T15:05:50Z",
+        "summary": "Attackers compromised GoodCloud, GL.iNet’s cloud remote management service, and used it to install malware on routers and KVM (keyboard, video and mouse) devices connected to it. The Chinese company, best known for its small travel routers, is still investigating, and it’s not yet known how many devices have been affected. The incident has also sparked additional research by RemoteToHome Consulting (RTH), a GL.iNet Services Partner, and a number of users, some of whom reported finding … More → The post GL.iNet cloud compromise hits routers and KVMs, older backdoors also found appeared first on Help Net Security .",
+        "fetched_at": "2026-11-24T07:05:59.099575Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Dịch vụ quản lý đám mây GoodCloud của GL.iNet bị xâm nhập, dẫn đến việc mã độc bị cài đặt lên các thiết bị router và KVM của người dùng."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "5a95e5948fd7eaf9",
+        "source_name": "Help Net Security",
+        "title": "Cleverbridge alerts customers that hackers stole their credit card and CVV numbers",
+        "url": "https://helpnetsecurity.com/2026/11/23/cleverbridge-data-breach-card-numbers-cvv",
+        "published_at": "2026-11-23T13:00:14Z",
+        "summary": "Hackers breached e-commerce platform Cleverbridge and made off with payment card data stored on it, the company has confirmed. Cleverbridge handles purchases, payments and subscriptions for other businesses, and its website lists Red Hat, Sony, SUSE, Veeam, Tenable and Jamf among its clients. The company has not said which of them, if any, had customers affected by the breach. “On 4 November 2026, Cleverbridge detected unauthorised activity in our platform and took immediate steps to … More → The post Cleverbridge alerts customers that hackers stole their credit card and CVV numbers appeared first on Help Net Security .",
+        "fetched_at": "2026-11-24T07:05:59.099575Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Nền tảng thương mại điện tử Cleverbridge bị hacker tấn công làm rò rỉ dữ liệu thẻ tín dụng và số CVV của khách hàng."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=2; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=0"
+}

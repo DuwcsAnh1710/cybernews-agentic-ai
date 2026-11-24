@@ -17,6 +17,14 @@
       "text": "Kẻ tấn công đã đánh cắp thông tin cá nhân cùng dữ liệu tài khoản và thiết bị iRhythm từ các ứng dụng doanh nghiệp do bên thứ ba lưu trữ. Việc rò rỉ dữ liệu thiết bị y tế ảnh hưởng rất lớn đến riêng tư người dùng.",
       "text_hash": "b314566f7768",
       "provider": "pollinations"
+    },
+    "seg03_b1": {
+      "file": "seg03_b1.jpg",
+      "prompt": "a cutaway drawing of a computer as a layered building, the deepest foundation floor highlighted in vermilion; in the background, a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "a cutaway drawing of a computer as a layered building, the deepest foundation floor highlighted in vermilion; in the background, a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines",
+      "text": "Sự phối hợp đóng băng nhanh chóng đó giúp hạn chế phần nào thiệt hại.",
+      "text_hash": "57e6dafa2a07",
+      "provider": "pollinations"
     }
   }
 }
