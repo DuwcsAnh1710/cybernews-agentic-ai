@@ -1,0 +1,273 @@
+{
+  "run_id": "run-20261124T095647Z-e5b7d6b2",
+  "language": "vi",
+  "digest": {
+    "title": "Bản tin An ninh mạng: Các lỗ hổng nghiêm trọng bị khai thác và nguy cơ quyền riêng tư từ AI",
+    "intro": "Điểm tin an ninh mạng mới nhất cập nhật về các lỗ hổng đang bị khai thác thực tế trên N-able MailAssure, MONAI Label, Azure và ConnectWise ScreenConnect. Ngoài ra, bản tin cũng ghi nhận sự cố tấn công dịch vụ đám mây GoodCloud của GL.iNet cùng các biện pháp bảo vệ quyền riêng tư mới từ ứng dụng Signal.",
+    "sections": [
+      {
+        "heading": "CISA cảnh báo khai thác lỗ hổng trong N-able MailAssure và MONAI Label",
+        "body": {
+          "text": "Cơ quan An ninh mạng và Cơ sở hạ tầng Mỹ (CISA) đã thêm hai lỗ hổng trong N-able MailAssure và MONAI Label vào danh mục Lỗ hổng bị khai thác đã biết (KEV). Trong đó bao gồm lỗ hổng CVE-2026-134624 với điểm CVSS 9.3, liên quan đến lỗi Server-Side Request Forgery (SSRF - kịch bản tấn công giả mạo yêu cầu từ phía máy chủ) trong tính năng LDAP của N-able MailAssure.",
+          "cited_article_ids": [
+            "d70285cdacc0c3a7"
+          ]
+        }
+      },
+      {
+        "heading": "Lỗ hổng Azure API Management bị khai thác nhắm vào ngành năng lượng",
+        "body": {
+          "text": "Microsoft đã xử lý một lỗ hổng trong Azure API Management vốn bị kẻ tấn công khai thác để nhắm vào các dữ liệu bí mật tại các công ty năng lượng Na Uy. Sự cố này cũng ảnh hưởng đến một số ngành công nghiệp khác.",
+          "cited_article_ids": [
+            "45ba490a7eb6781e"
+          ]
+        }
+      },
+      {
+        "heading": "Khai thác lỗ hổng ScreenConnect để chiếm quyền điều khiển máy tính kỹ thuật viên MSP",
+        "body": {
+          "text": "Các nhân tố đe dọa đang khai thác lỗ hổng CVE-2026-84869 (CVSS 9.9) trong ConnectWise ScreenConnect để tấn công máy chủ của các nhà cung cấp dịch vụ quản lý (MSP). Lỗ hổng bảo mật máy khách này cho phép đối tượng ngoài truyền và thi hành mã độc trên máy chủ của kỹ thuật viên đang kết nối.",
+          "cited_article_ids": [
+            "2da724996ccb9ddb"
+          ]
+        }
+      },
+      {
+        "heading": "Tấn công đám mây GoodCloud của GL.iNet ảnh hưởng đến router và thiết bị KVM",
+        "body": {
+          "text": "Kẻ tấn công đã xâm nhập dịch vụ quản lý đám mây từ xa GoodCloud của GL.iNet để cài đặt mã độc lên các bộ tuyến (router) và thiết bị KVM (bàn phím, video và chuột). Công ty hiện đang tiến hành điều tra. Các nghiên cứu bổ sung từ đối tác RTH và người dùng cũng phát hiện thêm những cổng hậu (backdoor) cũ.",
+          "cited_article_ids": [
+            "2e33163a4515c14e"
+          ]
+        }
+      },
+      {
+        "heading": "Signal ngăn chặn tính năng chụp màn hình của iOS và Android để chống lại các tác vụ AI",
+        "body": {
+          "text": "Ứng dụng nhắn tin Signal đã chặn tính năng chụp màn hình từ hệ điều hành của Apple và Google. Quyết định này nhằm bảo vệ dữ liệu người dùng trước các tác vụ trí tuệ nhân tạo (AI agents) như Google Gemini Intelligence hay Apple Siri AI, những công cụ bị đánh giá là đang gia tăng nguy cơ xâm phạm quyền riêng tư.",
+          "cited_article_ids": [
+            "2ee4674409e7413b"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Cập Nhật An Ninh Mạng: Từ Lỗ Hổng N-able, Azure Đến Rủi Ro Từ AI",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin an ninh mạng hôm nay! Tôi là Minh, và hôm nay chúng ta sẽ điểm qua những tin tức bảo mật rất đáng chú ý liên quan đến các lỗ hổng hệ thống và nguy cơ từ trí tuệ nhân tạo.",
+          "cited_article_ids": [
+            "d70285cdacc0c3a7",
+            "45ba490a7eb6781e",
+            "2da724996ccb9ddb",
+            "2e33163a4515c14e",
+            "2ee4674409e7413b"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào Minh và chào các khán thính giả! Đúng vậy, tin tức đầu tiên liên quan đến việc CISA đưa hai lỗ hổng mới vào danh mục Vulnerabilities Known Exploited. Đó là lỗ hổng SSRF trong N-able MailAssure mang mã CVE-2026-134624 với điểm CVSS 9.3 và lỗ hổng trên MONAI Label đang bị khai thác tích cực.",
+          "cited_article_ids": [
+            "d70285cdacc0c3a7"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Bên cạnh đó, Microsoft cũng vừa phải vá một lỗ hổng trong Azure API Management. Lỗ hổng này đã bị các tác nhân đe dọa khai thác để nhắm vào việc đánh cắp bí mật dữ liệu tại các công ty năng lượng ở Na Uy và nhiều ngành công nghiệp khác.",
+          "cited_article_ids": [
+            "45ba490a7eb6781e"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Các nhà cung cấp dịch vụ quản lý (MSP) cũng vừa trải qua một đợt tấn công đáng chú ý. Hacker đã khai thác lỗ hổng CVE-2026-84869 với điểm CVSS cực cao là 9.9 trên ConnectWise ScreenConnect client. Lỗ hổng này cho phép khách kết nối truyền và thi công tải độc hại trực tiếp lên máy tính của kỹ thuật viên mà không có cảnh báo.",
+          "cited_article_ids": [
+            "2da724996ccb9ddb"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Một sự cố đám mây khác liên quan đến GoodCloud của GL.iNet. Kẻ tấn công đã xâm nhập dịch vụ quản lý từ xa này để cài mã độc vào các thiết bị router và thiết bị KVM kết nối với hệ thống. Ngoài ra, cuộc điều tra còn phát hiện thêm các backdoor cũ trên thiết bị.",
+          "cited_article_ids": [
+            "2e33163a4515c14e"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cuối cùng là ứng dụng Signal. Để bảo vệ dữ liệu người dùng trước các agent AI như Gemini Intelligence của Google hay Siri của Apple, Signal đã chủ động ngăn chặn tính năng chụp ảnh màn hình từ các hệ điều hành này.",
+          "cited_article_ids": [
+            "2ee4674409e7413b"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Cảm ơn Lan! Những tin tức trên cho thấy rủi ro an ninh mạng luôn rình rấp từ hạ tầng đám mây đến các công cụ AI. Hãy luôn cập nhật bản vá và theo dõi bản tin của chúng tôi nhé!",
+          "cited_article_ids": [
+            "d70285cdacc0c3a7",
+            "45ba490a7eb6781e",
+            "2da724996ccb9ddb",
+            "2e33163a4515c14e",
+            "2ee4674409e7413b"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Điểm Tin An Ninh Mạng Mới Nhất",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "Cảnh báo an ninh mạng mới nhất!",
+        "narration": {
+          "text": "Cùng điểm qua những sự cố bảo mật hot nhất hôm nay!",
+          "cited_article_ids": [
+            "d70285cdacc0c3a7",
+            "45ba490a7eb6781e",
+            "2da724996ccb9ddb",
+            "2e33163a4515c14e",
+            "2ee4674409e7413b"
+          ]
+        },
+        "duration_sec": 5.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "CISA cảnh báo lỗ hổng N-able & MONAI",
+        "narration": {
+          "text": "CISA bổ sung lỗ hổng CVE-2026-134624 của N-able MailAssure và MONAI Label vào danh mục bị khai thác.",
+          "cited_article_ids": [
+            "d70285cdacc0c3a7"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "Azure API bị khai thác tại Na Uy",
+        "narration": {
+          "text": "Microsoft vừa khôi phục lỗ hổng Azure API Management bị dùng để nhắm vào dữ liệu công ty năng lượng.",
+          "cited_article_ids": [
+            "45ba490a7eb6781e"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Lỗ hổng nghiêm trọng ScreenConnect 9.9",
+        "narration": {
+          "text": "Hacker khai thác lỗ hổng CVE-2026-84869 trên ScreenConnect để chiếm quyền máy tính kỹ thuật viên MSP.",
+          "cited_article_ids": [
+            "2da724996ccb9ddb"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "GoodCloud của GL.iNet bị dính mã độc",
+        "narration": {
+          "text": "Dịch vụ GoodCloud bị xâm nhập khiến router và KVM của GL.iNet bị cài mã độc.",
+          "cited_article_ids": [
+            "2e33163a4515c14e"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "Signal chặn chụp màn hình để né AI",
+        "narration": {
+          "text": "Signal chặn chụp màn hình từ hệ điều hành để bảo vệ dữ liệu trước AI của Google và Apple.",
+          "cited_article_ids": [
+            "2ee4674409e7413b"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "Hãy cập nhật bản vá ngay hôm nay!",
+        "narration": {
+          "text": "Nhấn theo dõi để cập nhật thêm tin tức an ninh mạng mới nhất nhé!",
+          "cited_article_ids": [
+            "d70285cdacc0c3a7",
+            "45ba490a7eb6781e",
+            "2da724996ccb9ddb",
+            "2e33163a4515c14e",
+            "2ee4674409e7413b"
+          ]
+        },
+        "duration_sec": 8.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "🚨 CẬP NHẬT AN NINH MẠNG\n\nCISA vừa thêm lỗ hổng SSRF trong N-able MailAssure (CVE-2026-134624) và MONAI Label vào danh mục bị khai thác. Bên cạnh đó, lỗ hổng Azure API Management bị lợi dụng nhắm vào doanh nghiệp năng lượng, còn lỗ hổng nghiêm trọng CVE-2026-84869 trên ScreenConnect cho phép chiếm quyền máy tính kỹ thuật viên MSP. Ngoài ra, dịch vụ GoodCloud của GL.iNet bị tấn công cài mã độc, và Signal bắt đầu chặn chụp màn hình để bảo vệ dữ liệu trước các AI agent.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#BaoMat",
+        "#CyberSecurity",
+        "#TinTucCongNghe"
+      ],
+      "cited_article_ids": [
+        "d70285cdacc0c3a7",
+        "45ba490a7eb6781e",
+        "2da724996ccb9ddb",
+        "2e33163a4515c14e",
+        "2ee4674409e7413b"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Bản tin An ninh mạng hôm nay cập nhật những thông tin bảo mật quan trọng:\n- CISA cảnh báo lỗ hổng SSRF (CVE-2026-134624) trên N-able MailAssure và MONAI Label đang bị khai thác thực tế.\n- Lỗ hổng Azure API Management bị tấn công nhằm đánh cắp dữ liệu bí mật tại các công ty năng lượng Na Uy.\n- Kẻ tấn công lợi dụng lỗi nghiêm trọng CVE-2026-84869 trên ConnectWise ScreenConnect để chiếm quyền máy tính kỹ thuật viên MSP.\n- Dịch vụ GoodCloud của GL.iNet bị xâm nhập để cài mã độc lên router và thiết bị KVM.\n- Signal chặn tính năng chụp màn hình của Apple và Google nhằm chống lại nguy cơ thu thập dữ liệu từ các agent AI.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#BaoMatTinNhanh",
+        "#CVE",
+        "#AI"
+      ],
+      "cited_article_ids": [
+        "d70285cdacc0c3a7",
+        "45ba490a7eb6781e",
+        "2da724996ccb9ddb",
+        "2e33163a4515c14e",
+        "2ee4674409e7413b"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Cập nhật an toàn thông tin: Lỗ hổng N-able MailAssure, Azure và ScreenConnect đang bị khai thác nghiêm trọng. GoodCloud bị dính mã độc, trong khi Signal chặn chụp màn hình để chống lại AI agents!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#BaoMat",
+        "#TinCongNghe"
+      ],
+      "cited_article_ids": [
+        "d70285cdacc0c3a7",
+        "45ba490a7eb6781e",
+        "2da724996ccb9ddb",
+        "2e33163a4515c14e",
+        "2ee4674409e7413b"
+      ]
+    }
+  ]
+}

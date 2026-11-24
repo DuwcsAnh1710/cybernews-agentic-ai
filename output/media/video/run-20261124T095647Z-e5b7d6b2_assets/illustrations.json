@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "style": "hallmark-gouache",
+  "beats": {
+    "seg01_b1": {
+      "file": "seg01_b1.jpg",
+      "prompt": "a government bulletin board with pinned paper warning notices and a red ribbon, an analyst reading one closely; in the background, a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "a government bulletin board with pinned paper warning notices and a red ribbon, an analyst reading one closely; in the background, a typewriter connected by thread to a small mechanical brass robot, papers with redacted lines",
+      "text": "Chào Minh và chào các khán thính giả! Đúng vậy, tin tức đầu tiên liên quan đến việc CISA đưa hai lỗ hổng mới vào danh mục Vulnerabilities Known Exploited.",
+      "text_hash": "cccb6c31e969",
+      "provider": "pollinations"
+    },
+    "seg04_b2": {
+      "file": "seg04_b2.jpg",
+      "prompt": "dozens of small household devices linked by red thread to a single puppeteer's hand. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "dozens of small household devices linked by red thread to a single puppeteer's hand",
+      "text": "Ngoài ra, cuộc điều tra còn phát hiện thêm các backdoor cũ trên thiết bị.",
+      "text_hash": "b203f46ef660",
+      "provider": "pollinations"
+    }
+  }
+}

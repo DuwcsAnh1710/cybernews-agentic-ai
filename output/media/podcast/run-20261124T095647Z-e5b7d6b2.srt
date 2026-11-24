@@ -1,0 +1,107 @@
+1
+00:00:00,000 --> 00:00:04,096
+[Minh] Chào mừng các bạn đến với bản tin an ninh mạng hôm nay! Tôi là Minh,
+
+2
+00:00:04,096 --> 00:00:09,035
+và hôm nay chúng ta sẽ điểm qua những tin tức bảo mật rất đáng chú ý liên quan đến
+
+3
+00:00:09,035 --> 00:00:12,168
+các lỗ hổng hệ thống và nguy cơ từ trí tuệ nhân tạo.
+
+4
+00:00:12,518 --> 00:00:16,061
+[Lan] Chào Minh và chào các khán thính giả! Đúng vậy,
+
+5
+00:00:16,061 --> 00:00:21,564
+tin tức đầu tiên liên quan đến việc CISA đưa hai lỗ hổng mới vào danh mục
+
+6
+00:00:21,564 --> 00:00:23,976
+Vulnerabilities Known Exploited.
+
+7
+00:00:23,976 --> 00:00:30,308
+Đó là lỗ hổng SSRF trong N-able MailAssure mang mã CVE-2026-134624 với điểm CVSS 9.3
+
+8
+00:00:30,308 --> 00:00:34,454
+và lỗ hổng trên MONAI Label đang bị khai thác tích cực.
+
+9
+00:00:34,804 --> 00:00:39,601
+[Minh] Bên cạnh đó, Microsoft cũng vừa phải vá một lỗ hổng trong Azure API Management.
+
+10
+00:00:39,601 --> 00:00:44,641
+Lỗ hổng này đã bị các tác nhân đe dọa khai thác để nhắm vào việc đánh cắp bí mật dữ
+
+11
+00:00:44,641 --> 00:00:49,012
+liệu tại các công ty năng lượng ở Na Uy và nhiều ngành công nghiệp khác.
+
+12
+00:00:49,362 --> 00:00:54,628
+[Lan] Các nhà cung cấp dịch vụ quản lý (MSP) cũng vừa trải qua một đợt tấn công đáng chú
+
+13
+00:00:54,628 --> 00:00:59,702
+ý. Hacker đã khai thác lỗ hổng CVE-2026-84869 với điểm CVSS cực cao là 9.9 trên
+
+14
+00:00:59,702 --> 00:01:01,821
+ConnectWise ScreenConnect client.
+
+15
+00:01:01,821 --> 00:01:07,152
+Lỗ hổng này cho phép khách kết nối truyền và thi công tải độc hại trực tiếp lên máy
+
+16
+00:01:07,152 --> 00:01:09,978
+tính của kỹ thuật viên mà không có cảnh báo.
+
+17
+00:01:10,328 --> 00:01:14,255
+[Minh] Một sự cố đám mây khác liên quan đến GoodCloud của GL.iNet.
+
+18
+00:01:14,255 --> 00:01:19,580
+Kẻ tấn công đã xâm nhập dịch vụ quản lý từ xa này để cài mã độc vào các thiết bị
+
+19
+00:01:19,580 --> 00:01:22,509
+router và thiết bị KVM kết nối với hệ thống.
+
+20
+00:01:22,509 --> 00:01:27,368
+Ngoài ra, cuộc điều tra còn phát hiện thêm các backdoor cũ trên thiết bị.
+
+21
+00:01:27,718 --> 00:01:29,592
+[Lan] Cuối cùng là ứng dụng Signal.
+
+22
+00:01:29,592 --> 00:01:34,890
+Để bảo vệ dữ liệu người dùng trước các agent AI như Gemini Intelligence của Google
+
+23
+00:01:34,890 --> 00:01:36,118
+hay Siri của Apple,
+
+24
+00:01:36,118 --> 00:01:41,350
+Signal đã chủ động ngăn chặn tính năng chụp ảnh màn hình từ các hệ điều hành này.
+
+25
+00:01:41,700 --> 00:01:42,436
+[Minh] Cảm ơn Lan!
+
+26
+00:01:42,436 --> 00:01:48,055
+Những tin tức trên cho thấy rủi ro an ninh mạng luôn rình rấp từ hạ tầng đám mây đến
+
+27
+00:01:48,055 --> 00:01:53,340
+các công cụ AI. Hãy luôn cập nhật bản vá và theo dõi bản tin của chúng tôi nhé!

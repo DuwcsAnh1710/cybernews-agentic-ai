@@ -1,0 +1,81 @@
+{
+  "run_id": "run-20261124T095647Z-e5b7d6b2",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "d70285cdacc0c3a7",
+        "source_name": "The Hacker News",
+        "title": "Hackers Exploit N-able MailAssure Flaw While AI Agents Exploit MONAI Label Zero-Day",
+        "url": "https://thehackernews.com/2026/11/hackers-exploit-n-able-mailassure-flaw.html",
+        "published_at": "2026-11-24T06:02:45Z",
+        "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) on Monday added two flaws impacting N-able MailAssure and MONAI Label to its Known Exploited Vulnerabilities (KEV) catalog, citing evidence of active exploitation. The critical vulnerabilities are listed below - CVE-2026-134624 (CVSS score: 9.3) - A server-side request forgery (SSRF) vulnerability in N-able MailAssure's LDAP",
+        "fetched_at": "2026-11-24T09:56:44.482373Z",
+        "topics_matched": [
+          "cybersecurity",
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "CISA thêm hai lỗ hổng bảo mật nghiêm trọng trong N-able MailAssure và MONAI Label vào danh sách KEV do đang bị khai thác thực tế."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "45ba490a7eb6781e",
+        "source_name": "SecurityWeek",
+        "title": "Azure Flaw Exploited to Target Secrets at Norwegian Energy Firms",
+        "url": "https://securityweek.com/azure-flaw-exploited-to-target-secrets-at-norwegian-energy-firms",
+        "published_at": "2026-11-23T15:47:40Z",
+        "summary": "Microsoft closed an Azure API Management flaw exploited to target secrets at Norwegian energy companies, with other sectors also affected. The post Azure Flaw Exploited to Target Secrets at Norwegian Energy Firms appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-24T09:56:44.905458Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Microsoft đã vá lỗ hổng Azure API Management bị kẻ tấn công khai thác để đánh cắp dữ liệu nhạy cảm tại các công ty năng lượng Na Uy."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "2da724996ccb9ddb",
+        "source_name": "The Hacker News",
+        "title": "Hackers Exploit Critical ScreenConnect Flaw to Hijack MSP Technician PCs Without Warning",
+        "url": "https://thehackernews.com/2026/11/hackers-exploit-critical-screenconnect.html",
+        "published_at": "2026-11-23T12:41:04Z",
+        "summary": "Threat actors are exploiting a now-patched security flaw in ConnectWise ScreenConnect to target managed service provider (MSP) servers. The activity revolves around CVE-2026-84869 (CVSS score: 9.9), a critical ScreenConnect client flaw that allows a guest to transfer and execute a malicious payload on a connecting technician's host. \"On November 12, 2026, we observed one managed service",
+        "fetched_at": "2026-11-24T09:56:44.482373Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Kẻ tấn công đang khai thác lỗ hổng nghiêm trọng CVE-2026-84869 trong ConnectWise ScreenConnect để chiếm quyền điều khiển máy tính của nhà cung cấp dịch vụ CNTT."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "2e33163a4515c14e",
+        "source_name": "Help Net Security",
+        "title": "GL.iNet cloud compromise hits routers and KVMs, older backdoors also found",
+        "url": "https://helpnetsecurity.com/2026/11/23/gl-inet-cloud-compromise-malware-backdoors",
+        "published_at": "2026-11-23T15:05:50Z",
+        "summary": "Attackers compromised GoodCloud, GL.iNet’s cloud remote management service, and used it to install malware on routers and KVM (keyboard, video and mouse) devices connected to it. The Chinese company, best known for its small travel routers, is still investigating, and it’s not yet known how many devices have been affected. The incident has also sparked additional research by RemoteToHome Consulting (RTH), a GL.iNet Services Partner, and a number of users, some of whom reported finding … More → The post GL.iNet cloud compromise hits routers and KVMs, older backdoors also found appeared first on Help Net Security .",
+        "fetched_at": "2026-11-24T09:56:45.247371Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Dịch vụ quản lý đám mây GoodCloud của GL.iNet bị xâm nhập, cho phép kẻ tấn công cài đặt mã độc lên các thiết bị router và KVM kết nối."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "2ee4674409e7413b",
+        "source_name": "The Record",
+        "title": "Signal blocks screenshots by Apple, Google operating systems to protect data from AI agents",
+        "url": "https://therecord.media/signal-no-screenshots-by-apple-google-operating-systems",
+        "published_at": "2026-11-23T18:37:00Z",
+        "summary": "Google’s Gemini Intelligence and Apple's Siri AI \"are changing this environment in a way that’s making it increasingly hostile to privacy,\" Signal said.",
+        "fetched_at": "2026-11-24T09:56:44.681452Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Signal cập nhật tính năng chặn chụp màn hình trên các hệ điều hành của Apple và Google nhằm ngăn chặn trợ lý AI truy cập tin nhắn của người dùng."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=2; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=1"
+}
