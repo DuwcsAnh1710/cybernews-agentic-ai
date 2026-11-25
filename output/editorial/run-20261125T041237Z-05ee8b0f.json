@@ -1,0 +1,320 @@
+{
+  "run_id": "run-20261125T041237Z-05ee8b0f",
+  "language": "vi",
+  "digest": {
+    "title": "Bản tin An ninh mạng: Phát hiện hàng loạt lỗ hổng nguy hiểm và các cuộc tấn công diện rộng",
+    "intro": "Điểm tin an ninh mạng mới nhất ghi nhận hàng loạt lỗ hổng nghiêm trọng bị khai thác trên các nền tảng hạ tầng của VMware, Microsoft Azure và N-able. Bên cạnh đó là các chiến dịch tấn công mạng quy mô lớn nhắm vào các máy chủ quản lý bảo mật Check Point và sự cố rò rỉ dữ liệu quy mô lớn tại Hàn Quốc.",
+    "sections": [
+      {
+        "heading": "Broadcom phát hành bản vá cho lỗ hổng nghiêm trọng trên VMware vCenter",
+        "body": {
+          "text": "Broadcom đã phát hành các bản vá để giải quyết 23 lỗ hổng bảo mật ảnh hưởng đến VMware ESX, vCenter, Workstation, Fusion và Avi Load Balancer. Trong đó có lỗ hổng nghiêm trọng mã hiệu CVE-2026-123903 với điểm CVSS 9.8/10. Lỗ hổng này nằm trong dịch vụ VMware Directory Service (vmdir) cho phép kẻ tấn công thực hiện hành vi qua mặt cơ chế xác thực (authentication bypass - kỹ thuật vượt qua quy trình kiểm tra danh tính để truy cập hệ thống).",
+          "cited_article_ids": [
+            "aa014f4b55f462a9"
+          ]
+        }
+      },
+      {
+        "heading": "Lỗ hổng Azure API Management bị khai thác để lấy trộm thông tin xác thực",
+        "body": {
+          "text": "Microsoft đưa ra cảnh báo về việc kẻ tấn công đã khai thác lỗ hổng trong Azure API Management (APIM - giải pháp quản lý giao diện lập trình ứng dụng) thuộc dòng Classic tiers để đánh cắp thông tin xác thực lưu trữ của khách hàng. Các nạn nhân bao gồm nhiều tổ chức tại Na Uy như công ty năng lượng Equinor, Skagerak Energi, cùng các tổ chức khác ngoài Na Uy theo xác nhận từ Cơ quan An ninh Quốc gia Na Uy (NSM).",
+          "cited_article_ids": [
+            "4abb37509292e211"
+          ]
+        }
+      },
+      {
+        "heading": "Máy chủ Check Point Security Management bị tấn công có sự hỗ trợ của AI",
+        "body": {
+          "text": "Các máy chủ Check Point Security Management đã trở thành mục tiêu của chiến dịch tấn công có sự hỗ trợ từ trí tuệ nhân tạo (AI-assisted campaign). Theo các báo cáo, chiến dịch tấn công này được thực hiện xuất phát từ 99 địa chỉ IP khác nhau, nhắm vào nhiều tổ chức thuộc nhiều ngành nghề và quốc gia trên thế giới.",
+          "cited_article_ids": [
+            "8e2e8968330fa8b7"
+          ]
+        }
+      },
+      {
+        "heading": "CISA cảnh báo lỗ hổng đang bị khai thác trên nền tảng N-able",
+        "body": {
+          "text": "Cơ quan An ninh mạng và Hạ tầng Mỹ (CISA) đưa ra cảnh báo về lỗ hổng đang bị khai thác thực tế ảnh hưởng đến nền tảng bảo mật email quan trọng của N-able - hệ thống chuyên ngăn chặn thư rác và mã độc (malware - phần mềm độc hại). CISA yêu cầu các cơ quan chính phủ phải hoàn tất việc cài đặt bản vá trước dịp lễ Thanksgiving.",
+          "cited_article_ids": [
+            "4040c365b44bf6ea"
+          ]
+        }
+      },
+      {
+        "heading": "1,5 triệu người chịu ảnh hưởng từ sự cố lộ dữ liệu tại KEPCO",
+        "body": {
+          "text": "Công ty điện lực Hàn Quốc KEPCO vừa gặp phải sự cố rò rỉ dữ liệu (data breach - hiện tượng thông tin bảo mật bị truy cập trái phép) ảnh hưởng tới 1,5 triệu người. Tin tặc đã đánh cắp thông tin cá nhân từ cổng thông tin khách hàng và hệ thống quản lý quan hệ nhà cung cấp của công ty.",
+          "cited_article_ids": [
+            "32e5cd02c4f4dd6a"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm tin An ninh mạng: Những lỗ hổng nghiêm trọng và sự cố rò rỉ dữ liệu mới nhất",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin An ninh mạng hôm nay! Tôi là Minh, và hôm nay chúng ta sẽ cùng đồng hành với chị Lan để cập nhật những sự cố an toàn thông tin quan trọng nhất gần đây.",
+          "cited_article_ids": [
+            "aa014f4b55f462a9",
+            "4abb37509292e211",
+            "8e2e8968330fa8b7",
+            "4040c365b44bf6ea",
+            "32e5cd02c4f4dd6a"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào Minh và chào tất cả các bạn. Đầu tiên, chúng ta hãy đến với thông tin cực kỳ nóng từ Broadcom. Họ vừa phát hành bản vá cho 23 lỗ hổng ảnh hưởng đến VMware ESX, vCenter, Workstation, Fusion và Avi Load Balancer.",
+          "cited_article_ids": [
+            "aa014f4b55f462a9"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đáng chú ý nhất trong số này là lỗ hổng bypass authentication nghiêm trọng với điểm CVSS 9.8 đúng không chị? Mã của nó là CVE-2026-123903, nằm trong VMware Directory Service hay vmdir, cho phép kẻ tấn công vượt qua cơ chế xác thực.",
+          "cited_article_ids": [
+            "aa014f4b55f462a9"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chính xác. Bên cạnh VMware, Microsoft cũng đã đưa ra cảnh báo về một lỗ hổng trong Azure API Management (APIM) đang bị khai thác thực tế để đánh cắp thông tin xác thực lưu trong các instance của khách hàng.",
+          "cited_article_ids": [
+            "4abb37509292e211"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Các nạn nhân bao gồm nhiều tổ chức tại Na Uy như các công ty năng lượng Equinor và Skagerak Energi, cùng một số tổ chức ở các ngành khác. APIM đóng vai trò gateway xử lý xác thực, định tuyến và giới hạn lưu lượng nên việc rò rỉ secret là rất nguy hiểm.",
+          "cited_article_ids": [
+            "4abb37509292e211"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Tiếp theo là thông tin về các máy chủ Check Point Security Management Server. Chúng đã bị xâm nhập trong một chiến dịch tấn công có sự hỗ trợ của trí tuệ nhân tạo (AI).",
+          "cited_article_ids": [
+            "8e2e8968330fa8b7"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chiến dịch tấn công này xuất phát từ 99 địa chỉ IP khác nhau và nhằm vào các tổ chức thuộc nhiều ngành nghề và quốc gia trên thế giới.",
+          "cited_article_ids": [
+            "8e2e8968330fa8b7"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Không dừng lại ở đó, cơ quan an ninh mạng Mỹ CISA cũng vừa đưa ra cảnh báo về một lỗ hổng đang bị khai thác trên nền tảng email của N-able. Đây là nền tảng quan trọng giúp chặn spam và phần mềm độc hại.",
+          "cited_article_ids": [
+            "4040c365b44bf6ea"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "CISA yêu cầu các cơ quan chính phủ phải hoàn tất cập nhật bản vá trước lễ Tạ ơn trong khi phía công ty nỗ lực khôi phục nền tảng email.",
+          "cited_article_ids": [
+            "4040c365b44bf6ea"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cuối cùng là tin tức về vụ rò rỉ dữ liệu lớn tại Hàn Quốc. Công ty điện lực KEPCO đã chịu sự cố lộ dữ liệu ảnh hưởng đến 1,5 triệu người.",
+          "cited_article_ids": [
+            "32e5cd02c4f4dd6a"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Hacker đã lấy trộm thông tin cá nhân từ portal khách hàng và hệ thống quản lý quan hệ nhà cung cấp của KEPCO. Cảm ơn chị Lan vì những chia sẻ rất chi tiết vừa rồi.",
+          "cited_article_ids": [
+            "32e5cd02c4f4dd6a"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cảm ơn Minh và các bạn đã lắng nghe. Hãy chủ động cập nhật bản vá cho hệ thống của mình ngay hôm nay nhé!",
+          "cited_article_ids": [
+            "aa014f4b55f462a9",
+            "4abb37509292e211",
+            "8e2e8968330fa8b7",
+            "4040c365b44bf6ea",
+            "32e5cd02c4f4dd6a"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Cảnh báo bảo mật: Lỗ hổng nghiêm trọng và Rò rỉ dữ liệu",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "CẢNH BÁO BẢO MẬT NÓNG BỎNG",
+        "narration": {
+          "text": "Điểm qua những sự cố an ninh mạng nghiêm trọng mới nhất ngay sau đây!",
+          "cited_article_ids": [
+            "aa014f4b55f462a9",
+            "4abb37509292e211",
+            "8e2e8968330fa8b7",
+            "4040c365b44bf6ea",
+            "32e5cd02c4f4dd6a"
+          ]
+        },
+        "duration_sec": 5.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "VMware vCenter Lỗi CVSS 9.8",
+        "narration": {
+          "text": "Lỗ hổng CVE-2026-123903 trong vmdir của VMware vCenter cho phép bypass authentication.",
+          "cited_article_ids": [
+            "aa014f4b55f462a9"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "Azure APIM Bị Khai Thác",
+        "narration": {
+          "text": "Hacker khai thác lỗ hổng Azure APIM trộm secret của khách hàng bao gồm các công ty năng lượng.",
+          "cited_article_ids": [
+            "4abb37509292e211"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Check Point Server Bị Tấn Công AI",
+        "narration": {
+          "text": "Chiến dịch có AI hỗ trợ từ 99 IP tấn công máy chủ Check Point Security Management.",
+          "cited_article_ids": [
+            "8e2e8968330fa8b7"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "CISA Cảnh Báo Lỗi N-able",
+        "narration": {
+          "text": "CISA yêu cầu chính phủ vá gấp lỗi nền tảng email N-able trước Lễ Tạ ơn.",
+          "cited_article_ids": [
+            "4040c365b44bf6ea"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "KEPCO Rò Rỉ 1.5 Triệu Dữ Liệu",
+        "narration": {
+          "text": "Công ty điện lực KEPCO Hàn Quốc bị trộm thông tin cá nhân của 1,5 triệu người.",
+          "cited_article_ids": [
+            "32e5cd02c4f4dd6a"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "CẬP NHẬT BẢN VÁ NGAY!",
+        "narration": {
+          "text": "Hãy kiểm tra và cập nhật bản vá bảo mật cho hệ thống của bạn ngay hôm nay!",
+          "cited_article_ids": [
+            "aa014f4b55f462a9",
+            "4abb37509292e211",
+            "8e2e8968330fa8b7",
+            "4040c365b44bf6ea",
+            "32e5cd02c4f4dd6a"
+          ]
+        },
+        "duration_sec": 5.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "🔴 ĐIỂM TIN AN NINH MẠNG MỚI NHẤT\n\n• Broadcom vá lỗ hổng 9.8 điểm CVSS (CVE-2026-123903) cho phép qua mặt xác thực trên VMware vCenter.\n• Azure API Management bị khai thác khiến nhiều doanh nghiệp rò rỉ thông tin xác thực.\n• Máy chủ Check Point bị tấn công bởi chiến dịch có sự hỗ trợ của AI từ 99 địa chỉ IP.\n• CISA cảnh báo khẩn về lỗ hổng bảo mật email trên N-able.\n• KEPCO (Hàn Quốc) bị trộm dữ liệu cá nhân của 1,5 triệu người dùng.\n\nChi tiết xem tại bản tin!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#CyberSecurity",
+        "#VMware",
+        "#Azure",
+        "#DataBreach"
+      ],
+      "cited_article_ids": [
+        "aa014f4b55f462a9",
+        "4abb37509292e211",
+        "8e2e8968330fa8b7",
+        "4040c365b44bf6ea",
+        "32e5cd02c4f4dd6a"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "CẬP NHẬT AN NINH MẠNG: LỖ HỔNG VMWARE, AZURE API VÀ TẤN CÔNG AI\n\nNội dung chính trong video điểm tin hôm nay:\n- Broadcom phát hành bản vá cho 23 lỗ hổng trên VMware, trong đó có lỗ hổng bypass xác thực CVE-2026-123903 nghiêm trọng (9.8 CVSS).\n- Microsoft cảnh báo lỗ hổng Azure API Management bị khai thác đánh cắp mật khẩu khách hàng tại Na Uy và nhiều quốc gia.\n- Máy chủ Check Point Security Management bị tấn công từ 99 IP trong chiến dịch có trợ lực từ AI.\n- CISA hối thúc các cơ quan vá khẩn cấp lỗ hổng bảo mật email N-able.\n- Rò rỉ dữ liệu cá nhân của 1,5 triệu người tại Công ty Điện lực Hàn Quốc KEPCO.",
+      "hashtags": [
+        "#TinTucCongNghe",
+        "#BaoMat",
+        "#VMware",
+        "#CheckPoint",
+        "#CISA"
+      ],
+      "cited_article_ids": [
+        "aa014f4b55f462a9",
+        "4abb37509292e211",
+        "8e2e8968330fa8b7",
+        "4040c365b44bf6ea",
+        "32e5cd02c4f4dd6a"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Điểm tin an ninh mạng: VMware bị lỗi 9.8 CVSS; Azure APIM lộ secret; Check Point bị AI tấn công từ 99 IP; CISA hối thúc vá N-able và 1.5 triệu người lộ dữ liệu tại KEPCO!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#BaoMat",
+        "#TinCongNghe"
+      ],
+      "cited_article_ids": [
+        "aa014f4b55f462a9",
+        "4abb37509292e211",
+        "8e2e8968330fa8b7",
+        "4040c365b44bf6ea",
+        "32e5cd02c4f4dd6a"
+      ]
+    }
+  ]
+}

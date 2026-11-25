@@ -1,0 +1,143 @@
+1
+00:00:00,000 --> 00:00:04,031
+[Minh] Chào mừng các bạn đến với bản tin An ninh mạng hôm nay! Tôi là Minh,
+
+2
+00:00:04,031 --> 00:00:08,833
+và hôm nay chúng ta sẽ cùng đồng hành với chị Lan để cập nhật những sự cố an toàn
+
+3
+00:00:08,833 --> 00:00:10,848
+thông tin quan trọng nhất gần đây.
+
+4
+00:00:11,198 --> 00:00:13,768
+[Lan] Chào Minh và chào tất cả các bạn.
+
+5
+00:00:13,768 --> 00:00:18,831
+Đầu tiên, chúng ta hãy đến với thông tin cực kỳ nóng từ Broadcom.
+
+6
+00:00:18,831 --> 00:00:24,517
+Họ vừa phát hành bản vá cho 23 lỗ hổng ảnh hưởng đến VMware ESX, vCenter,
+
+7
+00:00:24,517 --> 00:00:27,710
+Workstation, Fusion và Avi Load Balancer.
+
+8
+00:00:28,060 --> 00:00:34,342
+[Minh] Đáng chú ý nhất trong số này là lỗ hổng bypass authentication nghiêm trọng với điểm
+
+9
+00:00:34,342 --> 00:00:38,429
+CVSS 9.8 đúng không chị? Mã của nó là CVE-2026-123903,
+
+10
+00:00:38,429 --> 00:00:41,835
+nằm trong VMware Directory Service hay vmdir,
+
+11
+00:00:41,835 --> 00:00:45,316
+cho phép kẻ tấn công vượt qua cơ chế xác thực.
+
+12
+00:00:45,666 --> 00:00:47,463
+[Lan] Chính xác. Bên cạnh VMware,
+
+13
+00:00:47,463 --> 00:00:52,921
+Microsoft cũng đã đưa ra cảnh báo về một lỗ hổng trong Azure API Management (APIM)
+
+14
+00:00:52,921 --> 00:00:58,446
+đang bị khai thác thực tế để đánh cắp thông tin xác thực lưu trong các instance của
+
+15
+00:00:58,446 --> 00:00:59,178
+khách hàng.
+
+16
+00:00:59,528 --> 00:01:04,665
+[Minh] Các nạn nhân bao gồm nhiều tổ chức tại Na Uy như các công ty năng lượng Equinor và
+
+17
+00:01:04,665 --> 00:01:08,048
+Skagerak Energi, cùng một số tổ chức ở các ngành khác.
+
+18
+00:01:08,048 --> 00:01:10,617
+APIM đóng vai trò gateway xử lý xác thực,
+
+19
+00:01:10,617 --> 00:01:15,128
+định tuyến và giới hạn lưu lượng nên việc rò rỉ secret là rất nguy hiểm.
+
+20
+00:01:15,478 --> 00:01:20,677
+[Lan] Tiếp theo là thông tin về các máy chủ Check Point Security Management Server.
+
+21
+00:01:20,677 --> 00:01:26,349
+Chúng đã bị xâm nhập trong một chiến dịch tấn công có sự hỗ trợ của trí tuệ nhân tạo
+
+22
+00:01:26,349 --> 00:01:26,686
+(AI).
+
+23
+00:01:27,036 --> 00:01:31,811
+[Minh] Chiến dịch tấn công này xuất phát từ 99 địa chỉ IP khác nhau và nhằm vào các tổ chức
+
+24
+00:01:31,811 --> 00:01:34,596
+thuộc nhiều ngành nghề và quốc gia trên thế giới.
+
+25
+00:01:34,946 --> 00:01:36,217
+[Lan] Không dừng lại ở đó,
+
+26
+00:01:36,217 --> 00:01:41,365
+cơ quan an ninh mạng Mỹ CISA cũng vừa đưa ra cảnh báo về một lỗ hổng đang bị khai
+
+27
+00:01:41,365 --> 00:01:43,653
+thác trên nền tảng email của N-able.
+
+28
+00:01:43,653 --> 00:01:47,594
+Đây là nền tảng quan trọng giúp chặn spam và phần mềm độc hại.
+
+29
+00:01:47,944 --> 00:01:52,811
+[Minh] CISA yêu cầu các cơ quan chính phủ phải hoàn tất cập nhật bản vá trước lễ Tạ ơn
+
+30
+00:01:52,811 --> 00:01:56,200
+trong khi phía công ty nỗ lực khôi phục nền tảng email.
+
+31
+00:01:56,550 --> 00:02:00,828
+[Lan] Cuối cùng là tin tức về vụ rò rỉ dữ liệu lớn tại Hàn Quốc.
+
+32
+00:02:00,828 --> 00:02:06,582
+Công ty điện lực KEPCO đã chịu sự cố lộ dữ liệu ảnh hưởng đến 1,5 triệu người.
+
+33
+00:02:06,932 --> 00:02:12,168
+[Minh] Hacker đã lấy trộm thông tin cá nhân từ portal khách hàng và hệ thống quản lý quan
+
+34
+00:02:12,168 --> 00:02:17,276
+hệ nhà cung cấp của KEPCO. Cảm ơn chị Lan vì những chia sẻ rất chi tiết vừa rồi.
+
+35
+00:02:17,626 --> 00:02:20,201
+[Lan] Cảm ơn Minh và các bạn đã lắng nghe.
+
+36
+00:02:20,201 --> 00:02:25,066
+Hãy chủ động cập nhật bản vá cho hệ thống của mình ngay hôm nay nhé!

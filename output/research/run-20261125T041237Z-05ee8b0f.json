@@ -1,0 +1,86 @@
+{
+  "run_id": "run-20261125T041237Z-05ee8b0f",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "aa014f4b55f462a9",
+        "source_name": "The Hacker News",
+        "title": "VMware vCenter Hit by Another Critical 9.8-Rated Auth Bypass Flaw After Zero-Day Exploitation",
+        "url": "https://thehackernews.com/2026/11/vmware-vcenter-hit-by-another-critical.html",
+        "published_at": "2026-11-24T13:28:26Z",
+        "summary": "Broadcom has shipped patches to address 23 vulnerabilities impacting VMware ESX, vCenter, Workstation, Fusion, and Avi Load Balancer, including one critical bug that could be abused to bypass authentication. The critical vulnerability, tracked as CVE-2026-123903, is rated 9.8 out of 10.0 on the CVSS scoring system. It resides in the VMware Directory Service (\"vmdir\"). \"A malicious actor with",
+        "fetched_at": "2026-11-25T04:12:35.108304Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Broadcom đã phát hành bản vá cho 23 lỗ hổng trên các sản phẩm VMware, bao gồm lỗi nghiêm trọng 9.8 điểm CVSS cho phép bỏ qua xác thực trên vCenter."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "4abb37509292e211",
+        "source_name": "Help Net Security",
+        "title": "Azure API Management vulnerability exploited to steal customers’ secrets",
+        "url": "https://helpnetsecurity.com/2026/11/24/azure-apim-vulnerability-credential-theft",
+        "published_at": "2026-11-24T12:04:37Z",
+        "summary": "Attackers have exploited a vulnerability in Azure API Management (APIM) to steal credentials stored in customers’ instances, Microsoft has warned. Among the victims are several Norwegian organizations, including energy companies Equinor and Skagerak Energi, and organizations in other sectors and outside Norway, the country’s National Security Authority (NSM) confirmed. APIM Classic tiers affected APIM is a gateway that sits in front of an organization’s APIs and handles authentication, routing and rate limiting. To call the … More → The post Azure API Management vulnerability exploited to steal customers’ secrets appeared first on Help Net Security .",
+        "fetched_at": "2026-11-25T04:12:35.637440Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Microsoft cảnh báo lỗ hổng trên Azure API Management đang bị khai thác thực tế để đánh cắp thông tin xác thực của khách hàng."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "8e2e8968330fa8b7",
+        "source_name": "SecurityWeek",
+        "title": "Check Point Security Management Servers Hacked in AI-Assisted Campaign",
+        "url": "https://securityweek.com/check-point-security-management-servers-hacked-in-ai-assisted-campaign",
+        "published_at": "2026-11-24T14:21:56Z",
+        "summary": "The attacks were launched from 99 IP addresses and targeted organizations across multiple industries and countries. The post Check Point Security Management Servers Hacked in AI-Assisted Campaign appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-25T04:12:35.397505Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Hệ thống quản lý bảo mật của Check Point bị tấn công trong một chiến dịch có sự hỗ trợ của AI nhằm vào nhiều tổ chức trên toàn thế giới."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "4040c365b44bf6ea",
+        "source_name": "The Record",
+        "title": "CISA warns of exploited N-able bug as company restores email platform",
+        "url": "https://therecord.media/cisa-nable-cybersecurity-bug",
+        "published_at": "2026-11-24T15:00:00Z",
+        "summary": "The U.S. cyber agency is giving government departments until Thanksgiving to patch a vulnerability impacting a critical email security platform that blocks spam, malware and other threats.",
+        "fetched_at": "2026-11-25T04:12:35.205031Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "CISA phát cảnh báo về lỗ hổng đang bị khai thác chủ động trên nền tảng bảo mật email của N-able."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "32e5cd02c4f4dd6a",
+        "source_name": "SecurityWeek",
+        "title": "1.5 Million Impacted by Data Breach at South Korean Electric Company KEPCO",
+        "url": "https://securityweek.com/1-5-million-impacted-by-data-breach-at-south-korean-electric-company-kepco",
+        "published_at": "2026-11-24T11:50:21Z",
+        "summary": "Hackers stole personal information from the company’s customer portal and supplier relationship management platform. The post 1.5 Million Impacted by Data Breach at South Korean Electric Company KEPCO appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-25T04:12:35.397505Z",
+        "topics_matched": [
+          "data breach"
+        ]
+      },
+      "relevance_reason": "Vụ rò rỉ dữ liệu nghiêm trọng tại công ty điện lực KEPCO của Hàn Quốc đã làm ảnh hưởng đến thông tin cá nhân của 1,5 triệu người dùng."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=5; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=0"
+}
