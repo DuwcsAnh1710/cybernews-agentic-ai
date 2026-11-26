@@ -1,0 +1,296 @@
+{
+  "run_id": "run-20261126T052716Z-ba364ba0",
+  "language": "vi",
+  "digest": {
+    "title": "Bản tin An ninh mạng: Sự cố truy cập trái phép 1Password, Lỗ hổng Drupal và Nguy cơ lộ khóa AWS",
+    "intro": "Tổng hợp các thông tin an ninh mạng mới nhất dành cho chuyên gia công nghệ và sinh viên IT. Bản tin hôm nay cập nhật sự cố bảo mật tại 1Password, lỗ hổng Drupal bị khai thác tích cực, bản vá tường lửa Palo Alto, việc sử dụng công cụ AI trong tấn công mạng và rủi ro lộ khóa đám mây trên Docker.",
+    "sections": [
+      {
+        "heading": "1Password bị truy cập trái phép hệ thống backend và kho mã nguồn trên GitHub",
+        "body": {
+          "text": "Dịch vụ quản lý mật khẩu 1Password vừa công bố một sự cố bảo mật liên quan đến hệ thống backend (hệ thống xử lý phía máy chủ), dẫn đến việc kẻ tấn công truy cập trái phép một số thông tin khách hàng và mã nguồn trên tài khoản GitHub. Tuy nhiên, đơn vị này nhấn mạnh rằng kho mật khẩu (password vaults) và các thông tin bí mật của khách hàng không bị truy cập trong sự cố này. Công ty đã ngay lập tức triển khai các biện pháp ngăn chặn và xử lý.",
+          "cited_article_ids": [
+            "5e5b0d3bb248d414"
+          ]
+        }
+      },
+      {
+        "heading": "CISA cảnh báo lỗ hổng RCE nghiêm trọng Fail2Install trên Drupal",
+        "body": {
+          "text": "Cơ quan An ninh mạng và Cơ sở hạ tầng Mỹ (CISA) đã đưa lỗ hổng CVE-2026-132165 (còn gọi là Fail2Install) ảnh hưởng đến Drupal core vào danh mục KEV (danh mục các lỗ hổng bị khai thác tích cực). Lỗ hổng thi hành mã từ xa (RCE - cho phép kẻ tấn công chạy mã trái phép từ xa) này đạt điểm CVSS 9.8. CISA yêu cầu các cơ quan liên bang hoàn tất khắc phục trước ngày 27/11/2026.",
+          "cited_article_ids": [
+            "f8d0d1935ac4bbfb"
+          ]
+        }
+      },
+      {
+        "heading": "Palo Alto vá lỗ hổng Fragnesia bị chuỗi tấn công cùng PHP2Shell",
+        "body": {
+          "text": "Palo Alto Networks đã phát hành bản vá cho lỗ hổng nhân (kernel bug) có tên Fragnesia. Lỗ hổng này trước đó đã bị kẻ tấn công kết hợp với PHP2Shell nhằm chiếm quyền truy cập mức cao nhất (root) trên các thiết bị tường lửa (firewall), đe dọa an toàn của hệ thống mạng.",
+          "cited_article_ids": [
+            "8bbfc000c66bb0d1"
+          ]
+        }
+      },
+      {
+        "heading": "Nhóm hacker Salt Typhoon sử dụng công cụ AI Artex trong các chiến dịch tấn công",
+        "body": {
+          "text": "Theo Microsoft, công cụ trí tuệ nhân tạo (AI) Artex từng liên quan đến nhiều vụ vi phạm an ninh mạng lớn đang được tích hợp nhanh chóng vào bộ công cụ tấn công của các nhóm hacker từ Trung Quốc (như Salt Typhoon) và Triều Tiên.",
+          "cited_article_ids": [
+            "96063772354653dd"
+          ]
+        }
+      },
+      {
+        "heading": "Bot tự động khai thác khóa AWS bị rò rỉ trên Docker Image chỉ trong dưới 8 giây",
+        "body": {
+          "text": "Nghiên cứu từ Đại học Stony Brook cho thấy các bot tự động có thể tìm thấy và khai thác khóa truy cập đám mây AWS bị bỏ quên trong Docker image (tệp đóng gói phần mềm) trên các kho lưu trữ công khai trong chưa đầy 8 giây. Thử nghiệm thực hiện với 300 image mồi trên các registry công khai đã chứng minh tốc độ quét và tấn công cực nhanh của các đối tượng đe dọa.",
+          "cited_article_ids": [
+            "dca5f6872db8c85a"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: Từ Sự Cố 1Password Đến Mã Độc Chuỗi Cung Ứng",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn quay trở lại với bản tin An ninh mạng hôm nay. Tôi là Minh, đồng hành cùng chị Lan. Hôm nay chúng ta sẽ điểm qua những sự kiện bảo mật rất đáng chú ý gần đây.",
+          "cited_article_ids": [
+            "5e5b0d3bb248d414",
+            "f8d0d1935ac4bbfb",
+            "8bbfc000c66bb0d1",
+            "96063772354653dd",
+            "dca5f6872db8c85a"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào Minh và chào các độc giả. Đầu tiên là vụ việc 1Password vừa công bố một sự cố bảo mật liên quan đến hệ thống backend thông qua tài khoản GitHub. Kẻ tấn công đã truy cập trái phép vào một số thông tin khách hàng và mã nguồn.",
+          "cited_article_ids": [
+            "5e5b0d3bb248d414"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Tuy nhiên, 1Password nhấn mạnh rằng các két chứa mật khẩu (vaults) và dữ liệu bí mật khác của khách hàng vẫn an toàn và không bị truy cập. Họ đã ngay lập tức thực hiện các biện pháp cô lập sự cố.",
+          "cited_article_ids": [
+            "5e5b0d3bb248d414"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Tiếp theo là thông tin về lỗ hổng Drupal có tên Fail2Install, mã CVE-2026-132165 với điểm CVSS 9.8. Lỗ hổng RCE cực kỳ nguy hiểm này nằm trong Drupal core và đang bị khai thác thực tế.",
+          "cited_article_ids": [
+            "f8d0d1935ac4bbfb"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Cơ quan CISA của Mỹ đã thêm lỗ hổng này vào danh mục KEV và yêu cầu các cơ quan liên bang phải cập nhật bản vá trước ngày 27 tháng 11 năm 2026.",
+          "cited_article_ids": [
+            "f8d0d1935ac4bbfb"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Trong một diễn biến khác, Palo Alto Networks đã khắc phục lỗi kernel Fragnesia. Lỗi này từng bị kẻ tấn công chuỗi kết hợp với lỗ hổng PHP2Shell để chiếm quyền root trên tường lửa.",
+          "cited_article_ids": [
+            "8bbfc000c66bb0d1"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Bên cạnh đó, Microsoft cảnh báo rằng nhóm hacker Salt Typhoon của Trung Quốc cùng các nhóm từ Triều Tiên đang nhanh chóng tích hợp Artex - một công cụ AI từng dính líu đến nhiều vụ vi phạm lớn - vào bộ công cụ tấn công của họ.",
+          "cited_article_ids": [
+            "96063772354653dd"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cuối cùng là nghiên cứu từ Đại học Stony Brook. Họ phát hiện ra rằng bot có thể dò quét và khai thác khóa AWS bị lộ trong Docker image công khai chỉ trong chưa đầy 8 giây!",
+          "cited_article_ids": [
+            "dca5f6872db8c85a"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Các nghiên cứu sinh Billy Tsouvalas và Nick Nikiforakis đã phát hiện điều này sau khi đặt 300 Docker image bẫy trên các kho chứa công khai. Hãy luôn cẩn trọng khi đóng gói ứng dụng nhé. Cảm ơn các bạn đã theo dõi!",
+          "cited_article_ids": [
+            "5e5b0d3bb248d414",
+            "f8d0d1935ac4bbfb",
+            "8bbfc000c66bb0d1",
+            "96063772354653dd",
+            "dca5f6872db8c85a"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Tin Tức An Ninh Mạng Nổi Bật",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "Cập Nhật An Ninh Mạng Hot Nhất",
+        "narration": {
+          "text": "Cùng điểm qua những tin tức bảo mật đáng chú ý nhất hôm nay!",
+          "cited_article_ids": [
+            "5e5b0d3bb248d414",
+            "f8d0d1935ac4bbfb",
+            "8bbfc000c66bb0d1",
+            "96063772354653dd",
+            "dca5f6872db8c85a"
+          ]
+        },
+        "duration_sec": 5.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "1Password Rò Rỉ Hệ Thống Backend",
+        "narration": {
+          "text": "1Password bị truy cập hệ thống backend qua GitHub, nhưng két mật khẩu của khách hàng vẫn an toàn.",
+          "cited_article_ids": [
+            "5e5b0d3bb248d414"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "Lỗ Hổng Drupal Fail2Install (CVSS 9.8)",
+        "narration": {
+          "text": "Lỗ hổng CVE-2026-132165 trong Drupal core bị khai thác mạnh, CISA yêu cầu khẩn trương vá.",
+          "cited_article_ids": [
+            "f8d0d1935ac4bbfb"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Palo Alto Vá Lỗi Kernel Fragnesia",
+        "narration": {
+          "text": "Palo Alto sửa lỗi Fragnesia khi bị kết hợp với PHP2Shell để chiếm quyền root tường lửa.",
+          "cited_article_ids": [
+            "8bbfc000c66bb0d1"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "Hacker Dùng Công Cụ AI Artex",
+        "narration": {
+          "text": "Microsoft cảnh báo nhóm Salt Typhoon sử dụng công cụ AI Artex trong các vụ tấn công.",
+          "cited_article_ids": [
+            "96063772354653dd"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "Lộ Khóa AWS Trong Docker: 8 Giây!",
+        "narration": {
+          "text": "Bot tự động phát hiện và chiếm quyền khóa AWS bị lộ trong Docker image chỉ trong 8 giây.",
+          "cited_article_ids": [
+            "dca5f6872db8c85a"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "Theo Dõi Để Cập Nhật Tin Bảo Mật!",
+        "narration": {
+          "text": "Hãy luôn kiểm tra và bảo mật hệ thống của bạn. Nhấn theo dõi ngay nhé!",
+          "cited_article_ids": [
+            "5e5b0d3bb248d414",
+            "f8d0d1935ac4bbfb",
+            "8bbfc000c66bb0d1",
+            "96063772354653dd",
+            "dca5f6872db8c85a"
+          ]
+        },
+        "duration_sec": 5.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "🔴 CẬP NHẬT AN NINH MẠNG TỪ 1PASSWORD, DRUPAL VÀ DOCKER\n\n- 1Password gặp sự cố bảo mật backend và kho mã nguồn GitHub, tuy nhiên kho mật khẩu khách hàng vẫn an toàn [A1].\n- CISA cảnh báo lỗ hổng RCE nghiêm trọng Fail2Install trên Drupal core đang bị khai thác [A2].\n- Palo Alto sửa lỗi nhân Fragnesia bị lợi dụng để chiếm quyền root tường lửa [A3].\n- Microsoft phát hiện hacker sử dụng công cụ AI Artex [A4].\n- Nghiên cứu cảnh báo khóa AWS rò rỉ trên Docker image bị bot quét và chiếm đoạt chỉ dưới 8 giây [A5].",
+      "hashtags": [
+        "#AnNinhMang",
+        "#1Password",
+        "#Drupal",
+        "#PaloAlto",
+        "#Docker",
+        "#CyberSecurity"
+      ],
+      "cited_article_ids": [
+        "5e5b0d3bb248d414",
+        "f8d0d1935ac4bbfb",
+        "8bbfc000c66bb0d1",
+        "96063772354653dd",
+        "dca5f6872db8c85a"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "TỔNG HỢP TIN TỨC AN NINH MẠNG MỚI NHẤT\n\nNội dung chi tiết trong video:\n- 1Password bị truy cập trái phép hệ thống backend và tài khoản GitHub, kho mật khẩu không ảnh hưởng [A1].\n- Lỗ hổng nghiêm trọng Fail2Install (CVE-2026-132165) trên Drupal bị đưa vào danh mục KEV của CISA [A2].\n- Palo Alto khắc phục lỗ hổng Fragnesia bị chuỗi tấn công với PHP2Shell để chiếm quyền root tường lửa [A3].\n- Microsoft cảnh báo các nhóm hacker đang tích hợp công cụ AI Artex vào kho vũ khí tấn công [A4].\n- Cảnh báo bảo mật Cloud: Bot quét và tự động khai thác khóa AWS bị lộ trên Docker image chỉ trong 8 giây [A5].",
+      "hashtags": [
+        "#CyberSecurity",
+        "#TinTucCongNghe",
+        "#1Password",
+        "#DrupalRCE",
+        "#AWSKeyLeak"
+      ],
+      "cited_article_ids": [
+        "5e5b0d3bb248d414",
+        "f8d0d1935ac4bbfb",
+        "8bbfc000c66bb0d1",
+        "96063772354653dd",
+        "dca5f6872db8c85a"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Điểm tin an ninh mạng: 1Password bị lộ backend [A1], Drupal dính lỗi RCE nghiêm trọng [A2], Palo Alto vá tường lửa [A3], hacker dùng AI Artex [A4] và nguy cơ lộ khóa AWS trên Docker bị bot quét dưới 8 giây [A5]!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#Hacker",
+        "#CongNghe",
+        "#1Password",
+        "#AWS"
+      ],
+      "cited_article_ids": [
+        "5e5b0d3bb248d414",
+        "f8d0d1935ac4bbfb",
+        "8bbfc000c66bb0d1",
+        "96063772354653dd",
+        "dca5f6872db8c85a"
+      ]
+    }
+  ]
+}

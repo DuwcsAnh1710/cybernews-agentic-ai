@@ -1,0 +1,81 @@
+{
+  "run_id": "run-20261126T052716Z-ba364ba0",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "5e5b0d3bb248d414",
+        "source_name": "The Hacker News",
+        "title": "1Password Hacked, Customer Data and Source Code Stolen in GitHub Account Breach",
+        "url": "https://thehackernews.com/2026/11/1password-hacked-customer-data-and.html",
+        "published_at": "2026-11-26T04:20:22Z",
+        "summary": "Popular password management software 1Password on Wednesday disclosed a security incident involving its backend systems that led to the unauthorized access of some customer information, but emphasized that customer password vaults and other secrets were not accessed. \"While we took immediate steps to contain the incident, the attacker gained access to some of our backend systems and accessed a",
+        "fetched_at": "2026-11-26T05:27:13.916773Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Dịch vụ quản lý mật khẩu phổ biến 1Password vừa phát hiện sự cố bảo mật làm rò rỉ dữ liệu khách hàng và mã nguồn trên tài khoản GitHub backend."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "f8d0d1935ac4bbfb",
+        "source_name": "The Hacker News",
+        "title": "Drupal Fail2Install Exploit Details Emerge as Critical RCE Flaw Faces Active Exploitation",
+        "url": "https://thehackernews.com/2026/11/drupal-fail2install-exploit-details.html",
+        "published_at": "2026-11-25T11:23:26Z",
+        "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) on Tuesday added a critical flaw impacting Drupal to its Known Exploited Vulnerabilities (KEV) catalog, requiring federal agencies to apply the fixes by November 27, 2026. The vulnerability, tracked as CVE-2026-132165 aka Fail2Install (CVSS score: 9.8), is a case of remote code execution (RCE) impacting Drupal core. \"Drupal Core",
+        "fetched_at": "2026-11-26T05:27:13.916773Z",
+        "topics_matched": [
+          "cybersecurity",
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Lỗ hổng thực thi mã từ xa cực kỳ nghiêm trọng (CVE-2026-132165) trên Drupal đang bị khai thác tích cực trong thực tế và đã được CISA đưa vào danh mục cảnh báo khẩn cấp."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "8bbfc000c66bb0d1",
+        "source_name": "Infosecurity Magazine",
+        "title": "Palo Alto Fixes Fragnesia Kernel Bug Chained With PHP2Shell in Firewall Attacks",
+        "url": "https://infosecurity-magazine.com/news/palo-alto-fragnesia-php2shell-fix",
+        "published_at": "2026-11-25T15:00:00Z",
+        "summary": "Palo Alto fixed Fragnesia after attackers chained it with PHP2Shell to root firewalls",
+        "fetched_at": "2026-11-26T05:27:14.586517Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Palo Alto Networks đã khắc phục lỗi nhân Fragnesia sau khi kẻ tấn công kết hợp nó với lỗ hổng PHP2Shell để chiếm quyền điều khiển tường lửa."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "96063772354653dd",
+        "source_name": "The Record",
+        "title": "Microsoft: China’s Salt Typhoon hackers are using Artex",
+        "url": "https://therecord.media/microsoft-china-salt-typhoon-using-artex-ai-tool",
+        "published_at": "2026-11-25T21:18:00Z",
+        "summary": "An AI tool implicated in several high-profile breaches is rapidly being integrated into the hacking suites of groups from China and North Korea, Microsoft said.",
+        "fetched_at": "2026-11-26T05:27:14.193084Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Microsoft cảnh báo các nhóm hacker từ Trung Quốc và Triều Tiên đang nhanh chóng tích hợp công cụ AI Artex vào bộ công cụ tấn công mạng."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "dca5f6872db8c85a",
+        "source_name": "Help Net Security",
+        "title": "Bots exploited leaked AWS key from Docker image in under 8 seconds",
+        "url": "https://helpnetsecurity.com/2026/11/25/docker-aws-key-exposure-bots",
+        "published_at": "2026-11-25T11:22:32Z",
+        "summary": "A cloud access key left inside a newly published Docker image can be found and used by bots in less than eight seconds, Billy Tsouvalas and Nick Nikiforakis of Stony Brook University discovered after planting 300 decoy images on public container registries. Docker images are packaged copies of software, bundled with everything needed to run it, and developers publish them to public registries such as Docker Hub, which hosts over 14 million of them, so … More → The post Bots exploited leaked AWS key from Docker image in under 8 seconds appeared first on Help Net Security .",
+        "fetched_at": "2026-11-26T05:27:14.653506Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Nghiên cứu cho thấy các bot tự động có thể phát hiện và chiếm đoạt khóa truy cập AWS bị rò rỉ trong các hình ảnh Docker công khai chỉ trong chưa đầy 8 giây."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=4"
+}

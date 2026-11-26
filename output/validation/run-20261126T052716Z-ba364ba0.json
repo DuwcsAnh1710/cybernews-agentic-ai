@@ -1,0 +1,85 @@
+{
+  "run_id": "run-20261126T052716Z-ba364ba0",
+  "passed": false,
+  "errors": [
+    {
+      "code": "E_NUMBER_UNSUPPORTED",
+      "severity": "error",
+      "path": "digest.sections[1].body.text",
+      "message": "Number '11' not found in cited source text",
+      "evidence": "11"
+    },
+    {
+      "code": "E_NUMBER_UNSUPPORTED",
+      "severity": "error",
+      "path": "podcast.segments[4].line.text",
+      "message": "Number '11' not found in cited source text",
+      "evidence": "11"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "W_PODCAST_LENGTH",
+      "severity": "warning",
+      "path": "podcast.segments",
+      "message": "Total podcast words (371) outside target range [480, 720] (target 600 ± 20%)",
+      "evidence": "371 words (expected 480-720)"
+    },
+    {
+      "code": "W_SECTION_LENGTH",
+      "severity": "warning",
+      "path": "digest.sections[2].body.text",
+      "message": "Section body word count (55) outside allowed range [60, 120]",
+      "evidence": "55 words"
+    },
+    {
+      "code": "W_SECTION_LENGTH",
+      "severity": "warning",
+      "path": "digest.sections[3].body.text",
+      "message": "Section body word count (47) outside allowed range [60, 120]",
+      "evidence": "47 words"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "digest.sections[2].body.text",
+      "message": "Term 'Networks' not found in cited source text and not allowlisted",
+      "evidence": "Networks"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "podcast.segments[5].line.text",
+      "message": "Term 'Networks' not found in cited source text and not allowlisted",
+      "evidence": "Networks"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "captions[0].text",
+      "message": "Term 'NINH' not found in cited source text and not allowlisted",
+      "evidence": "NINH"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "captions[1].text",
+      "message": "Term 'TIN' not found in cited source text and not allowlisted",
+      "evidence": "TIN"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "captions[1].text",
+      "message": "Term 'NINH' not found in cited source text and not allowlisted",
+      "evidence": "NINH"
+    }
+  ],
+  "checks_run": [
+    "layer1_structural",
+    "layer2_source_consistency",
+    "layer3_llm_claim_review (skipped)"
+  ],
+  "llm_review": "skipped",
+  "scope_note": "Structural and source-consistency checks against RSS title/summary only. Facts are NOT independently verified."
+}

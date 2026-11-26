@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "style": "hallmark-gouache",
+  "beats": {
+    "seg01_b1": {
+      "file": "seg01_b1.jpg",
+      "prompt": "a heavy brass padlock and an old iron key resting on a server cabinet, a sysadmin's hand holding a printed patch notice. Editorial illustration for a printed news magazine, gouache and coloured pencil on warm cream paper, muted earthy palette of ochre, brick vermilion, prussian blue and forest green, soft natural daylight, visible paper grain and brush texture, calm documentary composition at human scale, generous negative space. No text, no letters, no numbers, no logos, no watermarks, no neon, no glowing holograms, no sci-fi HUD, no hooded hacker.",
+      "brief": "a heavy brass padlock and an old iron key resting on a server cabinet, a sysadmin's hand holding a printed patch notice",
+      "text": "Chào Minh và chào các độc giả. Đầu tiên là vụ việc 1Password vừa công bố một sự cố bảo mật liên quan đến hệ thống backend thông qua tài khoản GitHub.",
+      "text_hash": "8dc72ecda93c",
+      "provider": "pollinations"
+    }
+  }
+}

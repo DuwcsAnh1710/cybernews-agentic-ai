@@ -1,0 +1,103 @@
+1
+00:00:00,180 --> 00:00:01,880
+Lan: Chào Minh và chào các độc giả.
+
+2
+00:00:02,840 --> 00:00:04,531
+Đầu tiên là vụ việc 1Password vừa
+
+3
+00:00:04,531 --> 00:00:05,999
+công bố một sự cố bảo mật
+
+4
+00:00:05,999 --> 00:00:07,662
+liên quan đến hệ thống backend thông
+
+5
+00:00:07,662 --> 00:00:08,610
+qua tài khoản GitHub.
+
+6
+00:00:08,730 --> 00:00:10,583
+Kẻ tấn công đã truy cập trái
+
+7
+00:00:10,583 --> 00:00:12,502
+phép vào một số thông tin khách
+
+8
+00:00:12,502 --> 00:00:13,570
+hàng và mã nguồn.
+
+9
+00:00:14,850 --> 00:00:16,609
+Lan: Tiếp theo là thông tin về lỗ
+
+10
+00:00:16,609 --> 00:00:18,190
+hổng Drupal có tên Fail2Install,
+
+11
+00:00:18,550 --> 00:00:22,500
+mã CVE-2026-132165 với điểm CVSS 9.8.
+
+12
+00:00:22,630 --> 00:00:25,018
+Lỗ hổng RCE cực kỳ nguy hiểm
+
+13
+00:00:25,018 --> 00:00:27,546
+này nằm trong Drupal core và đang
+
+14
+00:00:27,546 --> 00:00:29,260
+bị khai thác thực tế.
+
+15
+00:00:30,532 --> 00:00:31,482
+Lan: Trong một diễn biến khác,
+
+16
+00:00:31,832 --> 00:00:34,122
+Palo Alto Networks đã khắc phục lỗi
+
+17
+00:00:34,122 --> 00:00:37,047
+kernel Fragnesia. Lỗi này từng bị kẻ
+
+18
+00:00:37,047 --> 00:00:38,729
+tấn công chuỗi kết hợp với lỗ
+
+19
+00:00:38,729 --> 00:00:40,694
+hổng PHP2Shell để chiếm quyền root trên
+
+20
+00:00:40,694 --> 00:00:41,202
+tường lửa.
+
+21
+00:00:42,500 --> 00:00:44,247
+Lan: Cuối cùng là nghiên cứu từ Đại
+
+22
+00:00:44,247 --> 00:00:45,050
+học Stony Brook.
+
+23
+00:00:46,020 --> 00:00:47,643
+Họ phát hiện ra rằng bot có
+
+24
+00:00:47,643 --> 00:00:49,304
+thể dò quét và khai thác khóa
+
+25
+00:00:49,304 --> 00:00:51,042
+AWS bị lộ trong Docker image công
+
+26
+00:00:51,042 --> 00:00:52,810
+khai chỉ trong chưa đầy 8 giây!

@@ -1,0 +1,119 @@
+1
+00:00:00,000 --> 00:00:04,326
+[Minh] Chào mừng các bạn quay trở lại với bản tin An ninh mạng hôm nay.
+
+2
+00:00:04,326 --> 00:00:06,759
+Tôi là Minh, đồng hành cùng chị Lan.
+
+3
+00:00:06,759 --> 00:00:11,760
+Hôm nay chúng ta sẽ điểm qua những sự kiện bảo mật rất đáng chú ý gần đây.
+
+4
+00:00:12,110 --> 00:00:14,030
+[Lan] Chào Minh và chào các độc giả.
+
+5
+00:00:14,030 --> 00:00:19,278
+Đầu tiên là vụ việc 1Password vừa công bố một sự cố bảo mật liên quan đến hệ thống
+
+6
+00:00:19,278 --> 00:00:21,518
+backend thông qua tài khoản GitHub.
+
+7
+00:00:21,518 --> 00:00:26,510
+Kẻ tấn công đã truy cập trái phép vào một số thông tin khách hàng và mã nguồn.
+
+8
+00:00:26,860 --> 00:00:27,491
+[Minh] Tuy nhiên,
+
+9
+00:00:27,491 --> 00:00:32,667
+1Password nhấn mạnh rằng các két chứa mật khẩu (vaults) và dữ liệu bí mật khác của
+
+10
+00:00:32,667 --> 00:00:35,445
+khách hàng vẫn an toàn và không bị truy cập.
+
+11
+00:00:35,445 --> 00:00:38,980
+Họ đã ngay lập tức thực hiện các biện pháp cô lập sự cố.
+
+12
+00:00:39,330 --> 00:00:44,502
+[Lan] Tiếp theo là thông tin về lỗ hổng Drupal có tên Fail2Install,
+
+13
+00:00:44,502 --> 00:00:47,639
+mã CVE-2026-132165 với điểm CVSS 9.8.
+
+14
+00:00:47,639 --> 00:00:54,762
+Lỗ hổng RCE cực kỳ nguy hiểm này nằm trong Drupal core và đang bị khai thác thực tế.
+
+15
+00:00:55,112 --> 00:01:01,217
+[Minh] Cơ quan CISA của Mỹ đã thêm lỗ hổng này vào danh mục KEV và yêu cầu các cơ quan liên
+
+16
+00:01:01,217 --> 00:01:05,432
+bang phải cập nhật bản vá trước ngày 27 tháng 11 năm 2026.
+
+17
+00:01:05,782 --> 00:01:10,999
+[Lan] Trong một diễn biến khác, Palo Alto Networks đã khắc phục lỗi kernel Fragnesia.
+
+18
+00:01:10,999 --> 00:01:16,480
+Lỗi này từng bị kẻ tấn công chuỗi kết hợp với lỗ hổng PHP2Shell để chiếm quyền root
+
+19
+00:01:16,480 --> 00:01:17,470
+trên tường lửa.
+
+20
+00:01:17,820 --> 00:01:18,510
+[Minh] Bên cạnh đó,
+
+21
+00:01:18,510 --> 00:01:23,111
+Microsoft cảnh báo rằng nhóm hacker Salt Typhoon của Trung Quốc cùng các nhóm từ
+
+22
+00:01:23,111 --> 00:01:25,642
+Triều Tiên đang nhanh chóng tích hợp Artex -
+
+23
+00:01:25,642 --> 00:01:28,805
+một công cụ AI từng dính líu đến nhiều vụ vi phạm lớn -
+
+24
+00:01:28,805 --> 00:01:30,588
+vào bộ công cụ tấn công của họ.
+
+25
+00:01:30,938 --> 00:01:34,088
+[Lan] Cuối cùng là nghiên cứu từ Đại học Stony Brook.
+
+26
+00:01:34,088 --> 00:01:39,450
+Họ phát hiện ra rằng bot có thể dò quét và khai thác khóa AWS bị lộ trong Docker
+
+27
+00:01:39,450 --> 00:01:42,266
+image công khai chỉ trong chưa đầy 8 giây!
+
+28
+00:01:42,616 --> 00:01:47,997
+[Minh] Các nghiên cứu sinh Billy Tsouvalas và Nick Nikiforakis đã phát hiện điều này sau
+
+29
+00:01:47,997 --> 00:01:51,783
+khi đặt 300 Docker image bẫy trên các kho chứa công khai.
+
+30
+00:01:51,783 --> 00:01:56,632
+Hãy luôn cẩn trọng khi đóng gói ứng dụng nhé. Cảm ơn các bạn đã theo dõi!
