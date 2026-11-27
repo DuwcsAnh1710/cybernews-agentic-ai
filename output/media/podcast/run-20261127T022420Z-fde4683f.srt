@@ -1,0 +1,159 @@
+1
+00:00:00,000 --> 00:00:01,566
+[Minh] Xin chào các bạn nghe đài,
+
+2
+00:00:01,566 --> 00:00:06,624
+chào mừng quay trở lại với bản tin an ninh mạng dành cho các chuyên gia và sinh viên
+
+3
+00:00:06,624 --> 00:00:09,936
+IT. Tôi là Minh, đồng hành cùng tôi hôm nay là chị Lan.
+
+4
+00:00:10,286 --> 00:00:11,932
+[Lan] Chào Minh và chào mọi người.
+
+5
+00:00:11,932 --> 00:00:16,695
+Hôm nay chúng ta có rất nhiều thông tin quan trọng về các vụ xâm nhập hệ thống và
+
+6
+00:00:16,695 --> 00:00:19,694
+các lỗ hổng nghiêm trọng đang bị khai thác thực tế.
+
+7
+00:00:20,044 --> 00:00:22,273
+[Minh] Đầu tiên là thông tin từ 1Password.
+
+8
+00:00:22,273 --> 00:00:27,496
+Họ vừa công bố một sự cố bảo mật liên quan đến hệ thống backend thông qua việc tài
+
+9
+00:00:27,496 --> 00:00:29,725
+khoản GitHub bị truy cập trái phép.
+
+10
+00:00:29,725 --> 00:00:33,292
+Kẻ tấn công đã truy cập vào một số thông tin khách hàng.
+
+11
+00:00:33,642 --> 00:00:34,476
+[Lan] Đúng vậy Minh,
+
+12
+00:00:34,476 --> 00:00:39,477
+tuy nhiên 1Password nhấn mạnh rằng kho lưu trữ mật khẩu của khách hàng và các bí mật
+
+13
+00:00:39,477 --> 00:00:44,418
+khác hoàn toàn không bị truy cập. Họ đã lập tức thực hiện các bước ngăn chặn sự cố.
+
+14
+00:00:44,768 --> 00:00:46,789
+[Minh] Tiếp theo là cảnh báo từ Drupal.
+
+15
+00:00:46,789 --> 00:00:51,840
+Họ vừa phát ra cảnh báo về một lỗ hổng bảo mật cực kỳ nghiêm trọng ảnh hưởng đến
+
+16
+00:00:51,840 --> 00:00:55,376
+Drupal core và đang bị khai thác tích cực trong thực tế.
+
+17
+00:00:55,726 --> 00:00:59,473
+[Lan] Lỗ hổng này được theo dõi dưới mã CVE-2026-136716,
+
+18
+00:00:59,473 --> 00:01:05,469
+liên quan đến việc kiểm tra không đầy đủ các điều kiện bất thường hoặc ngoại lệ.
+
+19
+00:01:05,469 --> 00:01:11,540
+Nó liên quan đến CVE-2026-132165 hay còn gọi là Fail2Install nhằm xử lý các trạng
+
+20
+00:01:11,540 --> 00:01:13,414
+thái cài đặt còn lỗ hổng.
+
+21
+00:01:13,764 --> 00:01:15,129
+[Minh] Không chỉ Drupal,
+
+22
+00:01:15,129 --> 00:01:21,553
+Juniper Networks cũng đang đối mặt với lỗ hổng nghiêm trọng trên Juniper Session
+
+23
+00:01:21,553 --> 00:01:26,532
+Smart Conductor. Lỗ hổng này được ghi nhận là CVE-2026-103406.
+
+24
+00:01:26,882 --> 00:01:27,534
+[Lan] Đúng vậy,
+
+25
+00:01:27,534 --> 00:01:33,334
+CVE-2026-103406 cho phép kẻ tấn công từ xa thực thi các câu lệnh tùy ý với quyền
+
+26
+00:01:33,334 --> 00:01:37,394
+root, và nó cũng đã bị khai thác trong các đợt tấn công.
+
+27
+00:01:37,744 --> 00:01:39,915
+[Minh] Chuyển sang ứng dụng Mitel MiCollab,
+
+28
+00:01:39,915 --> 00:01:44,981
+Accenture báo cáo rằng các kẻ tấn công đã khai thác lỗ hổng zero-day trước khi Mitel
+
+29
+00:01:44,981 --> 00:01:45,946
+đưa ra cảnh báo.
+
+30
+00:01:45,946 --> 00:01:51,012
+Cuộc tấn công này nghi ngờ có sự hỗ trợ của trí tuệ nhân tạo AI trong một chiến dịch
+
+31
+00:01:51,012 --> 00:01:51,616
+tống tiền.
+
+32
+00:01:51,966 --> 00:01:56,585
+[Lan] Sự hỗ trợ từ AI đang khiến các cuộc tấn công zero-day trở nên nguy hiểm hơn.
+
+33
+00:01:56,585 --> 00:02:01,690
+Và cuối cùng là thông tin về FinCEN, cơ quan theo dõi rửa tiền thuộc Bộ Ngân khố Mỹ,
+
+34
+00:02:01,690 --> 00:02:06,006
+đã trở thành nạn nhân mới nhất trong chuỗi sự cố bảo mật cấp liên bang.
+
+35
+00:02:06,356 --> 00:02:11,202
+[Minh] Sự cố xâm nhập này buộc FinCEN phải ngắt kết nối một số hệ thống ngoại tuyến và gia
+
+36
+00:02:11,202 --> 00:02:13,946
+hạn thời hạn báo cáo cho các tổ chức tài chính.
+
+37
+00:02:13,946 --> 00:02:18,675
+Họ đang điều tra vụ việc dẫn đến việc truy cập trái phép vào một tập dữ liệu giới
+
+38
+00:02:18,675 --> 00:02:18,908
+hạn.
+
+39
+00:02:19,258 --> 00:02:24,412
+[Lan] Những sự cố này là lời nhắc nhở quan trọng về việc luôn cập nhật bản vá và theo dõi
+
+40
+00:02:24,412 --> 00:02:29,194
+chặt chẽ an ninh hệ thống. Cảm ơn các bạn đã lắng nghe tập phát sóng hôm nay!

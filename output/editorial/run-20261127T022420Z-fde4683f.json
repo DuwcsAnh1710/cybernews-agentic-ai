@@ -1,0 +1,325 @@
+{
+  "run_id": "run-20261127T022420Z-fde4683f",
+  "language": "vi",
+  "digest": {
+    "title": "Điểm tin an ninh mạng: 1Password, Drupal, Juniper, Mitel và FinCEN bị tấn công",
+    "intro": "Bản tin an ninh mạng hôm nay cập nhật các sự cố xâm nhập hệ thống và lỗ hổng bảo mật nghiêm trọng đang bị khai thác thực tế. Nội dung bao gồm sự cố tại 1Password, FinCEN cùng các lỗ hổng mới trên Drupal, Juniper và Mitel.",
+    "sections": [
+      {
+        "heading": "1Password phát hiện sự cố truy cập trái phép hệ thống backend",
+        "body": {
+          "text": "Phần mềm quản lý mật khẩu 1Password vừa công bố một sự cố an ninh mạng liên quan đến các hệ thống backend và tài khoản GitHub, dẫn đến việc thông tin khách hàng bị truy cập trái phép. Tuy nhiên, 1Password nhấn mạnh rằng các kho lưu trữ mật khẩu (password vaults - nơi lưu giữ dữ liệu mã hóa của người dùng) và các bí mật khác của khách hàng không bị thâm nhập. Công ty đã ngay lập tức thực hiện các biện pháp kiểm soát và xử lý sự cố.",
+          "cited_article_ids": [
+            "5e5b0d3bb248d414"
+          ]
+        }
+      },
+      {
+        "heading": "Drupal cảnh báo lỗ hổng nghiêm trọng đang bị khai thác thực tế",
+        "body": {
+          "text": "Drupal đã đưa ra cảnh báo về một lỗ hổng an ninh mạng ở mức nguy cấp (highly critical) ảnh hưởng đến Drupal core, hiện đang bị kẻ xấu khai thác trong thực tế. Lỗ hổng được theo dõi dưới mã CVE-2026-136716, liên quan đến việc kiểm tra không đầy đủ các điều kiện bất thường. Lỗ hổng này liên quan đến CVE-2026-132165 (còn gọi là Fail2Install) nhằm xử lý các trạng thái cài đặt còn tồn tại nguy cơ bảo mật.",
+          "cited_article_ids": [
+            "61e3be14c2b6cad9"
+          ]
+        }
+      },
+      {
+        "heading": "Lỗ hổng nghiêm trọng trên Juniper Session Smart Conductor bị tấn công",
+        "body": {
+          "text": "Lỗ hổng bảo mậtCVE-2026-103406 ảnh hưởng đến thiết bị Juniper Session Smart Conductor hiện đang bị khai thác trong các cuộc tấn công thực tế. Lỗ hổng này cho phép kẻ tấn công từ xa thực thi các lệnh tùy chỉnh với quyền root (quyền quản trị cao nhất trên hệ thống), gây nguy cơ lớn đối với hạ tầng mạng của các tổ chức.",
+          "cited_article_ids": [
+            "4ba2b35cce64f5b2"
+          ]
+        }
+      },
+      {
+        "heading": "Lỗ hổng zero-day trên Mitel MiCollab bị nghi ngờ khai thác bằng AI",
+        "body": {
+          "text": "Theo thông tin từ Accenture, kẻ tấn công đã khai thác các lỗ hổng zero-day (lỗ hổng chưa có bản vá) trên giải pháp Mitel MiCollab trước khi Mitel đưa ra cảnh báo chính thức. Cuộc tấn công này được cho là có sự hỗ trợ của trí tuệ nhân tạo (AI - Artificial Intelligence) nhằm mục đích tống tiền các nạn nhân.",
+          "cited_article_ids": [
+            "4d885c3460c8bb42"
+          ]
+        }
+      },
+      {
+        "heading": "Cơ quan phòng chống rửa tiền FinCEN của Mỹ bị xâm nhập mạng",
+        "body": {
+          "text": "Mạng lưới Kiểm soát Tội phạm Tài chính (FinCEN) thuộc Bộ Ngân khố Mỹ đã trở thành nạn nhân tiếp theo trong chuỗi các sự cố bảo mật cơ quan liên bang. Sự cố xâm nhập trái phép vào một phần dữ liệu hạn chế đã buộc FinCEN phải ngắt kết nối một số hệ thống ngoại tuyến (offline) và gia hạn thời hạn nộp báo cáo cho các tổ chức tài chính.",
+          "cited_article_ids": [
+            "51e8c986bbf10b9d"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm tin An ninh mạng: Những lỗ hổng và sự cố bảo mật mới nhất",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Xin chào các bạn nghe đài, chào mừng quay trở lại với bản tin an ninh mạng dành cho các chuyên gia và sinh viên IT. Tôi là Minh, đồng hành cùng tôi hôm nay là chị Lan.",
+          "cited_article_ids": [
+            "5e5b0d3bb248d414",
+            "61e3be14c2b6cad9",
+            "4ba2b35cce64f5b2",
+            "4d885c3460c8bb42",
+            "51e8c986bbf10b9d"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào Minh và chào mọi người. Hôm nay chúng ta có rất nhiều thông tin quan trọng về các vụ xâm nhập hệ thống và các lỗ hổng nghiêm trọng đang bị khai thác thực tế.",
+          "cited_article_ids": [
+            "5e5b0d3bb248d414",
+            "61e3be14c2b6cad9",
+            "4ba2b35cce64f5b2",
+            "4d885c3460c8bb42",
+            "51e8c986bbf10b9d"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đầu tiên là thông tin từ 1Password. Họ vừa công bố một sự cố bảo mật liên quan đến hệ thống backend thông qua việc tài khoản GitHub bị truy cập trái phép. Kẻ tấn công đã truy cập vào một số thông tin khách hàng.",
+          "cited_article_ids": [
+            "5e5b0d3bb248d414"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Đúng vậy Minh, tuy nhiên 1Password nhấn mạnh rằng kho lưu trữ mật khẩu của khách hàng và các bí mật khác hoàn toàn không bị truy cập. Họ đã lập tức thực hiện các bước ngăn chặn sự cố.",
+          "cited_article_ids": [
+            "5e5b0d3bb248d414"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Tiếp theo là cảnh báo từ Drupal. Họ vừa phát ra cảnh báo về một lỗ hổng bảo mật cực kỳ nghiêm trọng ảnh hưởng đến Drupal core và đang bị khai thác tích cực trong thực tế.",
+          "cited_article_ids": [
+            "61e3be14c2b6cad9"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Lỗ hổng này được theo dõi dưới mã CVE-2026-136716, liên quan đến việc kiểm tra không đầy đủ các điều kiện bất thường hoặc ngoại lệ. Nó liên quan đến CVE-2026-132165 hay còn gọi là Fail2Install nhằm xử lý các trạng thái cài đặt còn lỗ hổng.",
+          "cited_article_ids": [
+            "61e3be14c2b6cad9"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Không chỉ Drupal, Juniper Networks cũng đang đối mặt với lỗ hổng nghiêm trọng trên Juniper Session Smart Conductor. Lỗ hổng này được ghi nhận là CVE-2026-103406.",
+          "cited_article_ids": [
+            "4ba2b35cce64f5b2"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Đúng vậy, CVE-2026-103406 cho phép kẻ tấn công từ xa thực thi các câu lệnh tùy ý với quyền root, và nó cũng đã bị khai thác trong các đợt tấn công.",
+          "cited_article_ids": [
+            "4ba2b35cce64f5b2"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chuyển sang ứng dụng Mitel MiCollab, Accenture báo cáo rằng các kẻ tấn công đã khai thác lỗ hổng zero-day trước khi Mitel đưa ra cảnh báo. Cuộc tấn công này nghi ngờ có sự hỗ trợ của trí tuệ nhân tạo AI trong một chiến dịch tống tiền.",
+          "cited_article_ids": [
+            "4d885c3460c8bb42"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Sự hỗ trợ từ AI đang khiến các cuộc tấn công zero-day trở nên nguy hiểm hơn. Và cuối cùng là thông tin về FinCEN, cơ quan theo dõi rửa tiền thuộc Bộ Ngân khố Mỹ, đã trở thành nạn nhân mới nhất trong chuỗi sự cố bảo mật cấp liên bang.",
+          "cited_article_ids": [
+            "4d885c3460c8bb42",
+            "51e8c986bbf10b9d"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Sự cố xâm nhập này buộc FinCEN phải ngắt kết nối một số hệ thống ngoại tuyến và gia hạn thời hạn báo cáo cho các tổ chức tài chính. Họ đang điều tra vụ việc dẫn đến việc truy cập trái phép vào một tập dữ liệu giới hạn.",
+          "cited_article_ids": [
+            "51e8c986bbf10b9d"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Những sự cố này là lời nhắc nhở quan trọng về việc luôn cập nhật bản vá và theo dõi chặt chẽ an ninh hệ thống. Cảm ơn các bạn đã lắng nghe tập phát sóng hôm nay!",
+          "cited_article_ids": [
+            "5e5b0d3bb248d414",
+            "61e3be14c2b6cad9",
+            "4ba2b35cce64f5b2",
+            "4d885c3460c8bb42",
+            "51e8c986bbf10b9d"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Cảnh Báo An Ninh Mạng: Lỗ Hổng Và Sự Cố Bảo Mật Nóng",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "Cập Nhật An Ninh Mạng Hot Hôm Nay!",
+        "narration": {
+          "text": "Điểm qua những sự cố và lỗ hổng an ninh mạng nguy hiểm nhất vừa được phát hiện!",
+          "cited_article_ids": [
+            "5e5b0d3bb248d414",
+            "61e3be14c2b6cad9",
+            "4ba2b35cce64f5b2",
+            "4d885c3460c8bb42",
+            "51e8c986bbf10b9d"
+          ]
+        },
+        "duration_sec": 6.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "1Password Bị Xâm Nhập Hệ Thống Backend",
+        "narration": {
+          "text": "1Password bị truy cập trái phép qua tài khoản GitHub, lộ một số dữ liệu nhưng kho mật khẩu vẫn an toàn.",
+          "cited_article_ids": [
+            "5e5b0d3bb248d414"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "Drupal Cảnh Báo Lỗ Hổng CVE-2026-136716",
+        "narration": {
+          "text": "Drupal cảnh báo lỗ hổng nghiêm trọng CVE-2026-136716 trên Drupal core đang bị khai thác thực tế.",
+          "cited_article_ids": [
+            "61e3be14c2b6cad9"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Lỗ Hổng Juniper CVE-2026-103406",
+        "narration": {
+          "text": "Lỗ hổng CVE-2026-103406 trên Juniper Session Smart Conductor cho phép thực thi lệnh root từ xa.",
+          "cited_article_ids": [
+            "4ba2b35cce64f5b2"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "Zero-Day Mitel MiCollab Nghi Do AI Hỗ Trợ",
+        "narration": {
+          "text": "Mitel MiCollab bị khai thác lỗ hổng zero-day nghi có sự hỗ trợ của AI trong chiến dịch tống tiền.",
+          "cited_article_ids": [
+            "4d885c3460c8bb42"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "FinCEN Mỹ Bị Truy Cập Trái Phép",
+        "narration": {
+          "text": "Cơ quan FinCEN thuộc Bộ Ngân khố Mỹ bị tấn công mạng, buộc phải đưa một số hệ thống ngoại tuyến.",
+          "cited_article_ids": [
+            "51e8c986bbf10b9d"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "Cập Nhật Bản VáNgay Hôm Nay!",
+        "narration": {
+          "text": "Hãy luôn kiểm tra và cập nhật các bản vá an ninh mới nhất cho hệ thống của bạn!",
+          "cited_article_ids": [
+            "5e5b0d3bb248d414",
+            "61e3be14c2b6cad9",
+            "4ba2b35cce64f5b2",
+            "4d885c3460c8bb42",
+            "51e8c986bbf10b9d"
+          ]
+        },
+        "duration_sec": 6.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "Cập nhật an ninh mạng nổi bật:\n- 1Password gặp sự cố hệ thống backend nhưng kho mật khẩu vẫn an toàn.\n- Drupal cảnh báo lỗ hổng CVE-2026-136716 đang bị khai thác.\n- Lỗ hổng CVE-2026-103406 trên Juniper cho phép thực thi lệnh root từ xa.\n- Zero-day trên Mitel MiCollab nghi ngờ bị tấn công bằng AI.\n- Cơ quan tài chính FinCEN (Mỹ) bị truy cập trái phép dữ liệu.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#BaoMat",
+        "#1Password",
+        "#Drupal",
+        "#Juniper",
+        "#FinCEN"
+      ],
+      "cited_article_ids": [
+        "5e5b0d3bb248d414",
+        "61e3be14c2b6cad9",
+        "4ba2b35cce64f5b2",
+        "4d885c3460c8bb42",
+        "51e8c986bbf10b9d"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Tóm tắt tin tức an ninh mạng mới nhất:\n1. 1Password bị truy cập trái phép hệ thống backend và tài khoản GitHub, nhưng khẳng định dữ liệu kho mật khẩu của người dùng không bị ảnh hưởng.\n2. Drupal phát hành cảnh báo khẩn về lỗ hổng CVE-2026-136716 trên Drupal core đang bị khai thác thực tế.\n3. Juniper ghi nhận các cuộc tấn công khai thác lỗ hổng CVE-2026-103406 trên Session Smart Conductor để chiếm quyền root.\n4. Accenture phát hiện các lỗ hổng zero-day trên Mitel MiCollab bị khai thác với sự hỗ trợ của AI.\n5. FinCEN (Bộ Ngân khố Mỹ) tạm thời ngắt một số hệ thống sau khi bị xâm nhập dữ liệu.",
+      "hashtags": [
+        "#TinTucTinHoc",
+        "#AnNinhMang",
+        "#ZeroDay",
+        "#CyberSecurity"
+      ],
+      "cited_article_ids": [
+        "5e5b0d3bb248d414",
+        "61e3be14c2b6cad9",
+        "4ba2b35cce64f5b2",
+        "4d885c3460c8bb42",
+        "51e8c986bbf10b9d"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Tin an ninh mạng mới nhất: 1Password bị xâm nhập backend nhưng kho mật khẩu an toàn. Lỗ hổng trên Drupal & Juniper đang bị khai thác. Zero-day Mitel nghi có AI hỗ trợ. FinCEN bị tấn công mạng.",
+      "hashtags": [
+        "#TikTokCongNghe",
+        "#AnNinhMang",
+        "#BaoMat"
+      ],
+      "cited_article_ids": [
+        "5e5b0d3bb248d414",
+        "61e3be14c2b6cad9",
+        "4ba2b35cce64f5b2",
+        "4d885c3460c8bb42",
+        "51e8c986bbf10b9d"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+1
+00:00:00,180 --> 00:00:01,670
+Lan: Chào Minh và chào mọi người.
+
+2
+00:00:02,610 --> 00:00:03,987
+Hôm nay chúng ta có rất nhiều
+
+3
+00:00:03,987 --> 00:00:05,379
+thông tin quan trọng về các vụ
+
+4
+00:00:05,379 --> 00:00:06,724
+xâm nhập hệ thống và các lỗ
+
+5
+00:00:06,724 --> 00:00:08,196
+hổng nghiêm trọng đang bị khai thác
+
+6
+00:00:08,196 --> 00:00:08,580
+thực tế.
+
+7
+00:00:10,018 --> 00:00:11,848
+Minh: Tiếp theo là cảnh báo từ Drupal.
+
+8
+00:00:12,898 --> 00:00:14,313
+Họ vừa phát ra cảnh báo về
+
+9
+00:00:14,313 --> 00:00:15,727
+một lỗ hổng bảo mật cực kỳ
+
+10
+00:00:15,727 --> 00:00:17,345
+nghiêm trọng ảnh hưởng đến Drupal core
+
+11
+00:00:17,345 --> 00:00:18,811
+và đang bị khai thác tích cực
+
+12
+00:00:18,811 --> 00:00:19,458
+trong thực tế.
+
+13
+00:00:20,870 --> 00:00:21,780
+Minh: Không chỉ Drupal,
+
+14
+00:00:22,060 --> 00:00:24,856
+Juniper Networks cũng đang đối mặt với
+
+15
+00:00:24,856 --> 00:00:27,739
+lỗ hổng nghiêm trọng trên Juniper Session
+
+16
+00:00:27,739 --> 00:00:30,902
+Smart Conductor. Lỗ hổng này được ghi
+
+17
+00:00:30,902 --> 00:00:32,520
+nhận là CVE-2026-103406.
+
+18
+00:00:33,882 --> 00:00:35,612
+Minh: Chuyển sang ứng dụng Mitel MiCollab,
+
+19
+00:00:35,952 --> 00:00:37,634
+Accenture báo cáo rằng các kẻ tấn
+
+20
+00:00:37,634 --> 00:00:39,317
+công đã khai thác lỗ hổng zero-day
+
+21
+00:00:39,317 --> 00:00:40,962
+trước khi Mitel đưa ra cảnh báo.
+
+22
+00:00:41,952 --> 00:00:43,440
+Cuộc tấn công này nghi ngờ có
+
+23
+00:00:43,440 --> 00:00:44,877
+sự hỗ trợ của trí tuệ nhân
+
+24
+00:00:44,877 --> 00:00:46,417
+tạo AI trong một chiến dịch tống
+
+25
+00:00:46,417 --> 00:00:46,642
+tiền.

@@ -1,0 +1,871 @@
+{
+  "run_id": "run-20261127T022420Z-fde4683f",
+  "video_title": "Cảnh Báo An Ninh Mạng: Lỗ Hổng Và Sự Cố Bảo Mật Nóng",
+  "aspect_ratio": "9:16",
+  "resolution": "1080x1920",
+  "width": 1080,
+  "height": 1920,
+  "voice": "vi-VN-NamMinhNeural",
+  "audio_source": "podcast-sliced",
+  "aesthetic": "hallmark-editorial-v2",
+  "under_one_minute": true,
+  "total_duration_sec": 47.424,
+  "scene_count": 4,
+  "preview_only": false,
+  "scenes": [
+    {
+      "scene_no": 1,
+      "speaker": "Lan",
+      "category_label": "Hồ sơ lỗ hổng và bản vá khẩn",
+      "on_screen_text": "1Password phát hiện sự cố truy cập trái phép hệ thống backend",
+      "narration": "[Lan] Chào Minh và chào mọi người. Hôm nay chúng ta có rất nhiều thông tin quan trọng về các vụ xâm nhập hệ thống và các lỗ hổng nghiêm trọng đang bị khai thác thực tế.",
+      "duration_sec": 9.408,
+      "start_sec": 0.0,
+      "end_sec": 9.408,
+      "slide_image": "run-20261127T022420Z-fde4683f_scenes/scene_01.png",
+      "words": [
+        {
+          "w": "Chào",
+          "s": 0.18,
+          "e": 0.435
+        },
+        {
+          "w": "Minh",
+          "s": 0.435,
+          "e": 0.69
+        },
+        {
+          "w": "và",
+          "s": 0.69,
+          "e": 0.906
+        },
+        {
+          "w": "chào",
+          "s": 0.906,
+          "e": 1.16
+        },
+        {
+          "w": "mọi",
+          "s": 1.16,
+          "e": 1.396
+        },
+        {
+          "w": "người.",
+          "s": 1.396,
+          "e": 1.67
+        },
+        {
+          "w": "Hôm",
+          "s": 2.61,
+          "e": 2.802
+        },
+        {
+          "w": "nay",
+          "s": 2.802,
+          "e": 2.994
+        },
+        {
+          "w": "chúng",
+          "s": 2.994,
+          "e": 3.218
+        },
+        {
+          "w": "ta",
+          "s": 3.218,
+          "e": 3.394
+        },
+        {
+          "w": "có",
+          "s": 3.394,
+          "e": 3.571
+        },
+        {
+          "w": "rất",
+          "s": 3.571,
+          "e": 3.763
+        },
+        {
+          "w": "nhiều",
+          "s": 3.763,
+          "e": 3.987
+        },
+        {
+          "w": "thông",
+          "s": 3.987,
+          "e": 4.21
+        },
+        {
+          "w": "tin",
+          "s": 4.21,
+          "e": 4.403
+        },
+        {
+          "w": "quan",
+          "s": 4.403,
+          "e": 4.611
+        },
+        {
+          "w": "trọng",
+          "s": 4.611,
+          "e": 4.834
+        },
+        {
+          "w": "về",
+          "s": 4.834,
+          "e": 5.011
+        },
+        {
+          "w": "các",
+          "s": 5.011,
+          "e": 5.203
+        },
+        {
+          "w": "vụ",
+          "s": 5.203,
+          "e": 5.379
+        },
+        {
+          "w": "xâm",
+          "s": 5.379,
+          "e": 5.571
+        },
+        {
+          "w": "nhập",
+          "s": 5.571,
+          "e": 5.779
+        },
+        {
+          "w": "hệ",
+          "s": 5.779,
+          "e": 5.955
+        },
+        {
+          "w": "thống",
+          "s": 5.955,
+          "e": 6.179
+        },
+        {
+          "w": "và",
+          "s": 6.179,
+          "e": 6.356
+        },
+        {
+          "w": "các",
+          "s": 6.356,
+          "e": 6.548
+        },
+        {
+          "w": "lỗ",
+          "s": 6.548,
+          "e": 6.724
+        },
+        {
+          "w": "hổng",
+          "s": 6.724,
+          "e": 6.932
+        },
+        {
+          "w": "nghiêm",
+          "s": 6.932,
+          "e": 7.172
+        },
+        {
+          "w": "trọng",
+          "s": 7.172,
+          "e": 7.396
+        },
+        {
+          "w": "đang",
+          "s": 7.396,
+          "e": 7.604
+        },
+        {
+          "w": "bị",
+          "s": 7.604,
+          "e": 7.78
+        },
+        {
+          "w": "khai",
+          "s": 7.78,
+          "e": 7.988
+        },
+        {
+          "w": "thác",
+          "s": 7.988,
+          "e": 8.196
+        },
+        {
+          "w": "thực",
+          "s": 8.196,
+          "e": 8.404
+        },
+        {
+          "w": "tế.",
+          "s": 8.404,
+          "e": 8.58
+        }
+      ],
+      "illustrations": [
+        {
+          "file": null,
+          "start_sec": 0.0,
+          "end_sec": 9.408,
+          "caption": "Ảnh minh họa biên tập"
+        }
+      ]
+    },
+    {
+      "scene_no": 2,
+      "speaker": "Minh",
+      "category_label": "Hồ sơ lỗ hổng và bản vá khẩn",
+      "on_screen_text": "Drupal cảnh báo lỗ hổng nghiêm trọng đang bị khai thác thực tế",
+      "narration": "[Minh] Tiếp theo là cảnh báo từ Drupal. Họ vừa phát ra cảnh báo về một lỗ hổng bảo mật cực kỳ nghiêm trọng ảnh hưởng đến Drupal core và đang bị khai thác tích cực trong thực tế.",
+      "duration_sec": 10.632,
+      "start_sec": 9.648,
+      "end_sec": 20.28,
+      "slide_image": "run-20261127T022420Z-fde4683f_scenes/scene_02.png",
+      "words": [
+        {
+          "w": "Tiếp",
+          "s": 0.37,
+          "e": 0.64
+        },
+        {
+          "w": "theo",
+          "s": 0.64,
+          "e": 0.911
+        },
+        {
+          "w": "là",
+          "s": 0.911,
+          "e": 1.14
+        },
+        {
+          "w": "cảnh",
+          "s": 1.14,
+          "e": 1.41
+        },
+        {
+          "w": "báo",
+          "s": 1.41,
+          "e": 1.659
+        },
+        {
+          "w": "từ",
+          "s": 1.659,
+          "e": 1.888
+        },
+        {
+          "w": "Drupal.",
+          "s": 1.888,
+          "e": 2.2
+        },
+        {
+          "w": "Họ",
+          "s": 3.25,
+          "e": 3.438
+        },
+        {
+          "w": "vừa",
+          "s": 3.438,
+          "e": 3.642
+        },
+        {
+          "w": "phát",
+          "s": 3.642,
+          "e": 3.864
+        },
+        {
+          "w": "ra",
+          "s": 3.864,
+          "e": 4.051
+        },
+        {
+          "w": "cảnh",
+          "s": 4.051,
+          "e": 4.273
+        },
+        {
+          "w": "báo",
+          "s": 4.273,
+          "e": 4.477
+        },
+        {
+          "w": "về",
+          "s": 4.477,
+          "e": 4.665
+        },
+        {
+          "w": "một",
+          "s": 4.665,
+          "e": 4.869
+        },
+        {
+          "w": "lỗ",
+          "s": 4.869,
+          "e": 5.057
+        },
+        {
+          "w": "hổng",
+          "s": 5.057,
+          "e": 5.278
+        },
+        {
+          "w": "bảo",
+          "s": 5.278,
+          "e": 5.483
+        },
+        {
+          "w": "mật",
+          "s": 5.483,
+          "e": 5.687
+        },
+        {
+          "w": "cực",
+          "s": 5.687,
+          "e": 5.892
+        },
+        {
+          "w": "kỳ",
+          "s": 5.892,
+          "e": 6.079
+        },
+        {
+          "w": "nghiêm",
+          "s": 6.079,
+          "e": 6.335
+        },
+        {
+          "w": "trọng",
+          "s": 6.335,
+          "e": 6.573
+        },
+        {
+          "w": "ảnh",
+          "s": 6.573,
+          "e": 6.778
+        },
+        {
+          "w": "hưởng",
+          "s": 6.778,
+          "e": 7.016
+        },
+        {
+          "w": "đến",
+          "s": 7.016,
+          "e": 7.22
+        },
+        {
+          "w": "Drupal",
+          "s": 7.22,
+          "e": 7.476
+        },
+        {
+          "w": "core",
+          "s": 7.476,
+          "e": 7.697
+        },
+        {
+          "w": "và",
+          "s": 7.697,
+          "e": 7.885
+        },
+        {
+          "w": "đang",
+          "s": 7.885,
+          "e": 8.106
+        },
+        {
+          "w": "bị",
+          "s": 8.106,
+          "e": 8.294
+        },
+        {
+          "w": "khai",
+          "s": 8.294,
+          "e": 8.515
+        },
+        {
+          "w": "thác",
+          "s": 8.515,
+          "e": 8.737
+        },
+        {
+          "w": "tích",
+          "s": 8.737,
+          "e": 8.958
+        },
+        {
+          "w": "cực",
+          "s": 8.958,
+          "e": 9.163
+        },
+        {
+          "w": "trong",
+          "s": 9.163,
+          "e": 9.401
+        },
+        {
+          "w": "thực",
+          "s": 9.401,
+          "e": 9.622
+        },
+        {
+          "w": "tế.",
+          "s": 9.622,
+          "e": 9.81
+        }
+      ],
+      "illustrations": [
+        {
+          "file": null,
+          "start_sec": 0.0,
+          "end_sec": 10.632,
+          "caption": "Ảnh minh họa biên tập"
+        }
+      ]
+    },
+    {
+      "scene_no": 3,
+      "speaker": "Minh",
+      "category_label": "Hồ sơ lỗ hổng và bản vá khẩn",
+      "on_screen_text": "Lỗ hổng nghiêm trọng trên Juniper Session Smart Conductor bị tấn công",
+      "narration": "[Minh] Không chỉ Drupal, Juniper Networks cũng đang đối mặt với lỗ hổng nghiêm trọng trên Juniper Session Smart Conductor. Lỗ hổng này được ghi nhận là CVE-2026-103406.",
+      "duration_sec": 12.792,
+      "start_sec": 20.52,
+      "end_sec": 33.312,
+      "slide_image": "run-20261127T022420Z-fde4683f_scenes/scene_03.png",
+      "words": [
+        {
+          "w": "Không",
+          "s": 0.35,
+          "e": 0.661
+        },
+        {
+          "w": "chỉ",
+          "s": 0.661,
+          "e": 0.927
+        },
+        {
+          "w": "Drupal,",
+          "s": 0.927,
+          "e": 1.26
+        },
+        {
+          "w": "Juniper",
+          "s": 1.54,
+          "e": 2.01
+        },
+        {
+          "w": "Networks",
+          "s": 2.01,
+          "e": 2.51
+        },
+        {
+          "w": "cũng",
+          "s": 2.51,
+          "e": 2.893
+        },
+        {
+          "w": "đang",
+          "s": 2.893,
+          "e": 3.275
+        },
+        {
+          "w": "đối",
+          "s": 3.275,
+          "e": 3.629
+        },
+        {
+          "w": "mặt",
+          "s": 3.629,
+          "e": 3.982
+        },
+        {
+          "w": "với",
+          "s": 3.982,
+          "e": 4.336
+        },
+        {
+          "w": "lỗ",
+          "s": 4.336,
+          "e": 4.66
+        },
+        {
+          "w": "hổng",
+          "s": 4.66,
+          "e": 5.043
+        },
+        {
+          "w": "nghiêm",
+          "s": 5.043,
+          "e": 5.484
+        },
+        {
+          "w": "trọng",
+          "s": 5.484,
+          "e": 5.896
+        },
+        {
+          "w": "trên",
+          "s": 5.896,
+          "e": 6.278
+        },
+        {
+          "w": "Juniper",
+          "s": 6.278,
+          "e": 6.749
+        },
+        {
+          "w": "Session",
+          "s": 6.749,
+          "e": 7.219
+        },
+        {
+          "w": "Smart",
+          "s": 7.219,
+          "e": 7.631
+        },
+        {
+          "w": "Conductor.",
+          "s": 7.631,
+          "e": 8.16
+        },
+        {
+          "w": "Lỗ",
+          "s": 8.585,
+          "e": 8.909
+        },
+        {
+          "w": "hổng",
+          "s": 8.909,
+          "e": 9.292
+        },
+        {
+          "w": "này",
+          "s": 9.292,
+          "e": 9.645
+        },
+        {
+          "w": "được",
+          "s": 9.645,
+          "e": 10.028
+        },
+        {
+          "w": "ghi",
+          "s": 10.028,
+          "e": 10.382
+        },
+        {
+          "w": "nhận",
+          "s": 10.382,
+          "e": 10.764
+        },
+        {
+          "w": "là",
+          "s": 10.764,
+          "e": 11.088
+        },
+        {
+          "w": "CVE-2026-103406.",
+          "s": 11.088,
+          "e": 12.0
+        }
+      ],
+      "illustrations": [
+        {
+          "file": null,
+          "start_sec": 0.0,
+          "end_sec": 8.235,
+          "caption": "Ảnh minh họa biên tập"
+        },
+        {
+          "file": null,
+          "start_sec": 8.235,
+          "end_sec": 12.792,
+          "caption": "Ảnh minh họa biên tập"
+        }
+      ]
+    },
+    {
+      "scene_no": 4,
+      "speaker": "Minh",
+      "category_label": "Hồ sơ sự cố mã độc tống tiền",
+      "on_screen_text": "Lỗ hổng zero-day trên Mitel MiCollab bị nghi ngờ khai thác bằng AI",
+      "narration": "[Minh] Chuyển sang ứng dụng Mitel MiCollab, Accenture báo cáo rằng các kẻ tấn công đã khai thác lỗ hổng zero-day trước khi Mitel đưa ra cảnh báo. Cuộc tấn công này nghi ngờ có sự hỗ trợ của trí tuệ nhân tạo AI trong một chiến dịch tống tiền.",
+      "duration_sec": 13.872,
+      "start_sec": 33.552,
+      "end_sec": 47.424,
+      "slide_image": "run-20261127T022420Z-fde4683f_scenes/scene_04.png",
+      "words": [
+        {
+          "w": "Chuyển",
+          "s": 0.33,
+          "e": 0.639
+        },
+        {
+          "w": "sang",
+          "s": 0.639,
+          "e": 0.907
+        },
+        {
+          "w": "ứng",
+          "s": 0.907,
+          "e": 1.154
+        },
+        {
+          "w": "dụng",
+          "s": 1.154,
+          "e": 1.422
+        },
+        {
+          "w": "Mitel",
+          "s": 1.422,
+          "e": 1.71
+        },
+        {
+          "w": "MiCollab,",
+          "s": 1.71,
+          "e": 2.06
+        },
+        {
+          "w": "Accenture",
+          "s": 2.4,
+          "e": 2.736
+        },
+        {
+          "w": "báo",
+          "s": 2.736,
+          "e": 2.96
+        },
+        {
+          "w": "cáo",
+          "s": 2.96,
+          "e": 3.185
+        },
+        {
+          "w": "rằng",
+          "s": 3.185,
+          "e": 3.428
+        },
+        {
+          "w": "các",
+          "s": 3.428,
+          "e": 3.652
+        },
+        {
+          "w": "kẻ",
+          "s": 3.652,
+          "e": 3.858
+        },
+        {
+          "w": "tấn",
+          "s": 3.858,
+          "e": 4.082
+        },
+        {
+          "w": "công",
+          "s": 4.082,
+          "e": 4.325
+        },
+        {
+          "w": "đã",
+          "s": 4.325,
+          "e": 4.531
+        },
+        {
+          "w": "khai",
+          "s": 4.531,
+          "e": 4.774
+        },
+        {
+          "w": "thác",
+          "s": 4.774,
+          "e": 5.017
+        },
+        {
+          "w": "lỗ",
+          "s": 5.017,
+          "e": 5.223
+        },
+        {
+          "w": "hổng",
+          "s": 5.223,
+          "e": 5.466
+        },
+        {
+          "w": "zero-day",
+          "s": 5.466,
+          "e": 5.765
+        },
+        {
+          "w": "trước",
+          "s": 5.765,
+          "e": 6.026
+        },
+        {
+          "w": "khi",
+          "s": 6.026,
+          "e": 6.251
+        },
+        {
+          "w": "Mitel",
+          "s": 6.251,
+          "e": 6.512
+        },
+        {
+          "w": "đưa",
+          "s": 6.512,
+          "e": 6.737
+        },
+        {
+          "w": "ra",
+          "s": 6.737,
+          "e": 6.943
+        },
+        {
+          "w": "cảnh",
+          "s": 6.943,
+          "e": 7.186
+        },
+        {
+          "w": "báo.",
+          "s": 7.186,
+          "e": 7.41
+        },
+        {
+          "w": "Cuộc",
+          "s": 8.4,
+          "e": 8.625
+        },
+        {
+          "w": "tấn",
+          "s": 8.625,
+          "e": 8.833
+        },
+        {
+          "w": "công",
+          "s": 8.833,
+          "e": 9.058
+        },
+        {
+          "w": "này",
+          "s": 9.058,
+          "e": 9.265
+        },
+        {
+          "w": "nghi",
+          "s": 9.265,
+          "e": 9.49
+        },
+        {
+          "w": "ngờ",
+          "s": 9.49,
+          "e": 9.698
+        },
+        {
+          "w": "có",
+          "s": 9.698,
+          "e": 9.888
+        },
+        {
+          "w": "sự",
+          "s": 9.888,
+          "e": 10.079
+        },
+        {
+          "w": "hỗ",
+          "s": 10.079,
+          "e": 10.269
+        },
+        {
+          "w": "trợ",
+          "s": 10.269,
+          "e": 10.477
+        },
+        {
+          "w": "của",
+          "s": 10.477,
+          "e": 10.685
+        },
+        {
+          "w": "trí",
+          "s": 10.685,
+          "e": 10.893
+        },
+        {
+          "w": "tuệ",
+          "s": 10.893,
+          "e": 11.1
+        },
+        {
+          "w": "nhân",
+          "s": 11.1,
+          "e": 11.325
+        },
+        {
+          "w": "tạo",
+          "s": 11.325,
+          "e": 11.533
+        },
+        {
+          "w": "AI",
+          "s": 11.533,
+          "e": 11.723
+        },
+        {
+          "w": "trong",
+          "s": 11.723,
+          "e": 11.966
+        },
+        {
+          "w": "một",
+          "s": 11.966,
+          "e": 12.173
+        },
+        {
+          "w": "chiến",
+          "s": 12.173,
+          "e": 12.415
+        },
+        {
+          "w": "dịch",
+          "s": 12.415,
+          "e": 12.64
+        },
+        {
+          "w": "tống",
+          "s": 12.64,
+          "e": 12.865
+        },
+        {
+          "w": "tiền.",
+          "s": 12.865,
+          "e": 13.09
+        }
+      ],
+      "illustrations": [
+        {
+          "file": null,
+          "start_sec": 0.0,
+          "end_sec": 8.05,
+          "caption": "Ảnh minh họa biên tập"
+        },
+        {
+          "file": null,
+          "start_sec": 8.05,
+          "end_sec": 13.872,
+          "caption": "Ảnh minh họa biên tập"
+        }
+      ]
+    }
+  ],
+  "files": {
+    "video": "run-20261127T022420Z-fde4683f.mp4",
+    "subtitles": "run-20261127T022420Z-fde4683f.srt",
+    "metadata": "run-20261127T022420Z-fde4683f.json",
+    "cover": "run-20261127T022420Z-fde4683f_cover.png",
+    "hyperframes": "run-20261127T022420Z-fde4683f_hyperframes"
+  },
+  "created_at": "2026-11-27T02:29:51.080860+00:00"
+}

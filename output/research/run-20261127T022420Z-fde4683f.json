@@ -1,0 +1,84 @@
+{
+  "run_id": "run-20261127T022420Z-fde4683f",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "5e5b0d3bb248d414",
+        "source_name": "The Hacker News",
+        "title": "1Password Hacked, Customer Data and Source Code Stolen in GitHub Account Breach",
+        "url": "https://thehackernews.com/2026/11/1password-hacked-customer-data-and.html",
+        "published_at": "2026-11-26T10:57:25Z",
+        "summary": "Popular password management software 1Password on Wednesday disclosed a security incident involving its backend systems that led to the unauthorized access of some customer information, but emphasized that customer password vaults and other secrets were not accessed. \"While we took immediate steps to contain the incident, the attacker gained access to some of our backend systems and accessed a",
+        "fetched_at": "2026-11-27T02:17:38.171885Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Trình quản lý mật khẩu phổ biến 1Password bị xâm nhập qua tài khoản GitHub của nhân viên, làm rò rỉ dữ liệu khách hàng và mã nguồn hệ thống."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "61e3be14c2b6cad9",
+        "source_name": "The Hacker News",
+        "title": "Drupal Warns of New Highly Critical Site Takeover Vulnerability Under Active Exploitation",
+        "url": "https://thehackernews.com/2026/11/drupal-warns-of-new-highly-critical.html",
+        "published_at": "2026-11-26T07:02:34Z",
+        "summary": "Drupal has warned of a new \"highly critical\" security flaw impacting Drupal core that it said has been exploited in the wild. The vulnerability, tracked as CVE-2026-136716 (CVSS score: N/A), has been described as a case of improper checking for unusual or exceptional conditions. It also relates to CVE-2026-132165 aka Fail2Install in that it addresses remaining vulnerable installation states",
+        "fetched_at": "2026-11-27T02:17:38.171885Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Drupal phát hành cảnh báo khẩn cấp về lỗ hổng chiếm đoạt trang web cực kỳ nghiêm trọng đang bị khai thác tích cực trong thực tế."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "4ba2b35cce64f5b2",
+        "source_name": "SecurityWeek",
+        "title": "Critical Juniper Session Smart Conductor Flaw Exploited in Attacks",
+        "url": "https://securityweek.com/critical-juniper-session-smart-conductor-flaw-exploited-in-attacks",
+        "published_at": "2026-11-26T13:04:06Z",
+        "summary": "Tracked as CVE-2026-103406, the vulnerability allows remote attackers to execute arbitrary commands as root. The post Critical Juniper Session Smart Conductor Flaw Exploited in Attacks appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-27T02:17:38.471578Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Lỗ hổng nghiêm trọng trên Juniper Session Smart Conductor đang bị kẻ tấn công khai thác để thực thi lệnh tùy ý với quyền root."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "4d885c3460c8bb42",
+        "source_name": "SecurityWeek",
+        "title": "Mitel MiCollab Zero-Days Exploited in Suspected AI-Assisted Attacks",
+        "url": "https://securityweek.com/mitel-micollab-zero-days-exploited-in-suspected-ai-assisted-attacks",
+        "published_at": "2026-11-26T11:35:25Z",
+        "summary": "Accenture says hackers exploited MiCollab flaws before Mitel’s advisory, likely aided by AI, in a suspected extortion campaign. The post Mitel MiCollab Zero-Days Exploited in Suspected AI-Assisted Attacks appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-27T02:17:38.471578Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Hacker khai thác các lỗ hổng zero-day trong Mitel MiCollab nhằm mục đích tống tiền với sự hỗ trợ của trí tuệ nhân tạo."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "51e8c986bbf10b9d",
+        "source_name": "Help Net Security",
+        "title": "US agency tracking money laundering is latest casualty in string of federal breaches",
+        "url": "https://helpnetsecurity.com/2026/11/26/fincen-breach-systems-offline",
+        "published_at": "2026-11-26T11:05:01Z",
+        "summary": "An intrusion at the US Treasury’s Financial Crimes Enforcement Network (FinCEN) has forced the agency to take some systems offline and extend reporting deadlines for financial institutions. The bureau serves as the US government’s financial intelligence unit, collecting suspicious activity reports and other Bank Secrecy Act filings from banks and other financial institutions and sharing the intelligence with law enforcement. “FinCEN is investigating a cybersecurity incident that resulted in unauthorized access to a limited subset … More → The post US agency tracking money laundering is latest casualty in string of federal breaches appeared first on Help Net Security .",
+        "fetched_at": "2026-11-27T02:17:38.772525Z",
+        "topics_matched": [
+          "cybersecurity"
+        ]
+      },
+      "relevance_reason": "Cơ quan phòng chống tội phạm tài chính FinCEN của Mỹ bị xâm nhập mạng, buộc phải đưa một số hệ thống ngoại tuyến."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=4; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=2"
+}
