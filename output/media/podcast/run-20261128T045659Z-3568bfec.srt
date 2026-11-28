@@ -1,0 +1,159 @@
+1
+00:00:00,000 --> 00:00:04,242
+[Minh] Chào mừng các bạn đến với bản tin an ninh mạng tuần này. Tôi là Minh,
+
+2
+00:00:04,242 --> 00:00:09,344
+và hôm nay chúng ta sẽ cùng MC Lan cập nhật những sự cố an ninh mạng nguy hiểm nhất
+
+3
+00:00:09,344 --> 00:00:10,512
+vừa được phát hiện.
+
+4
+00:00:10,862 --> 00:00:13,002
+[Lan] Chào anh Minh và chào các độc giả.
+
+5
+00:00:13,002 --> 00:00:17,408
+Hôm nay chúng ta có rất nhiều tin nóng liên quan đến lỗ hổng zero-day,
+
+6
+00:00:17,408 --> 00:00:22,694
+rò rỉ mã nguồn và đặc biệt là các cuộc tấn công mạng hỗ trợ bởi trí tuệ nhân tạo AI.
+
+7
+00:00:23,044 --> 00:00:26,647
+[Minh] Đầu tiên là một thông tin cực kỳ cảnh báo về Cacti,
+
+8
+00:00:26,647 --> 00:00:29,685
+công cụ giám sát mạng mã nguồn mở phổ biến.
+
+9
+00:00:29,685 --> 00:00:33,430
+Một lỗ hổng zero-day chưa có mã CVE vừa được tiết lộ,
+
+10
+00:00:33,430 --> 00:00:35,620
+cho phép thực thi mã từ xa RCE.
+
+11
+00:00:35,970 --> 00:00:41,725
+[Lan] Đúng vậy, PoC exploit này được theo dõi dưới tên 4HTTP2SHELL và 4HTTP2ROOT.
+
+12
+00:00:41,725 --> 00:00:47,940
+Kẻ tấn công có thể đi từ một phiên HTTP chưa xác thực đến việc thực thi lệnh trực
+
+13
+00:00:47,940 --> 00:00:51,930
+tiếp trên máy chủ Cacti chỉ với đúng 4 yêu cầu HTTP.
+
+14
+00:00:52,280 --> 00:00:55,752
+[Minh] Tiếp theo là thông tin từ gã khổng lồ phần mềm SAP.
+
+15
+00:00:55,752 --> 00:01:00,176
+SAP vừa xác nhận họ phát hiện các hoạt động đáng ngờ trên GitHub.
+
+16
+00:01:00,526 --> 00:01:04,234
+[Lan] Hacker đã sử dụng token của nhân viên bị đánh cắp để truy cập,
+
+17
+00:01:04,234 --> 00:01:07,822
+sao chép và thậm chí chỉnh sửa mã nguồn của SAP trên GitHub.
+
+18
+00:01:08,172 --> 00:01:12,506
+[Minh] Không chỉ dừng lại ở đó, thiết bị mạng cũng đang bị nhắm tới.
+
+19
+00:01:12,506 --> 00:01:17,763
+Một lỗ hổng nghiêm trọng trên Juniper Session Smart Conductor mang mã hiệu
+
+20
+00:01:17,763 --> 00:01:22,452
+CVE-2026-103406 đang bị khai thác thực tế trong các cuộc tấn công.
+
+21
+00:01:22,802 --> 00:01:28,601
+[Lan] Lỗ hổng CVE-2026-103406 này nguy hiểm ở chỗ cho phép kẻ tấn công từ xa thực thi các
+
+22
+00:01:28,601 --> 00:01:32,234
+lệnh tùy chỉnh với quyền root tối cao trên hệ thống.
+
+23
+00:01:32,584 --> 00:01:37,152
+[Minh] Một xu hướng mới đáng lo ngại là việc sử dụng AI trong diễn biến tấn công.
+
+24
+00:01:37,152 --> 00:01:42,091
+Thụy Sĩ vừa xác nhận các cuộc tấn công mạng hỗ trợ bởi AI đã xâm nhập vào các hạ
+
+25
+00:01:42,091 --> 00:01:44,128
+tầng quan trọng của quốc gia này.
+
+26
+00:01:44,478 --> 00:01:49,104
+[Lan] Cơ quan an ninh mạng Thụy Sĩ báo cáo kẻ tấn công dùng agent AI đã đột nhập vào hệ
+
+27
+00:01:49,104 --> 00:01:50,246
+thống của 4 tổ chức,
+
+28
+00:01:50,246 --> 00:01:54,872
+trong đó có 3 nhà vận hành hạ tầng quan trọng và 2 nơi đã bị xâm nhập thành công,
+
+29
+00:01:54,872 --> 00:01:56,358
+dù chưa gây gián đoạn lớn.
+
+30
+00:01:56,708 --> 00:02:01,829
+[Minh] Và Microsoft Threat Intelligence cũng vừa phát cảnh báo về việc các nhóm tin tặc nhà
+
+31
+00:02:01,829 --> 00:02:06,767
+nước từ Trung Quốc và Triều Tiên đã bổ sung khung công cụ ARTEX AI vào kho vũ khí
+
+32
+00:02:06,767 --> 00:02:07,316
+của mình.
+
+33
+00:02:07,666 --> 00:02:12,257
+[Lan] ARTEX là công cụ kiểm thử xâm nhập tự động hóa dựa trên LLM,
+
+34
+00:02:12,257 --> 00:02:17,613
+xuất hiện trên GitHub vào tháng July năm 2026 bởi tài khoản Autumn-27.
+
+35
+00:02:17,613 --> 00:02:19,832
+Tin tặc chỉ cần đặt mục tiêu,
+
+36
+00:02:19,832 --> 00:02:24,346
+agent AI sẽ tự lập kế hoạch và thực hiện các bước tấn công.
+
+37
+00:02:24,696 --> 00:02:29,685
+[Minh] Những thông tin trên cho thấy bối cảnh an ninh mạng đang thay đổi rất nhanh với sự
+
+38
+00:02:29,685 --> 00:02:34,248
+trợ giúp của AI. Cảm ơn Lan và cảm ơn các bạn đã lắng nghe bản tin hôm nay.
+
+39
+00:02:34,598 --> 00:02:39,284
+[Lan] Hãy nhớ luôn vá lỗ hổng và kiểm soát chặt chẽ quyền truy cập hệ thống.
+
+40
+00:02:39,284 --> 00:02:42,230
+Hẹn gặp lại các bạn trong các tập tiếp theo!

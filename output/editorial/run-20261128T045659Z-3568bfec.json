@@ -1,0 +1,348 @@
+{
+  "run_id": "run-20261128T045659Z-3568bfec",
+  "language": "vi",
+  "digest": {
+    "title": "Bản tin An ninh mạng: Lỗ hổng Cacti, Juniper và sự gia tăng của cuộc tấn công bằng AI",
+    "intro": "Bản tin an ninh mạng hôm nay cập nhật thông tin về các lỗ hổng nguy hiểm mới phát hiện trên Cacti và Juniper Session Smart Conductor. Bên cạnh đó là thông tin sự cố rò rỉ mã nguồn tại SAP cùng xu hướng các nhóm tấn công mạng lợi dụng công cụ và đại lý AI.",
+    "sections": [
+      {
+        "heading": "Lỗ hổng Zero-Day mới trên Cacti cho phép thực thi mã từ xa",
+        "body": {
+          "text": "Thông tin chi tiết về một lỗ hổng zero-day (lỗ hổng chưa có bản vá) mới trong Cacti, công cụ giám sát mạng nguồn mở, đã được công bố. Lỗ hổng này cho phép kẻ tấn công thực hiện RCE (Remote Code Execution - thực thi mã từ xa) chỉ với bốn yêu cầu HTTP thông qua quyền truy cập khách (Guest). Hiện mã khai thác PoC đang được theo dõi dưới tên 4HTTP2SHELL và 4HTTP2ROOT, chưa được cấp mã CVE.",
+          "cited_article_ids": [
+            "27f1645ed04a4e7e"
+          ]
+        }
+      },
+      {
+        "heading": "SAP xác nhận sự cố tấn công mạng làm rò rỉ mã nguồn",
+        "body": {
+          "text": "Hãng công nghệ SAP đã xác nhận phát hiện hoạt động đáng ngờ trên nền tảng GitHub. Kẻ tấn công được cho là đã sử dụng các mã định danh (token) của nhân viên bị trộm để sao chép và thay đổi mã nguồn của công ty.",
+          "cited_article_ids": [
+            "d952f398681c05da"
+          ]
+        }
+      },
+      {
+        "heading": "Lỗ hổng nghiêm trọng trên Juniper Session Smart Conductor bị khai thác",
+        "body": {
+          "text": "Lỗ hổng mã hiệu CVE-2026-103406 xuất hiện trên Juniper Session Smart Conductor hiện đang bị khai thác trong các cuộc tấn công thực tế. Lỗ hổng nghiêm trọng này cho phép kẻ tấn công từ xa thực thi các lệnh tùy chỉnh với quyền root trên hệ thống bị ảnh hưởng.",
+          "cited_article_ids": [
+            "4ba2b35cce64f5b2"
+          ]
+        }
+      },
+      {
+        "heading": "Thụy Sĩ xác nhận các cuộc tấn công mạng hỗ trợ bởi AI vào hạ tầng then chốt",
+        "body": {
+          "text": "Cơ quan an ninh mạng Thụy Sĩ xác nhận kẻ tấn công sử dụng các agent AI (đại lý trí tuệ nhân tạo) đã xâm nhập vào hệ thống của các tổ chức tại quốc gia này. Trong số các cuộc tấn công, ba vụ nhắm vào các đơn vị vận hành hạ tầng quan trọng và hai trong số đó đã xâm nhập thành công, dù chưa ghi nhận gián đoạn lớn.",
+          "cited_article_ids": [
+            "979e934b372966d4"
+          ]
+        }
+      },
+      {
+        "heading": "Hacker nhà nước ứng dụng khung AI ARTEX trong các chiến dịch tấn công",
+        "body": {
+          "text": "Microsoft Threat Intelligence cảnh báo các nhóm hacker được nhà nước chống lưng từ Trung Quốc và Triều Tiên đã đưa ARTEX vào kho vũ khí. ARTEX là một framework (khung phần mềm) kiểm thử xâm nhập nguồn mở dựa trên LLM (mô hình ngôn ngữ lớn), cho phép các agent AI tự động lập kế hoạch và thực hiện các bước tấn công.",
+          "cited_article_ids": [
+            "0f18e37753361348"
+          ]
+        }
+      }
+    ]
+  },
+  "podcast": {
+    "title": "Điểm Tin An Ninh Mạng: Lỗ Hổng Chiếm Quyền Chi Phối Và Sự Trỗi Dậy Của AI Hacker",
+    "segments": [
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Chào mừng các bạn đến với bản tin an ninh mạng tuần này. Tôi là Minh, và hôm nay chúng ta sẽ cùng MC Lan cập nhật những sự cố an ninh mạng nguy hiểm nhất vừa được phát hiện.",
+          "cited_article_ids": [
+            "27f1645ed04a4e7e",
+            "d952f398681c05da",
+            "4ba2b35cce64f5b2",
+            "979e934b372966d4",
+            "0f18e37753361348"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Chào anh Minh và chào các độc giả. Hôm nay chúng ta có rất nhiều tin nóng liên quan đến lỗ hổng zero-day, rò rỉ mã nguồn và đặc biệt là các cuộc tấn công mạng hỗ trợ bởi trí tuệ nhân tạo AI.",
+          "cited_article_ids": [
+            "27f1645ed04a4e7e",
+            "d952f398681c05da",
+            "4ba2b35cce64f5b2",
+            "979e934b372966d4",
+            "0f18e37753361348"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Đầu tiên là một thông tin cực kỳ cảnh báo về Cacti, công cụ giám sát mạng mã nguồn mở phổ biến. Một lỗ hổng zero-day chưa có mã CVE vừa được tiết lộ, cho phép thực thi mã từ xa RCE.",
+          "cited_article_ids": [
+            "27f1645ed04a4e7e"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Đúng vậy, PoC exploit này được theo dõi dưới tên 4HTTP2SHELL và 4HTTP2ROOT. Kẻ tấn công có thể đi từ một phiên HTTP chưa xác thực đến việc thực thi lệnh trực tiếp trên máy chủ Cacti chỉ với đúng 4 yêu cầu HTTP.",
+          "cited_article_ids": [
+            "27f1645ed04a4e7e"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Tiếp theo là thông tin từ gã khổng lồ phần mềm SAP. SAP vừa xác nhận họ phát hiện các hoạt động đáng ngờ trên GitHub.",
+          "cited_article_ids": [
+            "d952f398681c05da"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Hacker đã sử dụng token của nhân viên bị đánh cắp để truy cập, sao chép và thậm chí chỉnh sửa mã nguồn của SAP trên GitHub.",
+          "cited_article_ids": [
+            "d952f398681c05da"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Không chỉ dừng lại ở đó, thiết bị mạng cũng đang bị nhắm tới. Một lỗ hổng nghiêm trọng trên Juniper Session Smart Conductor mang mã hiệu CVE-2026-103406 đang bị khai thác thực tế trong các cuộc tấn công.",
+          "cited_article_ids": [
+            "4ba2b35cce64f5b2"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Lỗ hổng CVE-2026-103406 này nguy hiểm ở chỗ cho phép kẻ tấn công từ xa thực thi các lệnh tùy chỉnh với quyền root tối cao trên hệ thống.",
+          "cited_article_ids": [
+            "4ba2b35cce64f5b2"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Một xu hướng mới đáng lo ngại là việc sử dụng AI trong diễn biến tấn công. Thụy Sĩ vừa xác nhận các cuộc tấn công mạng hỗ trợ bởi AI đã xâm nhập vào các hạ tầng quan trọng của quốc gia này.",
+          "cited_article_ids": [
+            "979e934b372966d4"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Cơ quan an ninh mạng Thụy Sĩ báo cáo kẻ tấn công dùng agent AI đã đột nhập vào hệ thống của 4 tổ chức, trong đó có 3 nhà vận hành hạ tầng quan trọng và 2 nơi đã bị xâm nhập thành công, dù chưa gây gián đoạn lớn.",
+          "cited_article_ids": [
+            "979e934b372966d4"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Và Microsoft Threat Intelligence cũng vừa phát cảnh báo về việc các nhóm tin tặc nhà nước từ Trung Quốc và Triều Tiên đã bổ sung khung công cụ ARTEX AI vào kho vũ khí của mình.",
+          "cited_article_ids": [
+            "0f18e37753361348"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "ARTEX là công cụ kiểm thử xâm nhập tự động hóa dựa trên LLM, xuất hiện trên GitHub vào tháng July năm 2026 bởi tài khoản Autumn-27. Tin tặc chỉ cần đặt mục tiêu, agent AI sẽ tự lập kế hoạch và thực hiện các bước tấn công.",
+          "cited_article_ids": [
+            "0f18e37753361348"
+          ]
+        }
+      },
+      {
+        "speaker": "Minh",
+        "line": {
+          "text": "Những thông tin trên cho thấy bối cảnh an ninh mạng đang thay đổi rất nhanh với sự trợ giúp của AI. Cảm ơn Lan và cảm ơn các bạn đã lắng nghe bản tin hôm nay.",
+          "cited_article_ids": [
+            "27f1645ed04a4e7e",
+            "d952f398681c05da",
+            "4ba2b35cce64f5b2",
+            "979e934b372966d4",
+            "0f18e37753361348"
+          ]
+        }
+      },
+      {
+        "speaker": "Lan",
+        "line": {
+          "text": "Hãy nhớ luôn vá lỗ hổng và kiểm soát chặt chẽ quyền truy cập hệ thống. Hẹn gặp lại các bạn trong các tập tiếp theo!",
+          "cited_article_ids": [
+            "27f1645ed04a4e7e",
+            "d952f398681c05da",
+            "4ba2b35cce64f5b2",
+            "979e934b372966d4",
+            "0f18e37753361348"
+          ]
+        }
+      }
+    ]
+  },
+  "video": {
+    "title": "Cảnh Báo Nóng: Tin Tặc Dùng AI Tấn Công Hạ Tầng Mạng",
+    "scenes": [
+      {
+        "scene_no": 1,
+        "on_screen_text": "CẢNH BÁO: AI Hacker & Zero-Day Nguy Hiểm",
+        "narration": {
+          "text": "Cảnh báo an ninh mạng tuần này với hàng loạt lỗ hổng zero-day và cuộc tấn công bằng AI!",
+          "cited_article_ids": [
+            "27f1645ed04a4e7e",
+            "d952f398681c05da",
+            "4ba2b35cce64f5b2",
+            "979e934b372966d4",
+            "0f18e37753361348"
+          ]
+        },
+        "duration_sec": 8.0
+      },
+      {
+        "scene_no": 2,
+        "on_screen_text": "Zero-Day Cacti: RCE Chỉ Với 4 Yêu Cầu HTTP",
+        "narration": {
+          "text": "Lỗ hổng zero-day trên Cacti cho phép chiếm quyền điều khiển máy chủ chỉ với 4 chuỗi HTTP.",
+          "cited_article_ids": [
+            "27f1645ed04a4e7e"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 3,
+        "on_screen_text": "SAP Rò Rỉ Mã Nguồn Trên GitHub",
+        "narration": {
+          "text": "SAP xác nhận bị hacker dùng token nhân viên đánh cắp mã nguồn trên GitHub.",
+          "cited_article_ids": [
+            "d952f398681c05da"
+          ]
+        },
+        "duration_sec": 10.0
+      },
+      {
+        "scene_no": 4,
+        "on_screen_text": "Cảnh Báo: CVE-2026-103406 Quyền Root Trên Juniper",
+        "narration": {
+          "text": "Lỗ hổng CVE-2026-103406 trên Juniper Session Smart Conductor đang bị khai thác để lấy quyền root.",
+          "cited_article_ids": [
+            "4ba2b35cce64f5b2"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 5,
+        "on_screen_text": "AI Hacker Tấn Công Hạ Tầng Quan Trọng Thụy Sĩ",
+        "narration": {
+          "text": "Thụy Sĩ xác nhận các cuộc tấn công dùng AI Agent đã xâm nhập hạ tầng quan trọng.",
+          "cited_article_ids": [
+            "979e934b372966d4"
+          ]
+        },
+        "duration_sec": 12.0
+      },
+      {
+        "scene_no": 6,
+        "on_screen_text": "Khung AI ARTEX Trở Thành Vũ Khí Tin Tặc",
+        "narration": {
+          "text": "Hacker Trung Quốc và Triều Tiên đã nạp khung kiểm thử AI ARTEX vào kho vũ khí tấn công.",
+          "cited_article_ids": [
+            "0f18e37753361348"
+          ]
+        },
+        "duration_sec": 14.0
+      },
+      {
+        "scene_no": 7,
+        "on_screen_text": "Cập Nhật Hệ Thống Và Bảo Vệ Quyền Truy Cập Ngay!",
+        "narration": {
+          "text": "Hãy kiểm tra và vá lỗi hệ thống ngay hôm nay để phòng tránh nguy cơ!",
+          "cited_article_ids": [
+            "27f1645ed04a4e7e",
+            "d952f398681c05da",
+            "4ba2b35cce64f5b2",
+            "979e934b372966d4",
+            "0f18e37753361348"
+          ]
+        },
+        "duration_sec": 10.0
+      }
+    ]
+  },
+  "captions": [
+    {
+      "platform": "facebook",
+      "text": "Điểm tin An ninh mạng hot nhất hôm nay:\n- Lỗ hổng Zero-day trên Cacti cho phép RCE (Thực thi mã từ xa) chỉ qua 4 yêu cầu HTTP.\n- SAP xác nhận sự cố rò rỉ và chỉnh sửa mã nguồn trên GitHub.\n- Lỗ hổng CVE-2026-103406 trên Juniper bị khai thác chiếm quyền root.\n- Xu hướng hacker sử dụng AI và framework ARTEX tấn công vào hạ tầng quan trọng tại Thụy Sĩ.",
+      "hashtags": [
+        "#AnNinhMang",
+        "#CyberSecurity",
+        "#SAP",
+        "#AI",
+        "#Cacti",
+        "#Juniper"
+      ],
+      "cited_article_ids": [
+        "27f1645ed04a4e7e",
+        "d952f398681c05da",
+        "4ba2b35cce64f5b2",
+        "979e934b372966d4",
+        "0f18e37753361348"
+      ]
+    },
+    {
+      "platform": "youtube",
+      "text": "Cập nhật tin tức an ninh mạng mới nhất:\n1. Phát hiện lỗ hổng Zero-day nghiêm trọng trên công cụ giám sát Cacti (4HTTP2SHELL / 4HTTP2ROOT).\n2. SAP xác nhận bị lộ mã nguồn trên GitHub do lộ token nhân viên.\n3. Cảnh báo lỗ hổng CVE-2026-103406 trên Juniper Session Smart Conductor đang bị khai thác thực tế.\n4. Sự gia tăng nguy hiểm của các cuộc tấn công sử dụng công nghệ AI: Thụy Sĩ ghi nhận hạ tầng quan trọng bị xâm nhập, trong khi các nhóm hacker bắt đầu lạm dụng công cụ ARTEX AI dựa trên LLM.",
+      "hashtags": [
+        "#TinAnNinhMang",
+        "#AIHacking",
+        "#ZeroDay",
+        "#Juniper",
+        "#Cacti"
+      ],
+      "cited_article_ids": [
+        "27f1645ed04a4e7e",
+        "d952f398681c05da",
+        "4ba2b35cce64f5b2",
+        "979e934b372966d4",
+        "0f18e37753361348"
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "text": "Tin an ninh mạng: Cacti dính lỗ hổng zero-day RCE, SAP lộ mã nguồn trên GitHub, Juniper bị khai thác lỗ hổng chiếm quyền root và cảnh báo nguy cơ hacker tấn công bằng AI!",
+      "hashtags": [
+        "#AnNinhMang",
+        "#Hacker",
+        "#CongNghe",
+        "#AI"
+      ],
+      "cited_article_ids": [
+        "27f1645ed04a4e7e",
+        "d952f398681c05da",
+        "4ba2b35cce64f5b2",
+        "979e934b372966d4",
+        "0f18e37753361348"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "run_id": "run-20261128T045659Z-3568bfec",
+  "passed": true,
+  "errors": [],
+  "warnings": [
+    {
+      "code": "W_SECTION_LENGTH",
+      "severity": "warning",
+      "path": "digest.sections[1].body.text",
+      "message": "Section body word count (47) outside allowed range [60, 120]",
+      "evidence": "47 words"
+    },
+    {
+      "code": "W_SECTION_LENGTH",
+      "severity": "warning",
+      "path": "digest.sections[2].body.text",
+      "message": "Section body word count (51) outside allowed range [60, 120]",
+      "evidence": "51 words"
+    },
+    {
+      "code": "W_TERM_UNSUPPORTED",
+      "severity": "warning",
+      "path": "podcast.segments[0].line.text",
+      "message": "Term 'MC' not found in cited source text and not allowlisted",
+      "evidence": "MC"
+    }
+  ],
+  "checks_run": [
+    "layer1_structural",
+    "layer2_source_consistency",
+    "layer3_llm_claim_review (findings=0, dropped=0)"
+  ],
+  "llm_review": "done",
+  "scope_note": "Structural and source-consistency checks against RSS title/summary only. Facts are NOT independently verified."
+}

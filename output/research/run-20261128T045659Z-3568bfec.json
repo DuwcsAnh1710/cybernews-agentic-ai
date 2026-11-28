@@ -1,0 +1,86 @@
+{
+  "run_id": "run-20261128T045659Z-3568bfec",
+  "status": "ok",
+  "requested_count": 5,
+  "items": [
+    {
+      "rank": 1,
+      "article": {
+        "id": "27f1645ed04a4e7e",
+        "source_name": "The Hacker News",
+        "title": "Unpatched Cacti Zero-Day Enables RCE in Just Four HTTP Requests via Guest Access",
+        "url": "https://thehackernews.com/2026/11/unpatched-cacti-zero-day-enables-rce-in.html",
+        "published_at": "2026-11-27T05:48:20Z",
+        "summary": "Details have emerged about a new zero-day vulnerability in Cacti, an open-source network monitoring tool, that could be exploited to achieve remote code execution. The proof-of-concept (PoC) exploit, which has yet to be assigned a CVE identifier, has been tracked as 4HTTP2SHELL and 4HTTP2ROOT. \"I found a path from a fresh, unauthenticated HTTP session to command execution as the Cacti server",
+        "fetched_at": "2026-11-28T04:56:56.031181Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Lỗ hổng zero-day chưa có bản vá trong công cụ giám sát mạng Cacti cho phép kẻ tấn công thực thi mã từ xa chỉ bằng 4 yêu cầu HTTP."
+    },
+    {
+      "rank": 2,
+      "article": {
+        "id": "d952f398681c05da",
+        "source_name": "SecurityWeek",
+        "title": "SAP Confirms Cyberattack, Source Code Reportedly Compromised",
+        "url": "https://securityweek.com/sap-confirms-cyberattack-source-code-reportedly-compromised",
+        "published_at": "2026-11-27T07:36:14Z",
+        "summary": "SAP has detected suspicious activity on GitHub, where hackers reportedly used stolen employee tokens to copy and alter source code. The post SAP Confirms Cyberattack, Source Code Reportedly Compromised appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-28T04:56:56.725888Z",
+        "topics_matched": []
+      },
+      "relevance_reason": "Tập đoàn phần mềm SAP xác nhận sự cố an ninh mạng khi kẻ tấn công lợi dụng mã token của nhân viên trên GitHub để sao chép và chỉnh sửa mã nguồn."
+    },
+    {
+      "rank": 3,
+      "article": {
+        "id": "4ba2b35cce64f5b2",
+        "source_name": "SecurityWeek",
+        "title": "Critical Juniper Session Smart Conductor Flaw Exploited in Attacks",
+        "url": "https://securityweek.com/critical-juniper-session-smart-conductor-flaw-exploited-in-attacks",
+        "published_at": "2026-11-26T13:04:06Z",
+        "summary": "Tracked as CVE-2026-103406, the vulnerability allows remote attackers to execute arbitrary commands as root. The post Critical Juniper Session Smart Conductor Flaw Exploited in Attacks appeared first on SecurityWeek .",
+        "fetched_at": "2026-11-28T04:56:56.725888Z",
+        "topics_matched": [
+          "vulnerability"
+        ]
+      },
+      "relevance_reason": "Lỗ hổng nghiêm trọng CVE-2026-103406 trên Juniper Session Smart Conductor đang bị khai thác thực tế cho phép thực thi lệnh từ xa với quyền root."
+    },
+    {
+      "rank": 4,
+      "article": {
+        "id": "979e934b372966d4",
+        "source_name": "The Hacker News",
+        "title": "Switzerland Confirms AI-Assisted Cyberattacks Breached Critical Infrastructure Operators",
+        "url": "https://thehackernews.com/2026/11/switzerland-confirms-ai-assisted.html",
+        "published_at": "2026-11-27T06:04:20Z",
+        "summary": "Attackers using AI agents have broken into computer systems at Swiss organizations in four of five confirmed attacks, the first such cases in the country, the country's cybersecurity agency said yesterday. Three of the attacks targeted critical infrastructure operators, and two of those succeeded, with no major disruptions reported. The victims have not been named, and it is not known who is",
+        "fetched_at": "2026-11-28T04:56:56.031181Z",
+        "topics_matched": [
+          "cybersecurity"
+        ]
+      },
+      "relevance_reason": "Thụy Sĩ xác nhận các cuộc tấn công mạng hỗ trợ bởi AI đã xâm nhập thành công vào các hệ thống hạ tầng quan trọng của quốc gia này."
+    },
+    {
+      "rank": 5,
+      "article": {
+        "id": "0f18e37753361348",
+        "source_name": "Help Net Security",
+        "title": "Chinese and North Korean state hackers add ARTEX AI framework to their arsenal",
+        "url": "https://helpnetsecurity.com/2026/11/27/artex-ai-pentest-framework-china-north-korea-state-hackers",
+        "published_at": "2026-11-27T11:06:57Z",
+        "summary": "State-sponsored hacking groups tied to Beijing and Pyongyang have started running the ARTEX pentesting tool in attacks, Microsoft Threat Intelligence warned this week. Published on GitHub in July 2026 by a user going by Autumn-27, ARTEX is an LLM-driven open-source penetration testing framework that runs attacks largely on its own, with the operator setting a goal and AI agents planning and carrying out the steps needed to reach it. In November, China-based cybersecurity company ThreatBook … More → The post Chinese and North Korean state hackers add ARTEX AI framework to their arsenal appeared first on Help Net Security .",
+        "fetched_at": "2026-11-28T04:56:57.082689Z",
+        "topics_matched": [
+          "cybersecurity"
+        ]
+      },
+      "relevance_reason": "Các nhóm hacker chính phủ Trung Quốc và Triều Tiên đã bắt đầu sử dụng khung kiểm thử xâm nhập mã nguồn mở dựa trên AI mang tên ARTEX."
+    }
+  ],
+  "notes": "status=ok; model=gemini-3.6-flash; attempts=1; candidates_available=30; kept=5; hallucinated=0; duplicates=0; source_cap_dropped=2"
+}

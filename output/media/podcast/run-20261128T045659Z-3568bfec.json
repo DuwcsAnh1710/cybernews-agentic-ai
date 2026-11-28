@@ -1,0 +1,171 @@
+{
+  "run_id": "run-20261128T045659Z-3568bfec",
+  "backend": {
+    "name": "edge-tts",
+    "version": "active"
+  },
+  "assembler": {
+    "name": "pure-python-mp3",
+    "version": "active"
+  },
+  "options": {
+    "pause_diff_speaker_ms": 350,
+    "pause_same_speaker_ms": 200,
+    "allow_unvalidated": true,
+    "force": true
+  },
+  "voices": {
+    "Minh": "vi-VN-NamMinhNeural",
+    "Lan": "vi-VN-HoaiMyNeural"
+  },
+  "segments": [
+    {
+      "index": 0,
+      "speaker": "Minh",
+      "voice": "vi-VN-NamMinhNeural",
+      "char_count": 173,
+      "word_count": 40,
+      "start_sec": 0.0,
+      "end_sec": 10.512,
+      "duration_sec": 10.512
+    },
+    {
+      "index": 1,
+      "speaker": "Lan",
+      "voice": "vi-VN-HoaiMyNeural",
+      "char_count": 190,
+      "word_count": 44,
+      "start_sec": 10.862,
+      "end_sec": 22.694,
+      "duration_sec": 11.832
+    },
+    {
+      "index": 2,
+      "speaker": "Minh",
+      "voice": "vi-VN-NamMinhNeural",
+      "char_count": 181,
+      "word_count": 42,
+      "start_sec": 23.044,
+      "end_sec": 35.62,
+      "duration_sec": 12.576
+    },
+    {
+      "index": 3,
+      "speaker": "Lan",
+      "voice": "vi-VN-HoaiMyNeural",
+      "char_count": 210,
+      "word_count": 44,
+      "start_sec": 35.97,
+      "end_sec": 51.93,
+      "duration_sec": 15.96
+    },
+    {
+      "index": 4,
+      "speaker": "Minh",
+      "voice": "vi-VN-NamMinhNeural",
+      "char_count": 117,
+      "word_count": 26,
+      "start_sec": 52.28,
+      "end_sec": 60.176,
+      "duration_sec": 7.896
+    },
+    {
+      "index": 5,
+      "speaker": "Lan",
+      "voice": "vi-VN-HoaiMyNeural",
+      "char_count": 123,
+      "word_count": 27,
+      "start_sec": 60.526,
+      "end_sec": 67.822,
+      "duration_sec": 7.296
+    },
+    {
+      "index": 6,
+      "speaker": "Minh",
+      "voice": "vi-VN-NamMinhNeural",
+      "char_count": 203,
+      "word_count": 39,
+      "start_sec": 68.172,
+      "end_sec": 82.452,
+      "duration_sec": 14.28
+    },
+    {
+      "index": 7,
+      "speaker": "Lan",
+      "voice": "vi-VN-HoaiMyNeural",
+      "char_count": 136,
+      "word_count": 29,
+      "start_sec": 82.802,
+      "end_sec": 92.234,
+      "duration_sec": 9.432
+    },
+    {
+      "index": 8,
+      "speaker": "Minh",
+      "voice": "vi-VN-NamMinhNeural",
+      "char_count": 189,
+      "word_count": 44,
+      "start_sec": 92.584,
+      "end_sec": 104.128,
+      "duration_sec": 11.544
+    },
+    {
+      "index": 9,
+      "speaker": "Lan",
+      "voice": "vi-VN-HoaiMyNeural",
+      "char_count": 211,
+      "word_count": 51,
+      "start_sec": 104.478,
+      "end_sec": 116.358,
+      "duration_sec": 11.88
+    },
+    {
+      "index": 10,
+      "speaker": "Minh",
+      "voice": "vi-VN-NamMinhNeural",
+      "char_count": 176,
+      "word_count": 37,
+      "start_sec": 116.708,
+      "end_sec": 127.316,
+      "duration_sec": 10.608
+    },
+    {
+      "index": 11,
+      "speaker": "Lan",
+      "voice": "vi-VN-HoaiMyNeural",
+      "char_count": 221,
+      "word_count": 48,
+      "start_sec": 127.666,
+      "end_sec": 144.346,
+      "duration_sec": 16.68
+    },
+    {
+      "index": 12,
+      "speaker": "Minh",
+      "voice": "vi-VN-NamMinhNeural",
+      "char_count": 158,
+      "word_count": 37,
+      "start_sec": 144.696,
+      "end_sec": 154.248,
+      "duration_sec": 9.552
+    },
+    {
+      "index": 13,
+      "speaker": "Lan",
+      "voice": "vi-VN-HoaiMyNeural",
+      "char_count": 115,
+      "word_count": 26,
+      "start_sec": 154.598,
+      "end_sec": 162.23,
+      "duration_sec": 7.632
+    }
+  ],
+  "total_duration_sec": 162.36,
+  "files": {
+    "audio": "run-20261128T045659Z-3568bfec.mp3",
+    "subtitles": "run-20261128T045659Z-3568bfec.srt",
+    "metadata": "run-20261128T045659Z-3568bfec.json"
+  },
+  "created_at": "2026-11-28T05:01:16.294038+00:00",
+  "note": "WARNING: Synthesized from unvalidated editorial package."
+}
